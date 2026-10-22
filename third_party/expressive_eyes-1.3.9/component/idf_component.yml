@@ -1,0 +1,22 @@
+dependencies:
+  espp/base_component: '>=1.0'
+  idf:
+    version: '>=5.0'
+description: Animated expressive eyes for displays
+documentation: https://esp-cpp.github.io/espp/display/expressive_eyes.html
+license: MIT
+maintainers:
+- William Emfinger <waemfinger@gmail.com>
+repository: git://github.com/esp-cpp/espp.git
+repository_info:
+  commit_sha: 792c56e1a5cdf3938868990425d8e45cd0e6ed0c
+  path: components/expressive_eyes
+tags:
+- cpp
+- Animation
+- Display
+- Expressive
+- Eyes
+- Face
+url: https://github.com/esp-cpp/espp/tree/main/components/expressive_eyes
+version: 1.3.9

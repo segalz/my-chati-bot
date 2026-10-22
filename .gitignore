@@ -1,0 +1,42 @@
+# Secrets / local env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.keystore
+*.jks
+credentials*.json
+secrets*.json
+token*.json
+local.properties
+
+# Dependencies / virtual envs
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build output
+dist/
+build/
+out/
+.gradle/
+*.apk
+*.aab
+
+# Logs, databases, data dumps
+*.log
+logs/
+*.sqlite
+*.sqlite3
+*.db
+data/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
