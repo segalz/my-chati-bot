@@ -75,7 +75,7 @@ class AndroidVoice(context: Context) {
     fun synthesize(text: String, rate: Float, pitch: Float): WavPcm.Audio? {
         if (!ready()) return null
         val id = "say-${nextId++}"
-        val file = File(app.cacheDir, "android-voice.wav")
+        val file = File(app.cacheDir, "android-voice-$id.wav")  // one file per utterance
         val done = CountDownLatch(1)
         var ok = false
         tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
@@ -96,13 +96,17 @@ class AndroidVoice(context: Context) {
         })
         tts.setSpeechRate(rate)
         tts.setPitch(pitch)
-        file.delete()
-        if (tts.synthesizeToFile(text, Bundle(), file, id) != TextToSpeech.SUCCESS) return null
-        if (!done.await(SYNTH_TIMEOUT_MS, TimeUnit.MILLISECONDS) || !ok) {
-            Log.w(TAG, "android voice: synthesis failed or timed out")
-            return null
+        try {
+            if (tts.synthesizeToFile(text, Bundle(), file, id) != TextToSpeech.SUCCESS) return null
+            if (!done.await(SYNTH_TIMEOUT_MS, TimeUnit.MILLISECONDS) || !ok) {
+                tts.stop()  // drop a stuck utterance before the next one starts
+                Log.w(TAG, "android voice: synthesis failed or timed out")
+                return null
+            }
+            return runCatching { WavPcm.parse(file.readBytes()) }.getOrNull()
+        } finally {
+            file.delete()
         }
-        return runCatching { WavPcm.parse(file.readBytes()) }.getOrNull()
     }
 
     fun shutdown() = tts.shutdown()

@@ -48,6 +48,10 @@ class SpeechHost private constructor() {
 
     private val synthThread = HandlerThread("voice-synth").apply { start() }
     private val synth = Handler(synthThread.looper)
+    // The phone's Hebrew voice gets its own worker, so its start-up and waits never hold up Piper.
+    private val hebrewThread = HandlerThread("voice-hebrew").apply { start() }
+    private val hebrewWorker = Handler(hebrewThread.looper)
+    @Volatile private var hebrewWarm = false
     private val player = Executors.newSingleThreadExecutor { Thread(it, "voice-play") }
     @Volatile private var table = VoiceTable.DEFAULT
     @Volatile private var threads = THREADS
@@ -88,6 +92,7 @@ class SpeechHost private constructor() {
             cloud = GeminiVoice(File(app.filesDir, "secrets/$KEY_FILE"))
             ensureLoaded()
         }
+        hebrewWorker.post(::warmUpHebrew)
     }
 
     /**
@@ -108,12 +113,13 @@ class SpeechHost private constructor() {
         val forEyes = if (hebrew) LineTiming.englishFor(sentences, english?.let(StoryText::split).orEmpty()) else sentences
         Log.i(TAG, "speak: ${sentences.size} sentences${if (hebrew) " (Hebrew, phone voice), ${forEyes.size} for the eyes" else ""}, " +
             "generation ${session.generation}")
+        val worker = if (hebrew) hebrewWorker else synth
         if (forEyes.isEmpty()) {
             val none = EyeBrainHost.Decision(null, "NO ENGLISH FOR THE EYES", "", IntentSource.MODEL)
-            for (i in sentences.indices) synth.post { session.ready[i].complete(Ready(none, synthesize(session, i, none))) }
+            for (i in sentences.indices) worker.post { session.ready[i].complete(Ready(none, synthesize(session, i, none))) }
         } else {
             brain.classifyAhead(session.generation, forEyes) { i, decision ->
-                synth.post { session.ready[i].complete(Ready(decision, synthesize(session, i, decision))) }
+                worker.post { session.ready[i].complete(Ready(decision, synthesize(session, i, decision))) }
             }
         }
         player.execute { play(session) }
@@ -266,6 +272,20 @@ class SpeechHost private constructor() {
         Log.i(TAG, "synth ${index + 1}/${session.sentences.size}: ${clip.synthMs} ms for ${durationMs(clip)} ms " +
             "(speaker $speaker, speed ${style.speed})")
         return clip
+    }
+
+    /**
+     * Hebrew worker, once per process at start-up: starts the phone's speech engine and synthesizes
+     * one short word (discarded), so the first real Hebrew line does not pay the engine's start (~3 s)
+     * and first synthesis (~4 s) — measured 8.2 s to the first audio without this.
+     */
+    private fun warmUpHebrew() {
+        if (hebrewWarm) return
+        val voice = hebrewVoice ?: return
+        val started = SystemClock.uptimeMillis()
+        val ok = voice.synthesize(WARM_UP_WORD, 1.0f, 1.0f) != null
+        hebrewWarm = ok
+        Log.i(TAG, "Hebrew voice warm-up ${if (ok) "done" else "failed"} in ${SystemClock.uptimeMillis() - started} ms")
     }
 
     private fun synthesizeHebrew(session: Session, index: Int, decision: EyeBrainHost.Decision): Clip? {
@@ -618,6 +638,7 @@ class SpeechHost private constructor() {
         private const val MODEL_FILE = "en_US-libritts_r-medium.onnx"
         private const val TABLE_ASSET = "voice.txt"
         private const val KEY_FILE = "gemini_api_key"
+        private const val WARM_UP_WORD = "שלום"
         const val HEBREW_ANDROID = "android"
         const val HEBREW_GEMINI = "gemini"
         private const val QUEUE_CHUNKS = 1_500  // ≈ 1–3 min of streamed audio; bounds memory
