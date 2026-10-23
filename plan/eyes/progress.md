@@ -149,12 +149,12 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 8 review** (owner hears a story)
   - Result: story s02 spoken on the phone, eyes in sync; owner: "really good". Hebrew voice is a later stage.
 
-## Stage 7: Acceptance and documentation
+## Stage 7: Acceptance and documentation — COMPLETED 2026-10-23
 - [x] 7.1 30-min smoke session → evidence/stage7-smoke.md — 2026-10-23
   - Result: PASS. 117 sentences (103 correct, 0 missing), 60.0 fps, RSS flat ~990 MB, no crash/restart, battery 30–31 °C, p50 945 ms.
 - [x] 7.2 Evidence record per test plan → evidence/stage7-evidence.md — 2026-10-23
   - Result: build/revisions/hashes, per-area pass results, untested items listed (real memory-pressure fallback, battery drain, release build, real upstream sender).
 - [x] 7.3 Update decisions (13) and phases (11) — 2026-10-23
   - Result: 11 has a status table (P0–P2 validated, P3 spoken output only); 13 has risk statuses, answered questions and a dated decision log; evidence record has a stories/voice addendum.
-- [ ] **Stage 7 review** (owner live demo and sign-off)
-  - Result: 
+- [x] **Stage 7 review** (owner live demo and sign-off) — 2026-10-23
+  - Result: offline demo in airplane mode (evidence/stage7-demo.txt): idle eyes, 6 single sentences, a silent story, a spoken story (heard on replay after the volume was up). Owner: "בסדר" (OK).

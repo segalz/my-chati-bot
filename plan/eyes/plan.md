@@ -209,7 +209,7 @@ Owner request 2026-10-23: in addition to the eyes, the phone answers in a human 
 
 **Stage 8 review:** owner hears and sees a story told by the phone and judges the voice and its emotion. Hebrew voice is a later stage.
 
-### Stage 7: Acceptance and documentation
+### Stage 7: Acceptance and documentation — ✅ completed 2026-10-23
 Close the stage with evidence and updated plans.
 
 - [x] 7.1 Short smoke session (30 min) with periodic sentences: frame timing, memory, temperature, no crashes.

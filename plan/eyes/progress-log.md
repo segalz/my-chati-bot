@@ -133,3 +133,4 @@ Times are local Israel time (HH:MM). Newest entries at the bottom. Details: [pro
 18:35 Stage 7 review demo started: airplane mode ON (verified, no network).
 18:37 Demo: owner heard nothing during step 4 although the audio played (log); media volume then at 15/15 on the speaker, owner hears it now → spoken story replayed.
 18:37 Stage 7 demo done offline: single sentences 6/6 sensible (HAPPY, SAD, look left, no reaction for the meeting time, ANGRY, SURPRISED; ~0.8–1.1 s each); silent story meeting → SLEEPY → HAPPY; spoken story heard on replay. Evidence: evidence/stage7-demo.txt. NEED FROM YOU: sign-off on Stage 7; airplane mode can go off.
+18:37 Owner: "בסדר" → Stage 7 closed. All eyes stages (1–8, 2B, 6C) complete.
