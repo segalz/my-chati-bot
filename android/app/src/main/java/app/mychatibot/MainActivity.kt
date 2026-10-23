@@ -27,6 +27,7 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import app.mychatibot.eyes.EyeBrainHost
+import app.mychatibot.eyes.SpeechHost
 import app.mychatibot.eyes.EyeControllerHost
 import app.mychatibot.eyes.IntentSource
 
@@ -59,6 +60,7 @@ class MainActivity : Activity() {
         Log.i(TAG, info)
         NativeBridge.nativeStart()
         EyeBrainHost.instance.init(this)  // loads the eye model in the background
+        SpeechHost.instance.init(this)  // loads the voice model in the background
 
         // 4:3 surface (the upstream example's aspect ratio), centered; the native renderer
         // fills it with the original Monochrome Blue eyes.
@@ -134,9 +136,12 @@ class MainActivity : Activity() {
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        // The model is ~0.6 GB of memory; give it back when the app is in the background and
-        // the system asks. The next sentence reloads it.
-        if (level >= ComponentCallbacks2.TRIM_MEMORY_BACKGROUND) EyeBrainHost.instance.release()
+        // The eye model is ~0.6 GB of memory and the voice model ~0.1 GB; give them back when the
+        // app is in the background and the system asks. The next sentence or line reloads them.
+        if (level >= ComponentCallbacks2.TRIM_MEMORY_BACKGROUND) {
+            EyeBrainHost.instance.release()
+            SpeechHost.instance.release()
+        }
     }
 
     override fun onDestroy() {
@@ -178,6 +183,8 @@ class MainActivity : Activity() {
      * adb shell am broadcast -a app.mychatibot.DEBUG_SAY --es text "I got the job!"
      * # a story/conversation at speaking pace; optional: --ei linger_ms/carry_ms/dwell_ms, --ef wps, --ez context
      * adb shell am broadcast -a app.mychatibot.DEBUG_STORY --es text "I lost my keys. Then I found them!"
+     * # the phone says a line out loud and the eyes follow it (voice threads: --ei threads)
+     * adb shell am broadcast -a app.mychatibot.DEBUG_SPEAK --es text "I got the job! I start on Monday."
      * ```
      * # benchmark only: switch eye model file / thread counts
      * adb shell am broadcast -a app.mychatibot.DEBUG_BRAIN --es model gemma-3-1b-it-qat-Q4_0.gguf --ei threads 6 --ei threads_batch 6 --ef none_gap 1.5
@@ -199,6 +206,10 @@ class MainActivity : Activity() {
                     DEBUG_SAY_ACTION -> intent.getStringExtra("text")
                         ?.let { EyeBrainHost.instance.submitSentence(it) }
                         ?: Log.w(TAG, "debug: DEBUG_SAY without text extra")
+                    DEBUG_SPEAK_ACTION -> {
+                        if (intent.hasExtra("threads")) SpeechHost.instance.setThreads(intent.getIntExtra("threads", 0))
+                        intent.getStringExtra("text")?.let { SpeechHost.instance.speak(it) }
+                    }
                     DEBUG_STORY_ACTION -> {
                         fun ms(key: String) = if (intent.hasExtra(key)) intent.getIntExtra(key, -1).toLong() else null
                         eyeHost.setMoodRules(ms("linger_ms"), ms("carry_ms"), ms("dwell_ms"))
@@ -222,6 +233,7 @@ class MainActivity : Activity() {
             addAction(DEBUG_SAY_ACTION)
             addAction(DEBUG_BRAIN_ACTION)
             addAction(DEBUG_STORY_ACTION)
+            addAction(DEBUG_SPEAK_ACTION)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED)
@@ -284,6 +296,7 @@ class MainActivity : Activity() {
         const val DEBUG_SAY_ACTION = "app.mychatibot.DEBUG_SAY"
         const val DEBUG_BRAIN_ACTION = "app.mychatibot.DEBUG_BRAIN"
         const val DEBUG_STORY_ACTION = "app.mychatibot.DEBUG_STORY"
+        const val DEBUG_SPEAK_ACTION = "app.mychatibot.DEBUG_SPEAK"
         const val STATS_INTERVAL_MS = 10_000L
     }
 }

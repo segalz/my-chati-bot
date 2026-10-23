@@ -93,15 +93,37 @@ class EyeBrainHost private constructor() {
             Log.w(TAG, "story: no sentences")
             return
         }
-        val request = synchronized(submitLock) {
-            Request(generation.incrementAndGet(), text, SystemClock.uptimeMillis()).also { latest.set(null) }
-        }
-        NativeBridge.nativeBlink()
-        NativeBridge.nativeBrainCancelOlderThan(request.generation)
+        val generation = beginRequest()
         val wps = wordsPerSecond
         val context = storyContext
         Log.i(TAG, "story: ${sentences.size} sentences at $wps words/s, context $context")
-        handler.post { playStory(request.generation, sentences, wps, context) }
+        handler.post { playStory(generation, sentences, wps, context) }
+    }
+
+    /**
+     * Starts a new request that supersedes every earlier sentence, story or speech: returns its
+     * generation. The eyes blink at once (they "heard" something) and older inferences stop early.
+     */
+    fun beginRequest(): Long {
+        val generation = synchronized(submitLock) {
+            this.generation.incrementAndGet().also { latest.set(null) }
+        }
+        NativeBridge.nativeBlink()
+        NativeBridge.nativeBrainCancelOlderThan(generation)
+        return generation
+    }
+
+    /** Whether [generation] is still the newest request (thread-safe). */
+    fun isCurrent(generation: Long) = generation == this.generation.get()
+
+    /**
+     * Classifies [sentences] of request [generation] one after another on the brain thread and hands
+     * each decision to [onDecision] (called on the brain thread) as soon as it is ready. Stops when
+     * the request is superseded. Used by spoken lines, which time the eyes by the real audio.
+     */
+    fun classifyAhead(generation: Long, sentences: List<String>, onDecision: (Int, Decision) -> Unit) {
+        val context = storyContext
+        handler.post { classifyEach(generation, sentences, context, onDecision) }
     }
 
     /** Development only (debug channel): whether stories give the model the earlier sentences. */
@@ -168,7 +190,7 @@ class EyeBrainHost private constructor() {
     }
 
     /** What the eyes should do for one sentence: a `{"expression","look"}` body, or an error. */
-    private class Decision(val body: String?, val error: String?, val detail: String, val source: IntentSource)
+    class Decision(val body: String?, val error: String?, val detail: String, val source: IntentSource)
 
     private fun classifyWithModel(sentence: String, generation: Long, receivedAtMs: Long, continueStory: Boolean): Decision {
         if (!ensureLoaded()) return Decision(null, "MODEL UNAVAILABLE ${loadError ?: ""}", "", IntentSource.MODEL)
@@ -200,11 +222,25 @@ class EyeBrainHost private constructor() {
      * sentence is judged alone and the phrasebook answers exact matches.
      */
     private fun playStory(generation: Long, sentences: List<String>, wordsPerSecond: Float, withContext: Boolean) {
-        val isCurrent = { generation == this.generation.get() }
+        val isCurrent = { isCurrent(generation) }
         var nextStartMs = 0L
+        classifyEach(generation, sentences, withContext) { i, d ->
+            val sentence = sentences[i]
+            val startMs = maxOf(nextStartMs, SystemClock.uptimeMillis())
+            val spokenMs = StoryText.spokenMs(sentence, wordsPerSecond)
+            nextStartMs = startMs + spokenMs
+            EyeControllerHost.instance.submitDecision(sentence, d.body, d.error, d.detail, d.source, isCurrent,
+                EyeControllerHost.StoryStep(i, sentences.size, startMs, spokenMs))
+        }
+    }
+
+    /** Brain thread: decides each sentence in order (see [playStory] for [withContext]); stops when superseded. */
+    private fun classifyEach(
+        generation: Long, sentences: List<String>, withContext: Boolean, onDecision: (Int, Decision) -> Unit,
+    ) {
         for ((i, sentence) in sentences.withIndex()) {
-            if (!isCurrent()) {
-                Log.i(TAG, "story superseded at sentence ${i + 1}/${sentences.size}")
+            if (!isCurrent(generation)) {
+                Log.i(TAG, "request superseded at sentence ${i + 1}/${sentences.size}")
                 return
             }
             val began = SystemClock.uptimeMillis()
@@ -214,11 +250,7 @@ class EyeBrainHost private constructor() {
                 Decision("""{"expression":"${expression.name}","look":"${look.name.lowercase()}"}""", null,
                     "${SystemClock.uptimeMillis() - began} ms", IntentSource.PHRASEBOOK)
             } ?: classifyWithModel(sentence, generation, began, continueStory = false)
-            val startMs = maxOf(nextStartMs, SystemClock.uptimeMillis())
-            val spokenMs = StoryText.spokenMs(sentence, wordsPerSecond)
-            nextStartMs = startMs + spokenMs
-            EyeControllerHost.instance.submitDecision(sentence, d.body, d.error, d.detail, d.source, isCurrent,
-                EyeControllerHost.StoryStep(i, sentences.size, startMs, spokenMs))
+            onDecision(i, d)
         }
     }
 

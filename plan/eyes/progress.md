@@ -138,9 +138,12 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
   - Result: evidence/voice-shortlist.md; owner approved two download rounds (hashes verified).
 - [x] 8.2 CLI benchmark on the phone + samples
   - Result: Kokoro int8 RTF 6.0 (too slow), Kitten int8 1.43, Kitten fp32 0.73, Supertonic 0.48, **Piper libritts_r-medium 0.25** → Piper chosen (owner left it to Claude). Samples in evidence/voice-samples/. Memory not captured yet.
-- [ ] 8.3 sherpa-onnx TTS in the app
-- [ ] 8.4 Emotion → voice settings
-- [ ] 8.5 Eyes synced to real audio
+- [x] 8.3 sherpa-onnx TTS in the app
+  - Result: SpeechHost (Piper via sherpa-onnx v1.13.8 JNI): classify ahead → synthesize per sentence → AudioTrack, stops on a newer line; Codex 2 P2 fixed, APPROVED; tests 67/67; APK 0.7.0. On the phone (story s02): voice loads in 2.9 s; with 2 voice threads first audio 1.54 s after the line, no gaps between sentences, 11.8 s for the 7-sentence story (6 threads: 1.24 s but gaps). Memory not measured yet.
+- [~] 8.4 Emotion → voice settings
+  - Result: VoiceTable + assets/voice.txt (speed per emotion, speaker 0); owner listening test pending.
+- [x] 8.5 Eyes synced to real audio
+  - Result: each reaction is submitted at its sentence's audio start and held for the real audio length; log shows the eyes 3–6 ms after audio start.
 - [ ] 8.6 DEBUG_SPEAK + video with sound
 - [ ] **Stage 8 review** (owner hears a story)
 

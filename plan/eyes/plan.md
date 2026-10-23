@@ -198,11 +198,11 @@ Owner request 2026-10-23: in addition to the eyes, the phone answers in a human 
   - Check: `evidence/voice-shortlist.md`; owner approves.
 - [x] 8.2 CLI benchmark on the phone (like Stage 2B) with the eye model loaded too: time to first audio, real-time factor, memory, temperature; a few recorded samples per emotion for the owner to hear.
   - Check: `evidence/voice-benchmark.md` + audio samples.
-- [ ] 8.3 `[HARD]` sherpa-onnx in the app: TTS on its own thread, AudioTrack playback, sentence by sentence (synthesize the next sentence while the current one plays), cancel on a newer line, release under memory pressure.
+- [x] 8.3 `[HARD]` sherpa-onnx in the app: TTS on its own thread, AudioTrack playback, sentence by sentence (synthesize the next sentence while the current one plays), cancel on a newer line, release under memory pressure.
   - Check: unit tests for the queue; Codex review; no frame drops in the eyes while speaking.
 - [ ] 8.4 `[HARD]` Emotion → voice: the sentence's expression (from the eye model, R2: it still only picks the intent) selects deterministic voice settings — speaker, speed, and other supported controls — from an owner-editable table; punctuation kept for natural prosody.
   - Check: table in assets; owner listening test per emotion.
-- [ ] 8.5 Sync: the story timeline uses the real audio duration of each sentence instead of the word-count estimate; each sentence's reaction appears when its audio starts.
+- [x] 8.5 Sync: the story timeline uses the real audio duration of each sentence instead of the word-count estimate; each sentence's reaction appears when its audio starts.
   - Check: on-phone timeline log shows reaction start within ~100 ms of audio start.
 - [ ] 8.6 `DEBUG_SPEAK --es text` (debug only): line → split → eyes + voice. Video with sound of a full story.
   - Check: video; owner judges.

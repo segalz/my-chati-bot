@@ -11,8 +11,8 @@ android {
         applicationId = "app.mychatibot"
         minSdk = 29
         targetSdk = 36
-        versionCode = 13
-        versionName = "0.6.2"
+        versionCode = 14
+        versionName = "0.7.0"
 
         ndk {
             abiFilters += "arm64-v8a"
@@ -30,6 +30,13 @@ android {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
             version = "3.31.6"
+        }
+    }
+
+    sourceSets {
+        getByName("main") {
+            // Prebuilt sherpa-onnx TTS runtime (Stage 8); see third_party/sherpa-onnx-v1.13.8/SOURCE.md.
+            jniLibs.directories.add("../../third_party/sherpa-onnx-v1.13.8/jniLibs")
         }
     }
 
