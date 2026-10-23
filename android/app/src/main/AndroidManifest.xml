@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Stage 9: only the cloud voice for Hebrew uses the network (owner decision 2026-10-23);
+         the eyes and the eye model never do. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:label="Chati Eyes"

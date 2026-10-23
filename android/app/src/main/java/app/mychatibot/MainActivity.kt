@@ -185,6 +185,8 @@ class MainActivity : Activity() {
      * adb shell am broadcast -a app.mychatibot.DEBUG_STORY --es text "I lost my keys. Then I found them!"
      * # the phone says a line out loud and the eyes follow it (voice threads: --ei threads)
      * adb shell am broadcast -a app.mychatibot.DEBUG_SPEAK --es text "I got the job! I start on Monday."
+     * # Hebrew is spoken by the cloud voice; the eyes need the English (--es gvoice / --es gstyle optional)
+     * adb shell am broadcast -a app.mychatibot.DEBUG_SPEAK --es text "קיבלתי את העבודה!" --es en "I got the job!"
      * ```
      * # benchmark only: switch eye model file / thread counts
      * adb shell am broadcast -a app.mychatibot.DEBUG_BRAIN --es model gemma-3-1b-it-qat-Q4_0.gguf --ei threads 6 --ei threads_batch 6 --ef none_gap 1.5
@@ -208,7 +210,8 @@ class MainActivity : Activity() {
                         ?: Log.w(TAG, "debug: DEBUG_SAY without text extra")
                     DEBUG_SPEAK_ACTION -> {
                         if (intent.hasExtra("threads")) SpeechHost.instance.setThreads(intent.getIntExtra("threads", 0))
-                        intent.getStringExtra("text")?.let { SpeechHost.instance.speak(it) }
+                        SpeechHost.instance.setCloudVoice(intent.getStringExtra("gvoice"), intent.getStringExtra("gstyle"))
+                        intent.getStringExtra("text")?.let { SpeechHost.instance.speak(it, intent.getStringExtra("en")) }
                     }
                     DEBUG_STORY_ACTION -> {
                         fun ms(key: String) = if (intent.hasExtra(key)) intent.getIntExtra(key, -1).toLong() else null

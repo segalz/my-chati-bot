@@ -15,6 +15,7 @@ import com.k2fsa.sherpa.onnx.OfflineTtsVitsModelConfig
 import java.io.File
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executors
+import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
@@ -30,6 +31,11 @@ import java.util.concurrent.TimeoutException
  * A newer sentence, story or line supersedes this one: the player stops the audio at once and
  * nothing stale reaches the eyes. The voice model lives in the app's private files dir like the
  * eye model, loads once, and can be released under memory pressure.
+ *
+ * Hebrew lines (Stage 9) go to the cloud voice instead ([GeminiVoice]): one streamed request per
+ * line, Gemini reads the emotion from the text. The eye model is English-only (R12), so the sender
+ * also gives the English version; each English sentence is judged and its reaction starts when the
+ * matching Hebrew sentence is reached in the audio ([LineTiming], proportional to its letters).
  */
 class SpeechHost private constructor() {
 
@@ -48,6 +54,22 @@ class SpeechHost private constructor() {
     private var tts: OfflineTts? = null  // synth thread only
     private var loadError: String? = null  // synth thread only
     private var audio: AudioOut? = null  // player thread only: the stream of the line being spoken
+    private val net = Executors.newSingleThreadExecutor { Thread(it, "voice-net") }
+    @Volatile private var cloud: GeminiVoice? = null
+
+    /**
+     * One cloud line in flight: the network thread produces audio into a bounded queue and reports
+     * the end (and the total length) directly, not through the queue, so the player knows where the
+     * sentences start long before it has played up to them.
+     */
+    private class CloudLine {
+        val call = GeminiVoice.Call()
+        val pcm = LinkedBlockingQueue<FloatArray>(QUEUE_CHUNKS)
+        @Volatile var ended = false
+        @Volatile var totalFrames = 0L  // valid once ended
+        @Volatile var error: String? = null  // a fixed category, never server text
+        @Volatile var lastAudioAtMs = 0L  // uptime of the latest chunk queued
+    }
 
     /** Reads the voice table asset and loads the voice model in the background. */
     fun init(context: Context) {
@@ -58,12 +80,17 @@ class SpeechHost private constructor() {
                 .getOrElse { errors += "cannot read $TABLE_ASSET: ${it.message}"; VoiceTable.DEFAULT }
             errors.forEach { Log.w(TAG, "voice table: $it") }
             voiceDir = File(app.filesDir, "voice/$VOICE_DIR")
+            cloud = GeminiVoice(File(app.filesDir, "secrets/$KEY_FILE"))
             ensureLoaded()
         }
     }
 
-    /** Speaks [text] with the eyes following it; replaces anything said or shown before. */
-    fun speak(text: String) {
+    /**
+     * Speaks [text] with the eyes following it; replaces anything said or shown before. Hebrew goes
+     * to the cloud voice and needs [english] (the same line in English) for the eyes.
+     */
+    fun speak(text: String, english: String? = null) {
+        if (LineTiming.isHebrew(text)) return speakCloud(text, english)
         val sentences = StoryText.split(text)
         if (sentences.isEmpty()) {
             Log.w(TAG, "speak: no sentences")
@@ -76,6 +103,70 @@ class SpeechHost private constructor() {
             synth.post { session.ready[i].complete(Ready(decision, synthesize(session, i, decision))) }
         }
         player.execute { play(session) }
+    }
+
+    private fun speakCloud(text: String, english: String?) {
+        val sentences = StoryText.split(text)
+        if (sentences.isEmpty()) {
+            Log.w(TAG, "speak: no sentences")
+            return
+        }
+        val brain = EyeBrainHost.instance
+        val session = Session(brain.beginRequest(), sentences)
+        val isCurrent = { brain.isCurrent(session.generation) }
+        val forEyes = LineTiming.englishFor(sentences, english?.let(StoryText::split).orEmpty())
+        Log.i(TAG, "speak (cloud): ${sentences.size} sentences, ${forEyes.size} for the eyes, generation ${session.generation}")
+        if (forEyes.isEmpty()) {
+            // R12: the eye model only reads English; without it the eyes keep their current state.
+            val none = EyeBrainHost.Decision(null, "NO ENGLISH FOR THE EYES", "", IntentSource.MODEL)
+            session.ready.forEach { it.complete(Ready(none, null)) }
+        } else {
+            brain.classifyAhead(session.generation, forEyes) { i, d -> session.ready[i].complete(Ready(d, null)) }
+        }
+        val line = CloudLine()
+        val voice = cloud
+        net.execute { produceCloud(text, voice, line, isCurrent) }
+        player.execute { playCloud(session, line) }
+    }
+
+    /** Network thread: streams the line's audio into [line]; always marks the end exactly once. */
+    private fun produceCloud(text: String, voice: GeminiVoice?, line: CloudLine, isCurrent: () -> Boolean) {
+        var produced = 0L
+        val started = SystemClock.uptimeMillis()
+        try {
+            when {
+                !isCurrent() || line.call.cancelled -> Unit  // superseded before it started
+                voice == null || !voice.hasKey() -> line.error = "no Gemini key"
+                else -> voice.stream(text, line.call) { chunk ->
+                    var queued = false
+                    while (!queued && !line.call.cancelled && isCurrent()) {
+                        queued = line.pcm.offer(chunk, POLL_MS, TimeUnit.MILLISECONDS)
+                    }
+                    if (queued) {
+                        line.lastAudioAtMs = SystemClock.uptimeMillis()
+                        if (produced == 0L) Log.i(TAG, "cloud: first audio after ${SystemClock.uptimeMillis() - started} ms")
+                        produced += chunk.size
+                    }
+                    queued
+                }
+            }
+        } catch (e: GeminiVoice.Failure) {
+            line.error = e.message
+        } catch (e: Exception) {
+            line.error = "internal error"
+        } finally {
+            line.totalFrames = produced
+            line.ended = true
+            line.error?.let { Log.w(TAG, "cloud voice failed: $it") }
+        }
+    }
+
+    /** Development only (debug channel): Gemini voice name and style; null keeps a value. */
+    fun setCloudVoice(voice: String?, style: String?) {
+        val c = cloud ?: return
+        voice?.takeIf { Regex("[A-Za-z]{2,20}").matches(it) }?.let { c.voice = it }
+        style?.takeIf { it.length in 1..300 }?.let { c.style = it }
+        Log.i(TAG, "cloud voice: ${c.voice}, style '${c.style}'")
     }
 
     /** Development only (debug channel): voice model thread count; reloads the model. */
@@ -168,13 +259,14 @@ class SpeechHost private constructor() {
     private class AudioOut(private val track: AudioTrack, val sampleRate: Int) {
         enum class Result { OK, STALE, FAILED }
 
-        private var written = 0L  // frames queued since play()
+        var written = 0L  // frames queued since play()
+            private set
         private val chunk = sampleRate / 20  // 50 ms, so a newer line stops the audio quickly
         private var lastHead = 0L
         private var wraps = 0L
 
         /** Frames played since play(); the platform's 32-bit counter extended across wrap-around. */
-        private fun played(): Long {
+        fun played(): Long {
             val head = track.playbackHeadPosition.toLong() and 0xffff_ffffL
             if (head < lastHead) wraps++
             lastHead = head
@@ -189,8 +281,14 @@ class SpeechHost private constructor() {
         fun silence(ms: Long, isCurrent: () -> Boolean): Result =
             feed(FloatArray((sampleRate * ms / 1_000).toInt()), isCurrent, null)
 
-        /** Queues [samples]; [onStart] runs when playback reaches their first sample. */
-        fun feed(samples: FloatArray, isCurrent: () -> Boolean, onStart: (() -> Unit)?): Result {
+        /**
+         * Queues [samples]; [onStart] runs when playback reaches their first sample, [onProgress]
+         * after every written piece (about 50 ms), so callers can act on the playback position while
+         * a long piece is being written.
+         */
+        fun feed(
+            samples: FloatArray, isCurrent: () -> Boolean, onStart: (() -> Unit)?, onProgress: (() -> Unit)? = null,
+        ): Result {
             val startFrame = written
             var started = onStart == null
             var offset = 0
@@ -209,6 +307,7 @@ class SpeechHost private constructor() {
                 if (n == 0) return Result.FAILED
                 offset += n
                 written += n
+                onProgress?.invoke()
             }
             val deadline = SystemClock.uptimeMillis() + BUFFER_MS + 1_000
             while (!started) {
@@ -332,6 +431,108 @@ class SpeechHost private constructor() {
     }
 
     /**
+     * Plays a cloud line as its audio streams in and starts each sentence's eye reaction when the
+     * audio reaches it. Before the first audio the stream is kept awake with silence (no audio is
+     * inserted afterwards, so positions inside the speech stay exact). No audio (failure, missing
+     * key, or no first audio within [FIRST_AUDIO_TIMEOUT_MS]) falls back to the eyes alone.
+     */
+    private fun playCloud(session: Session, line: CloudLine) {
+        val brain = EyeBrainHost.instance
+        val isCurrent = { brain.isCurrent(session.generation) }
+        val sentences = session.sentences
+        val n = sentences.size
+        val out = AudioOut.open(GeminiVoice.SAMPLE_RATE)
+        val deadline = SystemClock.uptimeMillis() + FIRST_AUDIO_TIMEOUT_MS
+        // Until the stream ends, sentence starts are estimated from an average Hebrew speaking rate;
+        // the exact proportional starts replace them as soon as the total length is known.
+        val estimated = LineTiming.starts(sentences, LineTiming.estimatedFrames(sentences, GeminiVoice.SAMPLE_RATE))
+        var exact: LongArray? = null
+        var speechStart = -1L  // frame where the speech begins in the stream
+        var next = 0
+        val fireDue: () -> Unit = {
+            while (next < n && speechStart >= 0 && out != null) {
+                val starts = exact ?: estimated
+                if (out.played() < speechStart + starts[next]) break
+                val ready = session.ready[next].getNow(null) ?: break
+                val ms = (exact?.let { s -> (if (next + 1 < n) s[next + 1] else line.totalFrames) - s[next] }
+                    ?.times(1_000)?.div(GeminiVoice.SAMPLE_RATE)) ?: StoryText.spokenMs(sentences[next])
+                startEyes(session, next, ready.decision, ms, " | voice gemini", isCurrent)
+                next++
+            }
+        }
+        try {
+            if (out == null) {
+                line.call.cancel()
+                return playEyesOnly(session, 0, "audio output unavailable", isCurrent)
+            }
+            if (out.start(isCurrent) == AudioOut.Result.STALE) return stopped()
+            var consumed = 0L
+            while (true) {
+                if (!isCurrent()) return stopped()
+                val now = SystemClock.uptimeMillis()
+                if (!line.ended && !line.call.cancelled) {
+                    val stuck = if (speechStart < 0) now > deadline else now - line.lastAudioAtMs > STALL_TIMEOUT_MS
+                    if (stuck) {
+                        Log.w(TAG, if (speechStart < 0) "cloud: no audio in time" else "cloud: stream stalled; ending the line")
+                        line.call.cancel()  // the producer then ends the line with what it has
+                    }
+                }
+                val chunk = line.pcm.poll(20, TimeUnit.MILLISECONDS)
+                if (chunk != null) {
+                    if (speechStart < 0) speechStart = out.written
+                    when (out.feed(chunk, isCurrent, null, fireDue)) {
+                        AudioOut.Result.STALE -> return stopped()
+                        AudioOut.Result.FAILED -> {
+                            line.call.cancel()
+                            return playEyesOnly(session, next, "audio output failed", isCurrent)
+                        }
+                        AudioOut.Result.OK -> consumed += chunk.size
+                    }
+                } else if (speechStart < 0 && !line.ended) {
+                    out.silence(SILENCE_STEP_MS, isCurrent)  // waiting for the first audio
+                }
+                if (line.ended && exact == null) {
+                    if (line.totalFrames == 0L) {
+                        return playEyesOnly(session, 0, line.error ?: "no audio in time", isCurrent)
+                    }
+                    exact = LineTiming.starts(sentences, line.totalFrames)
+                    Log.i(TAG, "cloud: stream ended, ${line.totalFrames * 1_000 / GeminiVoice.SAMPLE_RATE} ms of speech" +
+                        (line.error?.let { " (cut short: $it)" } ?: ""))
+                }
+                fireDue()
+                if (line.ended && consumed >= line.totalFrames && out.played() >= out.written) {
+                    if (next < n) Log.i(TAG, "cloud: line over before ${n - next} sentence(s) were decided; skipped")
+                    return
+                }
+                if (line.ended && chunk == null) SystemClock.sleep(10)
+            }
+        } finally {
+            line.call.cancel()
+            out?.close()
+        }
+    }
+
+    /** No cloud audio: the eyes follow the remaining sentences alone, on estimated speaking time. */
+    private fun playEyesOnly(session: Session, from: Int, reason: String, isCurrent: () -> Boolean) {
+        for (i in from until session.sentences.size) {
+            val ready = await(session.ready[i], isCurrent) ?: return stopped()
+            val ms = StoryText.spokenMs(session.sentences[i])
+            startEyes(session, i, ready.decision, ms, " | voice unavailable: $reason", isCurrent)
+            if (!waitUntil(SystemClock.uptimeMillis() + ms + GAP_MS, isCurrent)) return stopped()
+        }
+    }
+
+    private fun startEyes(
+        session: Session, i: Int, d: EyeBrainHost.Decision, spokenMs: Long, voice: String, isCurrent: () -> Boolean,
+    ) {
+        val n = session.sentences.size
+        val startMs = SystemClock.uptimeMillis()
+        EyeControllerHost.instance.submitDecision(session.sentences[i], d.body, d.error, d.detail + voice, d.source,
+            isCurrent, EyeControllerHost.StoryStep(i, n, startMs, spokenMs))
+        Log.i(TAG, "speech: ${i + 1}/$n start t=$startMs audio=$spokenMs ms")
+    }
+
+    /**
      * Waits for a sentence to be decided and synthesized, keeping an open stream fed with silence
      * meanwhile; null when superseded first.
      */
@@ -383,6 +584,10 @@ class SpeechHost private constructor() {
         const val VOICE_DIR = "vits-piper-en_US-libritts_r-medium"
         private const val MODEL_FILE = "en_US-libritts_r-medium.onnx"
         private const val TABLE_ASSET = "voice.txt"
+        private const val KEY_FILE = "gemini_api_key"
+        private const val QUEUE_CHUNKS = 1_500  // ≈ 1–3 min of streamed audio; bounds memory
+        private const val FIRST_AUDIO_TIMEOUT_MS = 20_000L
+        private const val STALL_TIMEOUT_MS = 10_000L  // no new audio for this long ends the line
         private const val THREADS = 2  // fewer threads leave the CPU to the eye model running at the same time (8.3)
         private const val GAP_MS = 250L  // pause between sentences
         private const val POLL_MS = 100L
