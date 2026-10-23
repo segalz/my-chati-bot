@@ -1,0 +1,28 @@
+
+== 18:49:31 1. idle eyes (5 s)
+
+== 18:49:36 2. single sentences -> on-phone eye model
+  I passed my driving test! -> APPLIED HAPPY center | model 678 ms 
+  My grandmother is in the hospital. -> APPLIED SAD center | model 914 ms 
+  Look to the left, please. -> APPLIED NEUTRAL left | model 705 ms 
+  The meeting is at three o'clock. -> IGNORED_NO_CHANGE NEUTRAL center | model 1012 ms 
+  Someone stole my bike again! -> APPLIED ANGRY center | model 817 ms 
+  Wow, I did not expect that at all! -> APPLIED SURPRISED center | model 992 ms 
+
+== 18:50:11 3. silent story (eyes only, speaking pace)
+  IGNORED_NO_REACTION NONE center  (1/5)
+  IGNORED_NO_CHANGE NEUTRAL center  (2/5)
+  APPLIED SLEEPY center  (3/5)
+  APPLIED HAPPY center  (4/5)
+  EXTENDED HAPPY center  (5/5)
+  EXTENDED HAPPY center  (5/5)
+
+== 18:50:33 4. spoken story (voice + eyes)
+  IGNORED_NO_CHANGE NEUTRAL center  (1/5)
+  APPLIED SAD center  (2/5)
+  CARRIED NEUTRAL center  (3/5)
+  APPLIED HAPPY center  (4/5)
+  EXTENDED HAPPY center  (5/5)
+  EXTENDED HAPPY center  (5/5)
+
+== demo finished
