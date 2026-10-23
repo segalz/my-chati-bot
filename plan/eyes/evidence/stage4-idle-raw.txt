@@ -1,0 +1,60 @@
+=== start 11:32:18
+pid=30197
+
+10-23 11:32:18.549 30197 30197 I ChatiEyes: stats frames=634 redraws=316 presents=317 work_avg_us=1524 work_max_us=13239 window=yes
+VmHWM:	  156752 kB
+VmRSS:	  149960 kB
+RssAnon:	   33612 kB
+Threads:	37
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+30197 u0_a290      10 -10 6.1G 146M 114M S 11.4   2.5   0:03.97 app.mychatibot
+	Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+  USB powered: true
+  level: 100
+  temperature: 344
+=== end 11:42:20
+pid=30197
+10-23 11:42:20.346 30197 30197 I ChatiEyes: stats frames=36712 redraws=18356 presents=18357 work_avg_us=4069 work_max_us=17170 window=yes
+VmHWM:	  156752 kB
+VmRSS:	  151568 kB
+RssAnon:	   33900 kB
+Threads:	37
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+30197 u0_a290      10 -10 6.1G 148M 115M S 31.2   2.5   2:55.88 app.mychatibot
+	Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+  USB powered: true
+  level: 100
+  temperature: 345
+=== meminfo
+Applications Memory Usage (in Kilobytes):
+Uptime: 142521256 Realtime: 328807158
+
+** MEMINFO in pid 30197 [app.mychatibot] **
+                   Pss  Private  Private  SwapPss      Rss     Heap     Heap     Heap
+                 Total    Dirty    Clean    Dirty    Total     Size    Alloc     Free
+                ------   ------   ------   ------   ------   ------   ------   ------
+  Native Heap     9760     9732        0      101    10812    22100    20824     1275
+  Dalvik Heap      671      656        0      116     1308     4360     2180     2180
+ Dalvik Other     7072     1380        0        3    12924                           
+        Stack      828      828        0        0      836                           
+       Ashmem       36        0        0        0      840                           
+    Other dev       20        4       16        0      488                           
+     .so mmap     4522      388      352       25    52016                           
+    .jar mmap     2637        0      364        0    43324                           
+    .apk mmap     3409       64     3212        0     5624                           
+    .ttf mmap       29        0        0        0       88                           
+    .dex mmap       14        0        0        0      572                           
+    .oat mmap       48        0        0        0     1944                           
+    .art mmap     8907     8256        0      105    17284                           
+   Other mmap       60       40        0        0     1112                           
+   EGL mtrack     9633     9633        0        0     9633                           
+      Unknown      763      700       48        1     1204                           
+        TOTAL    48760    31681     3992      351   160009    26460    23004     3455
+ 
+ App Summary
+                       Pss(KB)                        Rss(KB)
+                        ------                         ------
+           Java Heap:     8912                          18592
+         Native Heap:     9732                          10812
+=== crash buffer
+

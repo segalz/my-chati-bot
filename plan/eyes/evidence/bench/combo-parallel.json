@@ -1,0 +1,933 @@
+{
+ "setup": "qwen react+look, gemma expression, parallel",
+ "qwen_threads": "-t 3 -tb 4",
+ "gemma_threads": "-t 3 -tb 4",
+ "mem_mb": {
+  "28668": {
+   "VmHWM": 1206,
+   "RssAnon": 741,
+   "RssFile": 164
+  },
+  "28683": {
+   "VmHWM": 1367,
+   "RssAnon": 560,
+   "RssFile": 772
+  }
+ },
+ "mem_available_mb_during": 1716,
+ "temp_before": 47.0,
+ "temp_after": 47.0,
+ "p50_ms": 3094.0,
+ "results": [
+  {
+   "id": "en01",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 3000,
+   "qwen_ms": 3000,
+   "gemma_ms": 2672,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en02",
+   "set": "main",
+   "qwen": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SAD",
+    "look": "center"
+   },
+   "wall_ms": 3015,
+   "qwen_ms": 2343,
+   "gemma_ms": 3015,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en03",
+   "set": "main",
+   "qwen": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "ANGRY",
+    "look": "center"
+   },
+   "wall_ms": 3188,
+   "qwen_ms": 3110,
+   "gemma_ms": 3188,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en04",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SURPRISED\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SURPRISED",
+    "look": "center"
+   },
+   "wall_ms": 3203,
+   "qwen_ms": 3203,
+   "gemma_ms": 3187,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en05",
+   "set": "main",
+   "qwen": "{\"expression\":\"SLEEPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SLEEPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SLEEPY",
+    "look": "center"
+   },
+   "wall_ms": 3547,
+   "qwen_ms": 2969,
+   "gemma_ms": 3547,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en06",
+   "set": "main",
+   "qwen": "{\"expression\":\"BORED\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SAD",
+    "look": "center"
+   },
+   "wall_ms": 3015,
+   "qwen_ms": 2890,
+   "gemma_ms": 3015,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": false
+  },
+  {
+   "id": "en07",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SLEEPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SLEEPY",
+    "look": "center"
+   },
+   "wall_ms": 2954,
+   "qwen_ms": 2954,
+   "gemma_ms": 2782,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en08",
+   "set": "main",
+   "qwen": "{\"expression\":\"WINK_RIGHT\",\"look\":\"right\"}",
+   "gemma": "{\"expression\":\"WINK_RIGHT\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "WINK_RIGHT",
+    "look": "right"
+   },
+   "wall_ms": 3406,
+   "qwen_ms": 3171,
+   "gemma_ms": 3406,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en09",
+   "set": "main",
+   "qwen": "{\"expression\":\"WINK_LEFT\",\"look\":\"left\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"left\"}",
+   "intent": {
+    "react": true,
+    "expression": "NEUTRAL",
+    "look": "left"
+   },
+   "wall_ms": 2875,
+   "qwen_ms": 2719,
+   "gemma_ms": 2875,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true,
+   "gaze_ok": true
+  },
+  {
+   "id": "en10",
+   "set": "main",
+   "qwen": "{\"expression\":\"WINK_RIGHT\",\"look\":\"right\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"right\"}",
+   "intent": {
+    "react": true,
+    "expression": "NEUTRAL",
+    "look": "right"
+   },
+   "wall_ms": 3219,
+   "qwen_ms": 2625,
+   "gemma_ms": 3204,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true,
+   "gaze_ok": true
+  },
+  {
+   "id": "en11",
+   "set": "main",
+   "qwen": "{\"expression\":\"NEUTRAL\",\"look\":\"up\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"up\"}",
+   "intent": {
+    "react": true,
+    "expression": "NEUTRAL",
+    "look": "up"
+   },
+   "wall_ms": 2843,
+   "qwen_ms": 2843,
+   "gemma_ms": 2609,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true,
+   "gaze_ok": true
+  },
+  {
+   "id": "en12",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"down\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"down\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "down"
+   },
+   "wall_ms": 2750,
+   "qwen_ms": 2313,
+   "gemma_ms": 2750,
+   "valid": true,
+   "react_ok": false,
+   "expr_ok": false,
+   "gaze_ok": false
+  },
+  {
+   "id": "en13",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 2828,
+   "qwen_ms": 2578,
+   "gemma_ms": 2828,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en14",
+   "set": "main",
+   "qwen": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SAD",
+    "look": "center"
+   },
+   "wall_ms": 2829,
+   "qwen_ms": 2797,
+   "gemma_ms": 2829,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en15",
+   "set": "main",
+   "qwen": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "ANGRY",
+    "look": "center"
+   },
+   "wall_ms": 3375,
+   "qwen_ms": 2484,
+   "gemma_ms": 3359,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en16",
+   "set": "main",
+   "qwen": "{\"expression\":\"SURPRISED\",\"look\":\"right\"}",
+   "gemma": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "ANGRY",
+    "look": "right"
+   },
+   "wall_ms": 3171,
+   "qwen_ms": 3171,
+   "gemma_ms": 3000,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": false
+  },
+  {
+   "id": "en17",
+   "set": "main",
+   "qwen": "{\"expression\":\"SLEEPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SLEEPY\",\"look\":\"down\"}",
+   "intent": {
+    "react": true,
+    "expression": "SLEEPY",
+    "look": "center"
+   },
+   "wall_ms": 3094,
+   "qwen_ms": 2563,
+   "gemma_ms": 3094,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en18",
+   "set": "main",
+   "qwen": "{\"expression\":\"SLEEPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"BORED\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "BORED",
+    "look": "center"
+   },
+   "wall_ms": 3250,
+   "qwen_ms": 3063,
+   "gemma_ms": 3235,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en19",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 2985,
+   "qwen_ms": 2938,
+   "gemma_ms": 2985,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en20",
+   "set": "main",
+   "qwen": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SAD",
+    "look": "center"
+   },
+   "wall_ms": 2859,
+   "qwen_ms": 2859,
+   "gemma_ms": 2656,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en21",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 3078,
+   "qwen_ms": 2734,
+   "gemma_ms": 3078,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en22",
+   "set": "main",
+   "qwen": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "ANGRY",
+    "look": "center"
+   },
+   "wall_ms": 3000,
+   "qwen_ms": 2938,
+   "gemma_ms": 3000,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en23",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 3031,
+   "qwen_ms": 3031,
+   "gemma_ms": 2828,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en24",
+   "set": "main",
+   "qwen": "{\"expression\":\"SLEEPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SLEEPY\",\"look\":\"down\"}",
+   "intent": {
+    "react": true,
+    "expression": "SLEEPY",
+    "look": "center"
+   },
+   "wall_ms": 3344,
+   "qwen_ms": 2688,
+   "gemma_ms": 3344,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en25",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 3063,
+   "qwen_ms": 3063,
+   "gemma_ms": 2844,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "en26",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "SAD",
+    "look": "center"
+   },
+   "wall_ms": 3046,
+   "qwen_ms": 2265,
+   "gemma_ms": 3046,
+   "valid": true,
+   "react_ok": false,
+   "expr_ok": false
+  },
+  {
+   "id": "en27",
+   "set": "main",
+   "qwen": "{\"expression\":\"WINK_RIGHT\",\"look\":\"left\"}",
+   "gemma": "{\"expression\":\"SURPRISED\",\"look\":\"left\"}",
+   "intent": {
+    "react": true,
+    "expression": "SURPRISED",
+    "look": "left"
+   },
+   "wall_ms": 3563,
+   "qwen_ms": 3516,
+   "gemma_ms": 3563,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true,
+   "gaze_ok": true
+  },
+  {
+   "id": "en28",
+   "set": "main",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 3656,
+   "qwen_ms": 3234,
+   "gemma_ms": 3656,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "nr01",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 3328,
+   "qwen_ms": 2766,
+   "gemma_ms": 3328,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr02",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 2813,
+   "qwen_ms": 2766,
+   "gemma_ms": 2813,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr03",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 3000,
+   "qwen_ms": 2312,
+   "gemma_ms": 3000,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr04",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 2750,
+   "qwen_ms": 2625,
+   "gemma_ms": 2750,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr05",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 2984,
+   "qwen_ms": 2562,
+   "gemma_ms": 2984,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr06",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 2969,
+   "qwen_ms": 2969,
+   "gemma_ms": 2797,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr07",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 3484,
+   "qwen_ms": 2672,
+   "gemma_ms": 3484,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr08",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 2969,
+   "qwen_ms": 2969,
+   "gemma_ms": 2907,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr09",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 2797,
+   "qwen_ms": 2547,
+   "gemma_ms": 2797,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr10",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 2750,
+   "qwen_ms": 2531,
+   "gemma_ms": 2750,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr11",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 2719,
+   "qwen_ms": 2500,
+   "gemma_ms": 2719,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "nr12",
+   "set": "main",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 3015,
+   "qwen_ms": 2890,
+   "gemma_ms": 3015,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "rt01",
+   "set": "robust",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 3657,
+   "qwen_ms": 3344,
+   "gemma_ms": 3657,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "rt02",
+   "set": "robust",
+   "qwen": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "ANGRY",
+    "look": "center"
+   },
+   "wall_ms": 3578,
+   "qwen_ms": 3359,
+   "gemma_ms": 3578,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "rt03",
+   "set": "robust",
+   "qwen": "{\"expression\":\"SLEEPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SLEEPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SLEEPY",
+    "look": "center"
+   },
+   "wall_ms": 4297,
+   "qwen_ms": 4297,
+   "gemma_ms": 4297,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "rt04",
+   "set": "robust",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SURPRISED\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SURPRISED",
+    "look": "center"
+   },
+   "wall_ms": 3781,
+   "qwen_ms": 3343,
+   "gemma_ms": 3781,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "rt05",
+   "set": "robust",
+   "qwen": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SAD",
+    "look": "center"
+   },
+   "wall_ms": 3484,
+   "qwen_ms": 2703,
+   "gemma_ms": 3484,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "rt06",
+   "set": "robust",
+   "qwen": "{\"expression\":\"WINK_LEFT\",\"look\":\"left\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"left\"}",
+   "intent": {
+    "react": true,
+    "expression": "NEUTRAL",
+    "look": "left"
+   },
+   "wall_ms": 3453,
+   "qwen_ms": 2875,
+   "gemma_ms": 3453,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true,
+   "gaze_ok": true
+  },
+  {
+   "id": "rt07",
+   "set": "robust",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 3297,
+   "qwen_ms": 3157,
+   "gemma_ms": 3297,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "rt08",
+   "set": "robust",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 3719,
+   "qwen_ms": 3063,
+   "gemma_ms": 3719,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "he01",
+   "set": "hebrew",
+   "qwen": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"HAPPY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "HAPPY",
+    "look": "center"
+   },
+   "wall_ms": 3453,
+   "qwen_ms": 3453,
+   "gemma_ms": 3219,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "he02",
+   "set": "hebrew",
+   "qwen": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"SAD\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "SAD",
+    "look": "center"
+   },
+   "wall_ms": 3094,
+   "qwen_ms": 2656,
+   "gemma_ms": 3094,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "he03",
+   "set": "hebrew",
+   "qwen": "{\"expression\":\"SLEEPY\",\"look\":\"down\"}",
+   "gemma": "{\"expression\":\"SLEEPY\",\"look\":\"down\"}",
+   "intent": {
+    "react": true,
+    "expression": "SLEEPY",
+    "look": "down"
+   },
+   "wall_ms": 3640,
+   "qwen_ms": 3640,
+   "gemma_ms": 3281,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  },
+  {
+   "id": "he04",
+   "set": "hebrew",
+   "qwen": "{\"expression\":\"WINK_LEFT\",\"look\":\"left\"}",
+   "gemma": "{\"expression\":\"NEUTRAL\",\"look\":\"left\"}",
+   "intent": {
+    "react": true,
+    "expression": "NEUTRAL",
+    "look": "left"
+   },
+   "wall_ms": 3532,
+   "qwen_ms": 3016,
+   "gemma_ms": 3532,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true,
+   "gaze_ok": true
+  },
+  {
+   "id": "he05",
+   "set": "hebrew",
+   "qwen": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"NONE\",\"look\":\"center\"}",
+   "intent": {
+    "react": false,
+    "expression": "NEUTRAL",
+    "look": "center"
+   },
+   "wall_ms": 3140,
+   "qwen_ms": 3000,
+   "gemma_ms": 3140,
+   "valid": true,
+   "react_ok": true
+  },
+  {
+   "id": "he06",
+   "set": "hebrew",
+   "qwen": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "gemma": "{\"expression\":\"ANGRY\",\"look\":\"center\"}",
+   "intent": {
+    "react": true,
+    "expression": "ANGRY",
+    "look": "center"
+   },
+   "wall_ms": 3547,
+   "qwen_ms": 2891,
+   "gemma_ms": 3547,
+   "valid": true,
+   "react_ok": true,
+   "expr_ok": true
+  }
+ ]
+}

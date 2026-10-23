@@ -40,3 +40,11 @@ data/
 Thumbs.db
 .vscode/
 .idea/
+# Local model weights (large; provenance and hashes are in plan/eyes/evidence)
+models/
+*.gguf
+
+# Android / NDK build output
+.cxx/
+.externalNativeBuild/
+captures/

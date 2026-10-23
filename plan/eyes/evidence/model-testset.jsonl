@@ -1,0 +1,54 @@
+{"id":"en01","set":"main","text":"I just got the job I wanted!","react":true,"expr":["HAPPY","SURPRISED"]}
+{"id":"en02","set":"main","text":"My dog died this morning.","react":true,"expr":["SAD"]}
+{"id":"en03","set":"main","text":"Someone scratched my car and drove away. I'm furious.","react":true,"expr":["ANGRY"]}
+{"id":"en04","set":"main","text":"Wow, I did not expect that at all!","react":true,"expr":["SURPRISED"]}
+{"id":"en05","set":"main","text":"I'm so tired, I can barely keep my eyes open.","react":true,"expr":["SLEEPY"]}
+{"id":"en06","set":"main","text":"This lecture is so boring, nothing ever happens.","react":true,"expr":["BORED"]}
+{"id":"en07","set":"main","text":"Good night, see you tomorrow.","react":true,"expr":["SLEEPY","HAPPY"]}
+{"id":"en08","set":"main","text":"Can you keep a secret? Wink at me.","react":true,"expr":["WINK_LEFT","WINK_RIGHT"]}
+{"id":"en09","set":"main","text":"Look to the left.","react":true,"expr":["NEUTRAL","SURPRISED","HAPPY"],"gaze":"left"}
+{"id":"en10","set":"main","text":"Look at the right side of the room.","react":true,"expr":["NEUTRAL","SURPRISED","HAPPY"],"gaze":"right"}
+{"id":"en11","set":"main","text":"Look up at the ceiling.","react":true,"expr":["NEUTRAL","SURPRISED","HAPPY"],"gaze":"up"}
+{"id":"en12","set":"main","text":"Look down at the floor.","react":true,"expr":["NEUTRAL","SAD","SLEEPY"],"gaze":"down"}
+{"id":"en13","set":"main","text":"Happy birthday to you!","react":true,"expr":["HAPPY"]}
+{"id":"en14","set":"main","text":"I failed my driving test again.","react":true,"expr":["SAD"]}
+{"id":"en15","set":"main","text":"Stop interrupting me, it's really annoying!","react":true,"expr":["ANGRY"]}
+{"id":"en16","set":"main","text":"There's a huge spider right behind you!","react":true,"expr":["SURPRISED"]}
+{"id":"en17","set":"main","text":"Time for a nap.","react":true,"expr":["SLEEPY"]}
+{"id":"en18","set":"main","text":"Ugh, waiting in this line forever.","react":true,"expr":["BORED","ANGRY"]}
+{"id":"en19","set":"main","text":"You're the best little robot ever!","react":true,"expr":["HAPPY"]}
+{"id":"en20","set":"main","text":"I miss my grandmother so much.","react":true,"expr":["SAD"]}
+{"id":"en21","set":"main","text":"We won the game in the last second!","react":true,"expr":["HAPPY","SURPRISED"]}
+{"id":"en22","set":"main","text":"That's not fair, you cheated!","react":true,"expr":["ANGRY"]}
+{"id":"en23","set":"main","text":"Guess what? I'm getting married!","react":true,"expr":["HAPPY","SURPRISED"]}
+{"id":"en24","set":"main","text":"I've been yawning all afternoon.","react":true,"expr":["SLEEPY","BORED"]}
+{"id":"en25","set":"main","text":"Just between us, I hid the cookies.","react":true,"expr":["WINK_LEFT","WINK_RIGHT","HAPPY"]}
+{"id":"en26","set":"main","text":"Nobody came to my party.","react":true,"expr":["SAD"]}
+{"id":"en27","set":"main","text":"Look over there, to your left, a bird!","react":true,"expr":["SURPRISED","HAPPY","NEUTRAL"],"gaze":"left"}
+{"id":"en28","set":"main","text":"The weather is lovely today, let's go outside!","react":true,"expr":["HAPPY"]}
+{"id":"nr01","set":"main","text":"The meeting is at three o'clock.","react":false}
+{"id":"nr02","set":"main","text":"Please add milk to the shopping list.","react":false}
+{"id":"nr03","set":"main","text":"The file is in the documents folder.","react":false}
+{"id":"nr04","set":"main","text":"Water boils at one hundred degrees Celsius.","react":false}
+{"id":"nr05","set":"main","text":"Set a timer for ten minutes.","react":false}
+{"id":"nr06","set":"main","text":"The bus number is forty two.","react":false}
+{"id":"nr07","set":"main","text":"I'm reading chapter five now.","react":false}
+{"id":"nr08","set":"main","text":"Turn on the kitchen light.","react":false}
+{"id":"nr09","set":"main","text":"The password has eight characters.","react":false}
+{"id":"nr10","set":"main","text":"Tomorrow is Tuesday.","react":false}
+{"id":"nr11","set":"main","text":"OK.","react":false}
+{"id":"nr12","set":"main","text":"Let me check the calendar.","react":false}
+{"id":"rt01","set":"robust","text":"I am very happy that you came today to me.","react":true,"expr":["HAPPY"]}
+{"id":"rt02","set":"robust","text":"It makes me crazy the neighbor with the noise.","react":true,"expr":["ANGRY"]}
+{"id":"rt03","set":"robust","text":"I am dead from tiredness.","react":true,"expr":["SLEEPY"]}
+{"id":"rt04","set":"robust","text":"Wow, really? No way!","react":true,"expr":["SURPRISED"]}
+{"id":"rt05","set":"robust","text":"Was sad for me to hear it.","react":true,"expr":["SAD"]}
+{"id":"rt06","set":"robust","text":"Look to left side please.","react":true,"expr":["NEUTRAL","SURPRISED","HAPPY"],"gaze":"left"}
+{"id":"rt07","set":"robust","text":"The bus comes in five minutes to the station.","react":false}
+{"id":"rt08","set":"robust","text":"I put the keys on the table of the kitchen.","react":false}
+{"id":"he01","set":"hebrew","text":"איזה כיף, קיבלתי את העבודה!","react":true,"expr":["HAPPY","SURPRISED"]}
+{"id":"he02","set":"hebrew","text":"אני ממש עצוב היום.","react":true,"expr":["SAD"]}
+{"id":"he03","set":"hebrew","text":"אני עייף, הולך לישון.","react":true,"expr":["SLEEPY"]}
+{"id":"he04","set":"hebrew","text":"תסתכל שמאלה.","react":true,"expr":["NEUTRAL","SURPRISED","HAPPY"],"gaze":"left"}
+{"id":"he05","set":"hebrew","text":"הפגישה בשעה שלוש.","react":false}
+{"id":"he06","set":"hebrew","text":"אני כועס עליך!","react":true,"expr":["ANGRY"]}

@@ -34,6 +34,7 @@ Get the first living piece of My Chati Bot onto the physical old phone: the **or
 - R9 — Every stage is validated appropriately: tool installation and source/license analysis need their own evidence; APK installation applies once an app exists; executable stages are tested on the physical phone with a real action and an observed result.
 - R10 — No erasing data, uninstalling apps, or changing unrelated phone/PC settings.
 - R11 — plan.md and progress.md stay current and clearly separate **completed**, **failed**, and **untested** work.
+- R12 — **English-only model input** (owner decision 2026-10-22). The eye model's prompt, input, and output are English. Hebrew is translated **at the source**, not by an extra translator on the eyes path: speech via Whisper's Hebrew→English translate task (P3), conversation replies via an English affect hint from the conversation API, and development sentences sent in English over ADB. Hebrew support is therefore not a model-selection criterion. ~~A small Hebrew/imperfect-translation subset stays in tests only as a robustness check.~~ Updated 2026-10-23 (owner): translation quality is the sending model's responsibility, so eye-model tests use **clean English only**. Hebrew and rough-translation sentences are dropped from evaluation as noise.
 
 ## Assumptions & constraints
 
@@ -43,7 +44,8 @@ Get the first living piece of My Chati Bot onto the physical old phone: the **or
 - **Toolchain:** the owner approved installing Android command-line tools only (SDK cmdline-tools, platform-tools, NDK, CMake) under `%LOCALAPPDATA%\Android\Sdk`. No Android Studio. Java 21 (Microsoft OpenJDK) is already installed. Ollama exists on the PC but is not used here.
 - **Phone (Stage 1 result, 2026-10-22):** Redmi 10 (MT6769H, 2×A75 + 6×A55 with dot-product), Android 13 / API 33, arm64-v8a, ~5.6 GiB RAM, 1080×2400 at 60/90 Hz, GLES 3.2 / Vulkan 1.1. Toolchain: SDK platform 36, build-tools 36.1.0, NDK r28c (28.2.13676358), CMake 3.31.6. Details: [evidence/device-inventory.md](./evidence/device-inventory.md).
 - **The workspace is not a Git repository yet.** Stage 3 initializes one for the Android project (a real implementation need, not a routing workaround).
-- Builds, installs, and phone runs are authorized by the owner for the per-stage phone checks in this plan. Model weight downloads need owner approval of the exact model, license, and size first.
+- Builds, installs, and phone runs are authorized by the owner for the per-stage phone checks in this plan.
+- **Install path (2026-10-23):** MIUI blocks `adb install` (`INSTALL_FAILED_USER_RESTRICTED`, "Install via USB" off). Working method: push the APK to `/sdcard/Download/`, verify its SHA-256 on the phone, and the owner taps it and approves the Android prompt. Launch, screenshots, and logcat then run over ADB. Each new APK needs that owner tap until "Install via USB" is enabled. scrcpy for viewing: `C:\Users\segal\AppData\Local\Programs\scrcpy\scrcpy-win64-v5.0.1\scrcpy.exe -s <PHONE_SERIAL> --window-title "Redmi 10 (Chati)"` (set `ADB` to the SDK adb). Model weight downloads need owner approval of the exact model, license, and size first.
 - Every `[HARD]` micro-step is written by Claude itself and then reviewed by Codex. Other coding steps are delegated as described below.
 
 ## Orchestration (how every micro-step is executed)
@@ -75,56 +77,68 @@ Install the Android command-line toolchain and inventory the real phone.
 
 **Stage 1 review:** ADB talks to the right phone, the toolchain exists, and the device facts that drive Stages 2–6 (ABI, API level, RAM budget) are written down. Phone check: `adb shell getprop ro.product.cpu.abilist` matches the inventory.
 
-### Stage 2: Exact source, dependency, license, and portability audit
+### Stage 2: Exact source, dependency, license, and portability audit — ✅ completed 2026-10-22 (conditional GO, see progress.md)
 Prove what v1.3.9 is and whether the blue renderer can run on Android before writing app code.
 
-- [ ] 2.1 Download the v1.3.9 component archive from the Espressif registry into `third_party/expressive_eyes-1.3.9/` (unchanged); record URL, date, SHA-256, and component manifest.
+- [x] 2.1 Download the v1.3.9 component archive from the Espressif registry into `third_party/expressive_eyes-1.3.9/` (unchanged); record URL, date, SHA-256, and component manifest.
   - Check: `third_party/expressive_eyes-1.3.9/SOURCE.md` lists URL, date, hash; recomputing the hash matches.
-- [ ] 2.2 Map the archive to an immutable upstream `esp-cpp/espp` commit/tag (diff the archive against the candidate commit).
+- [x] 2.2 Map the archive to an immutable upstream `esp-cpp/espp` commit/tag (diff the archive against the candidate commit).
   - Check: SOURCE.md names the commit and states the diff result (identical / listed differences). If no match: Status blocked, ask owner.
-- [ ] 2.3 Locate the Monochrome Blue Eyes example drawer and its assets in that exact revision.
+- [x] 2.3 Locate the Monochrome Blue Eyes example drawer and its assets in that exact revision.
   - Check: exact file paths recorded; if the drawer is not in the archive, the matching repository revision that contains it is recorded and owner is told.
-- [ ] 2.4 Delegated read-only audit (research, quality): engine API (expressions, gaze, blink, update/timing, randomness, drawing callbacks), blue drawer dependencies (LVGL or other), ESP-IDF/FreeRTOS couplings, build requirements.
+- [x] 2.4 Delegated read-only audit (research, quality): engine API (expressions, gaze, blink, update/timing, randomness, drawing callbacks), blue drawer dependencies (LVGL or other), ESP-IDF/FreeRTOS couplings, build requirements.
   - Check: `plan/eyes/evidence/port-audit.md` has `## Result / ## Evidence / ## Metrics` with exact file and identifier names found in the source; no invented API names.
-- [ ] 2.5 Dependency and license inventory: name, exact version, license, notices, transitive deps, Android/NDK compatibility for the core, the blue drawer, assets, and every rendering dependency.
+- [x] 2.5 Dependency and license inventory: name, exact version, license, notices, transitive deps, Android/NDK compatibility for the core, the blue drawer, assets, and every rendering dependency.
   - Check: table in `port-audit.md`; every row has a license and a source of truth; license texts copied to `third_party/LICENSES/`.
-- [ ] 2.6 Portability decision: what compiles as-is, what needs a platform adapter (time, random, logging, tasks, display flush), and the chosen Android drawing backend (e.g. the dependency's own software framebuffer blitted to `ANativeWindow`).
+- [x] 2.6 Portability decision: what compiles as-is, what needs a platform adapter (time, random, logging, tasks, display flush), and the chosen Android drawing backend (e.g. the dependency's own software framebuffer blitted to `ANativeWindow`).
   - Check: decision record in `port-audit.md` reviewed by Codex; any deviation from "original renderer" is explicit. Owner is asked if a blocker exists.
-- [ ] 2.7 Record the canonical v1.3.9 expression identifiers and gaze/blink API that the intent contract (Stage 5) will map to.
+- [x] 2.7 Record the canonical v1.3.9 expression identifiers and gaze/blink API that the intent contract (Stage 5) will map to.
   - Check: list in `port-audit.md` with file:line references.
 
 **Stage 2 review:** immutable provenance, complete license inventory, and a go / no-go portability verdict exist. Nothing is substituted. Phone check: none (no app yet). Gate: the owner sees a short summary before Stage 3.
 
-### Stage 3: Android project skeleton with native build
+### Stage 2B: Early on-phone model comparison (CLI, before the app) — ✅ completed 2026-10-22 (see evidence/model-benchmark.md; model choice pending owner)
+Owner asked to test which local model is best. The phone is already measured (Stage 1), so candidates can be compared on the real phone with a command-line runtime now, in parallel with Stages 3–5, instead of waiting for Stage 6. This replaces the research half of 6.1 and the bulk of 6.6; Stage 6 then confirms the winner inside the app.
+
+- [x] 2B.1 Shortlist 3 small instruction models that fit the ≤ 1.0 GiB budget (exact repo, revision, license, quantization, file size, Hebrew + English ability). Present the shortlist and download sizes to the owner (R7).
+  - Check: `evidence/model-shortlist.md`; owner approves the downloads.
+- [x] 2B.2 Build `llama.cpp` (pinned tag, MIT) command-line tools with NDK r28c for arm64-v8a (dot-product on), push binaries and approved GGUF files to `/data/local/tmp/chati-bench/`.
+  - Check: `llama-cli --version` runs on the phone; file hashes recorded.
+- [x] 2B.3 Fixed test set (R12): ~40 English sentences plus a small robustness subset (imperfect "machine-translated" English and a few raw Hebrew lines, scored separately), labeled with the expected reaction, including **no-reaction** cases (neutral statements that should leave the eyes alone) and gaze cases. Same prompt and same JSON grammar (EyeIntent fields incl. `react`) for all models.
+  - Check: test set saved in `evidence/model-testset.jsonl`.
+- [x] 2B.4 Run every model on the phone: cold load, warm p50/p95 latency, peak RSS, tokens/s, valid-JSON rate, expression accuracy, react/no-react accuracy, temperature after the run.
+  - Check: `evidence/model-benchmark.md` with a comparison table; recommendation (model, size, license, requirements) presented to the owner. Benchmark files are removed from the phone afterwards.
+
+### Stage 3: Android project skeleton with native build — ✅ completed 2026-10-23 (see progress.md)
 Create a minimal Kotlin + NDK app that runs on the phone.
 
 - [ ] 3.1 `git init` the workspace root with a `.gitignore` for Gradle/Android/NDK outputs and model files; `third_party/` committed unchanged.
   - Check: `git status` is clean after the first commit, which the owner approves.
-- [ ] 3.2 Create Gradle project `android/` (Kotlin, single `app` module, Views + `SurfaceView`, minSdk = phone API or lower, ABI filter = phone ABI, pinned AGP/Gradle/NDK/CMake versions).
+- [x] 3.2 Create Gradle project `android/` (Kotlin, single `app` module, Views + `SurfaceView`, minSdk = phone API or lower, ABI filter = phone ABI, pinned AGP/Gradle/NDK/CMake versions).
   - Check: `.\gradlew.bat :app:assembleDebug` succeeds; versions listed in progress.md.
-- [ ] 3.3 Add `app/src/main/cpp/CMakeLists.txt` building a `chati_eyes` shared library with a single JNI `nativeVersion()` function.
+- [x] 3.3 Add `app/src/main/cpp/CMakeLists.txt` building a `chati_eyes` shared library with a single JNI `nativeVersion()` function.
   - Check: APK contains `lib/<abi>/libchati_eyes.so` (`unzip -l`); build log has no warnings promoted to errors.
-- [ ] 3.4 Fullscreen black activity with keep-screen-on while visible, showing the native version string in a debug overlay.
+- [x] 3.4 Fullscreen black activity with keep-screen-on while visible, showing the native version string in a debug overlay.
   - Check: unit/instrumentation build passes.
 
 **Stage 3 review:** phone check — install the debug APK, launch, screenshot shows the black screen and the native version string; logcat shows no crash.
 
-### Stage 4: Port the original engine and Monochrome Blue Eyes renderer
+### Stage 4: Port the original engine and Monochrome Blue Eyes renderer — ✅ completed 2026-10-23 (owner approved the look)
 Run the original animation on the Android surface.
 
-- [ ] 4.1 Add the v1.3.9 engine sources and the blue drawer (and its rendering dependency) to the CMake build from `third_party/` without editing them; platform shims live in `app/src/main/cpp/platform/`.
+- [x] 4.1 Add the v1.3.9 engine sources and the blue drawer (and its rendering dependency) to the CMake build from `third_party/` without editing them; platform shims live in `app/src/main/cpp/platform/`.
   - Check: native build compiles all upstream files for the phone ABI; `PATCHES.md` lists every shim and states "no upstream file modified" (or lists each patch).
-- [ ] 4.2 `[HARD]` Platform adapter: monotonic clock, seeded random, logging to logcat, replacing ESP/FreeRTOS calls identified in 2.6.
-  - Check: a native unit test (host or on-device) runs the engine update loop for 10 s with a fixed seed and produces the same state sequence twice.
-- [ ] 4.3 `[HARD]` Drawing adapter: route the blue drawer's output into an `ANativeWindow` buffer (scaling/letterboxing to the phone resolution, correct pixel format), as decided in 2.6.
-  - Check: a fixed neutral frame appears on the phone; screenshot matches the upstream example's look (color, shape) side by side.
-- [ ] 4.4 `[HARD]` Render thread and surface lifecycle: dedicated native render thread, display-paced updates, safe create/resize/destroy/recreate on rotation and background/foreground.
+- [x] 4.2 `[HARD]` Platform adapter per [port-audit.md](./evidence/port-audit.md): our own Android CMake targets (upstream files use `idf_component_register`), empty `esp_heap_caps.h` shim, `ESP_PLATFORM` undefined, `logger.cpp` compiled, C++20, LVGL at pin `02814ddb` with a minimal `lv_conf.h` (core + SW renderer only).
+  - Check: the engine RNG is not seedable (upstream statics), so the native test disables auto-blink and runs a scripted `set_expression` / `look_at` / `blink` / `update(dt)` sequence. The resulting expression and state transitions (not blink timings) are identical across two runs.
+- [x] 4.3 `[HARD]` Drawing adapter: RGB565 LVGL canvas → row-by-row copy into an `ANativeWindow` buffer (`WINDOW_FORMAT_RGB_565`, respecting `stride`), scaled/letterboxed to 1080×2400.
+  - Check: (a) `sizeof(lv_color_t)`, canvas stride, and byte order are recorded at the pin; (b) a known-color test pixel/area reads back correctly on the phone screenshot; (c) a 320×240 upstream-resolution reference frame and the phone frame are compared side by side (color, shape). The proposed canvas resolution is decided here.
+- [x] 4.4 `[HARD]` Render thread and surface lifecycle: dedicated native render thread, display-paced updates, safe create/resize/destroy/recreate on rotation and background/foreground.
   - Check: 20 rotate + background/foreground cycles with no crash or stale surface (logcat clean, PID unchanged).
-- [ ] 4.5 `[HARD]` Narrow JNI bridge: `init`, `surfaceCreated/Changed/Destroyed`, `setExpression(id, intensity)`, `lookAt(x, y)`, `blink()`, `release()`; thread-safe command queue into the render thread.
+- [x] 4.5 `[HARD]` Narrow JNI bridge: `init`, `surfaceCreated/Changed/Destroyed`, `setExpression(id, intensity)`, `lookAt(x, y)`, `blink()`, `release()`; thread-safe command queue into the render thread.
   - Check: Codex review clean; calling each JNI method from a debug button changes the eyes as expected.
-- [ ] 4.6 Deterministic idle: engine's own blink and subtle gaze behavior running with no external input.
+- [x] 4.6 Deterministic idle: engine's own blink and subtle gaze behavior running with no external input.
   - Check: 60 s recording/screens show blinking and idle gaze; no freezes.
-- [ ] 4.7 Baseline metrics: frame time p50/p95, long stalls, memory, CPU temperature over 10 min.
+- [x] 4.7 Baseline metrics: frame time p50/p95, long stalls, memory, CPU temperature over 10 min.
   - Check: numbers saved to `evidence/stage4-metrics.md` from `dumpsys gfxinfo/meminfo` and battery temperature.
 
 **Stage 4 review:** phone check — every v1.3.9 expression is shown once via the debug channel and screenshot-compared with upstream; idle runs 10 min smoothly; rotation and backgrounding survive. Owner looks at the phone and approves the look.
@@ -132,7 +146,7 @@ Run the original animation on the Android surface.
 ### Stage 5: Intent contract and debug input channel
 A safe, typed path from "something wants an expression" to the engine.
 
-- [ ] 5.1 `[HARD]` Kotlin `EyeIntent` schema (schema_version, expression enum mapped to the 2.7 identifiers, intensity 0–1, gaze x/y in [-1, 1], hold_ms bounded, session_id, expires_at_monotonic_ms) and a strict parser/validator (unknown fields/values rejected, NaN/out-of-range rejected or clamped per contract).
+- [ ] 5.1 `[HARD]` Kotlin `EyeIntent` schema (schema_version, `react` boolean — the model may decide **not** to react, which leaves the current animation untouched — expression enum mapped to the 2.7 identifiers `NEUTRAL, HAPPY, SAD, ANGRY, SURPRISED, SLEEPY, BORED, WINK_LEFT, WINK_RIGHT`, intensity 0–1, gaze x/y in [-1, 1], hold_ms bounded, session_id, expires_at_monotonic_ms) and a strict parser/validator (unknown fields/values rejected, NaN/out-of-range rejected or clamped per contract).
   - Check: JVM unit tests for valid, invalid enum, NaN, out-of-range, expired, oversized input — all pass.
 - [ ] 5.2 `[HARD]` `EyeController`: newest-valid-intent wins, minimum dwell, hold expiry back to idle, deterministic fallback when no intent; single owner thread feeding JNI.
   - Check: unit tests with a fake clock cover expiry, dwell, and fallback; Codex review clean.
@@ -146,13 +160,13 @@ A safe, typed path from "something wants an expression" to the engine.
 ### Stage 6: On-phone small model: sentence → intent
 The local model reads a sentence and chooses the eyes' reaction, fully offline.
 
-- [ ] 6.1 Research and shortlist 2–3 small instruction models that fit the Stage 1 memory budget and the chosen runtime (Qwen / SmolLM / Gemma small variants in GGUF are leads); record exact model card, revision, license, quantization, file size, language coverage (English + Hebrew).
+- [ ] 6.1 (Largely done in Stage 2B: recommended model **Gemma 3 1B it Q4_K_M**, single model; fallback Gemma QAT Q4_0 for speed. Confirm the owner's choice and license note here.) Research and shortlist 2–3 small instruction models that fit the Stage 1 memory budget and the chosen runtime (Qwen / SmolLM / Gemma small variants in GGUF are leads); record exact model card, revision, license, quantization, file size, language coverage (English + Hebrew).
   - Check: shortlist table in `evidence/model-shortlist.md`; owner approves which weights to download.
 - [ ] 6.2 Add the inference runtime (llama.cpp at a pinned tag, unless the audit says otherwise) to the NDK build for the phone ABI, with its license recorded.
   - Check: native build succeeds; APK size delta recorded.
 - [ ] 6.3 `[HARD]` Inference wrapper on its own thread: load model from app-private storage, single-request queue with cancellation, timeout, and memory-pressure release; never on the render or UI thread.
   - Check: loading a model pushed with `adb push` succeeds; cold-load time and resident memory logged.
-- [ ] 6.4 `[HARD]` Constrained output: prompt template + JSON grammar restricted to the `EyeIntent` fields and expression enum; output always goes through the 5.1 validator.
+- [ ] 6.4 `[HARD]` Constrained output: prompt v4 (`{"expression":…,"look":…}`, `NONE` = no reaction; `NEUTRAL`+`center` = no change) with its grammar; output always goes through the 5.1 validator. **Speed:** keep the system-prompt state cached; feed grammar-forced tokens (answer prefix and the `","look":"` / `"}` literals) as batched input instead of generating them; threads `-t 6 -tb 6`. Target ≤ 1.5 s p50 on the phone (Stage 2B measured 1.76 s with prefix prefill only; estimate ~1.2–1.4 s).
   - Check: 50 scripted sentences produce ≥ 95 % schema-valid outputs (target to confirm with owner after measuring); every output is validated, none bypass it.
 - [ ] 6.5 Wire `DEBUG_SAY` → inference → validator → `EyeController`; overlay shows sentence, raw model output, latency, and whether the applied intent came from the model or fallback.
   - Check: one sentence over ADB changes the eyes on the phone; overlay says `model`.

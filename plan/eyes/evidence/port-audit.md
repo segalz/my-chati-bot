@@ -6,7 +6,7 @@ Analysis route (owner's policy): Cline `ask_cline_workspace` on the upstream clo
 
 ## Result
 
-**Verdict: GO.** The engine and the Monochrome Blue drawer can compile **unmodified** for Android arm64 (C++20), provided:
+**Verdict: conditional GO** (final after the Stage 4 Android build/render proof; see Codex amendments at the end). The engine and the Monochrome Blue drawer can compile **unmodified** for Android arm64 (C++20), provided:
 
 1. an empty shim header `esp_heap_caps.h` is on the include path (included but never called by the engine and the drawer) ✔;
 2. `ESP_PLATFORM` stays undefined, so the logger uses `std::chrono::steady_clock` instead of `esp_log_timestamp()` ✔;
@@ -74,6 +74,13 @@ License texts: `third_party/LICENSES/` (espp, LVGL, fmt). Gap: the registry's `l
 
 Files analyzed: 9 complete (`expressive_eyes.hpp/.cpp`, `eye_drawer.hpp`, `monochrome_blue_drawer.hpp`, `expressive_eyes_example.cpp`, `base_component.hpp`, `logger.hpp/.cpp`, `format.hpp`) plus `logger_formatters.hpp` (includes only). Not read: `task.hpp` (example only), LVGL internals, `full_featured_drawer.hpp` (out of scope). Grok usage: 188,947 total tokens.
 
-## Review
+## Review — Codex (`codex/gpt-6-astra/max`, read-only, run `eyes-s2-review-codex-1`)
 
-Codex review of this decision record: see section below (pending until run).
+**Verdict: approve with changes.** Codex confirmed provenance (HEAD `792c56e1` = tag v1.3.9; fmt and LVGL submodule pins), the core API and enum claims, the ESP include locations, the logger guards, and C++20. It found no hidden unconditional ESP/FreeRTOS use and no Xtensa-only constructs. The required changes are accepted and applied as the **binding amendments** below; they override the record above where they differ.
+
+1. **GO is conditional.** It becomes final only after Stage 4 proves an Android compile, link, and render. The fmt and LVGL sources at the pins were not present in the review checkout (Status: blocked for their internals). The upstream `CMakeLists.txt` files use `idf_component_register`, so **we write our own Android CMake targets**. `logger.cpp` must be compiled: it defines `Logger::start_time_`.
+2. **Canvas and pixel path must be specified and measured in Stage 4.3 before acceptance:** `sizeof(lv_color_t)` at the pin; canvas stride and alignment (`lv_draw_buf` stride); RGB565 byte order vs `WINDOW_FORMAT_RGB_565` (both expected native little-endian 16-bit, to be confirmed with a known-color test pixel); row-by-row copy respecting `ANativeWindow_Buffer.stride`; whether a canvas without a physical flush driver needs an `lv_display`/`lv_tick` (to be determined from LVGL source at the pin).
+3. **Single engine owner.** Engine setters (`set_expression`, `look_at`, `blink`) and `update` have no lock, and the RNGs are shared statics. All engine calls, drawing, and buffer copy run on **one render thread**; other threads post commands through a queue. **Redraw quantization:** the accumulator resets to zero (`cpp:30-42`), so at 60 Hz updates the eyes redraw every 2nd frame (~30 Hz), and at `dt=0.016` every 3rd frame (~20.8 Hz). This is upstream behavior and is kept. **RNG** runs at `init` and after every blink even with auto-blink off, so deterministic tests compare state transitions, not exact blink timings.
+4. **Wording corrections.** Eyes are drawn as **rounded rectangles with `LV_RADIUS_CIRCLE`** (not an ellipse primitive). Eyebrow `height`/`color` are also ignored by this drawer. "Unmodified original" means **unmodified upstream source files**: a different canvas resolution keeps the code original but does not reproduce scaled pixels exactly, so Stage 4 compares against an upstream-resolution (320×240) reference render. The logger's `CONFIG_ESPP_LOGGER_ENABLE_CURSOR_COMMANDS` defaults off safely (`logger.hpp:72-79`).
+
+**Stage 2 conclusion:** conditional **GO** for porting the original engine and Monochrome Blue drawer; no owner-blocking issue found. Open item for the owner: LVGL exact pin (9.6.0-dev snapshot, chosen for fidelity) vs release v9.6.0. The default is the exact pin.

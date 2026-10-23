@@ -1,0 +1,100 @@
+{"id": "en01", "set": "dev", "text": "I just got the job I wanted!", "react": true, "expr": ["HAPPY", "SURPRISED"]}
+{"id": "en02", "set": "dev", "text": "My dog died this morning.", "react": true, "expr": ["SAD"]}
+{"id": "en03", "set": "dev", "text": "Someone scratched my car and drove away. I'm furious.", "react": true, "expr": ["ANGRY"]}
+{"id": "en04", "set": "dev", "text": "Wow, I did not expect that at all!", "react": true, "expr": ["SURPRISED"]}
+{"id": "en05", "set": "dev", "text": "I'm so tired, I can barely keep my eyes open.", "react": true, "expr": ["SLEEPY"]}
+{"id": "en06", "set": "dev", "text": "This lecture is so boring, nothing ever happens.", "react": true, "expr": ["BORED"]}
+{"id": "en07", "set": "dev", "text": "Good night, see you tomorrow.", "react": true, "expr": ["SLEEPY", "HAPPY"]}
+{"id": "en08", "set": "dev", "text": "Can you keep a secret? Wink at me.", "react": true, "expr": ["WINK_LEFT", "WINK_RIGHT"]}
+{"id": "en09", "set": "dev", "text": "Look to the left.", "react": true, "expr": ["NEUTRAL", "SURPRISED", "HAPPY"], "gaze": "left"}
+{"id": "en10", "set": "dev", "text": "Look at the right side of the room.", "react": true, "expr": ["NEUTRAL", "SURPRISED", "HAPPY"], "gaze": "right"}
+{"id": "en11", "set": "dev", "text": "Look up at the ceiling.", "react": true, "expr": ["NEUTRAL", "SURPRISED", "HAPPY"], "gaze": "up"}
+{"id": "en12", "set": "dev", "text": "Look down at the floor.", "react": true, "expr": ["NEUTRAL", "SAD", "SLEEPY"], "gaze": "down"}
+{"id": "en13", "set": "dev", "text": "Happy birthday to you!", "react": true, "expr": ["HAPPY"]}
+{"id": "en14", "set": "dev", "text": "I failed my driving test again.", "react": true, "expr": ["SAD"]}
+{"id": "en15", "set": "dev", "text": "Stop interrupting me, it's really annoying!", "react": true, "expr": ["ANGRY"]}
+{"id": "en16", "set": "dev", "text": "There's a huge spider right behind you!", "react": true, "expr": ["SURPRISED"]}
+{"id": "en17", "set": "dev", "text": "Time for a nap.", "react": true, "expr": ["SLEEPY"]}
+{"id": "en18", "set": "dev", "text": "Ugh, waiting in this line forever.", "react": true, "expr": ["BORED", "ANGRY"]}
+{"id": "en19", "set": "dev", "text": "You're the best little robot ever!", "react": true, "expr": ["HAPPY"]}
+{"id": "en20", "set": "dev", "text": "I miss my grandmother so much.", "react": true, "expr": ["SAD"]}
+{"id": "en21", "set": "dev", "text": "We won the game in the last second!", "react": true, "expr": ["HAPPY", "SURPRISED"]}
+{"id": "en22", "set": "dev", "text": "That's not fair, you cheated!", "react": true, "expr": ["ANGRY"]}
+{"id": "en23", "set": "dev", "text": "Guess what? I'm getting married!", "react": true, "expr": ["HAPPY", "SURPRISED"]}
+{"id": "en24", "set": "dev", "text": "I've been yawning all afternoon.", "react": true, "expr": ["SLEEPY", "BORED"]}
+{"id": "en25", "set": "dev", "text": "Just between us, I hid the cookies.", "react": true, "expr": ["WINK_LEFT", "WINK_RIGHT", "HAPPY"]}
+{"id": "en26", "set": "dev", "text": "Nobody came to my party.", "react": true, "expr": ["SAD"]}
+{"id": "en27", "set": "dev", "text": "Look over there, to your left, a bird!", "react": true, "expr": ["SURPRISED", "HAPPY", "NEUTRAL"], "gaze": "left"}
+{"id": "en28", "set": "dev", "text": "The weather is lovely today, let's go outside!", "react": true, "expr": ["HAPPY"]}
+{"id": "nr01", "set": "dev", "text": "The meeting is at three o'clock.", "react": false}
+{"id": "nr02", "set": "dev", "text": "Please add milk to the shopping list.", "react": false}
+{"id": "nr03", "set": "dev", "text": "The file is in the documents folder.", "react": false}
+{"id": "nr04", "set": "dev", "text": "Water boils at one hundred degrees Celsius.", "react": false}
+{"id": "nr05", "set": "dev", "text": "Set a timer for ten minutes.", "react": false}
+{"id": "nr06", "set": "dev", "text": "The bus number is forty two.", "react": false}
+{"id": "nr07", "set": "dev", "text": "I'm reading chapter five now.", "react": false}
+{"id": "nr08", "set": "dev", "text": "Turn on the kitchen light.", "react": false}
+{"id": "nr09", "set": "dev", "text": "The password has eight characters.", "react": false}
+{"id": "nr10", "set": "dev", "text": "Tomorrow is Tuesday.", "react": false}
+{"id": "nr11", "set": "dev", "text": "OK.", "react": false}
+{"id": "nr12", "set": "dev", "text": "Let me check the calendar.", "react": false}
+{"id": "ho01", "set": "holdout", "text": "I finally finished my thesis!", "react": true, "expr": ["HAPPY"]}
+{"id": "ho02", "set": "holdout", "text": "We're having pizza tonight, yay!", "react": true, "expr": ["HAPPY"]}
+{"id": "ho03", "set": "holdout", "text": "Thank you so much, you made my day.", "react": true, "expr": ["HAPPY"]}
+{"id": "ho04", "set": "holdout", "text": "My sister just had a baby girl!", "react": true, "expr": ["HAPPY", "SURPRISED"]}
+{"id": "ho05", "set": "holdout", "text": "I scored the winning goal today!", "react": true, "expr": ["HAPPY"]}
+{"id": "ho06", "set": "holdout", "text": "My grandfather is in the hospital.", "react": true, "expr": ["SAD"]}
+{"id": "ho07", "set": "holdout", "text": "I lost my wallet with all my photos.", "react": true, "expr": ["SAD"]}
+{"id": "ho08", "set": "holdout", "text": "My best friend forgot my birthday.", "react": true, "expr": ["SAD"]}
+{"id": "ho09", "set": "holdout", "text": "It's raining and I feel lonely.", "react": true, "expr": ["SAD"]}
+{"id": "ho10", "set": "holdout", "text": "The movie ending made me cry.", "react": true, "expr": ["SAD"]}
+{"id": "ho11", "set": "holdout", "text": "Someone ate my lunch from the fridge again!", "react": true, "expr": ["ANGRY"]}
+{"id": "ho12", "set": "holdout", "text": "I'm so annoyed, the internet keeps dropping.", "react": true, "expr": ["ANGRY"]}
+{"id": "ho13", "set": "holdout", "text": "He lied to me again and I'm furious.", "react": true, "expr": ["ANGRY"]}
+{"id": "ho14", "set": "holdout", "text": "Don't you dare touch my stuff!", "react": true, "expr": ["ANGRY"]}
+{"id": "ho15", "set": "holdout", "text": "The car in front of me cut me off, unbelievable.", "react": true, "expr": ["ANGRY", "SURPRISED"]}
+{"id": "ho16", "set": "holdout", "text": "No way, you built this yourself?", "react": true, "expr": ["SURPRISED"]}
+{"id": "ho17", "set": "holdout", "text": "The lights just went out!", "react": true, "expr": ["SURPRISED"]}
+{"id": "ho18", "set": "holdout", "text": "Whoa, that was a loud bang!", "react": true, "expr": ["SURPRISED"]}
+{"id": "ho19", "set": "holdout", "text": "I can't believe it snowed in May!", "react": true, "expr": ["SURPRISED"]}
+{"id": "ho20", "set": "holdout", "text": "Surprise! We threw you a party!", "react": true, "expr": ["SURPRISED", "HAPPY"]}
+{"id": "ho21", "set": "holdout", "text": "I stayed up all night, I need sleep.", "react": true, "expr": ["SLEEPY"]}
+{"id": "ho22", "set": "holdout", "text": "It's late, let's go to bed.", "react": true, "expr": ["SLEEPY"]}
+{"id": "ho23", "set": "holdout", "text": "I'm so drowsy after that big lunch.", "react": true, "expr": ["SLEEPY"]}
+{"id": "ho24", "set": "holdout", "text": "Wake me up in an hour, I'm exhausted.", "react": true, "expr": ["SLEEPY"]}
+{"id": "ho25", "set": "holdout", "text": "Another rainy Sunday with nothing to do.", "react": true, "expr": ["BORED", "SAD"]}
+{"id": "ho26", "set": "holdout", "text": "This meeting could have been an email.", "react": true, "expr": ["BORED", "ANGRY"]}
+{"id": "ho27", "set": "holdout", "text": "I've watched everything on TV already, so dull.", "react": true, "expr": ["BORED"]}
+{"id": "ho28", "set": "holdout", "text": "Waiting for the download is taking forever.", "react": true, "expr": ["BORED", "ANGRY"]}
+{"id": "ho29", "set": "holdout", "text": "Don't tell anyone, it's our little secret.", "react": true, "expr": ["WINK_LEFT", "WINK_RIGHT"]}
+{"id": "ho30", "set": "holdout", "text": "Give me a wink if you agree.", "react": true, "expr": ["WINK_LEFT", "WINK_RIGHT"]}
+{"id": "ho31", "set": "holdout", "text": "I'm only joking, you know that.", "react": true, "expr": ["WINK_LEFT", "WINK_RIGHT", "HAPPY"]}
+{"id": "ho32", "set": "holdout", "text": "Look left, someone is at the door.", "react": true, "expr": ["NEUTRAL", "SURPRISED", "HAPPY"], "gaze": "left"}
+{"id": "ho33", "set": "holdout", "text": "Turn your eyes to the right.", "react": true, "expr": ["NEUTRAL", "SURPRISED", "HAPPY"], "gaze": "right"}
+{"id": "ho34", "set": "holdout", "text": "Can you look up for me?", "react": true, "expr": ["NEUTRAL", "SURPRISED", "HAPPY"], "gaze": "up"}
+{"id": "ho35", "set": "holdout", "text": "Look down at my hands.", "react": true, "expr": ["NEUTRAL", "SURPRISED", "HAPPY"], "gaze": "down"}
+{"id": "ho36", "set": "holdout", "text": "There's a cat on your right!", "react": true, "expr": ["SURPRISED", "HAPPY", "NEUTRAL"], "gaze": "right"}
+{"id": "ho37", "set": "holdout", "text": "Peek to the left side.", "react": true, "expr": ["NEUTRAL", "SURPRISED", "HAPPY"], "gaze": "left"}
+{"id": "ho38", "set": "holdout", "text": "Check the floor below you.", "react": true, "expr": ["NEUTRAL", "SURPRISED"], "gaze": "down"}
+{"id": "ho39", "set": "holdout", "text": "Good morning, sunshine!", "react": true, "expr": ["HAPPY"]}
+{"id": "ho40", "set": "holdout", "text": "Goodbye, see you later!", "react": true, "expr": ["HAPPY", "NEUTRAL", "SAD"]}
+{"id": "hn01", "set": "holdout", "text": "The store opens at nine.", "react": false}
+{"id": "hn02", "set": "holdout", "text": "Add eggs and bread to the list.", "react": false}
+{"id": "hn03", "set": "holdout", "text": "My phone number ends with four.", "react": false}
+{"id": "hn04", "set": "holdout", "text": "The report is due on Friday.", "react": false}
+{"id": "hn05", "set": "holdout", "text": "Remind me to call the plumber.", "react": false}
+{"id": "hn06", "set": "holdout", "text": "The capital of France is Paris.", "react": false}
+{"id": "hn07", "set": "holdout", "text": "It is twenty degrees outside.", "react": false}
+{"id": "hn08", "set": "holdout", "text": "Move the chair next to the desk.", "react": false}
+{"id": "hn09", "set": "holdout", "text": "I parked on the second floor.", "react": false}
+{"id": "hn10", "set": "holdout", "text": "The meeting moved to room twelve.", "react": false}
+{"id": "hn11", "set": "holdout", "text": "Please turn the volume down a little.", "react": false}
+{"id": "hn12", "set": "holdout", "text": "The laundry is in the dryer.", "react": false}
+{"id": "hn13", "set": "holdout", "text": "My next appointment is on Monday.", "react": false}
+{"id": "hn14", "set": "holdout", "text": "Send the file to the printer.", "react": false}
+{"id": "hn15", "set": "holdout", "text": "The recipe needs two cups of flour.", "react": false}
+{"id": "hn16", "set": "holdout", "text": "I'll be working from home tomorrow.", "react": false}
+{"id": "hn17", "set": "holdout", "text": "Fine.", "react": false}
+{"id": "hn18", "set": "holdout", "text": "Right, the blue folder.", "react": false}
+{"id": "hn19", "set": "holdout", "text": "Let me think about the schedule.", "react": false}
+{"id": "hn20", "set": "holdout", "text": "Read me the next item.", "react": false}

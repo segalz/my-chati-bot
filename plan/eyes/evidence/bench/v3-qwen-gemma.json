@@ -1,0 +1,2726 @@
+[
+ {
+  "model": "Qwen3.5-0.8B-Q4_K_M.gguf",
+  "prompt": "v3",
+  "threads": 6,
+  "ctx": 1024,
+  "load_s": 5.73,
+  "first_request_ms": 5484,
+  "peak_rss_mb": 1280,
+  "rss_mb": 1248,
+  "temp_before": [
+   47.0,
+   27.3
+  ],
+  "temp_after": [
+   47.0,
+   27.9
+  ],
+  "results": [
+   {
+    "id": "en01",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 875,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 489.834,
+     "prompt_per_token_ms": 22.26518181818182,
+     "prompt_per_second": 44.91317466733628,
+     "predicted_n": 5,
+     "predicted_ms": 349.531,
+     "predicted_per_token_ms": 87.38275,
+     "predicted_per_second": 11.4439062629638
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en02",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 797,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 20,
+     "prompt_ms": 425.597,
+     "prompt_per_token_ms": 21.27985,
+     "prompt_per_second": 46.99281244933587,
+     "predicted_n": 5,
+     "predicted_ms": 352.041,
+     "predicted_per_token_ms": 88.01025,
+     "predicted_per_second": 11.362312912416451
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en03",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1219,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 26,
+     "prompt_ms": 659.957,
+     "prompt_per_token_ms": 25.382961538461537,
+     "prompt_per_second": 39.39650613600583,
+     "predicted_n": 5,
+     "predicted_ms": 532.672,
+     "predicted_per_token_ms": 133.168,
+     "predicted_per_second": 7.509311546317433
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en04",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1453,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 24,
+     "prompt_ms": 1027.6,
+     "prompt_per_token_ms": 42.81666666666666,
+     "prompt_per_second": 23.35539120280265,
+     "predicted_n": 5,
+     "predicted_ms": 383.227,
+     "predicted_per_token_ms": 95.80675,
+     "predicted_per_second": 10.43767792979096
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en05",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1328,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 27,
+     "prompt_ms": 900.134,
+     "prompt_per_token_ms": 33.3382962962963,
+     "prompt_per_second": 29.99553399827137,
+     "predicted_n": 5,
+     "predicted_ms": 396.725,
+     "predicted_per_token_ms": 99.18125,
+     "predicted_per_second": 10.082550885374
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en06",
+    "set": "main",
+    "output": "BORED center",
+    "intent": {
+     "expression": "BORED",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1157,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 24,
+     "prompt_ms": 730.309,
+     "prompt_per_token_ms": 30.429541666666665,
+     "prompt_per_second": 32.8628019098765,
+     "predicted_n": 4,
+     "predicted_ms": 386.633,
+     "predicted_per_token_ms": 128.87766666666667,
+     "predicted_per_second": 7.759296283555724
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en07",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 937,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 553.593,
+     "prompt_per_token_ms": 26.361571428571427,
+     "prompt_per_second": 37.93400566842428,
+     "predicted_n": 5,
+     "predicted_ms": 354.76,
+     "predicted_per_token_ms": 88.69,
+     "predicted_per_second": 11.275228323373549
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en08",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1063,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 25,
+     "prompt_ms": 562.088,
+     "prompt_per_token_ms": 22.48352,
+     "prompt_per_second": 44.47702139166821,
+     "predicted_n": 5,
+     "predicted_ms": 462.701,
+     "predicted_per_token_ms": 115.67525,
+     "predicted_per_second": 8.64489162547736
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en09",
+    "set": "main",
+    "output": "HAPPY left",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "left"
+    },
+    "wall_ms": 953,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 19,
+     "prompt_ms": 555.699,
+     "prompt_per_token_ms": 29.24731578947368,
+     "prompt_per_second": 34.191171839431064,
+     "predicted_n": 5,
+     "predicted_ms": 364.811,
+     "predicted_per_token_ms": 91.20275,
+     "predicted_per_second": 10.964581660092486
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true,
+    "gaze_ok": true
+   },
+   {
+    "id": "en10",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1031,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 23,
+     "prompt_ms": 605.64,
+     "prompt_per_token_ms": 26.332173913043476,
+     "prompt_per_second": 37.97635559078,
+     "predicted_n": 5,
+     "predicted_ms": 396.034,
+     "predicted_per_token_ms": 99.0085,
+     "predicted_per_second": 10.100142917022277
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true,
+    "gaze_ok": true
+   },
+   {
+    "id": "en11",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 828,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 20,
+     "prompt_ms": 454.438,
+     "prompt_per_token_ms": 22.721899999999998,
+     "prompt_per_second": 44.01040405951967,
+     "predicted_n": 5,
+     "predicted_ms": 352.061,
+     "predicted_per_token_ms": 88.01525,
+     "predicted_per_second": 11.361667438313248
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true,
+    "gaze_ok": false
+   },
+   {
+    "id": "en12",
+    "set": "main",
+    "output": "HAPPY down",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 1031,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 20,
+     "prompt_ms": 537.484,
+     "prompt_per_token_ms": 26.874200000000002,
+     "prompt_per_second": 37.21040998429721,
+     "predicted_n": 5,
+     "predicted_ms": 468.261,
+     "predicted_per_token_ms": 117.06525,
+     "predicted_per_second": 8.54224460290308
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false,
+    "gaze_ok": true
+   },
+   {
+    "id": "en13",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 907,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 19,
+     "prompt_ms": 517.163,
+     "prompt_per_token_ms": 27.219105263157896,
+     "prompt_per_second": 36.73890050138931,
+     "predicted_n": 5,
+     "predicted_ms": 351.432,
+     "predicted_per_token_ms": 87.858,
+     "predicted_per_second": 11.382002777208678
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en14",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 828,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 463.446,
+     "prompt_per_token_ms": 22.068857142857144,
+     "prompt_per_second": 45.31272251783379,
+     "predicted_n": 5,
+     "predicted_ms": 349.571,
+     "predicted_per_token_ms": 87.39275,
+     "predicted_per_second": 11.442596782913913
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en15",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1172,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 24,
+     "prompt_ms": 658.056,
+     "prompt_per_token_ms": 27.419,
+     "prompt_per_second": 36.471060213720406,
+     "predicted_n": 5,
+     "predicted_ms": 484.224,
+     "predicted_per_token_ms": 121.056,
+     "predicted_per_second": 8.260639703938674
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en16",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 937,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 23,
+     "prompt_ms": 539.332,
+     "prompt_per_token_ms": 23.449217391304348,
+     "prompt_per_second": 42.64534646562785,
+     "predicted_n": 5,
+     "predicted_ms": 354.094,
+     "predicted_per_token_ms": 88.5235,
+     "predicted_per_second": 11.296435409806437
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en17",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 875,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 19,
+     "prompt_ms": 491.621,
+     "prompt_per_token_ms": 25.87478947368421,
+     "prompt_per_second": 38.647657443437126,
+     "predicted_n": 5,
+     "predicted_ms": 351.685,
+     "predicted_per_token_ms": 87.92125,
+     "predicted_per_second": 11.373814635255982
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en18",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1000,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 23,
+     "prompt_ms": 598.758,
+     "prompt_per_token_ms": 26.03295652173913,
+     "prompt_per_second": 38.41284792854542,
+     "predicted_n": 5,
+     "predicted_ms": 378.279,
+     "predicted_per_token_ms": 94.56975,
+     "predicted_per_second": 10.574205811054803
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en19",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 891,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 472.054,
+     "prompt_per_token_ms": 21.456999999999997,
+     "prompt_per_second": 46.60483758214102,
+     "predicted_n": 5,
+     "predicted_ms": 376.603,
+     "predicted_per_token_ms": 94.15075,
+     "predicted_per_second": 10.621264302196211
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en20",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 937,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 530.486,
+     "prompt_per_token_ms": 25.261238095238095,
+     "prompt_per_second": 39.58634158111619,
+     "predicted_n": 5,
+     "predicted_ms": 386.694,
+     "predicted_per_token_ms": 96.6735,
+     "predicted_per_second": 10.344096365601741
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en21",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 907,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 23,
+     "prompt_ms": 537.52,
+     "prompt_per_token_ms": 23.370434782608694,
+     "prompt_per_second": 42.78910552165501,
+     "predicted_n": 5,
+     "predicted_ms": 353.351,
+     "predicted_per_token_ms": 88.33775,
+     "predicted_per_second": 11.320188707545755
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en22",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1000,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 490.596,
+     "prompt_per_token_ms": 22.299818181818182,
+     "prompt_per_second": 44.84341494834854,
+     "predicted_n": 5,
+     "predicted_ms": 483.817,
+     "predicted_per_token_ms": 120.95425,
+     "predicted_per_second": 8.26758877840175
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en23",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 922,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 514.113,
+     "prompt_per_token_ms": 23.36877272727273,
+     "prompt_per_second": 42.792148807752376,
+     "predicted_n": 5,
+     "predicted_ms": 361.518,
+     "predicted_per_token_ms": 90.3795,
+     "predicted_per_second": 11.064455988360193
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en24",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 859,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 473.753,
+     "prompt_per_token_ms": 21.53422727272727,
+     "prompt_per_second": 46.43770065835995,
+     "predicted_n": 5,
+     "predicted_ms": 359.057,
+     "predicted_per_token_ms": 89.76425,
+     "predicted_per_second": 11.140292488379282
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en25",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 969,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 23,
+     "prompt_ms": 591.517,
+     "prompt_per_token_ms": 25.718130434782612,
+     "prompt_per_second": 38.88307521170143,
+     "predicted_n": 5,
+     "predicted_ms": 357.904,
+     "predicted_per_token_ms": 89.476,
+     "predicted_per_second": 11.176181322365775
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en26",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 968,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 20,
+     "prompt_ms": 549.856,
+     "prompt_per_token_ms": 27.4928,
+     "prompt_per_second": 36.37315951812838,
+     "predicted_n": 5,
+     "predicted_ms": 392.082,
+     "predicted_per_token_ms": 98.0205,
+     "predicted_per_second": 10.201947551787637
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en27",
+    "set": "main",
+    "output": "HAPPY left",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "left"
+    },
+    "wall_ms": 1063,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 25,
+     "prompt_ms": 540.127,
+     "prompt_per_token_ms": 21.605079999999997,
+     "prompt_per_second": 46.285410653420406,
+     "predicted_n": 5,
+     "predicted_ms": 482.795,
+     "predicted_per_token_ms": 120.69875,
+     "predicted_per_second": 8.285089945007716
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true,
+    "gaze_ok": true
+   },
+   {
+    "id": "en28",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1062,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 25,
+     "prompt_ms": 640.312,
+     "prompt_per_token_ms": 25.61248,
+     "prompt_per_second": 39.04346631017379,
+     "predicted_n": 5,
+     "predicted_ms": 393.242,
+     "predicted_per_token_ms": 98.3105,
+     "predicted_per_second": 10.171853464278993
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "nr01",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 969,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 580.009,
+     "prompt_per_token_ms": 26.364045454545455,
+     "prompt_per_second": 37.93044590687386,
+     "predicted_n": 5,
+     "predicted_ms": 372.83,
+     "predicted_per_token_ms": 93.2075,
+     "predicted_per_second": 10.728750368800794
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr02",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 985,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 606.645,
+     "prompt_per_token_ms": 27.574772727272727,
+     "prompt_per_second": 36.26503144343067,
+     "predicted_n": 5,
+     "predicted_ms": 359.809,
+     "predicted_per_token_ms": 89.95225,
+     "predicted_per_second": 11.117009302157532
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr03",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 921,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 511.022,
+     "prompt_per_token_ms": 23.228272727272728,
+     "prompt_per_second": 43.050984106359415,
+     "predicted_n": 5,
+     "predicted_ms": 357.092,
+     "predicted_per_token_ms": 89.273,
+     "predicted_per_second": 11.201595107143257
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr04",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 860,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 486.52,
+     "prompt_per_token_ms": 22.114545454545453,
+     "prompt_per_second": 45.219107128175615,
+     "predicted_n": 5,
+     "predicted_ms": 363.996,
+     "predicted_per_token_ms": 90.999,
+     "predicted_per_second": 10.989131748700535
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr05",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 937,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 542.43,
+     "prompt_per_token_ms": 25.83,
+     "prompt_per_second": 38.71467286101433,
+     "predicted_n": 5,
+     "predicted_ms": 367.536,
+     "predicted_per_token_ms": 91.884,
+     "predicted_per_second": 10.883287623525314
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr06",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 953,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 571.506,
+     "prompt_per_token_ms": 27.21457142857143,
+     "prompt_per_second": 36.745021049647775,
+     "predicted_n": 5,
+     "predicted_ms": 375.445,
+     "predicted_per_token_ms": 93.86125,
+     "predicted_per_second": 10.654023891648578
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr07",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 954,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 535.875,
+     "prompt_per_token_ms": 25.517857142857142,
+     "prompt_per_second": 39.18824352694192,
+     "predicted_n": 5,
+     "predicted_ms": 379.35,
+     "predicted_per_token_ms": 94.8375,
+     "predicted_per_second": 10.544352181362857
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr08",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 890,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 20,
+     "prompt_ms": 478.273,
+     "prompt_per_token_ms": 23.91365,
+     "prompt_per_second": 41.81712118392633,
+     "predicted_n": 5,
+     "predicted_ms": 374.857,
+     "predicted_per_token_ms": 93.71425,
+     "predicted_per_second": 10.670735773908449
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr09",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 891,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 20,
+     "prompt_ms": 484.629,
+     "prompt_per_token_ms": 24.231450000000002,
+     "prompt_per_second": 41.26868181639976,
+     "predicted_n": 5,
+     "predicted_ms": 377.016,
+     "predicted_per_token_ms": 94.254,
+     "predicted_per_second": 10.609629299552273
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr10",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 984,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 18,
+     "prompt_ms": 565.529,
+     "prompt_per_token_ms": 31.418277777777778,
+     "prompt_per_second": 31.82860649056017,
+     "predicted_n": 5,
+     "predicted_ms": 402.406,
+     "predicted_per_token_ms": 100.6015,
+     "predicted_per_second": 9.940209639021287
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr11",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 860,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 16,
+     "prompt_ms": 435.308,
+     "prompt_per_token_ms": 27.20675,
+     "prompt_per_second": 36.75558455162781,
+     "predicted_n": 5,
+     "predicted_ms": 392.435,
+     "predicted_per_token_ms": 98.10875,
+     "predicted_per_second": 10.192770777326182
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr12",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 968,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 20,
+     "prompt_ms": 556.654,
+     "prompt_per_token_ms": 27.8327,
+     "prompt_per_second": 35.92896125780108,
+     "predicted_n": 5,
+     "predicted_ms": 391.019,
+     "predicted_per_token_ms": 97.75475,
+     "predicted_per_second": 10.22968193361448
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "rt01",
+    "set": "robust",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1047,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 25,
+     "prompt_ms": 625.103,
+     "prompt_per_token_ms": 25.004119999999997,
+     "prompt_per_second": 39.9934090861826,
+     "predicted_n": 5,
+     "predicted_ms": 380.732,
+     "predicted_per_token_ms": 95.183,
+     "predicted_per_second": 10.506077765987623
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "rt02",
+    "set": "robust",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1000,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 24,
+     "prompt_ms": 565.574,
+     "prompt_per_token_ms": 23.565583333333333,
+     "prompt_per_second": 42.434765388790865,
+     "predicted_n": 5,
+     "predicted_ms": 405.761,
+     "predicted_per_token_ms": 101.44025,
+     "predicted_per_second": 9.858019868839046
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "rt03",
+    "set": "robust",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1063,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 638.786,
+     "prompt_per_token_ms": 30.41838095238095,
+     "prompt_per_second": 32.87485949911238,
+     "predicted_n": 5,
+     "predicted_ms": 385.424,
+     "predicted_per_token_ms": 96.356,
+     "predicted_per_second": 10.378180912449666
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "rt04",
+    "set": "robust",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1515,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 982.19,
+     "prompt_per_token_ms": 46.77095238095238,
+     "prompt_per_second": 21.3807919038068,
+     "predicted_n": 5,
+     "predicted_ms": 502.598,
+     "predicted_per_token_ms": 125.6495,
+     "predicted_per_second": 7.958646870859016
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "rt05",
+    "set": "robust",
+    "output": "SAD center",
+    "intent": {
+     "expression": "SAD",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1094,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 631.578,
+     "prompt_per_token_ms": 28.70809090909091,
+     "prompt_per_second": 34.83338558341171,
+     "predicted_n": 4,
+     "predicted_ms": 421.835,
+     "predicted_per_token_ms": 140.61166666666665,
+     "predicted_per_second": 7.111785413728116
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "rt06",
+    "set": "robust",
+    "output": "HAPPY left",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "left"
+    },
+    "wall_ms": 1063,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 20,
+     "prompt_ms": 497.089,
+     "prompt_per_token_ms": 24.85445,
+     "prompt_per_second": 40.23424376721272,
+     "predicted_n": 5,
+     "predicted_ms": 507.845,
+     "predicted_per_token_ms": 126.96125,
+     "predicted_per_second": 7.876418986107965
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true,
+    "gaze_ok": true
+   },
+   {
+    "id": "rt07",
+    "set": "robust",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1062,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 24,
+     "prompt_ms": 623.374,
+     "prompt_per_token_ms": 25.973916666666668,
+     "prompt_per_second": 38.50016202151517,
+     "predicted_n": 5,
+     "predicted_ms": 389.023,
+     "predicted_per_token_ms": 97.25575,
+     "predicted_per_second": 10.282168406495245
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "rt08",
+    "set": "robust",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1031,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 25,
+     "prompt_ms": 593.787,
+     "prompt_per_token_ms": 23.75148,
+     "prompt_per_second": 42.10263949867545,
+     "predicted_n": 5,
+     "predicted_ms": 395.067,
+     "predicted_per_token_ms": 98.76675,
+     "predicted_per_second": 10.124864896334039
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "he01",
+    "set": "hebrew",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1203,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 27,
+     "prompt_ms": 645.125,
+     "prompt_per_token_ms": 23.89351851851852,
+     "prompt_per_second": 41.852354194923464,
+     "predicted_n": 5,
+     "predicted_ms": 524.191,
+     "predicted_per_token_ms": 131.04775,
+     "predicted_per_second": 7.6308063282276875
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "he02",
+    "set": "hebrew",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1266,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 684.267,
+     "prompt_per_token_ms": 31.103045454545455,
+     "prompt_per_second": 32.15119244388521,
+     "predicted_n": 5,
+     "predicted_ms": 516.59,
+     "predicted_per_token_ms": 129.1475,
+     "predicted_per_second": 7.743084457693722
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "he03",
+    "set": "hebrew",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1344,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 26,
+     "prompt_ms": 766.271,
+     "prompt_per_token_ms": 29.471961538461535,
+     "prompt_per_second": 33.93055459491485,
+     "predicted_n": 5,
+     "predicted_ms": 536.265,
+     "predicted_per_token_ms": 134.06625,
+     "predicted_per_second": 7.458998815883938
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "he04",
+    "set": "hebrew",
+    "output": "HAPPY left",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "left"
+    },
+    "wall_ms": 1250,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 640.958,
+     "prompt_per_token_ms": 30.521809523809523,
+     "prompt_per_second": 32.76345720000374,
+     "predicted_n": 5,
+     "predicted_ms": 548.664,
+     "predicted_per_token_ms": 137.166,
+     "predicted_per_second": 7.290436405523235
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true,
+    "gaze_ok": true
+   },
+   {
+    "id": "he05",
+    "set": "hebrew",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1000,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 22,
+     "prompt_ms": 555.499,
+     "prompt_per_token_ms": 25.249954545454546,
+     "prompt_per_second": 39.60403169042608,
+     "predicted_n": 5,
+     "predicted_ms": 399.261,
+     "predicted_per_token_ms": 99.81525,
+     "predicted_per_second": 10.018509195739128
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "he06",
+    "set": "hebrew",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 969,
+    "timings": {
+     "cache_n": 211,
+     "prompt_n": 21,
+     "prompt_ms": 536.774,
+     "prompt_per_token_ms": 25.560666666666666,
+     "prompt_per_second": 39.122610260556584,
+     "predicted_n": 5,
+     "predicted_ms": 382.58,
+     "predicted_per_token_ms": 95.645,
+     "predicted_per_second": 10.455329604265774
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   }
+  ]
+ },
+ {
+  "model": "gemma-3-1b-it-Q4_K_M.gguf",
+  "prompt": "v3",
+  "threads": 6,
+  "ctx": 1024,
+  "load_s": 4.31,
+  "first_request_ms": 8219,
+  "peak_rss_mb": 1374,
+  "rss_mb": 1331,
+  "temp_before": [
+   47.0,
+   28.7
+  ],
+  "temp_after": [
+   47.0,
+   29.7
+  ],
+  "results": [
+   {
+    "id": "en01",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1078,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 13,
+     "prompt_ms": 538.06,
+     "prompt_per_token_ms": 41.389230769230764,
+     "prompt_per_second": 24.160874251942165,
+     "predicted_n": 3,
+     "predicted_ms": 511.946,
+     "predicted_per_token_ms": 255.973,
+     "predicted_per_second": 3.9066620307610567
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en02",
+    "set": "main",
+    "output": "SAD center",
+    "intent": {
+     "expression": "SAD",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 796,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 11,
+     "prompt_ms": 442.309,
+     "prompt_per_token_ms": 40.20990909090909,
+     "prompt_per_second": 24.869491690198483,
+     "predicted_n": 4,
+     "predicted_ms": 304.891,
+     "predicted_per_token_ms": 101.63033333333334,
+     "predicted_per_second": 9.839582014556022
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en03",
+    "set": "main",
+    "output": "WINK_RIGHT center",
+    "intent": {
+     "expression": "WINK_RIGHT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1375,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 18,
+     "prompt_ms": 658.738,
+     "prompt_per_token_ms": 36.59655555555556,
+     "prompt_per_second": 27.32497593884063,
+     "predicted_n": 6,
+     "predicted_ms": 673.012,
+     "predicted_per_token_ms": 134.6024,
+     "predicted_per_second": 7.42928803646889
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en04",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1110,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 15,
+     "prompt_ms": 761.524,
+     "prompt_per_token_ms": 50.76826666666667,
+     "prompt_per_second": 19.697343747537833,
+     "predicted_n": 3,
+     "predicted_ms": 322.382,
+     "predicted_per_token_ms": 161.191,
+     "predicted_per_second": 6.203820312548467
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en05",
+    "set": "main",
+    "output": "SLEEPY down",
+    "intent": {
+     "expression": "SLEEPY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 1187,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 19,
+     "prompt_ms": 704.379,
+     "prompt_per_token_ms": 37.07257894736842,
+     "prompt_per_second": 26.97411478763563,
+     "predicted_n": 5,
+     "predicted_ms": 410.884,
+     "predicted_per_token_ms": 102.721,
+     "predicted_per_second": 9.73510771896691
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en06",
+    "set": "main",
+    "output": "SAD center",
+    "intent": {
+     "expression": "SAD",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1141,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 15,
+     "prompt_ms": 812.704,
+     "prompt_per_token_ms": 54.18026666666666,
+     "prompt_per_second": 18.456904358782534,
+     "predicted_n": 4,
+     "predicted_ms": 296.087,
+     "predicted_per_token_ms": 98.69566666666667,
+     "predicted_per_second": 10.132157102473261
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en07",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1031,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 12,
+     "prompt_ms": 703.221,
+     "prompt_per_token_ms": 58.60175,
+     "prompt_per_second": 17.064336815880072,
+     "predicted_n": 3,
+     "predicted_ms": 311.863,
+     "predicted_per_token_ms": 155.9315,
+     "predicted_per_second": 6.413072406794009
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en08",
+    "set": "main",
+    "output": "WINK_LEFT center",
+    "intent": {
+     "expression": "WINK_LEFT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1406,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 15,
+     "prompt_ms": 831.534,
+     "prompt_per_token_ms": 55.4356,
+     "prompt_per_second": 18.038949700192656,
+     "predicted_n": 6,
+     "predicted_ms": 527.672,
+     "predicted_per_token_ms": 105.5344,
+     "predicted_per_second": 9.475583316908988
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en09",
+    "set": "main",
+    "output": "WINK_LEFT center",
+    "intent": {
+     "expression": "WINK_LEFT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1032,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 10,
+     "prompt_ms": 484.404,
+     "prompt_per_token_ms": 48.4404,
+     "prompt_per_second": 20.64392531853577,
+     "predicted_n": 6,
+     "predicted_ms": 513.712,
+     "predicted_per_token_ms": 102.7424,
+     "predicted_per_second": 9.733080013704177
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false,
+    "gaze_ok": false
+   },
+   {
+    "id": "en10",
+    "set": "main",
+    "output": "WINK_RIGHT center",
+    "intent": {
+     "expression": "WINK_RIGHT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1047,
+    "timings": {
+     "cache_n": 213,
+     "prompt_n": 13,
+     "prompt_ms": 502.039,
+     "prompt_per_token_ms": 38.61838461538461,
+     "prompt_per_second": 25.894402626090802,
+     "predicted_n": 6,
+     "predicted_ms": 539.803,
+     "predicted_per_token_ms": 107.9606,
+     "predicted_per_second": 9.262638406974396
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false,
+    "gaze_ok": false
+   },
+   {
+    "id": "en11",
+    "set": "main",
+    "output": "NEUTRAL up",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 1109,
+    "timings": {
+     "cache_n": 213,
+     "prompt_n": 10,
+     "prompt_ms": 753.659,
+     "prompt_per_token_ms": 75.3659,
+     "prompt_per_second": 13.26860025555324,
+     "predicted_n": 4,
+     "predicted_ms": 303.308,
+     "predicted_per_token_ms": 101.10266666666666,
+     "predicted_per_second": 9.890935946298812
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true,
+    "gaze_ok": true
+   },
+   {
+    "id": "en12",
+    "set": "main",
+    "output": "NONE down",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": false,
+     "look": "down"
+    },
+    "wall_ms": 875,
+    "timings": {
+     "cache_n": 213,
+     "prompt_n": 10,
+     "prompt_ms": 618.529,
+     "prompt_per_token_ms": 61.8529,
+     "prompt_per_second": 16.16739069631335,
+     "predicted_n": 3,
+     "predicted_ms": 242.877,
+     "predicted_per_token_ms": 121.4385,
+     "predicted_per_second": 8.23462081629796
+    },
+    "valid": true,
+    "react_ok": false,
+    "expr_ok": false,
+    "gaze_ok": false
+   },
+   {
+    "id": "en13",
+    "set": "main",
+    "output": "HAPPY up",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 844,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 10,
+     "prompt_ms": 418.781,
+     "prompt_per_token_ms": 41.8781,
+     "prompt_per_second": 23.87882926875861,
+     "predicted_n": 3,
+     "predicted_ms": 375.235,
+     "predicted_per_token_ms": 187.6175,
+     "predicted_per_second": 5.329993204258664
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en14",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 937,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 12,
+     "prompt_ms": 563.186,
+     "prompt_per_token_ms": 46.93216666666667,
+     "prompt_per_second": 21.307347838902245,
+     "predicted_n": 3,
+     "predicted_ms": 325.132,
+     "predicted_per_token_ms": 162.566,
+     "predicted_per_second": 6.15134776029428
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en15",
+    "set": "main",
+    "output": "ANGRY down",
+    "intent": {
+     "expression": "ANGRY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 1328,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 15,
+     "prompt_ms": 856.062,
+     "prompt_per_token_ms": 57.0708,
+     "prompt_per_second": 17.5220953622518,
+     "predicted_n": 5,
+     "predicted_ms": 429.455,
+     "predicted_per_token_ms": 107.36375,
+     "predicted_per_second": 9.314130700539055
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en16",
+    "set": "main",
+    "output": "WINK_RIGHT center",
+    "intent": {
+     "expression": "WINK_RIGHT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1485,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 15,
+     "prompt_ms": 716.642,
+     "prompt_per_token_ms": 47.776133333333334,
+     "prompt_per_second": 20.93095297233486,
+     "predicted_n": 6,
+     "predicted_ms": 755.019,
+     "predicted_per_token_ms": 151.0038,
+     "predicted_per_second": 6.622349901128316
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en17",
+    "set": "main",
+    "output": "SLEEPY down",
+    "intent": {
+     "expression": "SLEEPY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 922,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 10,
+     "prompt_ms": 445.874,
+     "prompt_per_token_ms": 44.5874,
+     "prompt_per_second": 22.427860785782528,
+     "predicted_n": 5,
+     "predicted_ms": 451.639,
+     "predicted_per_token_ms": 112.90975,
+     "predicted_per_second": 8.85663107039029
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en18",
+    "set": "main",
+    "output": "BORED down",
+    "intent": {
+     "expression": "BORED",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 1250,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 14,
+     "prompt_ms": 783.824,
+     "prompt_per_token_ms": 55.987428571428566,
+     "prompt_per_second": 17.861152503623263,
+     "predicted_n": 5,
+     "predicted_ms": 440.871,
+     "predicted_per_token_ms": 110.21775,
+     "predicted_per_second": 9.072948776399446
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en19",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1171,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 14,
+     "prompt_ms": 614.904,
+     "prompt_per_token_ms": 43.92171428571429,
+     "prompt_per_second": 22.767781637458853,
+     "predicted_n": 3,
+     "predicted_ms": 539.676,
+     "predicted_per_token_ms": 269.838,
+     "predicted_per_second": 3.705927260059739
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en20",
+    "set": "main",
+    "output": "SAD center",
+    "intent": {
+     "expression": "SAD",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1000,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 12,
+     "prompt_ms": 624.842,
+     "prompt_per_token_ms": 52.070166666666665,
+     "prompt_per_second": 19.204854987340802,
+     "predicted_n": 4,
+     "predicted_ms": 326.926,
+     "predicted_per_token_ms": 108.97533333333332,
+     "predicted_per_second": 9.176388540525991
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en21",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1000,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 14,
+     "prompt_ms": 617.509,
+     "prompt_per_token_ms": 44.10778571428572,
+     "prompt_per_second": 22.67173433909465,
+     "predicted_n": 3,
+     "predicted_ms": 347.737,
+     "predicted_per_token_ms": 173.8685,
+     "predicted_per_second": 5.751473096046724
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en22",
+    "set": "main",
+    "output": "ANGRY right",
+    "intent": {
+     "expression": "ANGRY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1235,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 14,
+     "prompt_ms": 616.267,
+     "prompt_per_token_ms": 44.01907142857143,
+     "prompt_per_second": 22.717426050721517,
+     "predicted_n": 5,
+     "predicted_ms": 579.507,
+     "predicted_per_token_ms": 144.87675,
+     "predicted_per_second": 6.9024187801010175
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en23",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1250,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 14,
+     "prompt_ms": 620.618,
+     "prompt_per_token_ms": 44.32985714285714,
+     "prompt_per_second": 22.558159769777866,
+     "predicted_n": 3,
+     "predicted_ms": 584.024,
+     "predicted_per_token_ms": 292.012,
+     "predicted_per_second": 3.424516800679424
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en24",
+    "set": "main",
+    "output": "SLEEPY down",
+    "intent": {
+     "expression": "SLEEPY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 1094,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 13,
+     "prompt_ms": 598.535,
+     "prompt_per_token_ms": 46.04115384615385,
+     "prompt_per_second": 21.71969893155789,
+     "predicted_n": 5,
+     "predicted_ms": 460.627,
+     "predicted_per_token_ms": 115.15675,
+     "predicted_per_second": 8.683815755481115
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en25",
+    "set": "main",
+    "output": "WINK_RIGHT center",
+    "intent": {
+     "expression": "WINK_RIGHT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1468,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 14,
+     "prompt_ms": 872.08,
+     "prompt_per_token_ms": 62.291428571428575,
+     "prompt_per_second": 16.05357306669113,
+     "predicted_n": 6,
+     "predicted_ms": 553.996,
+     "predicted_per_token_ms": 110.7992,
+     "predicted_per_second": 9.025335923003055
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "en26",
+    "set": "main",
+    "output": "NEUTRAL up",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 1125,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 11,
+     "prompt_ms": 768.636,
+     "prompt_per_token_ms": 69.87599999999999,
+     "prompt_per_second": 14.3110653157021,
+     "predicted_n": 4,
+     "predicted_ms": 333.637,
+     "predicted_per_token_ms": 111.21233333333333,
+     "predicted_per_second": 8.99180846249067
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "en27",
+    "set": "main",
+    "output": "WINK_LEFT left",
+    "intent": {
+     "expression": "WINK_LEFT",
+     "react": true,
+     "look": "left"
+    },
+    "wall_ms": 1469,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 16,
+     "prompt_ms": 692.923,
+     "prompt_per_token_ms": 43.3076875,
+     "prompt_per_second": 23.090588708990754,
+     "predicted_n": 6,
+     "predicted_ms": 734.216,
+     "predicted_per_token_ms": 146.8432,
+     "predicted_per_second": 6.8099850725127204
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false,
+    "gaze_ok": true
+   },
+   {
+    "id": "en28",
+    "set": "main",
+    "output": "HAPPY up",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 1391,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 17,
+     "prompt_ms": 1005.91,
+     "prompt_per_token_ms": 59.171176470588236,
+     "prompt_per_second": 16.900120289091472,
+     "predicted_n": 3,
+     "predicted_ms": 365.259,
+     "predicted_per_token_ms": 182.6295,
+     "predicted_per_second": 5.4755666527039715
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "nr01",
+    "set": "main",
+    "output": "NEUTRAL up",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 1438,
+    "timings": {
+     "cache_n": 213,
+     "prompt_n": 13,
+     "prompt_ms": 877.279,
+     "prompt_per_token_ms": 67.483,
+     "prompt_per_second": 14.818546893291645,
+     "predicted_n": 4,
+     "predicted_ms": 491.864,
+     "predicted_per_token_ms": 163.95466666666667,
+     "predicted_per_second": 6.0992469463103625
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr02",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1344,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 13,
+     "prompt_ms": 926.544,
+     "prompt_per_token_ms": 71.27261538461538,
+     "prompt_per_second": 14.030634271011415,
+     "predicted_n": 3,
+     "predicted_ms": 354.912,
+     "predicted_per_token_ms": 177.456,
+     "predicted_per_second": 5.635199711477775
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr03",
+    "set": "main",
+    "output": "NEUTRAL up",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 1265,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 13,
+     "prompt_ms": 841.275,
+     "prompt_per_token_ms": 64.71346153846153,
+     "prompt_per_second": 15.452735431339335,
+     "predicted_n": 4,
+     "predicted_ms": 374.941,
+     "predicted_per_token_ms": 124.98033333333332,
+     "predicted_per_second": 8.001258864728051
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr04",
+    "set": "main",
+    "output": "NONE center",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": false,
+     "look": "center"
+    },
+    "wall_ms": 1266,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 13,
+     "prompt_ms": 869.748,
+     "prompt_per_token_ms": 66.90369230769231,
+     "prompt_per_second": 14.946858170412579,
+     "predicted_n": 3,
+     "predicted_ms": 362.905,
+     "predicted_per_token_ms": 181.4525,
+     "predicted_per_second": 5.511084168032957
+    },
+    "valid": true,
+    "react_ok": true
+   },
+   {
+    "id": "nr05",
+    "set": "main",
+    "output": "NEUTRAL center",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1219,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 12,
+     "prompt_ms": 790.537,
+     "prompt_per_token_ms": 65.87808333333334,
+     "prompt_per_second": 15.179555163135943,
+     "predicted_n": 4,
+     "predicted_ms": 367.839,
+     "predicted_per_token_ms": 122.613,
+     "predicted_per_second": 8.155742050190437
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr06",
+    "set": "main",
+    "output": "NEUTRAL center",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1203,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 12,
+     "prompt_ms": 852.8,
+     "prompt_per_token_ms": 71.06666666666666,
+     "prompt_per_second": 14.071294559099437,
+     "predicted_n": 4,
+     "predicted_ms": 330.636,
+     "predicted_per_token_ms": 110.212,
+     "predicted_per_second": 9.073422131891263
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr07",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1234,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 13,
+     "prompt_ms": 811.503,
+     "prompt_per_token_ms": 62.423307692307695,
+     "prompt_per_second": 16.019657351852057,
+     "predicted_n": 3,
+     "predicted_ms": 392.114,
+     "predicted_per_token_ms": 196.057,
+     "predicted_per_second": 5.10055749093376
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr08",
+    "set": "main",
+    "output": "NEUTRAL center",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1188,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 11,
+     "prompt_ms": 808.31,
+     "prompt_per_token_ms": 73.48272727272727,
+     "prompt_per_second": 13.608640249409262,
+     "predicted_n": 4,
+     "predicted_ms": 342.221,
+     "predicted_per_token_ms": 114.07366666666667,
+     "predicted_per_second": 8.766265074323318
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr09",
+    "set": "main",
+    "output": "NEUTRAL center",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1125,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 11,
+     "prompt_ms": 750.376,
+     "prompt_per_token_ms": 68.216,
+     "prompt_per_second": 14.659317462178961,
+     "predicted_n": 4,
+     "predicted_ms": 328.112,
+     "predicted_per_token_ms": 109.37066666666668,
+     "predicted_per_second": 9.143219388501487
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr10",
+    "set": "main",
+    "output": "HAPPY up",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 1109,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 9,
+     "prompt_ms": 732.635,
+     "prompt_per_token_ms": 81.40388888888889,
+     "prompt_per_second": 12.284425396002101,
+     "predicted_n": 3,
+     "predicted_ms": 346.053,
+     "predicted_per_token_ms": 173.0265,
+     "predicted_per_second": 5.7794615275694765
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr11",
+    "set": "main",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 969,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 7,
+     "prompt_ms": 351.249,
+     "prompt_per_token_ms": 50.178428571428576,
+     "prompt_per_second": 19.928882359807428,
+     "predicted_n": 3,
+     "predicted_ms": 582.318,
+     "predicted_per_token_ms": 291.159,
+     "predicted_per_second": 3.434549507313873
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "nr12",
+    "set": "main",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1234,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 11,
+     "prompt_ms": 785.71,
+     "prompt_per_token_ms": 71.42818181818183,
+     "prompt_per_second": 14.000076364052893,
+     "predicted_n": 3,
+     "predicted_ms": 388.378,
+     "predicted_per_token_ms": 194.189,
+     "predicted_per_second": 5.149622275206114
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "rt01",
+    "set": "robust",
+    "output": "HAPPY up",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 1063,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 16,
+     "prompt_ms": 725.02,
+     "prompt_per_token_ms": 45.31375,
+     "prompt_per_second": 22.068356734986622,
+     "predicted_n": 3,
+     "predicted_ms": 280.584,
+     "predicted_per_token_ms": 140.292,
+     "predicted_per_second": 7.1279901918854955
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "rt02",
+    "set": "robust",
+    "output": "WINK_RIGHT center",
+    "intent": {
+     "expression": "WINK_RIGHT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1531,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 15,
+     "prompt_ms": 928.978,
+     "prompt_per_token_ms": 61.931866666666664,
+     "prompt_per_second": 16.146776349924327,
+     "predicted_n": 6,
+     "predicted_ms": 556.683,
+     "predicted_per_token_ms": 111.3366,
+     "predicted_per_second": 8.981772391109482
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "rt03",
+    "set": "robust",
+    "output": "SLEEPY down",
+    "intent": {
+     "expression": "SLEEPY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 984,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 11,
+     "prompt_ms": 525.623,
+     "prompt_per_token_ms": 47.7839090909091,
+     "prompt_per_second": 20.92754693002399,
+     "predicted_n": 5,
+     "predicted_ms": 447.27,
+     "predicted_per_token_ms": 111.8175,
+     "predicted_per_second": 8.943143962259933
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "rt04",
+    "set": "robust",
+    "output": "WINK_RIGHT center",
+    "intent": {
+     "expression": "WINK_RIGHT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1610,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 12,
+     "prompt_ms": 791.34,
+     "prompt_per_token_ms": 65.94500000000001,
+     "prompt_per_second": 15.164151944802487,
+     "predicted_n": 6,
+     "predicted_ms": 775.72,
+     "predicted_per_token_ms": 155.144,
+     "predicted_per_second": 6.4456247099468875
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "rt05",
+    "set": "robust",
+    "output": "SAD down",
+    "intent": {
+     "expression": "SAD",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 953,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 13,
+     "prompt_ms": 605.863,
+     "prompt_per_token_ms": 46.60484615384616,
+     "prompt_per_second": 21.456996053563262,
+     "predicted_n": 4,
+     "predicted_ms": 329.655,
+     "predicted_per_token_ms": 109.88499999999999,
+     "predicted_per_second": 9.100423169677391
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "rt06",
+    "set": "robust",
+    "output": "WINK_LEFT center",
+    "intent": {
+     "expression": "WINK_LEFT",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1187,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 11,
+     "prompt_ms": 577.995,
+     "prompt_per_token_ms": 52.545,
+     "prompt_per_second": 19.031306499191167,
+     "predicted_n": 6,
+     "predicted_ms": 584.037,
+     "predicted_per_token_ms": 116.8074,
+     "predicted_per_second": 8.561101437066487
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false,
+    "gaze_ok": false
+   },
+   {
+    "id": "rt07",
+    "set": "robust",
+    "output": "NEUTRAL center",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1281,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 15,
+     "prompt_ms": 902.398,
+     "prompt_per_token_ms": 60.159866666666666,
+     "prompt_per_second": 16.62237726590706,
+     "predicted_n": 4,
+     "predicted_ms": 340.295,
+     "predicted_per_token_ms": 113.43166666666667,
+     "predicted_per_second": 8.81588033911753
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "rt08",
+    "set": "robust",
+    "output": "HAPPY center",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "center"
+    },
+    "wall_ms": 1329,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 16,
+     "prompt_ms": 958.567,
+     "prompt_per_token_ms": 59.9104375,
+     "prompt_per_second": 16.691582330708233,
+     "predicted_n": 3,
+     "predicted_ms": 341.315,
+     "predicted_per_token_ms": 170.6575,
+     "predicted_per_second": 5.859689729428827
+    },
+    "valid": true,
+    "react_ok": false
+   },
+   {
+    "id": "he01",
+    "set": "hebrew",
+    "output": "HAPPY right",
+    "intent": {
+     "expression": "HAPPY",
+     "react": true,
+     "look": "right"
+    },
+    "wall_ms": 1531,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 17,
+     "prompt_ms": 963.108,
+     "prompt_per_token_ms": 56.65341176470588,
+     "prompt_per_second": 17.65118761343484,
+     "predicted_n": 3,
+     "predicted_ms": 526.84,
+     "predicted_per_token_ms": 263.42,
+     "predicted_per_second": 3.7962189659099534
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "he02",
+    "set": "hebrew",
+    "output": "SLEEPY down",
+    "intent": {
+     "expression": "SLEEPY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 1375,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 11,
+     "prompt_ms": 854.475,
+     "prompt_per_token_ms": 77.67954545454546,
+     "prompt_per_second": 12.873401796424703,
+     "predicted_n": 5,
+     "predicted_ms": 473.75,
+     "predicted_per_token_ms": 118.4375,
+     "predicted_per_second": 8.443271767810026
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": false
+   },
+   {
+    "id": "he03",
+    "set": "hebrew",
+    "output": "SLEEPY down",
+    "intent": {
+     "expression": "SLEEPY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 1422,
+    "timings": {
+     "cache_n": 213,
+     "prompt_n": 16,
+     "prompt_ms": 916.37,
+     "prompt_per_token_ms": 57.273125,
+     "prompt_per_second": 17.460196208954898,
+     "predicted_n": 5,
+     "predicted_ms": 468.985,
+     "predicted_per_token_ms": 117.24625,
+     "predicted_per_second": 8.529057432540487
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   },
+   {
+    "id": "he04",
+    "set": "hebrew",
+    "output": "NEUTRAL up",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": true,
+     "look": "up"
+    },
+    "wall_ms": 1156,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 12,
+     "prompt_ms": 778.368,
+     "prompt_per_token_ms": 64.864,
+     "prompt_per_second": 15.416872224962999,
+     "predicted_n": 4,
+     "predicted_ms": 337.338,
+     "predicted_per_token_ms": 112.44600000000001,
+     "predicted_per_second": 8.893157604539066
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true,
+    "gaze_ok": false
+   },
+   {
+    "id": "he05",
+    "set": "hebrew",
+    "output": "NONE center",
+    "intent": {
+     "expression": "NEUTRAL",
+     "react": false,
+     "look": "center"
+    },
+    "wall_ms": 844,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 13,
+     "prompt_ms": 580.879,
+     "prompt_per_token_ms": 44.683,
+     "prompt_per_second": 22.37987601548687,
+     "predicted_n": 3,
+     "predicted_ms": 247.306,
+     "predicted_per_token_ms": 123.653,
+     "predicted_per_second": 8.08714709711855
+    },
+    "valid": true,
+    "react_ok": true
+   },
+   {
+    "id": "he06",
+    "set": "hebrew",
+    "output": "ANGRY down",
+    "intent": {
+     "expression": "ANGRY",
+     "react": true,
+     "look": "down"
+    },
+    "wall_ms": 1093,
+    "timings": {
+     "cache_n": 212,
+     "prompt_n": 12,
+     "prompt_ms": 608.707,
+     "prompt_per_token_ms": 50.72558333333333,
+     "prompt_per_second": 19.713918190525163,
+     "predicted_n": 5,
+     "predicted_ms": 459.065,
+     "predicted_per_token_ms": 114.76625,
+     "predicted_per_second": 8.713363031378998
+    },
+    "valid": true,
+    "react_ok": true,
+    "expr_ok": true
+   }
+  ]
+ }
+]

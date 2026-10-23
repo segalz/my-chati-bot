@@ -1,0 +1,243 @@
+=== start 11:42:40 pid=30197
+10-23 11:42:40.580 30197 30197 I ChatiEyes: stats frames=37925 redraws=18962 presents=18963 work_avg_us=4047 work_max_us=17170 window=yes
+=== rotation x10
+
+Exception occurred while executing 'put':
+java.lang.SecurityException: com.android.shell was not granted  this permission: android.permission.WRITE_SETTINGS.
+	at android.provider.Settings.isCallingPackageAllowedToPerformAppOpsProtectedOperation(Settings.java:18478)
+	at android.provider.Settings.checkAndNoteWriteSettingsOperation(Settings.java:18366)
+	at com.android.providers.settings.SettingsProvider.mutateSystemSetting(SettingsProvider.java:1918)
+	at com.android.providers.settings.SettingsProvider.insertSystemSetting(SettingsProvider.java:1884)
+	at com.android.providers.settings.SettingsProvider.call(SettingsProvider.java:475)
+	at android.content.ContentProvider.call(ContentProvider.java:2533)
+	at android.content.ContentProvider$Transport.call(ContentProvider.java:530)
+	at com.android.providers.settings.SettingsService$MyShellCommand.putForUser(SettingsService.java:382)
+	at com.android.providers.settings.SettingsService$MyShellCommand.onCommand(SettingsService.java:278)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.providers.settings.SettingsService.onShellCommand(SettingsService.java:50)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+restored: accelerometer_rotation=1 user_rotation=0 wm=free
+after rotation pid=30197
+10-23 11:43:28.124 30197 30197 I ChatiEyes: stats frames=40598 redraws=20290 presents=20304 work_avg_us=3972 work_max_us=17170 window=yes
+=== background x10
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+after background pid=30197
+10-23 11:44:15.402 30197 30197 I ChatiEyes: stats frames=43432 redraws=21707 presents=21721 work_avg_us=3966 work_max_us=17170 window=yes
+=== suspended while in background? (CPU ticks over 5 s, utime+stime from /proc/<pid>/stat)
+
+Exception occurred while executing 'keyevent':
+java.lang.SecurityException: Injecting input events requires the caller (or the source of the instrumentation, if any) to have the INJECT_EVENTS permission.
+	at com.android.server.input.InputManagerService.injectInputEventToTarget(InputManagerService.java:906)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1153)
+	at android.hardware.input.InputManager.injectInputEvent(InputManager.java:1182)
+	at com.android.server.input.InputShellCommand.injectKeyEvent(InputShellCommand.java:112)
+	at com.android.server.input.InputShellCommand.sendKeyEvent(InputShellCommand.java:357)
+	at com.android.server.input.InputShellCommand.runKeyEvent(InputShellCommand.java:345)
+	at com.android.server.input.InputShellCommand.onCommand(InputShellCommand.java:233)
+	at com.android.modules.utils.BasicShellCommandHandler.exec(BasicShellCommandHandler.java:97)
+	at android.os.ShellCommand.exec(ShellCommand.java:38)
+	at com.android.server.input.InputManagerService.onShellCommand(InputManagerService.java:3897)
+	at android.os.Binder.shellCommand(Binder.java:1054)
+	at android.os.Binder.onTransact(Binder.java:882)
+	at android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:1089)
+	at android.os.Binder.execTransactInternal(Binder.java:1290)
+	at android.os.Binder.execTransact(Binder.java:1249)
+foreground 5 s: 142 ticks; background 5 s: 143 ticks (100 ticks = 1 CPU-second)
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+resumed: 10-23 11:44:32.681 30197 30197 I ChatiEyes: stats frames=44468 redraws=22225 presents=22239 work_avg_us=3965 work_max_us=17170 window=yes
+=== errors
+=== crash buffer
+=== end 11:44:37 pid=30197

@@ -20,53 +20,75 @@ Evidence: [evidence/device-inventory.md](./evidence/device-inventory.md). Delega
 - [x] **Stage 1 review** (phone check: ABI matches inventory)
   - Result: `ro.product.cpu.abilist` = `arm64-v8a,armeabi-v7a,armeabi`, matching the inventory; real action = NDK binary executed on the phone with observed output. Untested at this stage: sustained thermal behavior, GPU name, cameras/audio (later stages).
 
-## Stage 2: Exact source, dependency, license, and portability audit
-- [ ] 2.1 Download v1.3.9 archive to third_party/, record URL/date/SHA-256
-  - Result: 
-- [ ] 2.2 Map archive to immutable upstream commit
-  - Result: 
-- [ ] 2.3 Locate Monochrome Blue Eyes drawer and assets
-  - Result: 
-- [ ] 2.4 Delegated read-only engine/drawer audit → evidence/port-audit.md
-  - Result: 
-- [ ] 2.5 Dependency and license inventory
-  - Result: 
-- [ ] 2.6 Portability decision record (Codex-reviewed)
-  - Result: 
-- [ ] 2.7 Canonical expression identifiers and gaze/blink API
-  - Result: 
-- [ ] **Stage 2 review** (owner summary gate)
-  - Result: 
+## Stage 2: Exact source, dependency, license, and portability audit — COMPLETED 2026-10-22 (conditional GO)
+Evidence: [third_party/expressive_eyes-1.3.9/SOURCE.md](../../third_party/expressive_eyes-1.3.9/SOURCE.md), [evidence/port-audit.md](./evidence/port-audit.md), `third_party/LICENSES/`.
 
-## Stage 3: Android project skeleton with native build
-- [ ] 3.1 git init + .gitignore + first commit (owner-approved)
-  - Result: 
-- [ ] 3.2 Gradle project android/ with pinned versions
-  - Result: 
-- [ ] 3.3 CMake chati_eyes library with nativeVersion()
-  - Result: 
-- [ ] 3.4 Fullscreen activity with native version overlay
-  - Result: 
-- [ ] **Stage 3 review** (phone check: app launches, version visible)
-  - Result: 
+- [x] 2.1 Download v1.3.9 archive to third_party/, record URL/date/SHA-256
+  - Result: registry lists 1.3.9 (2026-10-21, not yanked). Archive SHA-256 `B6CC6A61…2E14`; 14/14 files match registry CHECKSUMS.json; example tgz identical to the archive's example/. Registry `license.txt` link is missing (NoSuchKey) — recorded as a gap.
+- [x] 2.2 Map archive to immutable upstream commit
+  - Result: manifest commit `792c56e1…` = tag `v1.3.9` exactly. Diff vs the tag: all sources identical; only `idf_component.yml` differs (registry rewrite at publish).
+- [x] 2.3 Locate Monochrome Blue Eyes drawer and assets
+  - Result: `example/main/monochrome_blue_drawer.hpp` + `eye_drawer.hpp` (in archive and at tag). No image/font assets; drawing is LVGL primitives only.
+- [x] 2.4 Delegated read-only engine/drawer audit → evidence/port-audit.md
+  - Result: Cline **failed** (tool-call error + timeout, 2 attempts). Fallback per policy, chosen by model-picker: Grok `grok-4.7/high` via xai, read-only, 9 files read (run `eyes-s2-audit-grok-1`). Claude spot-verified the key claims with grep.
+- [x] 2.5 Dependency and license inventory
+  - Result: engine/drawer/base_component/logger/format — MIT (espp). libfmt `93e26fa5` (12.1.1-dev) — MIT. LVGL `02814ddb` (9.6.0-dev) — MIT. ESP-IDF not used. License texts saved with SHA-256 in `third_party/LICENSES/`.
+- [x] 2.6 Portability decision record (Codex-reviewed)
+  - Result: conditional GO: engine + blue drawer compile unmodified with an empty `esp_heap_caps.h` shim, `ESP_PLATFORM` undefined, C++20, LVGL SW renderer → RGB565 canvas → ANativeWindow. Codex `gpt-6-astra/max` review (run `eyes-s2-review-codex-1`): **approve with changes**. All 4 changes applied (conditional GO, own CMake targets + `logger.cpp`, pixel-path checks, single render-thread owner, ~30 Hz upstream redraw quantization, wording fixes).
+- [x] 2.7 Canonical expression identifiers and gaze/blink API
+  - Result: `NEUTRAL, HAPPY, SAD, ANGRY, SURPRISED, SLEEPY, BORED, WINK_LEFT, WINK_RIGHT` (`expressive_eyes.hpp:100-110`); `look_at(x,y)` clamped [-1,1]; `blink()`; `update(float dt)` (seconds).
+- [x] **Stage 2 review** (owner summary gate)
+  - Result: provenance immutable and verified; licenses all MIT; no substitution. **Untested:** actual Android compile/link/render (Stage 4), LVGL/fmt internals at the pins (not in review checkout). **Open for owner (non-blocking):** LVGL exact pin (default) vs v9.6.0 release. Owner summary given in chat 2026-10-22.
 
-## Stage 4: Port the original engine and Monochrome Blue Eyes renderer
-- [ ] 4.1 Upstream sources + blue drawer in CMake, unmodified; PATCHES.md
-  - Result: 
-- [ ] 4.2 [HARD] Platform adapter (clock, random, logging, ESP/FreeRTOS shims)
-  - Result: 
-- [ ] 4.3 [HARD] Drawing adapter to ANativeWindow
-  - Result: 
-- [ ] 4.4 [HARD] Render thread and surface lifecycle
-  - Result: 
-- [ ] 4.5 [HARD] Narrow JNI bridge
-  - Result: 
-- [ ] 4.6 Deterministic idle (blink, gaze)
-  - Result: 
-- [ ] 4.7 Baseline metrics → evidence/stage4-metrics.md
-  - Result: 
-- [ ] **Stage 4 review** (phone check: all expressions vs upstream, 10 min idle, rotation; owner approves look)
-  - Result: 
+## Stage 2B: Early on-phone model comparison (CLI) — COMPLETED 2026-10-22, awaiting owner's model choice
+- [x] 2B.1 Shortlist 3 models; owner approves downloads
+  - Result: [evidence/model-shortlist.md](./evidence/model-shortlist.md). Owner approved. All 3 GGUFs downloaded to `models/bench/` with SHA-256 matching Hugging Face. The first Gemma download stalled at 458 MB and was resumed with curl.
+- [x] 2B.2 Build llama.cpp with NDK, push to phone
+  - Result: llama.cpp v0.7.0 (`620d222`) built with NDK r28c (arm64, dotprod+fp16, static); `llama-server --version` ran on the phone. Note: the checkout needed repo-local `core.longpaths`.
+- [x] 2B.3 Labeled test set (R12: English main + robustness subsets)
+  - Result: [evidence/model-testset.jsonl](./evidence/model-testset.jsonl): 40 main (28 react incl. 5 gaze, 12 no-reaction), 8 rough-translation, 6 Hebrew.
+- [x] 2B.4 On-phone comparison → evidence/model-benchmark.md, recommendation
+  - Result: [evidence/model-benchmark.md](./evidence/model-benchmark.md). Prompt v2, fully correct: **Gemma 33/40** (expr 25/28, 2.8 s), **Qwen 32/40** (react 38/40, 2.4 s, Apache-2.0), LFM 14/40 (rejected). **Failed/defects:** first Qwen run crashed (`pkill -f` killed its own shell; fixed with `pkill -x`); server logs lost during cleanup (path-rewrite bug), timings preserved in JSON. **Untested:** anonymous-vs-mapped memory split, sustained thermals, in-app state-restore latency. Phone cleaned.
+- [x] 2B.5 Speed work + model combination (owner request 2026-10-23)
+  - Result: thread sweep → `-t 6 -tb 8`; prompt **v4** (short JSON, `NONE` = no reaction) keeps accuracy at Qwen 32/40 **1.6 s**, Gemma 33/40 **1.9 s** (was 2.4/2.8 s). Two-word format v3 **failed** (Qwen collapsed to HAPPY). Combined Qwen(react+look)+Gemma(expression), measured in parallel on the phone: **36/40, 8/8, 6/6 at 3.0 s**, RssAnon 741+560 MB. **Untested:** combination on fresh sentences (rule chosen on this set), Q4_0 repack, in-app state restore. A USB drop once interrupted a push (retried, hashes verified). Phone cleaned again; logs in `evidence/bench/server-logs/`.
+- [x] 2B.6 Decision round: English only, Q4_0, one vs two models (owner request 2026-10-23)
+  - Result: new [model-testset-en.jsonl](./evidence/model-testset-en.jsonl) (40 dev + 60 unseen holdout, English only). Q4_0 downloads approved by owner: Gemma QAT Q4_0 (ggml-org), Gemma Q4_0 (unsloth), Qwen Q4_0 (unsloth), all SHA-256 verified. Totals /100 (effective scoring): **Gemma Q4_K_M 89** (2.06 s, 560 MB anon), Gemma Q4_0 81 (1.49 s), Gemma QAT Q4_0 78 (1.36 s), Qwen Q4_K_M 80, Qwen Q4_0 79, combo Q4_K_M 88 (3.7 s), combo Q4_0 81. Prefill of the answer prefix: **1.76 s** at 87/100. **Decision (owner approved 2026-10-23): one model — Gemma 3 1B it Q4_K_M; two-model combination rejected; Q4_0 kept as speed fallback.** **Untested:** in-app forced-token batching (est. ~1.2–1.4 s), sustained thermals, labels by a second person. Phone cleaned; logs pulled.
+
+## Stage 3: Android project skeleton with native build — COMPLETED 2026-10-23 (installed by owner from Downloads)
+Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approval).
+
+- [~] 3.1 git init + .gitignore + first commit (owner-approved)
+  - Result: the owner had already created the repo (`main`, initial commit `ea4e0dc`, remote `segalz/my-chati-bot`). Work branch `eyes/stage3-android-skeleton` created. `.gitignore` extended with `models/`, `*.gguf`, `.cxx/`. **Commit not made** — waiting for owner approval.
+- [x] 3.2 Gradle project android/ with pinned versions
+  - Result: Gradle 9.8.2 wrapper (distribution SHA-256 `21bd5da2…9607` verified and pinned in `gradle-wrapper.properties`), AGP 9.4.1 with built-in Kotlin, compileSdk/targetSdk 36, minSdk 26, NDK 28.2.13676358, CMake 3.31.6, Java 17, arm64-v8a, no library dependencies. `gradlew.bat :app:assembleDebug` → BUILD SUCCESSFUL, no compiler warnings.
+  - Delegation: coder per model-picker = Codex `gpt-6-astra/high` → **failed** (Windows workspace-write sandbox denied all writes; run `eyes-s3-skeleton-codex-1`). Fallback per model-picker = claude-self (wrote it). Review: Codex **unavailable** ("model at capacity", run `eyes-s3-review-codex-1`), fallback AGY `gemini-3.8-flash-high` (run `eyes-s3-review-agy-1`): approve with changes. Applied: cutout `SHORT_EDGES`, no background on the SurfaceView, API-33 `getPackageInfo`, API-28 guard for the cutout inset. Rejected with evidence: "`cppFlags +=` breaks" (it is a list in AGP; the build succeeded), but the redundant flag was removed anyway.
+- [x] 3.3 CMake chati_eyes library with nativeVersion()
+  - Result: `lib/arm64-v8a/libchati_eyes.so` (334,088 bytes) inside the APK; C++20, `-Wall -Wextra -Werror` clean.
+- [x] 3.4 Fullscreen activity with native version overlay
+  - Result: observed on the phone — black full screen, overlay "Chati Eyes 0.1.0 / chati_eyes 0.1.0 | C++ 202002 | NDK r28.2 | clang 19.0.1", logcat `ChatiEyes` lines present. Minor cosmetic issue: the cutout band (top ~103 px) shows dark gray instead of black, to be fixed in Stage 4, which edits this activity anyway. The green "60" at top-left is MIUI's refresh-rate developer overlay, not part of the app.
+- [x] **Stage 3 review** (phone check: app launches, version visible)
+  - Result: **PASSED 2026-10-23.** Install path: `adb install` is blocked by MIUI, so the APK (SHA-256 `6fd7fdc9…773e`, verified identical on the phone) was pushed to `/sdcard/Download/chati-eyes-0.1.0-debug.apk` and the **owner installed it by hand** (Android security prompt). `dumpsys package`: versionName 0.1.0, versionCode 1, primaryCpuAbi arm64-v8a, targetSdk 36. Real action: `am start -W` → Status ok, COLD launch, TotalTime 982 ms; focus = `app.mychatibot/.MainActivity`; screenshot [evidence/screens/stage3-launch.png](./evidence/screens/stage3-launch.png); logcat by PID shows the native and app version lines; crash buffer empty. **Untested here (Stage 4):** rotation/background lifecycle, frame timing.
+  - History: first attempt was **BLOCKED.** `adb install -r app-debug.apk` (SHA-256 `6FD7FDC9…773E`) → `INSTALL_FAILED_USER_RESTRICTED: Install canceled by user`, immediately and with no on-screen prompt. MIUI's **Developer options → "Install via USB"** is off. That is a phone security setting, so per the owner's rules Claude did not change or bypass it. **Owner action:** enable "Install via USB" (MIUI may require a SIM and Mi-account sign-in), then Claude reruns install → launch → screenshot → logcat. Observed while checking: phone awake and unlocked; foreground app `com.example.androidsmoke` (not ours, left untouched).
+
+## Stage 4: Port the original engine and Monochrome Blue Eyes renderer — COMPLETED 2026-10-23
+- [x] 4.1 Upstream sources + blue drawer in CMake, unmodified; PATCHES.md
+  - Result: LVGL `02814ddb` and fmt `93e26fa5` added as **git submodules** at the exact pins (staged, not committed). espp `base_component`/`logger`/`format` copied from tag v1.3.9 into `third_party/espp-v1.3.9/` with SOURCE.md and SHA256SUMS. Our own CMake: LVGL via its CMake with `config/lv_conf.h` (RGB565, LV_OS_NONE, CLIB malloc, logcat logging, abort on assert); `espp_eyes` static lib (engine `expressive_eyes.cpp` + `logger.cpp`); shim `platform/esp_heap_caps.h` (empty). Upstream include dirs are marked SYSTEM so our `-Werror` does not trip on the drawer's unused `canvas_buffer_` field (noted in the audit) — no upstream edit. **Build: SUCCESSFUL, 0 warnings.** Verified unmodified: expressive_eyes 14/14 match registry CHECKSUMS, espp copy matches SHA256SUMS, lvgl/fmt submodules clean. **No upstream file modified; PATCHES.md not needed (no patches).**
+- [~] 4.2–4.5 [HARD] Native host written by Claude (`eye_renderer.{hpp,cpp}`, `native_bridge.cpp`), Kotlin host (`MainActivity.kt`, `NativeBridge.kt`), minSdk raised 26→29 (AChoreographer_postFrameCallback64)
+  - Result: single render thread owns LVGL + engine + drawer; AChoreographer frame pacing; command queue (setExpression/lookAt/blink); 480×360 RGB565 canvas → `ANativeWindow` (`WINDOW_FORMAT_RGB_565`, stride-aware copy) on a centered 4:3 SurfaceView; JNI reference balance; debug-only broadcast `app.mychatibot.DEBUG_EYES` (expr/look/blink/stats/overlay). Codex review `gpt-6-astra/high` (run `eyes-s4-native-review-codex-1`): **approve with changes** → applied: (1) present-failure handling (geometry retry, count/clear only on successful post), (2) suspend frame scheduling without a window, wake via `ALooper_wake`, reset dt on resume. Documented deviation: host caps dt at 100 ms after stalls. APK 0.2.1 SHA-256 `f4671218…1b9c` pushed to Downloads, verified on phone. **Phone checks pending owner install.**
+- [x] 4.2 [HARD] Platform adapter — empty `esp_heap_caps.h` shim, `ESP_PLATFORM` undefined, logger steady_clock path, LVGL tick from steady_clock, LVGL log → logcat. Determinism note: engine RNG is upstream static (not seedable); behavior checks done on device instead.
+  - Result: compiles unmodified; runs on the phone (see 4.6/4.7).
+- [x] 4.3 [HARD] Drawing adapter to ANativeWindow
+  - Result: color/byte order verified — eye pixel (0,190,255) = 0x00BFFF in RGB565; stride-aware copy; canvas 480×360 chosen (4:3, upstream proportions). README-photo comparison of HAPPY matches (low-res).
+- [x] 4.4 [HARD] Render thread and surface lifecycle
+  - Result: rotation ×10 (20 recreations) and background ×10 passed, same process, no crash; render thread suspended in background (0 CPU ticks/5 s).
+- [x] 4.5 [HARD] Narrow JNI bridge
+  - Result: setExpression/lookAt/blink/stats via debug broadcast drive the eyes as expected; Codex review applied.
+- [x] 4.6 Deterministic idle (blink, gaze)
+  - Result: auto-blink observed (4 mid-blink frames in 41 s without input).
+- [x] 4.7 Baseline metrics → evidence/stage4-metrics.md
+  - Result: 10-min idle: 59.9 fps, ~30 redraws/s, RssAnon 33.6→33.9 MB, PSS 48.8 MB, CPU 47 °C flat, ~29 % of one core, frame work avg ≤ 4 ms, max 17 ms (25 ms once on resume). [evidence/stage4-metrics.md](./evidence/stage4-metrics.md)
+- [x] **Stage 4 review** (phone check: all expressions vs upstream, 10 min idle, rotation; owner approves look)
+  - Result: all technical checks PASSED 2026-10-23 11:47. **Owner approved the look on the phone (2026-10-23).** Not committed (branch eyes/stage3-android-skeleton).
 
 ## Stage 5: Intent contract and debug input channel
 - [ ] 5.1 [HARD] EyeIntent schema + strict validator + unit tests
