@@ -120,10 +120,10 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
   - Result: airplane mode verified on (no active network); 100 English sentences 88/100 (dev 37/40, holdout 51/60), identical to online; model latency p50 0.93 s, p90 1.09 s (evidence/stage6/eval-0.5.2-airplane.txt). The app also has no INTERNET permission. Hebrew input intentionally out of scope (R12).
 
 ## Stage 7: Acceptance and documentation
-- [ ] 7.1 30-min smoke session → evidence/stage7-smoke.md
-  - Result: 
-- [ ] 7.2 Evidence record per test plan
-  - Result: 
+- [x] 7.1 30-min smoke session → evidence/stage7-smoke.md — 2026-10-23
+  - Result: PASS. 117 sentences (103 correct, 0 missing), 60.0 fps, RSS flat ~990 MB, no crash/restart, battery 30–31 °C, p50 945 ms.
+- [x] 7.2 Evidence record per test plan → evidence/stage7-evidence.md — 2026-10-23
+  - Result: build/revisions/hashes, per-area pass results, untested items listed (real memory-pressure fallback, battery drain, release build, real upstream sender).
 - [ ] 7.3 Update decisions (13) and phases (11)
   - Result: 
 - [ ] **Stage 7 review** (owner live demo and sign-off)

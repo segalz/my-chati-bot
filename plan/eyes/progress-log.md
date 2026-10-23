@@ -95,3 +95,7 @@ Times are local Israel time (HH:MM). Newest entries at the bottom. Details: [pro
 15:05 Calibration work committed and pushed.
 15:08 Stage 6 review started: airplane mode ON (verified, no active network), app running, Q4_K_M 6 threads.
 15:15 Stage 6 review PASSED offline: 88/100 (dev 37/40, holdout 51/60), same as online; model p50 0.93 s, p90 1.09 s; evidence/stage6/eval-0.5.2-airplane.txt. Owner may turn airplane mode off.
+15:17 Owner turned airplane mode off (verified).
+15:20 Stage 7.1 smoke started: 30 min, a sentence every 15 s, snapshot every 5 min (tools/model-bench/stage7_smoke.py).
+15:20 Smoke did not start the first time (wrong script path); restarted now, 30 min.
+15:51 Stage 7.1 smoke PASSED: 30 min, 117 sentences (103 correct, 0 missing), 60.0 fps, RSS flat ~990 MB, no crash/restart, battery 30–31 °C. 7.2 evidence record written (evidence/stage7-evidence.md).

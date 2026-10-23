@@ -1,0 +1,188 @@
+=== start 15:20:40 pid=8200
+10-23 15:20:40.271  8200  8200 I ChatiEyes: stats frames=108216 redraws=54123 presents=54126 work_avg_us=2123 work_max_us=26744 window=yes
+VmHWM:	 1645952 kB
+VmRSS:	  992388 kB
+Threads:	43
+8200 u0_a290      10 -10 9.4G 969M 381M S 21.2  16.9  32:09.16 app.mychatibot
+Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+level: 100
+  temperature: 314
+15:20:44 PASS en01 -> APPLIED HAPPY center | model 923 ms (model 921 ms: prompt 16 tok 919 ms, 1 tok 2 ms, gap 18.37)
+15:20:59 PASS en02 -> APPLIED SAD center | model 981 ms (model 978 ms: prompt 14 tok 848 ms, 2 tok 130 ms, gap 13.66)
+15:21:15 PASS en03 -> APPLIED ANGRY center | model 1144 ms (model 1141 ms: prompt 21 tok 1140 ms, 1 tok 1 ms, gap 23.81)
+15:21:30 PASS en04 -> APPLIED SURPRISED center | model 1037 ms (model 1035 ms: prompt 18 tok 1034 ms, 1 tok 1 ms, gap 17.39)
+15:21:45 PASS en05 -> APPLIED SLEEPY center | model 1185 ms (model 1183 ms: prompt 22 tok 1182 ms, 1 tok 1 ms, gap 16.56)
+15:22:01 FAIL en06 -> APPLIED SAD center | model 1143 ms (model 1142 ms: prompt 18 tok 1017 ms, 2 tok 125 ms, gap 10.25)
+15:22:16 PASS en07 -> APPLIED SLEEPY center | model 909 ms (model 905 ms: prompt 15 tok 904 ms, 1 tok 1 ms, gap 13.24)
+15:22:31 PASS en08 -> APPLIED WINK_RIGHT center | model 1505 ms (model 1503 ms: prompt 18 tok 1044 ms, 4 tok 459 ms, gap 12.66)
+15:22:47 PASS en09 -> APPLIED NEUTRAL left | model 780 ms (model 778 ms: prompt 13 tok 777 ms, 1 tok 1 ms, gap 13.61)
+15:23:02 PASS en10 -> APPLIED NEUTRAL right | model 937 ms (model 936 ms: prompt 17 tok 933 ms, 1 tok 3 ms, gap 11.99)
+15:23:17 PASS en11 -> APPLIED NEUTRAL up | model 855 ms (model 854 ms: prompt 14 tok 852 ms, 1 tok 2 ms, gap 14.95)
+15:23:33 PASS en12 -> APPLIED NEUTRAL down | model 831 ms (model 829 ms: prompt 14 tok 828 ms, 1 tok 1 ms, gap 0.41)
+15:23:48 PASS en13 -> APPLIED HAPPY center | model 787 ms (model 784 ms: prompt 13 tok 783 ms, 1 tok 1 ms, gap 20.72)
+15:24:03 PASS en14 -> APPLIED SAD center | model 1018 ms (model 1016 ms: prompt 15 tok 890 ms, 2 tok 126 ms, gap 14.47)
+15:24:19 PASS en15 -> APPLIED ANGRY center | model 1030 ms (model 1028 ms: prompt 18 tok 1026 ms, 1 tok 2 ms, gap 22.16)
+15:24:34 FAIL en16 -> APPLIED ANGRY center | model 1050 ms (model 1047 ms: prompt 18 tok 1046 ms, 1 tok 1 ms, gap 9.45)
+15:24:49 PASS en17 -> APPLIED SLEEPY center | model 812 ms (model 811 ms: prompt 13 tok 809 ms, 1 tok 2 ms, gap 19.44)
+15:25:05 PASS en18 -> APPLIED BORED center | model 972 ms (model 971 ms: prompt 17 tok 969 ms, 1 tok 2 ms, gap 13.15)
+15:25:20 PASS en19 -> APPLIED HAPPY center | model 939 ms (model 938 ms: prompt 17 tok 937 ms, 1 tok 1 ms, gap 19.59)
+15:25:35 PASS en20 -> APPLIED SAD center | model 1076 ms (model 1073 ms: prompt 15 tok 917 ms, 2 tok 156 ms, gap 16.41)
+15:25:51 PASS en21 -> APPLIED HAPPY center | model 983 ms (model 981 ms: prompt 17 tok 980 ms, 1 tok 1 ms, gap 17.43)
+=== t+5m 15:25:51 pid=8200
+10-23 15:25:51.527  8200  8200 I ChatiEyes: stats frames=126877 redraws=63453 presents=63456 work_avg_us=2184 work_max_us=26744 window=yes
+VmHWM:	 1645952 kB
+VmRSS:	  989784 kB
+Threads:	43
+8200 u0_a290      10 -10 9.4G 967M 382M S 28.1  16.9  35:12.91 app.mychatibot
+Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+level: 100
+  temperature: 310
+15:26:08 PASS en22 -> APPLIED ANGRY center | model 945 ms (model 943 ms: prompt 17 tok 941 ms, 1 tok 2 ms, gap 20.08)
+15:26:23 PASS en23 -> APPLIED HAPPY center | model 985 ms (model 983 ms: prompt 17 tok 981 ms, 1 tok 2 ms, gap 15.71)
+15:26:38 PASS en24 -> APPLIED SLEEPY center | model 935 ms (model 934 ms: prompt 16 tok 931 ms, 1 tok 3 ms, gap 16.52)
+15:26:54 FAIL en25 -> APPLIED SLEEPY center | model 989 ms (model 986 ms: prompt 17 tok 984 ms, 1 tok 2 ms, gap 10.34)
+15:27:09 PASS en26 -> APPLIED SAD center | model 996 ms (model 994 ms: prompt 14 tok 829 ms, 2 tok 165 ms, gap 13.27)
+15:27:24 PASS en27 -> APPLIED SURPRISED left | model 1065 ms (model 1064 ms: prompt 19 tok 1062 ms, 1 tok 2 ms, gap 11.84)
+15:27:40 PASS en28 -> APPLIED HAPPY center | model 1127 ms (model 1126 ms: prompt 20 tok 1124 ms, 1 tok 2 ms, gap 15.85)
+15:27:55 PASS nr01 -> IGNORED_NO_CHANGE NEUTRAL center | model 995 ms (model 994 ms: prompt 17 tok 992 ms, 1 tok 2 ms, gap 1.27)
+15:28:10 PASS nr02 -> IGNORED_NO_REACTION NONE center | model 926 ms (model 924 ms: prompt 16 tok 923 ms, 1 tok 1 ms, gap 0.00)
+15:28:26 PASS nr03 -> IGNORED_NO_REACTION NONE center | model 932 ms (model 931 ms: prompt 16 tok 929 ms, 1 tok 2 ms, gap 0.00)
+15:28:41 PASS nr04 -> IGNORED_NO_REACTION NONE center | model 945 ms (model 942 ms: prompt 16 tok 941 ms, 1 tok 1 ms, gap 0.00)
+15:28:56 PASS nr05 -> IGNORED_NO_REACTION NONE center | model 883 ms (model 881 ms: prompt 15 tok 879 ms, 1 tok 2 ms, gap 0.00)
+15:29:12 PASS nr06 -> IGNORED_NO_REACTION NONE center | model 880 ms (model 879 ms: prompt 15 tok 877 ms, 1 tok 2 ms, gap 0.00)
+15:29:27 PASS nr07 -> IGNORED_NO_CHANGE NEUTRAL center | model 983 ms (model 981 ms: prompt 16 tok 979 ms, 1 tok 2 ms, gap 9.45)
+15:29:42 PASS nr08 -> IGNORED_NO_REACTION NONE center | model 837 ms (model 836 ms: prompt 14 tok 835 ms, 1 tok 1 ms, gap 0.00)
+15:29:58 PASS nr09 -> IGNORED_NO_REACTION NONE center | model 853 ms (model 851 ms: prompt 14 tok 850 ms, 1 tok 1 ms, gap 0.00)
+15:30:13 PASS nr10 -> IGNORED_NO_CHANGE NEUTRAL center | model 720 ms (model 718 ms: prompt 12 tok 717 ms, 1 tok 1 ms, gap 1.77)
+15:30:28 PASS nr11 -> IGNORED_NO_REACTION NONE center | phrasebook 1 ms
+15:30:44 PASS nr12 -> IGNORED_NO_CHANGE NEUTRAL center | model 864 ms (model 862 ms: prompt 14 tok 860 ms, 1 tok 2 ms, gap 1.84)
+=== t+10m 15:30:44 pid=8200
+10-23 15:30:44.598  8200  8200 I ChatiEyes: stats frames=144446 redraws=72238 presents=72241 work_avg_us=2220 work_max_us=26744 window=yes
+VmHWM:	 1645952 kB
+VmRSS:	  990844 kB
+Threads:	43
+8200 u0_a290      10 -10 9.4G 968M 385M S 17.6  16.9  37:49.95 app.mychatibot
+Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+level: 100
+  temperature: 305
+15:31:01 PASS ho01 -> APPLIED HAPPY center | model 838 ms (model 836 ms: prompt 14 tok 835 ms, 1 tok 1 ms, gap 17.91)
+15:31:16 PASS ho02 -> APPLIED HAPPY center | model 1116 ms (model 1113 ms: prompt 17 tok 1112 ms, 1 tok 1 ms, gap 19.94)
+15:31:31 PASS ho03 -> APPLIED HAPPY center | model 1020 ms (model 1019 ms: prompt 18 tok 1016 ms, 1 tok 3 ms, gap 18.30)
+15:31:47 PASS ho04 -> APPLIED HAPPY center | model 953 ms (model 951 ms: prompt 16 tok 949 ms, 1 tok 2 ms, gap 11.34)
+15:32:02 PASS ho05 -> APPLIED HAPPY center | model 878 ms (model 877 ms: prompt 15 tok 875 ms, 1 tok 2 ms, gap 17.55)
+15:32:17 PASS ho06 -> APPLIED SAD center | model 1060 ms (model 1058 ms: prompt 15 tok 895 ms, 2 tok 163 ms, gap 5.64)
+15:32:33 PASS ho07 -> APPLIED SAD center | model 1127 ms (model 1126 ms: prompt 17 tok 963 ms, 2 tok 163 ms, gap 14.90)
+15:32:48 PASS ho08 -> APPLIED SAD center | model 1073 ms (model 1071 ms: prompt 15 tok 933 ms, 2 tok 138 ms, gap 19.20)
+15:33:03 PASS ho09 -> APPLIED SAD center | model 1118 ms (model 1117 ms: prompt 17 tok 975 ms, 2 tok 142 ms, gap 13.76)
+15:33:19 PASS ho10 -> APPLIED SAD center | model 1023 ms (model 1022 ms: prompt 15 tok 883 ms, 2 tok 139 ms, gap 12.67)
+15:33:34 PASS ho11 -> APPLIED ANGRY center | model 964 ms (model 963 ms: prompt 17 tok 961 ms, 1 tok 2 ms, gap 16.87)
+15:33:49 PASS ho12 -> APPLIED ANGRY center | model 1023 ms (model 1022 ms: prompt 19 tok 1020 ms, 1 tok 2 ms, gap 13.55)
+15:34:05 PASS ho13 -> APPLIED ANGRY center | model 1086 ms (model 1084 ms: prompt 19 tok 1083 ms, 1 tok 1 ms, gap 23.51)
+15:34:20 PASS ho14 -> APPLIED ANGRY center | model 1002 ms (model 1000 ms: prompt 17 tok 998 ms, 1 tok 2 ms, gap 20.62)
+15:34:35 PASS ho15 -> APPLIED ANGRY center | model 1114 ms (model 1112 ms: prompt 20 tok 1111 ms, 1 tok 1 ms, gap 14.77)
+15:34:51 FAIL ho16 -> APPLIED ANGRY center | model 911 ms (model 909 ms: prompt 16 tok 908 ms, 1 tok 1 ms, gap 16.24)
+15:35:06 FAIL ho17 -> IGNORED_NO_CHANGE NEUTRAL center | model 874 ms (model 872 ms: prompt 14 tok 870 ms, 1 tok 2 ms, gap 5.09)
+15:35:21 PASS ho18 -> APPLIED SURPRISED center | model 944 ms (model 942 ms: prompt 17 tok 941 ms, 1 tok 1 ms, gap 10.92)
+15:35:37 PASS ho19 -> APPLIED SURPRISED center | model 1083 ms (model 1081 ms: prompt 19 tok 1080 ms, 1 tok 1 ms, gap 10.22)
+15:35:52 PASS ho20 -> APPLIED SURPRISED center | model 933 ms (model 932 ms: prompt 16 tok 930 ms, 1 tok 2 ms, gap 15.89)
+=== t+15m 15:35:52 pid=8200
+10-23 15:35:52.889  8200  8200 I ChatiEyes: stats frames=162926 redraws=81479 presents=81482 work_avg_us=2262 work_max_us=26744 window=yes
+VmHWM:	 1645952 kB
+VmRSS:	  993848 kB
+Threads:	43
+8200 u0_a290      10 -10 9.4G 970M 386M S 31.2  16.9  40:49.41 app.mychatibot
+Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+level: 100
+  temperature: 300
+15:36:09 PASS ho21 -> APPLIED SLEEPY center | model 1024 ms (model 1022 ms: prompt 18 tok 1020 ms, 1 tok 2 ms, gap 15.95)
+15:36:24 PASS ho22 -> APPLIED SLEEPY center | model 1163 ms (model 1161 ms: prompt 20 tok 1160 ms, 1 tok 1 ms, gap 10.92)
+15:36:40 PASS ho23 -> APPLIED SLEEPY center | model 1089 ms (model 1088 ms: prompt 19 tok 1086 ms, 1 tok 2 ms, gap 17.86)
+15:36:55 FAIL ho24 -> APPLIED SAD center | model 1261 ms (model 1260 ms: prompt 20 tok 1127 ms, 2 tok 133 ms, gap 6.69)
+15:37:10 PASS ho25 -> APPLIED BORED center | model 932 ms (model 929 ms: prompt 16 tok 927 ms, 1 tok 2 ms, gap 13.25)
+15:37:26 PASS ho26 -> APPLIED BORED center | model 921 ms (model 920 ms: prompt 16 tok 917 ms, 1 tok 3 ms, gap 5.78)
+15:37:41 PASS ho27 -> APPLIED BORED center | model 1099 ms (model 1097 ms: prompt 20 tok 1095 ms, 1 tok 2 ms, gap 12.81)
+15:37:56 FAIL ho28 -> APPLIED SAD center | model 1072 ms (model 1069 ms: prompt 16 tok 899 ms, 2 tok 170 ms, gap 10.57)
+15:38:12 FAIL ho29 -> APPLIED ANGRY center | model 1133 ms (model 1131 ms: prompt 21 tok 1129 ms, 1 tok 2 ms, gap 6.06)
+15:38:27 PASS ho30 -> APPLIED WINK_RIGHT center | model 1390 ms (model 1388 ms: prompt 16 tok 900 ms, 4 tok 488 ms, gap 17.52)
+15:38:42 FAIL ho31 -> APPLIED SAD center | model 1148 ms (model 1144 ms: prompt 18 tok 991 ms, 2 tok 153 ms, gap 11.79)
+15:38:58 PASS ho32 -> APPLIED SURPRISED left | model 1062 ms (model 1060 ms: prompt 17 tok 1058 ms, 1 tok 2 ms, gap 12.40)
+15:39:13 FAIL ho33 -> APPLIED WINK_RIGHT right | model 1337 ms (model 1335 ms: prompt 15 tok 905 ms, 4 tok 430 ms, gap 16.13)
+15:39:28 PASS ho34 -> APPLIED NEUTRAL up | model 885 ms (model 883 ms: prompt 15 tok 882 ms, 1 tok 1 ms, gap 16.23)
+15:39:44 FAIL ho35 -> APPLIED SLEEPY down | model 818 ms (model 816 ms: prompt 14 tok 814 ms, 1 tok 2 ms, gap 12.11)
+15:39:59 PASS ho36 -> APPLIED SURPRISED right | model 912 ms (model 910 ms: prompt 17 tok 909 ms, 1 tok 1 ms, gap 10.14)
+15:40:15 PASS ho37 -> APPLIED NEUTRAL left | model 841 ms (model 839 ms: prompt 14 tok 837 ms, 1 tok 2 ms, gap 9.45)
+15:40:30 PASS ho38 -> APPLIED NEUTRAL down | model 840 ms (model 838 ms: prompt 14 tok 836 ms, 1 tok 2 ms, gap 5.66)
+15:40:45 PASS ho39 -> APPLIED HAPPY center | model 831 ms (model 829 ms: prompt 13 tok 827 ms, 1 tok 2 ms, gap 14.59)
+=== t+20m 15:40:46 pid=8200
+10-23 15:40:46.146  8200  8200 I ChatiEyes: stats frames=180503 redraws=90270 presents=90273 work_avg_us=2272 work_max_us=26744 window=yes
+VmHWM:	 1645952 kB
+VmRSS:	  986380 kB
+Threads:	43
+8200 u0_a290      10 -10 9.4G 963M 384M S 30.3  16.8  43:37.92 app.mychatibot
+Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+level: 100
+  temperature: 300
+15:41:02 PASS ho40 -> APPLIED HAPPY center | model 867 ms (model 864 ms: prompt 14 tok 863 ms, 1 tok 1 ms, gap 14.96)
+15:41:18 PASS hn01 -> IGNORED_NO_CHANGE NEUTRAL center | model 855 ms (model 852 ms: prompt 14 tok 851 ms, 1 tok 1 ms, gap 1.73)
+15:41:33 PASS hn02 -> IGNORED_NO_REACTION NONE center | model 966 ms (model 964 ms: prompt 16 tok 963 ms, 1 tok 1 ms, gap 0.00)
+15:41:48 PASS hn03 -> IGNORED_NO_REACTION NONE center | model 939 ms (model 936 ms: prompt 15 tok 934 ms, 1 tok 2 ms, gap 0.00)
+15:42:04 PASS hn04 -> IGNORED_NO_REACTION NONE center | model 994 ms (model 991 ms: prompt 15 tok 989 ms, 1 tok 2 ms, gap 0.00)
+15:42:19 PASS hn05 -> IGNORED_NO_REACTION NONE center | model 1037 ms (model 1035 ms: prompt 16 tok 1033 ms, 1 tok 2 ms, gap 0.00)
+15:42:34 PASS hn06 -> IGNORED_NO_CHANGE NEUTRAL center | model 939 ms (model 936 ms: prompt 15 tok 934 ms, 1 tok 2 ms, gap 0.68)
+15:42:50 PASS hn07 -> IGNORED_NO_CHANGE NEUTRAL center | model 887 ms (model 885 ms: prompt 14 tok 884 ms, 1 tok 1 ms, gap 5.37)
+15:43:05 PASS hn08 -> IGNORED_NO_REACTION NONE center | model 904 ms (model 903 ms: prompt 16 tok 901 ms, 1 tok 2 ms, gap 0.00)
+15:43:20 PASS hn09 -> IGNORED_NO_CHANGE NEUTRAL center | model 905 ms (model 904 ms: prompt 15 tok 903 ms, 1 tok 1 ms, gap 4.34)
+15:43:36 PASS hn10 -> IGNORED_NO_REACTION NONE center | model 893 ms (model 892 ms: prompt 15 tok 890 ms, 1 tok 2 ms, gap 0.00)
+15:43:51 PASS hn11 -> IGNORED_NO_REACTION NONE center | model 938 ms (model 936 ms: prompt 16 tok 935 ms, 1 tok 1 ms, gap 0.00)
+15:44:06 PASS hn12 -> IGNORED_NO_REACTION NONE center | model 902 ms (model 900 ms: prompt 15 tok 898 ms, 1 tok 2 ms, gap 0.00)
+15:44:22 PASS hn13 -> IGNORED_NO_CHANGE NEUTRAL center | model 911 ms (model 910 ms: prompt 15 tok 909 ms, 1 tok 1 ms, gap 1.86)
+15:44:37 PASS hn14 -> IGNORED_NO_REACTION NONE center | model 928 ms (model 927 ms: prompt 15 tok 925 ms, 1 tok 2 ms, gap 0.00)
+15:44:52 PASS hn15 -> IGNORED_NO_REACTION NONE center | model 923 ms (model 921 ms: prompt 16 tok 920 ms, 1 tok 1 ms, gap 0.00)
+15:45:08 PASS hn16 -> IGNORED_NO_CHANGE NEUTRAL center | model 989 ms (model 988 ms: prompt 17 tok 986 ms, 1 tok 2 ms, gap 4.62)
+15:45:23 PASS hn17 -> IGNORED_NO_REACTION NONE center | phrasebook 1 ms
+15:45:38 FAIL hn18 -> APPLIED HAPPY center | model 846 ms (model 843 ms: prompt 14 tok 842 ms, 1 tok 1 ms, gap 8.65)
+15:45:54 PASS hn19 -> IGNORED_NO_CHANGE NEUTRAL center | model 893 ms (model 891 ms: prompt 15 tok 889 ms, 1 tok 2 ms, gap 0.65)
+=== t+25m 15:45:54 pid=8200
+10-23 15:45:54.671  8200  8200 I ChatiEyes: stats frames=198976 redraws=99505 presents=99508 work_avg_us=2278 work_max_us=26744 window=yes
+VmHWM:	 1645952 kB
+VmRSS:	  990088 kB
+Threads:	42
+8200 u0_a290      10 -10 9.3G 967M 387M S 21.2  16.9  46:19.76 app.mychatibot
+Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+level: 100
+  temperature: 304
+15:46:11 PASS hn20 -> IGNORED_NO_REACTION NONE center | model 860 ms (model 859 ms: prompt 14 tok 857 ms, 1 tok 2 ms, gap 0.00)
+15:46:26 PASS en01 -> APPLIED HAPPY center | model 909 ms (model 908 ms: prompt 16 tok 905 ms, 1 tok 3 ms, gap 18.37)
+15:46:41 PASS en02 -> APPLIED SAD center | model 974 ms (model 973 ms: prompt 14 tok 837 ms, 2 tok 136 ms, gap 13.66)
+15:46:57 PASS en03 -> APPLIED ANGRY center | model 1246 ms (model 1244 ms: prompt 21 tok 1243 ms, 1 tok 1 ms, gap 23.81)
+15:47:12 PASS en04 -> APPLIED SURPRISED center | model 1026 ms (model 1024 ms: prompt 18 tok 1022 ms, 1 tok 2 ms, gap 17.39)
+15:47:28 PASS en05 -> APPLIED SLEEPY center | model 1211 ms (model 1208 ms: prompt 22 tok 1207 ms, 1 tok 1 ms, gap 16.56)
+15:47:43 FAIL en06 -> APPLIED SAD center | model 1193 ms (model 1192 ms: prompt 18 tok 1060 ms, 2 tok 132 ms, gap 10.25)
+15:47:58 PASS en07 -> APPLIED SLEEPY center | model 870 ms (model 869 ms: prompt 15 tok 868 ms, 1 tok 1 ms, gap 13.24)
+15:48:13 PASS en08 -> APPLIED WINK_RIGHT center | model 1472 ms (model 1470 ms: prompt 18 tok 1042 ms, 4 tok 428 ms, gap 12.66)
+15:48:29 PASS en09 -> APPLIED NEUTRAL left | model 791 ms (model 791 ms: prompt 13 tok 789 ms, 1 tok 2 ms, gap 13.61)
+15:48:44 PASS en10 -> APPLIED NEUTRAL right | model 1035 ms (model 1035 ms: prompt 17 tok 1034 ms, 1 tok 1 ms, gap 11.99)
+15:48:59 PASS en11 -> APPLIED NEUTRAL up | model 840 ms (model 838 ms: prompt 14 tok 836 ms, 1 tok 2 ms, gap 14.95)
+15:49:15 PASS en12 -> APPLIED NEUTRAL down | model 863 ms (model 862 ms: prompt 14 tok 860 ms, 1 tok 2 ms, gap 0.41)
+15:49:30 PASS en13 -> APPLIED HAPPY center | model 758 ms (model 756 ms: prompt 13 tok 754 ms, 1 tok 2 ms, gap 20.72)
+15:49:45 PASS en14 -> APPLIED SAD center | model 1062 ms (model 1061 ms: prompt 15 tok 898 ms, 2 tok 163 ms, gap 14.47)
+15:50:01 PASS en15 -> APPLIED ANGRY center | model 1024 ms (model 1022 ms: prompt 18 tok 1020 ms, 1 tok 2 ms, gap 22.16)
+15:50:16 FAIL en16 -> APPLIED ANGRY center | model 998 ms (model 996 ms: prompt 18 tok 995 ms, 1 tok 1 ms, gap 9.45)
+15:50:31 PASS en17 -> APPLIED SLEEPY center | model 891 ms (model 890 ms: prompt 13 tok 888 ms, 1 tok 2 ms, gap 19.44)
+=== end 15:50:44 pid=8200
+10-23 15:50:44.826  8200  8200 I ChatiEyes: stats frames=216371 redraws=108203 presents=108206 work_avg_us=2293 work_max_us=26744 window=yes
+VmHWM:	 1645952 kB
+VmRSS:	  991492 kB
+Threads:	42
+8200 u0_a290      10 -10 9.3G 968M 387M S 21.8  16.9  48:59.24 app.mychatibot
+Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}
+level: 100
+  temperature: 305
+=== crash buffer
+(empty)
+
+duration 30 min, sentences 117, correct 103, no result 0
+app pids seen: ['8200'] (no restart)
+crash buffer: empty
+latency p50=945 ms p90=1143 ms max=1505 ms
+renderer: 108155 frames (~60.0/s), work_avg_us=2293, lifetime work_max_us=26744

@@ -178,9 +178,9 @@ The local model reads a sentence and chooses the eyes' reaction, fully offline.
 ### Stage 7: Acceptance and documentation
 Close the stage with evidence and updated plans.
 
-- [ ] 7.1 Short smoke session (30 min) with periodic sentences: frame timing, memory, temperature, no crashes.
+- [x] 7.1 Short smoke session (30 min) with periodic sentences: frame timing, memory, temperature, no crashes.
   - Check: `evidence/stage7-smoke.md` with metrics and logcat summary.
-- [ ] 7.2 Evidence record per [12_ENGINEERING_AND_TEST_PLAN.md](../12_ENGINEERING_AND_TEST_PLAN.md): device (sanitized), APK hash, source/model/runtime revisions, steps, observed results, pass/fail/untested.
+- [x] 7.2 Evidence record per [12_ENGINEERING_AND_TEST_PLAN.md](../12_ENGINEERING_AND_TEST_PLAN.md): device (sanitized), APK hash, source/model/runtime revisions, steps, observed results, pass/fail/untested.
   - Check: record complete; untested items listed explicitly.
 - [ ] 7.3 Update [13_DECISIONS_RISKS_AND_OPEN_QUESTIONS.md](../13_DECISIONS_RISKS_AND_OPEN_QUESTIONS.md) and [11_MVP_AND_IMPLEMENTATION_PHASES.md](../11_MVP_AND_IMPLEMENTATION_PHASES.md) with what P0/P1/P2 now prove and what remains.
   - Check: decisions marked validated/accepted with evidence links.
