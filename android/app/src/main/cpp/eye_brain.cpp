@@ -16,6 +16,12 @@ namespace {
 constexpr const char *kTag = "ChatiBrain";
 constexpr size_t kMaxSentenceBytes = 300;  // bytes as received from JNI (modified UTF-8)
 constexpr int kMaxValueTokens = 8;
+// Story context window kept in the KV cache (see infer()).
+constexpr size_t kMaxStorySentences = 8;
+constexpr int kMaxStoryTokens = 360;
+constexpr size_t kReseedSentences = 3;
+// Said after the newest sentence when earlier story sentences are in context; dropped afterwards.
+constexpr const char *kStoryHint = "\n(The earlier sentences are context. Choose for the last sentence.)";
 
 // Prompt v4 from the Stage 2B benchmark (plan/eyes/evidence/model-benchmark.md), unchanged.
 constexpr const char *kSystemPrompt = R"(You control the eyes of a small desk companion robot.
@@ -176,6 +182,16 @@ void EyeBrain::release_locked() {
     ctx_ = nullptr;
     model_ = nullptr;
     prefix_tokens_ = 0;
+    story_tokens_ = 0;
+    story_generation_ = -1;
+    story_sentences_.clear();
+}
+
+void EyeBrain::reset_story_locked() {
+    if (ctx_ != nullptr) llama_memory_seq_rm(llama_get_memory(ctx_), 0, prefix_tokens_, -1);
+    story_tokens_ = 0;
+    story_generation_ = -1;
+    story_sentences_.clear();
 }
 
 bool EyeBrain::load(const std::string &model_path, int threads, std::string &error) {
@@ -264,7 +280,7 @@ bool EyeBrain::load(const std::string &model_path, int threads, std::string &err
     return true;
 }
 
-BrainResult EyeBrain::infer(const std::string &sentence, int timeout_ms, int64_t generation) {
+BrainResult EyeBrain::infer(const std::string &sentence, int timeout_ms, int64_t generation, bool continue_story) {
     std::lock_guard<std::mutex> lock(mutex_);
     BrainResult r;
     const int64_t start = now_ms();
@@ -273,24 +289,67 @@ BrainResult EyeBrain::infer(const std::string &sentence, int timeout_ms, int64_t
         return r;
     }
     if (sentence.empty() || sentence.size() > kMaxSentenceBytes) {
+        reset_story_locked();  // a skipped sentence must not leave the story context silently gapped
         r.error = "sentence must be 1.." + std::to_string(kMaxSentenceBytes) + " bytes";
         return r;
     }
     running_generation_ = generation;
     const llama_vocab *vocab = llama_model_get_vocab(model_);
 
-    // Keep the cached system prompt; drop the previous request.
-    if (!llama_memory_seq_rm(llama_get_memory(ctx_), 0, prefix_tokens_, -1)) {
+    // KV layout: [system prompt + "Sentence:"][story so far][this request]. The story so far is the
+    // earlier sentences of the same story (same generation) as " A", "\nSentence: B", … — exactly
+    // the tokens decoded for them before, so continuing a story only decodes the new sentence. The
+    // first sentence of a story and every single sentence use the plain layout of the benchmark.
+    // Sentences are user text: tokenized WITHOUT special-token parsing, so they cannot inject
+    // template control tokens. Only the fixed hint and template suffix may contain special tokens.
+    const bool keep = continue_story && story_generation_ == generation && story_tokens_ > 0;
+    int base = 0;  // story tokens kept after the prefix
+    std::vector<llama_token> segment;
+    if (!keep) {
+        story_sentences_.clear();
+        segment = tokenize(vocab, " " + sentence, false, false);
+    } else {
+        segment = tokenize(vocab, "\nSentence: " + sentence, false, false);
+        base = story_tokens_;
+        if (story_sentences_.size() >= kMaxStorySentences ||
+            base + static_cast<int>(segment.size()) > kMaxStoryTokens) {
+            // Window full: start it again from the last few sentences (one larger decode), dropping
+            // the oldest until the rebuilt window fits the token budget again.
+            const size_t drop = story_sentences_.size() - std::min(story_sentences_.size(), kReseedSentences);
+            story_sentences_.erase(story_sentences_.begin(), story_sentences_.begin() + static_cast<long>(drop));
+            base = 0;
+            while (true) {
+                std::string text;
+                for (const std::string &s : story_sentences_) text += (text.empty() ? " " : "\nSentence: ") + s;
+                text += (text.empty() ? " " : "\nSentence: ") + sentence;
+                segment = tokenize(vocab, text, false, false);
+                if (static_cast<int>(segment.size()) <= kMaxStoryTokens || story_sentences_.empty()) break;
+                story_sentences_.erase(story_sentences_.begin());
+            }
+        }
+    }
+    if (!llama_memory_seq_rm(llama_get_memory(ctx_), 0, prefix_tokens_ + base, -1)) {
+        reset_story_locked();
         r.error = "cannot reset request tokens";
+        running_generation_ = INT64_MAX;
         return r;
     }
-
-    // The sentence is user text: tokenized WITHOUT special-token parsing, so it cannot inject
-    // template control tokens. Only the fixed template suffix may contain special tokens.
-    std::vector<llama_token> tokens = tokenize(vocab, " " + sentence, false, false);
-    const std::vector<llama_token> suffix = tokenize(vocab, prompt_suffix_, false, true);
+    const bool with_context = keep && !story_sentences_.empty();  // earlier story sentences in the window
+    std::vector<llama_token> tokens = segment;
+    const std::vector<llama_token> suffix =
+        tokenize(vocab, (with_context ? std::string(kStoryHint) : std::string()) + prompt_suffix_, false, true);
     tokens.insert(tokens.end(), suffix.begin(), suffix.end());
     r.prompt_tokens = static_cast<int>(tokens.size());
+    // One llama_decode call must fit the batch, and the request must fit the context with room
+    // for the classification steps. The window budget keeps this true; refuse rather than abort.
+    const int n_ctx = static_cast<int>(llama_n_ctx(ctx_));
+    if (r.prompt_tokens > static_cast<int>(llama_n_batch(ctx_)) ||
+        prefix_tokens_ + base + r.prompt_tokens + kMaxValueTokens > n_ctx) {
+        reset_story_locked();
+        running_generation_ = INT64_MAX;
+        r.error = "request too long (" + std::to_string(r.prompt_tokens) + " tokens)";
+        return r;
+    }
 
     deadline_ms_ = start + timeout_ms;
     const bool prompt_ok = decode(ctx_, tokens);
@@ -318,9 +377,19 @@ BrainResult EyeBrain::infer(const std::string &sentence, int timeout_ms, int64_t
     r.generate_ms = r.total_ms - r.prompt_ms;
     // A late or cancelled result is never applied, even if generation completed.
     if (!ok || was_cancelled || timed_out) {
+        reset_story_locked();  // the cache may hold a half-decoded request
         r.error = was_cancelled ? "cancelled" : timed_out ? "timeout after " + std::to_string(timeout_ms) + " ms"
                                                        : "inference failed";
         return r;
+    }
+    // Keep this sentence as story context; drop the hint, template suffix and classification steps.
+    const int kept = base + static_cast<int>(segment.size());
+    if (!llama_memory_seq_rm(llama_get_memory(ctx_), 0, prefix_tokens_ + kept, -1)) {
+        reset_story_locked();
+    } else {
+        story_tokens_ = kept;
+        story_generation_ = generation;
+        story_sentences_.push_back(sentence);
     }
     r.ok = true;
     r.json = std::string(kJsonOpen) + expression + kJsonClose;  // look is decided by the app's rules

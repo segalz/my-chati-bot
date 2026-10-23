@@ -49,8 +49,10 @@ public:
     void set_threads(int threads, int threads_batch);
 
     /// `generation` identifies the request; it is cancelled if cancel_older_than() later passes a
-    /// larger generation.
-    BrainResult infer(const std::string &sentence, int timeout_ms, int64_t generation);
+    /// larger generation. With `continue_story`, earlier sentences inferred with the same generation
+    /// (one story) stay in the KV cache as context, within a bounded window; otherwise the context
+    /// starts empty.
+    BrainResult infer(const std::string &sentence, int timeout_ms, int64_t generation, bool continue_story);
 
     /// Stops every request whose generation is < `generation` at its next step (thread-safe).
     /// Request-specific: the request for `generation` itself is never affected.
@@ -63,12 +65,16 @@ private:
     EyeBrain() = default;
     static bool abort_check(void *self);
     void release_locked();
+    void reset_story_locked();
 
     std::mutex mutex_;
     llama_model *model_ = nullptr;
     llama_context *ctx_ = nullptr;
     int prefix_tokens_ = 0;
     std::string prompt_suffix_;  // template text after the sentence (special tokens allowed)
+    int story_tokens_ = 0;               // KV tokens after the prefix holding the current story
+    int64_t story_generation_ = -1;      // generation (story) those tokens belong to
+    std::vector<std::string> story_sentences_;  // their sentences, oldest first (for re-seeding)
     std::vector<int32_t> first_tokens_;  // tokens the expression grammar allows first
     std::vector<bool> first_leads_to_none_;
     std::atomic<int64_t> deadline_ms_{0};  // read by abort_check (may run on ggml worker threads)

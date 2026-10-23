@@ -34,6 +34,10 @@ object NativeBridge {
     external fun nativeBrainSetThreads(threads: Int, threadsBatch: Int)
     /** Thread-safe: inferences for generations below [generation] stop at their next step. */
     external fun nativeBrainCancelOlderThan(generation: Long)
-    /** Tab-separated: OK|ERR, json-or-error, prompt_tokens, sampled_tokens, prompt_ms, generate_ms, total_ms. */
-    external fun nativeBrainInfer(sentence: String, timeoutMs: Int, generation: Long): String
+    /**
+     * Tab-separated: OK|ERR, json-or-error, prompt_tokens, sampled_tokens, prompt_ms, generate_ms, total_ms,
+     * none_gap. With [continueStory], earlier sentences inferred with the same [generation] stay in
+     * the model's context (bounded window); otherwise the context starts empty.
+     */
+    external fun nativeBrainInfer(sentence: String, timeoutMs: Int, generation: Long, continueStory: Boolean): String
 }

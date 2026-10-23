@@ -15,7 +15,9 @@ class EyeControllerTest {
     }
 
     private val sink = FakeSink()
+    // Story tests below assume these rules (the app default carry is tuned separately).
     private val controller = EyeController(sink, minDwellMs = 800, defaultHoldMs = 3_000)
+        .apply { rules = MoodRules(lingerMs = 1_500, carryMs = 4_000, dwellMs = 1_500) }
 
     private fun intent(e: Expression, l: Look = Look.CENTER, hold: Long? = null, expiresAt: Long? = null) =
         EyeIntent(e, l, IntentSource.DEBUG, holdMs = hold, expiresAtMs = expiresAt)

@@ -41,6 +41,7 @@ class EyeBrainHost private constructor() {
     @Volatile private var noneGapThreshold = NONE_GAP_THRESHOLD
     private var loadError: String? = null
     @Volatile private var wordsPerSecond = StoryText.DEFAULT_WORDS_PER_SECOND
+    @Volatile private var storyContext = false  // off: it lowered story accuracy (6C.5, 2026-10-23)
 
     /** Loads the phrasebook asset and starts loading the model (app-private files dir) in the background. */
     fun init(context: Context) {
@@ -98,8 +99,14 @@ class EyeBrainHost private constructor() {
         NativeBridge.nativeBlink()
         NativeBridge.nativeBrainCancelOlderThan(request.generation)
         val wps = wordsPerSecond
-        Log.i(TAG, "story: ${sentences.size} sentences at $wps words/s")
-        handler.post { playStory(request.generation, sentences, wps) }
+        val context = storyContext
+        Log.i(TAG, "story: ${sentences.size} sentences at $wps words/s, context $context")
+        handler.post { playStory(request.generation, sentences, wps, context) }
+    }
+
+    /** Development only (debug channel): whether stories give the model the earlier sentences. */
+    fun setStoryContext(enabled: Boolean) {
+        storyContext = enabled
     }
 
     /** Development only (debug channel): speaking pace used to time story sentences. */
@@ -156,16 +163,16 @@ class EyeBrainHost private constructor() {
         val request = latest.getAndSet(null) ?: return
         // Checked again on the controller thread right before anything is applied.
         val isCurrent = { request.generation == generation.get() }
-        val d = classifyWithModel(request.sentence, request.generation, request.receivedAtMs)
+        val d = classifyWithModel(request.sentence, request.generation, request.receivedAtMs, continueStory = false)
         EyeControllerHost.instance.submitDecision(request.sentence, d.body, d.error, d.detail, d.source, isCurrent)
     }
 
     /** What the eyes should do for one sentence: a `{"expression","look"}` body, or an error. */
     private class Decision(val body: String?, val error: String?, val detail: String, val source: IntentSource)
 
-    private fun classifyWithModel(sentence: String, generation: Long, receivedAtMs: Long): Decision {
+    private fun classifyWithModel(sentence: String, generation: Long, receivedAtMs: Long, continueStory: Boolean): Decision {
         if (!ensureLoaded()) return Decision(null, "MODEL UNAVAILABLE ${loadError ?: ""}", "", IntentSource.MODEL)
-        val fields = NativeBridge.nativeBrainInfer(sentence, TIMEOUT_MS, generation).split('\t')
+        val fields = NativeBridge.nativeBrainInfer(sentence, TIMEOUT_MS, generation, continueStory).split('\t')
         val ok = fields.getOrNull(0) == "OK"
         val payload = fields.getOrNull(1).orEmpty()
         val endToEnd = SystemClock.uptimeMillis() - receivedAtMs
@@ -187,8 +194,12 @@ class EyeBrainHost private constructor() {
      * scheduled at its own start. The first sentence starts when its decision is ready; each next one
      * when the previous has been spoken, or later if its decision was late. A newer sentence or story
      * stops this one (its scheduled decisions become stale and are dropped).
+     *
+     * With [withContext] the model sees the story so far (kept in its cache, so only the new sentence
+     * is processed) and every sentence goes to the model, so the context has no gaps; without it each
+     * sentence is judged alone and the phrasebook answers exact matches.
      */
-    private fun playStory(generation: Long, sentences: List<String>, wordsPerSecond: Float) {
+    private fun playStory(generation: Long, sentences: List<String>, wordsPerSecond: Float, withContext: Boolean) {
         val isCurrent = { generation == this.generation.get() }
         var nextStartMs = 0L
         for ((i, sentence) in sentences.withIndex()) {
@@ -197,10 +208,12 @@ class EyeBrainHost private constructor() {
                 return
             }
             val began = SystemClock.uptimeMillis()
-            val d = phrasebook.lookup(sentence)?.let { (expression, look) ->
+            val d = if (withContext) {
+                classifyWithModel(sentence, generation, began, continueStory = i > 0)
+            } else phrasebook.lookup(sentence)?.let { (expression, look) ->
                 Decision("""{"expression":"${expression.name}","look":"${look.name.lowercase()}"}""", null,
                     "${SystemClock.uptimeMillis() - began} ms", IntentSource.PHRASEBOOK)
-            } ?: classifyWithModel(sentence, generation, began)
+            } ?: classifyWithModel(sentence, generation, began, continueStory = false)
             val startMs = maxOf(nextStartMs, SystemClock.uptimeMillis())
             val spokenMs = StoryText.spokenMs(sentence, wordsPerSecond)
             nextStartMs = startMs + spokenMs

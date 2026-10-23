@@ -31,7 +31,10 @@ class StoryTextTest {
         assertTrue(StoryText.split(" ... \n \"\" ").isEmpty())
         assertEquals(StoryText.MAX_SENTENCES, StoryText.split("Hi. ".repeat(100)).size)
         val long = StoryText.split("word ".repeat(200))
-        assertTrue(long.size > 1 && long.all { it.length <= StoryText.MAX_SENTENCE_CHARS })
+        assertTrue(long.size > 1 && long.all { it.length <= StoryText.MAX_SENTENCE_BYTES })
+        // Hebrew letters take 2 bytes each: 200 of them must be cut below the byte limit.
+        val wide = StoryText.split("\u05d0".repeat(200))
+        assertTrue(wide.size == 2 && wide.all { StoryText.charsWithin(it, StoryText.MAX_SENTENCE_BYTES) == it.length })
     }
 
     @Test fun spokenTimeFollowsWordCount() {

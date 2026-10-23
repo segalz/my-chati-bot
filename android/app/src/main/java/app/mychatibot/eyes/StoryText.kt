@@ -8,7 +8,8 @@ package app.mychatibot.eyes
 object StoryText {
     const val MAX_TEXT_CHARS = 4_000
     const val MAX_SENTENCES = 40
-    const val MAX_SENTENCE_CHARS = 300
+    /** Matches the native limit, counted as the JNI modified UTF-8 the native side receives. */
+    const val MAX_SENTENCE_BYTES = 300
     const val MIN_SPOKEN_MS = 1_200L
     const val PAUSE_MS = 400L
     const val DEFAULT_WORDS_PER_SECOND = 2.5f
@@ -21,7 +22,7 @@ object StoryText {
      * Splits [text] at sentence ends (. ! ? … optionally followed by closing quotes or brackets,
      * then whitespace) and at line breaks. Text beyond [MAX_TEXT_CHARS] and sentences beyond
      * [MAX_SENTENCES] are dropped; an over-long sentence is cut at whitespace into pieces of at most
-     * [MAX_SENTENCE_CHARS].
+     * [MAX_SENTENCE_BYTES].
      */
     fun split(text: String): List<String> {
         val sentences = mutableListOf<String>()
@@ -51,10 +52,32 @@ object StoryText {
         return line.substring(i, dot).lowercase() in ABBREVIATIONS
     }
 
+    /** How many leading chars of [s] fit in [maxBytes] of JNI modified UTF-8 (never splits a pair). */
+    fun charsWithin(s: String, maxBytes: Int): Int {
+        var bytes = 0
+        var i = 0
+        while (i < s.length) {
+            val cp = s.codePointAt(i)
+            val n = when {
+                cp == 0 -> 2
+                cp < 0x80 -> 1
+                cp < 0x800 -> 2
+                cp < 0x10000 -> 3
+                else -> 6  // modified UTF-8 encodes a surrogate pair as two 3-byte sequences
+            }
+            if (bytes + n > maxBytes) break
+            bytes += n
+            i += Character.charCount(cp)
+        }
+        return i
+    }
+
     private fun addPieces(raw: String, out: MutableList<String>) {
         var rest = raw.trim().replace(Regex("""\s+"""), " ")
-        while (rest.length > MAX_SENTENCE_CHARS) {
-            val cut = rest.lastIndexOf(' ', MAX_SENTENCE_CHARS).takeIf { it > 0 } ?: MAX_SENTENCE_CHARS
+        while (true) {
+            val fit = charsWithin(rest, MAX_SENTENCE_BYTES)
+            if (fit == rest.length) break
+            val cut = rest.lastIndexOf(' ', fit).takeIf { it > 0 } ?: fit
             out += rest.substring(0, cut).trim()
             rest = rest.substring(cut).trim()
         }

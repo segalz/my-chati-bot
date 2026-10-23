@@ -178,15 +178,15 @@ The local model reads a sentence and chooses the eyes' reaction, fully offline.
 ### Stage 6C: Stories and conversations (text → paced reactions)
 Owner request 2026-10-23: test a story or conversation, not only single sentences. Longer text is split into sentences, the eyes follow the mood across them, and how long a reaction stays matters (not every sentence should flip the eyes at once).
 
-- [ ] 6C.1 Story test set: ~10 short stories/dialogues, each sentence labeled with what the eyes should show while it is spoken *in context* (incl. "keep the mood" on neutral follow-ups, real mood shifts, gaze). Split into dev and holdout.
+- [x] 6C.1 Story test set: ~10 short stories/dialogues, each sentence labeled with what the eyes should show while it is spoken *in context* (incl. "keep the mood" on neutral follow-ups, real mood shifts, gaze). Split into dev and holdout.
   - Check: `evidence/story-testset.jsonl`.
-- [ ] 6C.2 `[HARD]` Splitting + speech pacing (app, deterministic): text → sentences; each sentence gets a speech duration from its word count; classification of the next sentence runs while the current one is shown (pipelined), and each reaction is applied at its sentence's start.
+- [x] 6C.2 `[HARD]` Splitting + speech pacing (app, deterministic): text → sentences; each sentence gets a speech duration from its word count; classification of the next sentence runs while the current one is shown (pipelined), and each reaction is applied at its sentence's start.
   - Check: unit tests for the splitter and the timeline; DEBUG_STORY on the phone plays a story.
-- [ ] 6C.3 `[HARD]` Mood rules in the controller (not the model, R2): a reaction holds for its sentence plus a linger; a neutral/no-reaction sentence keeps the current mood for a bounded carry, then the eyes fade to idle; a minimum dwell prevents flicker. Parameters debug-settable for tuning.
+- [x] 6C.3 `[HARD]` Mood rules in the controller (not the model, R2): a reaction holds for its sentence plus a linger; a neutral/no-reaction sentence keeps the current mood for a bounded carry, then the eyes fade to idle; a minimum dwell prevents flicker. Parameters debug-settable for tuning.
   - Check: unit tests; Codex review.
-- [ ] 6C.4 Story evaluation on the phone: per-sentence "what was shown mid-sentence" accuracy, number of expression changes, shortest display. Tune the parameters on dev only, report holdout.
+- [x] 6C.4 Story evaluation on the phone: per-sentence "what was shown mid-sentence" accuracy, number of expression changes, shortest display. Tune the parameters on dev only, report holdout.
   - Check: `evidence/stage6c/` results; video of one full story.
-- [ ] 6C.5 Only if the error analysis shows sentences that need the previous sentence to be understood: incremental story context in the model's KV cache (no re-prefill). Kept only if it improves stories without lowering the 100-sentence set (88/100).
+- [x] 6C.5 Only if the error analysis shows sentences that need the previous sentence to be understood: incremental story context in the model's KV cache (no re-prefill). Kept only if it improves stories without lowering the 100-sentence set (88/100).
   - Check: A/B numbers in `evidence/stage6c/`.
 
 **Stage 6C review:** owner watches a story played on the phone and judges the pacing.

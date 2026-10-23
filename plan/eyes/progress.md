@@ -126,9 +126,10 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
   - Result: StoryText (splitter, 2.5 words/s, min 1.2 s); story playback classifies ahead and schedules each reaction at its sentence start (DEBUG_STORY). APK 0.6.0.
 - [x] 6C.3 Mood rules in the controller
   - Result: linger / carry / dwell, look requests keep the mood; Codex review 5 findings + 1 follow-up fixed, APPROVED; unit tests 63/63.
-- [~] 6C.4 Story evaluation and tuning (dev → holdout)
+- [x] 6C.4 Story evaluation and tuning (dev → holdout)
   - Result: carry chosen on dev = 6 s (dev 30/35, 19 changes; no carry 28/35, 27 changes). Holdout 25/35 (20 changes). Total 55/70. Most misses need earlier sentences (see progress-log) → 6C.5. Evidence: evidence/stage6c/.
-- [ ] 6C.5 Incremental story context in the model (only if needed)
+- [x] 6C.5 Incremental story context in the model (only if needed) — tried, NOT adopted
+  - Result: built (story sentences kept in the KV cache, only the new one decoded; Codex 2 findings fixed, approved). A/B on the same stories: with context dev 26/35, holdout 22/35 vs. without dev 30/35, holdout 25/35 — the 1B model sticks to the earlier mood. 100-sentence set unaffected (88/100). Kept in code, off by default (APK 0.6.2).
 - [ ] **Stage 6C review** (owner watches a story)
 
 ## Stage 7: Acceptance and documentation

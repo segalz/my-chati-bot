@@ -23,7 +23,7 @@ data class MoodRules(
     /** A reaction stays this long after its sentence has been spoken. */
     val lingerMs: Long = 1_500,
     /** Neutral sentences keep a mood at most this long after the mood's own sentence ended. */
-    val carryMs: Long = 4_000,
+    val carryMs: Long = 6_000,
     /** A story reaction is shown at least this long before another one may replace it. */
     val dwellMs: Long = 1_500,
 )

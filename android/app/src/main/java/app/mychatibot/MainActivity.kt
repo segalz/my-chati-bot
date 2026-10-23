@@ -176,7 +176,7 @@ class MainActivity : Activity() {
      * adb shell am broadcast -a app.mychatibot.DEBUG_INTENT --es json '{"schema_version":1,"expression":"SAD","look":"down"}'
      * # a sentence for the on-phone eye model (Gemma 3 1B) → validator → controller
      * adb shell am broadcast -a app.mychatibot.DEBUG_SAY --es text "I got the job!"
-     * # a story/conversation at speaking pace; optional pacing: --ei linger_ms/carry_ms/dwell_ms, --ef wps
+     * # a story/conversation at speaking pace; optional: --ei linger_ms/carry_ms/dwell_ms, --ef wps, --ez context
      * adb shell am broadcast -a app.mychatibot.DEBUG_STORY --es text "I lost my keys. Then I found them!"
      * ```
      * # benchmark only: switch eye model file / thread counts
@@ -203,6 +203,7 @@ class MainActivity : Activity() {
                         fun ms(key: String) = if (intent.hasExtra(key)) intent.getIntExtra(key, -1).toLong() else null
                         eyeHost.setMoodRules(ms("linger_ms"), ms("carry_ms"), ms("dwell_ms"))
                         if (intent.hasExtra("wps")) EyeBrainHost.instance.setWordsPerSecond(intent.getFloatExtra("wps", 0f))
+                        if (intent.hasExtra("context")) EyeBrainHost.instance.setStoryContext(intent.getBooleanExtra("context", true))
                         intent.getStringExtra("text")?.let { EyeBrainHost.instance.submitStory(it) }
                     }
                     else -> handleRawEngineCommand(intent)
