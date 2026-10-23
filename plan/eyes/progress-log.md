@@ -145,3 +145,5 @@ Times are local Israel time (HH:MM). Newest entries at the bottom. Details: [pro
 18:56 Story test: owner heard it from the first word ('Yesterday') → story starts are heard on 0.7.1. First audio 2.4 s after the line (decision ~1 s + synthesis 0.8 s + 0.3 s warm-up + buffer).
 18:56 Owner suspects load time: restarting the app (force-stop + launch) and speaking a story right away.
 18:57 Cold start test: owner heard the story fine ('works well'). Measured: voice model loads in 2.9 s, eye model 13.2 s after a restart; the first line waits for the eye model (first audio 15 s after the line). Open idea: speak neutrally until the eye model is loaded.
+18:58 Owner: continue to Hebrew voice. Researching on-phone Hebrew TTS options.
+18:59 Hebrew research done (evidence/hebrew-voice-research.md): no permissive phone-ready Hebrew neural voice; Phonikud voices are academic-only; ReNikud G2P is CC BY 4.0 (~20 MB); Google TTS with a Hebrew voice is already on the phone. Stage 9 planned. NEED FROM YOU: choose the route (Google TTS on the phone / cloud / own voice).
