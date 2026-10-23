@@ -176,6 +176,8 @@ class MainActivity : Activity() {
      * adb shell am broadcast -a app.mychatibot.DEBUG_INTENT --es json '{"schema_version":1,"expression":"SAD","look":"down"}'
      * # a sentence for the on-phone eye model (Gemma 3 1B) → validator → controller
      * adb shell am broadcast -a app.mychatibot.DEBUG_SAY --es text "I got the job!"
+     * # a story/conversation at speaking pace; optional pacing: --ei linger_ms/carry_ms/dwell_ms, --ef wps
+     * adb shell am broadcast -a app.mychatibot.DEBUG_STORY --es text "I lost my keys. Then I found them!"
      * ```
      * # benchmark only: switch eye model file / thread counts
      * adb shell am broadcast -a app.mychatibot.DEBUG_BRAIN --es model gemma-3-1b-it-qat-Q4_0.gguf --ei threads 6 --ei threads_batch 6 --ef none_gap 1.5
@@ -197,6 +199,12 @@ class MainActivity : Activity() {
                     DEBUG_SAY_ACTION -> intent.getStringExtra("text")
                         ?.let { EyeBrainHost.instance.submitSentence(it) }
                         ?: Log.w(TAG, "debug: DEBUG_SAY without text extra")
+                    DEBUG_STORY_ACTION -> {
+                        fun ms(key: String) = if (intent.hasExtra(key)) intent.getIntExtra(key, -1).toLong() else null
+                        eyeHost.setMoodRules(ms("linger_ms"), ms("carry_ms"), ms("dwell_ms"))
+                        if (intent.hasExtra("wps")) EyeBrainHost.instance.setWordsPerSecond(intent.getFloatExtra("wps", 0f))
+                        intent.getStringExtra("text")?.let { EyeBrainHost.instance.submitStory(it) }
+                    }
                     else -> handleRawEngineCommand(intent)
                 }
                 if (intent.getBooleanExtra("stats", false)) Log.i(TAG, "stats ${NativeBridge.nativeStats()}")
@@ -212,6 +220,7 @@ class MainActivity : Activity() {
             addAction(DEBUG_INTENT_ACTION)
             addAction(DEBUG_SAY_ACTION)
             addAction(DEBUG_BRAIN_ACTION)
+            addAction(DEBUG_STORY_ACTION)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED)
@@ -273,6 +282,7 @@ class MainActivity : Activity() {
         const val DEBUG_INTENT_ACTION = "app.mychatibot.DEBUG_INTENT"
         const val DEBUG_SAY_ACTION = "app.mychatibot.DEBUG_SAY"
         const val DEBUG_BRAIN_ACTION = "app.mychatibot.DEBUG_BRAIN"
+        const val DEBUG_STORY_ACTION = "app.mychatibot.DEBUG_STORY"
         const val STATS_INTERVAL_MS = 10_000L
     }
 }

@@ -119,6 +119,18 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 6 review** (airplane mode, sentence set, source = model) — 2026-10-23
   - Result: airplane mode verified on (no active network); 100 English sentences 88/100 (dev 37/40, holdout 51/60), identical to online; model latency p50 0.93 s, p90 1.09 s (evidence/stage6/eval-0.5.2-airplane.txt). The app also has no INTERNET permission. Hebrew input intentionally out of scope (R12).
 
+## Stage 6C: Stories and conversations — IN PROGRESS (owner request 2026-10-23)
+- [x] 6C.1 Story test set
+  - Result: evidence/story-testset.jsonl, 10 stories × 7 sentences (5 dev, 5 holdout), labels in context.
+- [x] 6C.2 Splitting + speech pacing
+  - Result: StoryText (splitter, 2.5 words/s, min 1.2 s); story playback classifies ahead and schedules each reaction at its sentence start (DEBUG_STORY). APK 0.6.0.
+- [x] 6C.3 Mood rules in the controller
+  - Result: linger / carry / dwell, look requests keep the mood; Codex review 5 findings + 1 follow-up fixed, APPROVED; unit tests 63/63.
+- [~] 6C.4 Story evaluation and tuning (dev → holdout)
+  - Result: carry chosen on dev = 6 s (dev 30/35, 19 changes; no carry 28/35, 27 changes). Holdout 25/35 (20 changes). Total 55/70. Most misses need earlier sentences (see progress-log) → 6C.5. Evidence: evidence/stage6c/.
+- [ ] 6C.5 Incremental story context in the model (only if needed)
+- [ ] **Stage 6C review** (owner watches a story)
+
 ## Stage 7: Acceptance and documentation
 - [x] 7.1 30-min smoke session → evidence/stage7-smoke.md — 2026-10-23
   - Result: PASS. 117 sentences (103 correct, 0 missing), 60.0 fps, RSS flat ~990 MB, no crash/restart, battery 30–31 °C, p50 945 ms.

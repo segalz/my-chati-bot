@@ -40,6 +40,7 @@ class EyeBrainHost private constructor() {
      *  (and with no explicit look request) is treated as NONE. 0 = off. */
     @Volatile private var noneGapThreshold = NONE_GAP_THRESHOLD
     private var loadError: String? = null
+    @Volatile private var wordsPerSecond = StoryText.DEFAULT_WORDS_PER_SECOND
 
     /** Loads the phrasebook asset and starts loading the model (app-private files dir) in the background. */
     fun init(context: Context) {
@@ -78,6 +79,32 @@ class EyeBrainHost private constructor() {
             return
         }
         handler.post(::processLatest)
+    }
+
+    /**
+     * Plays a longer text (story, conversation reply) at speaking pace: split into sentences, each
+     * reaction shown while its sentence is "spoken", with the mood rules of the controller in between.
+     * Replaces any running sentence or story.
+     */
+    fun submitStory(text: String) {
+        val sentences = StoryText.split(text)
+        if (sentences.isEmpty()) {
+            Log.w(TAG, "story: no sentences")
+            return
+        }
+        val request = synchronized(submitLock) {
+            Request(generation.incrementAndGet(), text, SystemClock.uptimeMillis()).also { latest.set(null) }
+        }
+        NativeBridge.nativeBlink()
+        NativeBridge.nativeBrainCancelOlderThan(request.generation)
+        val wps = wordsPerSecond
+        Log.i(TAG, "story: ${sentences.size} sentences at $wps words/s")
+        handler.post { playStory(request.generation, sentences, wps) }
+    }
+
+    /** Development only (debug channel): speaking pace used to time story sentences. */
+    fun setWordsPerSecond(value: Float) {
+        if (value in 0.5f..6f) wordsPerSecond = value
     }
 
     /** Frees the model (e.g. on memory pressure); the next sentence reloads it. */
@@ -127,36 +154,59 @@ class EyeBrainHost private constructor() {
 
     private fun processLatest() {
         val request = latest.getAndSet(null) ?: return
-        val controller = EyeControllerHost.instance
         // Checked again on the controller thread right before anything is applied.
         val isCurrent = { request.generation == generation.get() }
-        if (!ensureLoaded()) {
-            controller.submitDecision(
-                request.sentence, null, "MODEL UNAVAILABLE ${loadError ?: ""}", "", IntentSource.MODEL, isCurrent,
-            )
-            return
-        }
-        val fields = NativeBridge.nativeBrainInfer(request.sentence, TIMEOUT_MS, request.generation).split('\t')
+        val d = classifyWithModel(request.sentence, request.generation, request.receivedAtMs)
+        EyeControllerHost.instance.submitDecision(request.sentence, d.body, d.error, d.detail, d.source, isCurrent)
+    }
+
+    /** What the eyes should do for one sentence: a `{"expression","look"}` body, or an error. */
+    private class Decision(val body: String?, val error: String?, val detail: String, val source: IntentSource)
+
+    private fun classifyWithModel(sentence: String, generation: Long, receivedAtMs: Long): Decision {
+        if (!ensureLoaded()) return Decision(null, "MODEL UNAVAILABLE ${loadError ?: ""}", "", IntentSource.MODEL)
+        val fields = NativeBridge.nativeBrainInfer(sentence, TIMEOUT_MS, generation).split('\t')
         val ok = fields.getOrNull(0) == "OK"
         val payload = fields.getOrNull(1).orEmpty()
-        val endToEnd = SystemClock.uptimeMillis() - request.receivedAtMs
+        val endToEnd = SystemClock.uptimeMillis() - receivedAtMs
         val gap = fields.getOrNull(7)?.toFloatOrNull()
         val detail = if (fields.size >= 7) {
             "$endToEnd ms (model ${fields[6]} ms: prompt ${fields[2]} tok ${fields[4]} ms, ${fields[3]} tok ${fields[5]} ms, " +
                 "gap ${"%.2f".format(gap ?: -1f)})"
         } else "$endToEnd ms"
-        Log.i(TAG, "brain: '${request.sentence}' -> ${fields.joinToString(" | ")} | end-to-end $endToEnd ms")
-        if (!ok) {
-            controller.submitDecision(request.sentence, null, "MODEL ERROR $payload", detail, IntentSource.MODEL, isCurrent)
-            return
+        Log.i(TAG, "brain: '$sentence' -> ${fields.joinToString(" | ")} | end-to-end $endToEnd ms")
+        if (!ok) return Decision(null, "MODEL ERROR $payload", detail, IntentSource.MODEL)
+        val body = composeBody(payload, sentence, gap)
+            ?: return Decision(null, "MODEL OUTPUT REJECTED not {\"expression\":…}: $payload", detail, IntentSource.MODEL)
+        return Decision(body, null, detail, IntentSource.MODEL)
+    }
+
+    /**
+     * Story playback on the brain thread: each sentence is classified (phrasebook or model) as soon
+     * as the previous one is done, i.e. ahead of time while earlier sentences are still showing, and
+     * scheduled at its own start. The first sentence starts when its decision is ready; each next one
+     * when the previous has been spoken, or later if its decision was late. A newer sentence or story
+     * stops this one (its scheduled decisions become stale and are dropped).
+     */
+    private fun playStory(generation: Long, sentences: List<String>, wordsPerSecond: Float) {
+        val isCurrent = { generation == this.generation.get() }
+        var nextStartMs = 0L
+        for ((i, sentence) in sentences.withIndex()) {
+            if (!isCurrent()) {
+                Log.i(TAG, "story superseded at sentence ${i + 1}/${sentences.size}")
+                return
+            }
+            val began = SystemClock.uptimeMillis()
+            val d = phrasebook.lookup(sentence)?.let { (expression, look) ->
+                Decision("""{"expression":"${expression.name}","look":"${look.name.lowercase()}"}""", null,
+                    "${SystemClock.uptimeMillis() - began} ms", IntentSource.PHRASEBOOK)
+            } ?: classifyWithModel(sentence, generation, began)
+            val startMs = maxOf(nextStartMs, SystemClock.uptimeMillis())
+            val spokenMs = StoryText.spokenMs(sentence, wordsPerSecond)
+            nextStartMs = startMs + spokenMs
+            EyeControllerHost.instance.submitDecision(sentence, d.body, d.error, d.detail, d.source, isCurrent,
+                EyeControllerHost.StoryStep(i, sentences.size, startMs, spokenMs))
         }
-        val body = composeBody(payload, request.sentence, gap)
-        if (body == null) {
-            controller.submitDecision(request.sentence, null, "MODEL OUTPUT REJECTED not {\"expression\":…}: $payload",
-                detail, IntentSource.MODEL, isCurrent)
-            return
-        }
-        controller.submitDecision(request.sentence, body, null, detail, IntentSource.MODEL, isCurrent)
     }
 
     /**

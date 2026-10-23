@@ -1,0 +1,43 @@
+params: --ef wps 2.5 --ei carry_ms 6000
+s01 [dev] 5/7 correct, 3 changes, shortest display 7601 ms
+  PASS 1 shown NEUTRAL center | want NEUTRAL/HAPPY | decided IGNORED_NO_CHANGE NEUTRAL center | Yesterday I went to the park with my dog.
+  PASS 2 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | He loves chasing the ducks there.
+  FAIL 3 shown HAPPY center | want SURPRISED/SAD | decided CARRIED NEUTRAL center | Then he ran into the road.
+  FAIL 4 shown HAPPY center | want SAD/SURPRISED | decided CARRIED NONE center | A car hit him.
+  PASS 5 shown SAD center | want SAD | decided APPLIED SAD center | The vet said he will not make it.
+  PASS 6 shown SAD center | want SAD | decided CARRIED NEUTRAL center | We sat with him until the end.
+  PASS 7 shown SAD center | want SAD | decided EXTENDED SAD center | I still miss him every day.
+s02 [dev] 7/7 correct, 5 changes, shortest display 1999 ms
+  PASS 1 shown SURPRISED center | want SURPRISED/HAPPY/NEUTRAL | decided APPLIED SURPRISED center | Guess what happened today!
+  PASS 2 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | I got the job at the bakery!
+  PASS 3 shown HAPPY center | want HAPPY | decided CARRIED NEUTRAL center | They called me this morning.
+  PASS 4 shown HAPPY center | want HAPPY/NEUTRAL | decided CARRIED NEUTRAL center | I start on Monday.
+  PASS 5 shown SAD center | want SLEEPY/SAD/BORED | decided APPLIED SAD center | The only problem is that I have to wake up at four.
+  PASS 6 shown SURPRISED center | want SURPRISED/SLEEPY/BORED | decided APPLIED SURPRISED center | Four in the morning, can you believe it?
+  PASS 7 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | Still, I am so happy.
+s03 [dev] 7/7 correct, 3 changes, shortest display 6001 ms
+  PASS 1 shown NEUTRAL center | want NEUTRAL | decided IGNORED_NO_CHANGE NEUTRAL center | I ordered a new phone two weeks ago.
+  PASS 2 shown SAD center | want ANGRY/SAD/NEUTRAL | decided APPLIED SAD center | It still has not arrived.
+  PASS 3 shown SAD center | want ANGRY/SAD/SURPRISED | decided CARRIED NONE center | Today the shop told me they lost it.
+  PASS 4 shown ANGRY center | want ANGRY | decided APPLIED ANGRY center | And they refuse to give my money back!
+  PASS 5 shown ANGRY center | want ANGRY | decided CARRIED NONE center | I called them five times.
+  PASS 6 shown ANGRY center | want ANGRY/SAD | decided CARRIED NEUTRAL center | Nobody answers.
+  PASS 7 shown ANGRY center | want ANGRY | decided EXTENDED ANGRY center | This is ridiculous.
+s04 [dev] 5/7 correct, 5 changes, shortest display 2401 ms
+  PASS 1 shown SAD center | want SLEEPY/NEUTRAL/SAD | decided APPLIED SAD center | It has been a very long day.
+  FAIL 2 shown BORED center | want SLEEPY/SAD/NEUTRAL | decided APPLIED BORED center | I worked for twelve hours.
+  PASS 3 shown SLEEPY center | want SLEEPY | decided APPLIED SLEEPY center | I can barely keep my eyes open.
+  PASS 4 shown SLEEPY center | want SLEEPY/NEUTRAL | decided EXTENDED SLEEPY center | Maybe I will just watch something.
+  PASS 5 shown BORED center | want BORED | decided APPLIED BORED center | This show is so slow and boring.
+  FAIL 6 shown SLEEPY center | want BORED | decided APPLIED SLEEPY center | Nothing happens in it at all.
+  PASS 7 shown SLEEPY center | want SLEEPY/NEUTRAL | decided EXTENDED SLEEPY center | Good night.
+s05 [dev] 6/7 correct, 3 changes, shortest display 5601 ms
+  PASS 1 shown HAPPY center | want NEUTRAL/HAPPY | decided APPLIED HAPPY center | Let me tell you about my birthday.
+  FAIL 2 shown HAPPY center | want NEUTRAL/SURPRISED | decided CARRIED NEUTRAL center | I walked into my apartment and the lights were off.
+  PASS 3 shown SURPRISED center | want SURPRISED | decided APPLIED SURPRISED center | Suddenly everyone jumped out and shouted surprise!
+  PASS 4 shown SURPRISED center | want SURPRISED/HAPPY | decided EXTENDED SURPRISED center | I could not believe it!
+  PASS 5 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | All my friends were there.
+  PASS 6 shown HAPPY left | want HAPPY/NEUTRAL look left | decided APPLIED HAPPY left | Look at the cake on the left.
+  PASS 7 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | It was the best day of my life.
+
+dev: 30/35 correct, 19 changes

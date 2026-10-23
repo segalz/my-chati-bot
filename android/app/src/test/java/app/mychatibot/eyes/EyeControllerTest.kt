@@ -112,4 +112,111 @@ class EyeControllerTest {
         assertEquals(Expression.HAPPY, controller.state.active?.expression)
         assertNull(controller.state.pending)
     }
+
+    // --- Story mode (sentence spoken for a given time; rules: linger 1500, carry 4000, dwell 1500) ---
+
+    @Test fun storyReactionHoldsForSentencePlusLinger() {
+        assertEquals(Outcome.APPLIED, controller.submit(intent(Expression.SAD), 0, spokenMs = 2_000))
+        assertFalse(controller.tick(3_499))
+        assertTrue(controller.tick(3_500))
+        assertNull(controller.state.active)
+    }
+
+    @Test fun storyNeutralSentenceCarriesMoodWithinLimit() {
+        controller.submit(intent(Expression.SAD), 0, spokenMs = 2_000)        // carry until 6000
+        assertEquals(Outcome.CARRIED, controller.submit(intent(Expression.NONE), 2_000, spokenMs = 3_000))
+        assertFalse(controller.tick(4_999))                                   // held to the end of the sentence
+        assertEquals(Outcome.CARRIED, controller.submit(intent(Expression.NEUTRAL), 5_000, spokenMs = 3_000))
+        assertFalse(controller.tick(5_999))
+        assertTrue(controller.tick(6_000))                                    // carry limit reached
+        assertEquals(Outcome.IGNORED_NO_REACTION, controller.submit(intent(Expression.NONE), 6_100, spokenMs = 2_000))
+        assertEquals(listOf("expr:SAD", "look:0.0,0.0", "expr:NEUTRAL", "look:0.0,0.0"), sink.calls)
+    }
+
+    @Test fun storySameReactionExtendsWithoutRestart() {
+        controller.submit(intent(Expression.HAPPY), 0, spokenMs = 2_000)
+        assertEquals(Outcome.EXTENDED, controller.submit(intent(Expression.HAPPY), 2_000, spokenMs = 2_000))
+        assertFalse(controller.tick(5_499))
+        assertTrue(controller.tick(5_500))
+        assertEquals(1, sink.calls.count { it == "expr:HAPPY" })
+    }
+
+    @Test fun storyLookRequestKeepsMood() {
+        controller.submit(intent(Expression.HAPPY), 0, spokenMs = 2_000)
+        assertEquals(Outcome.APPLIED, controller.submit(intent(Expression.NEUTRAL, Look.LEFT), 2_000, spokenMs = 2_000))
+        assertEquals(Expression.HAPPY, controller.state.active?.expression)
+        assertEquals(Look.LEFT, controller.state.active?.look)
+    }
+
+    @Test fun storyChangeWaitsForStoryDwell() {
+        controller.submit(intent(Expression.SAD), 0, spokenMs = 1_200)
+        assertEquals(Outcome.QUEUED, controller.submit(intent(Expression.HAPPY), 1_200, spokenMs = 2_000))
+        assertFalse(controller.tick(1_499))
+        assertTrue(controller.tick(1_500))
+        assertEquals(Expression.HAPPY, controller.state.active?.expression)
+        // held to the queued sentence's end (3200) + linger, not from when it was finally shown
+        assertFalse(controller.tick(4_699))
+        assertTrue(controller.tick(4_700))
+    }
+
+    @Test fun storyRulesAreTunable() {
+        controller.rules = MoodRules(lingerMs = 0, carryMs = 0, dwellMs = 0)
+        controller.submit(intent(Expression.SAD), 0, spokenMs = 2_000)
+        assertEquals(Outcome.IGNORED_NO_REACTION, controller.submit(intent(Expression.NONE), 2_000, spokenMs = 2_000))
+        assertTrue(controller.tick(2_000))
+    }
+
+    @Test fun plainIntentAfterStoryHasNoCarry() {
+        controller.submit(intent(Expression.SAD), 0, spokenMs = 2_000)
+        controller.submit(intent(Expression.HAPPY), 2_000)                    // single sentence, 3 s hold
+        assertEquals(Outcome.IGNORED_NO_REACTION, controller.submit(intent(Expression.NONE), 3_000, spokenMs = 2_000))
+        assertTrue(controller.tick(5_000))
+    }
+
+    // --- Codex review fixes ---
+
+    @Test fun earlyIdleNeverDropsWaitingStoryReaction() {
+        controller.rules = MoodRules(dwellMs = 10_000)
+        controller.submit(intent(Expression.HAPPY), 0)                        // plain, held until 3000
+        assertEquals(Outcome.QUEUED, controller.submit(intent(Expression.SAD), 1_000, spokenMs = 2_000))
+        assertFalse(controller.tick(3_000))                                   // not idle: SAD is waiting
+        assertTrue(controller.tick(10_000))
+        assertEquals(Expression.SAD, controller.state.active?.expression)
+    }
+
+    @Test fun storyNeutralDropsOlderWaitingReaction() {
+        controller.rules = MoodRules(dwellMs = 5_000)
+        controller.submit(intent(Expression.HAPPY), 0, spokenMs = 1_200)
+        controller.submit(intent(Expression.SAD), 1_200, spokenMs = 1_200)
+        assertEquals(Outcome.CARRIED, controller.submit(intent(Expression.NONE), 2_400, spokenMs = 1_200))
+        assertNull(controller.state.pending)
+        controller.tick(5_000)
+        assertFalse(sink.calls.contains("expr:SAD"))
+    }
+
+    @Test fun storyLookRequestsDoNotExtendMood() {
+        controller.submit(intent(Expression.SAD), 0, spokenMs = 2_000)        // carry until 6000
+        controller.submit(intent(Expression.NEUTRAL, Look.LEFT), 2_000, spokenMs = 2_000)
+        controller.submit(intent(Expression.NEUTRAL, Look.RIGHT), 4_000, spokenMs = 5_000)
+        assertEquals(Expression.SAD, controller.state.active?.expression)
+        assertFalse(controller.tick(5_999))
+        assertTrue(controller.tick(6_000))
+        assertNull(controller.state.active)
+    }
+
+    @Test fun droppedPendingIsNeverShown() {
+        controller.submit(intent(Expression.HAPPY), 0, spokenMs = 1_200)
+        assertEquals(Outcome.QUEUED, controller.submit(intent(Expression.SAD), 1_200, spokenMs = 1_200))
+        controller.dropPending()
+        controller.tick(1_500)
+        assertFalse(sink.calls.contains("expr:SAD"))
+    }
+
+    @Test fun repeatedStoryGazeStillHoldsWithinCarry() {
+        controller.submit(intent(Expression.SAD), 0, spokenMs = 2_000)        // carry until 6000
+        controller.submit(intent(Expression.NEUTRAL, Look.LEFT), 2_000, spokenMs = 1_200)
+        assertEquals(Outcome.CARRIED, controller.submit(intent(Expression.NEUTRAL, Look.LEFT), 3_200, spokenMs = 2_400))
+        assertFalse(controller.tick(5_999))
+        assertTrue(controller.tick(6_000))
+    }
 }

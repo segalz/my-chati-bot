@@ -1,0 +1,43 @@
+params: --ef wps 2.5 --ei carry_ms 6000
+s06 [holdout] 7/7 correct, 5 changes, shortest display 3199 ms
+  PASS 1 shown NEUTRAL center | want NEUTRAL | decided IGNORED_NO_CHANGE NEUTRAL center | I had my driving test this morning.
+  PASS 2 shown SAD center | want NEUTRAL/SAD/SURPRISED | decided APPLIED SAD center | I was so nervous.
+  PASS 3 shown SAD center | want SAD | decided EXTENDED SAD center | I failed the first part.
+  PASS 4 shown ANGRY center | want ANGRY/SAD | decided APPLIED ANGRY center | The examiner was really rude to me.
+  PASS 5 shown HAPPY center | want HAPPY/SURPRISED | decided APPLIED HAPPY center | But then I passed the rest!
+  PASS 6 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | I finally have my license!
+  PASS 7 shown SAD center | want HAPPY/SAD/NEUTRAL | decided APPLIED SAD center | My mom cried when I told her.
+s07 [holdout] 3/7 correct, 4 changes, shortest display 5200 ms
+  PASS 1 shown NEUTRAL center | want NEUTRAL/SURPRISED | decided IGNORED_NO_CHANGE NEUTRAL center | Hey, are you awake?
+  FAIL 2 shown HAPPY center | want NEUTRAL | decided APPLIED HAPPY center | I need your help with something.
+  FAIL 3 shown HAPPY up | want NEUTRAL look up | decided APPLIED NEUTRAL up | Look up at the shelf.
+  FAIL 4 shown SURPRISED center | want NEUTRAL | decided APPLIED SURPRISED center | Do you see the red box?
+  FAIL 5 shown SURPRISED down | want NEUTRAL look down | decided APPLIED NEUTRAL down | Now look down at the floor.
+  PASS 6 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | Great job, thank you!
+  PASS 7 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | You are the best.
+s08 [holdout] 7/7 correct, 3 changes, shortest display 7594 ms
+  PASS 1 shown NEUTRAL center | want SAD/BORED/NEUTRAL | decided IGNORED_NO_CHANGE NEUTRAL center | It has been raining all week.
+  PASS 2 shown SAD center | want SAD/BORED | decided APPLIED SAD center | I could not go outside even once.
+  PASS 3 shown SAD center | want SAD | decided EXTENDED SAD center | I feel so lonely.
+  PASS 4 shown SAD center | want SAD/NEUTRAL | decided CARRIED NEUTRAL center | Then my sister called me.
+  PASS 5 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | She is coming to visit tomorrow!
+  PASS 6 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | We are going to bake cookies together.
+  PASS 7 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | I can't wait.
+s09 [holdout] 3/7 correct, 3 changes, shortest display 4400 ms
+  PASS 1 shown NEUTRAL center | want ANGRY/NEUTRAL/BORED | decided IGNORED_NO_CHANGE NEUTRAL center | My neighbor plays loud music every night.
+  FAIL 2 shown NEUTRAL center | want ANGRY | decided IGNORED_NO_CHANGE NEUTRAL center | Last night it went on until three.
+  FAIL 3 shown HAPPY center | want ANGRY | decided APPLIED HAPPY center | I knocked on his door and he laughed at me!
+  PASS 4 shown ANGRY center | want ANGRY | decided APPLIED ANGRY center | I was furious.
+  FAIL 5 shown ANGRY center | want SURPRISED/HAPPY/NEUTRAL | decided CARRIED NEUTRAL center | This morning he left a note and some flowers.
+  FAIL 6 shown ANGRY center | want HAPPY/NEUTRAL | decided CARRIED NEUTRAL center | He said he was sorry.
+  PASS 7 shown NEUTRAL center | want HAPPY/NEUTRAL | decided IGNORED_NO_CHANGE NEUTRAL center | Okay, maybe he is not so bad.
+s10 [holdout] 5/7 correct, 5 changes, shortest display 1999 ms
+  PASS 1 shown NEUTRAL center | want BORED/NEUTRAL | decided IGNORED_NO_REACTION NONE center | Today we had a three hour meeting.
+  FAIL 2 shown NEUTRAL center | want BORED | decided IGNORED_NO_CHANGE NEUTRAL center | The manager read every slide out loud.
+  PASS 3 shown SLEEPY center | want SLEEPY/BORED | decided APPLIED SLEEPY center | I almost fell asleep.
+  FAIL 4 shown HAPPY center | want SURPRISED | decided APPLIED HAPPY center | Then he announced that the company was sold!
+  PASS 5 shown SURPRISED center | want SURPRISED | decided APPLIED SURPRISED center | Nobody saw that coming.
+  PASS 6 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | Everyone got a big bonus.
+  PASS 7 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | Best meeting ever!
+
+holdout: 25/35 correct, 20 changes
