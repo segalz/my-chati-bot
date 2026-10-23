@@ -111,3 +111,6 @@ Times are local Israel time (HH:MM). Newest entries at the bottom. Details: [pro
 17:16 0.6.1 installed and opened by owner. Running: stories with context (dev, holdout), then the 100-sentence set.
 17:27 6C.5 A/B result: stories WITH context dev 26/35 (16 changes), holdout 22/35 — worse than without (dev 30, holdout 25). The 1B model gets stuck on the earlier mood (e.g. stays SAD through 'She is coming to visit tomorrow!', HAPPY through 'wake up at four'). 100-sentence set unchanged: 88/100 (dev 37, holdout 51), p50 1.02 s.
 17:27 DECISION per agreed rule: context NOT adopted; kept in code, off by default. Stories stay on the rules (carry 6 s): 55/70. APK 0.6.2 (only change: context off by default) READY TO INSTALL when convenient: Download/chati-eyes-0.6.2-debug.apk, SHA-256 259c3de8…797d (verified). 0.6.1 removed; context already switched off on the running app.
+17:30 6C review: playing story s02 (job news) on the phone for the owner, recording video.
+17:31 Story s02 played: SURPRISED → HAPPY → (kept HAPPY ×2) → SAD → SURPRISED → HAPPY, all 7 as labeled. Video: evidence/demo/story-demo-0.6.1.mp4. Waiting for owner's judgment of the pacing.
+17:56 Owner: story pacing good for now → Stage 6C closed. Next (owner): the phone answers in a human, emotional voice in addition to the eyes. Researching options.

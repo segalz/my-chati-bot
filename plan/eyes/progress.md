@@ -119,7 +119,7 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 6 review** (airplane mode, sentence set, source = model) — 2026-10-23
   - Result: airplane mode verified on (no active network); 100 English sentences 88/100 (dev 37/40, holdout 51/60), identical to online; model latency p50 0.93 s, p90 1.09 s (evidence/stage6/eval-0.5.2-airplane.txt). The app also has no INTERNET permission. Hebrew input intentionally out of scope (R12).
 
-## Stage 6C: Stories and conversations — IN PROGRESS (owner request 2026-10-23)
+## Stage 6C: Stories and conversations — COMPLETED 2026-10-23 (owner: pacing good for now)
 - [x] 6C.1 Story test set
   - Result: evidence/story-testset.jsonl, 10 stories × 7 sentences (5 dev, 5 holdout), labels in context.
 - [x] 6C.2 Splitting + speech pacing
@@ -130,7 +130,8 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
   - Result: carry chosen on dev = 6 s (dev 30/35, 19 changes; no carry 28/35, 27 changes). Holdout 25/35 (20 changes). Total 55/70. Most misses need earlier sentences (see progress-log) → 6C.5. Evidence: evidence/stage6c/.
 - [x] 6C.5 Incremental story context in the model (only if needed) — tried, NOT adopted
   - Result: built (story sentences kept in the KV cache, only the new one decoded; Codex 2 findings fixed, approved). A/B on the same stories: with context dev 26/35, holdout 22/35 vs. without dev 30/35, holdout 25/35 — the 1B model sticks to the earlier mood. 100-sentence set unaffected (88/100). Kept in code, off by default (APK 0.6.2).
-- [ ] **Stage 6C review** (owner watches a story)
+- [x] **Stage 6C review** (owner watches a story)
+  - Result: story s02 played on the phone, 7/7 as labeled; video evidence/demo/story-demo-0.6.1.mp4; owner: "good for now".
 
 ## Stage 7: Acceptance and documentation
 - [x] 7.1 30-min smoke session → evidence/stage7-smoke.md — 2026-10-23
