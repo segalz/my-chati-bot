@@ -18,6 +18,20 @@ No phase below authorizes implementation, installation, paid calls, or device ch
 | P5 — Contextual sight | Rear-camera selection; purpose-bound still capture; optional image-capable API path | Correct camera and consent boundary; no silent storage/upload; unsupported capability handled |
 | P6 — Reliability | Long desk sessions, lifecycle recovery, locked/background research, privacy review, reproducible packaging | Device evidence and known-limits report; no unsupported always-on claims |
 
+## Status on the phone (2026-10-23, Redmi 10)
+
+Details and evidence: [eyes/progress.md](eyes/progress.md), [eyes/evidence/stage7-evidence.md](eyes/evidence/stage7-evidence.md).
+
+| Phase | Status | What is proven, with evidence |
+|---|---|---|
+| P0 | **Validated** | Hardware inventory, exact v1.3.9 source and license audit ([device-inventory](eyes/evidence/device-inventory.md), [port-audit](eyes/evidence/port-audit.md)) |
+| P1 | **Validated** (owner approved the look) | Original Monochrome Blue renderer via NDK/JNI at 60 fps; lifecycle/rotation; 30-min stability run ([stage4-metrics](eyes/evidence/stage4-metrics.md), [stage7-smoke](eyes/evidence/stage7-smoke.md)) |
+| P2 | **Validated** | On-phone Gemma 3 1B (Q4_K_M) picks bounded intents offline: 88/100 single English sentences, also in airplane mode; ~1 s per sentence; stories paced by deterministic mood rules: 55/70 in context ([model-benchmark](eyes/evidence/model-benchmark.md), [stage6c](eyes/evidence/stage6c/)) |
+| P3 | **Partly done** | Spoken output only: Piper (sherpa-onnx) speaks English lines on the phone with the eyes in sync (first audio ~1.5 s, no gaps; owner: "really good") ([voice-benchmark](eyes/evidence/voice-benchmark.md)). Not started: wake word, speech input, sleep/wake/mute, conversation adapter, Hebrew voice |
+| P4–P6 | Not started | — |
+
+Input to the eyes still comes over the ADB debug channel (development only, R5); no real upstream sender exists yet.
+
 ## Milestone gates
 
 Do not hide an unavailable v1.3.9 behind `main`, replace the original renderer silently, or claim a local AI when only rules ran. If the phone cannot meet a core requirement, present the measured failure and revised choices to the owner before changing the scope.

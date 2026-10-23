@@ -216,7 +216,7 @@ Close the stage with evidence and updated plans.
   - Check: `evidence/stage7-smoke.md` with metrics and logcat summary.
 - [x] 7.2 Evidence record per [12_ENGINEERING_AND_TEST_PLAN.md](../12_ENGINEERING_AND_TEST_PLAN.md): device (sanitized), APK hash, source/model/runtime revisions, steps, observed results, pass/fail/untested.
   - Check: record complete; untested items listed explicitly.
-- [ ] 7.3 Update [13_DECISIONS_RISKS_AND_OPEN_QUESTIONS.md](../13_DECISIONS_RISKS_AND_OPEN_QUESTIONS.md) and [11_MVP_AND_IMPLEMENTATION_PHASES.md](../11_MVP_AND_IMPLEMENTATION_PHASES.md) with what P0/P1/P2 now prove and what remains.
+- [x] 7.3 Update [13_DECISIONS_RISKS_AND_OPEN_QUESTIONS.md](../13_DECISIONS_RISKS_AND_OPEN_QUESTIONS.md) and [11_MVP_AND_IMPLEMENTATION_PHASES.md](../11_MVP_AND_IMPLEMENTATION_PHASES.md) with what P0/P1/P2 now prove and what remains.
   - Check: decisions marked validated/accepted with evidence links.
 
 **Stage 7 review:** owner watches a live demo on the phone: original blue eyes idle, Claude sends sentences, the on-phone model changes the eyes offline. Owner signs off before voice work starts.

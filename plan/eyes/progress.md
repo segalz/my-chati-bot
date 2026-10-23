@@ -154,7 +154,7 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
   - Result: PASS. 117 sentences (103 correct, 0 missing), 60.0 fps, RSS flat ~990 MB, no crash/restart, battery 30–31 °C, p50 945 ms.
 - [x] 7.2 Evidence record per test plan → evidence/stage7-evidence.md — 2026-10-23
   - Result: build/revisions/hashes, per-area pass results, untested items listed (real memory-pressure fallback, battery drain, release build, real upstream sender).
-- [ ] 7.3 Update decisions (13) and phases (11)
-  - Result: 
+- [x] 7.3 Update decisions (13) and phases (11) — 2026-10-23
+  - Result: 11 has a status table (P0–P2 validated, P3 spoken output only); 13 has risk statuses, answered questions and a dated decision log; evidence record has a stories/voice addendum.
 - [ ] **Stage 7 review** (owner live demo and sign-off)
   - Result: 

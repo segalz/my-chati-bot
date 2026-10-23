@@ -28,3 +28,15 @@ Per the [evidence record template](../../12_ENGINEERING_AND_TEST_PLAN.md). Date:
 - Real upstream sender (Claude/voice): sentences have only come through the ADB debug channel so far.
 - Release build (non-debug) signing and install.
 - Owner live demo sign-off (Stage 7 review).
+
+## Addendum 2026-10-23: stories and voice (APK 0.6.x–0.7.0)
+- App 0.7.0 (versionCode 14), APK SHA-256 `7b06bc97136fe7d124aab7f164f6f86cc9d77791162d82f3db34950d0b052851`. Adds sherpa-onnx v1.13.8 JNI (`libsherpa-onnx-jni.so`, from the release asset with SHA-256 `7583ca38…9e6f`). The voice model Piper `en_US-libritts_r-medium` (`.onnx` SHA-256 `8cce84ce…17f4`) sits in app-private `files/voice/`.
+
+| Area | Steps | Observed | Status |
+|---|---|---|---|
+| Stories, pacing | 10 stories (5 dev / 5 holdout) via DEBUG_STORY; rules tuned on dev | dev 30/35, holdout 25/35; owner watched s02: "good for now" | PASS ([stage6c/](./stage6c/), [demo/story-demo-0.6.1.mp4](./demo/)) |
+| Story context in the model | Same stories, context on vs off | worse with context (48/70 vs 55/70), so it stays off | Not adopted |
+| Voice | DEBUG_SPEAK story s02 | 7/7 sentences spoken; eyes 3–6 ms after each audio start; first audio 1.54 s; no gaps (2 voice threads) | PASS (owner: "really good") |
+| Memory | `/proc/<pid>/status` after speaking | VmRSS 1.69 GB (eyes + eye model + voice) | Recorded, watch |
+
+Untested (in addition to the list above): video with sound (screenrecord has no audio), voice under memory pressure (release wired, not forced), long voice sessions and battery, and a Hebrew voice (later stage). The default of 2 voice threads is in the code but takes effect from the next APK; 0.7.0 runs with it set over the debug channel.

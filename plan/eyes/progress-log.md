@@ -128,3 +128,5 @@ Times are local Israel time (HH:MM). Newest entries at the bottom. Details: [pro
 18:30 In-app voice (story s02, 7 sentences): eyes start 3–6 ms after each sentence's audio start. Voice threads 6: first audio 1.24 s, story 14.2 s (gaps); 4: 1.9 s (first run after load); 2: first audio 1.54 s, story 11.8 s, synthesis faster than speech for every sentence (no gaps) → default 2. Replayed for the owner to listen.
 18:31 Replayed story s02 with voice for the owner.
 18:32 Owner listened to the spoken story: "really good" → Stage 8 review passed (English voice). App memory with eyes + eye model + voice: VmHWM: 1690148 kB VmRSS: 1689368 kB . Not done: video with sound (Android screenrecord has no audio).
+18:33 Owner: close Stage 7 (docs + live demo). Started 7.3.
+18:34 7.3 done: plan/11 status table, plan/13 risk statuses + decision log, evidence addendum (stories, voice, memory). Next: live demo; NEED FROM YOU: airplane mode on, watch the phone.
