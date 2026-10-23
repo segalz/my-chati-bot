@@ -40,6 +40,7 @@ class EyeBrainHost private constructor() {
      *  (and with no explicit look request) is treated as NONE. 0 = off. */
     @Volatile private var noneGapThreshold = NONE_GAP_THRESHOLD
     private var loadError: String? = null
+    private var warmedUp = false  // brain thread only
     @Volatile private var wordsPerSecond = StoryText.DEFAULT_WORDS_PER_SECOND
     @Volatile private var storyContext = false  // off: it lowered story accuracy (6C.5, 2026-10-23)
 
@@ -53,8 +54,30 @@ class EyeBrainHost private constructor() {
             errors.forEach { Log.w(TAG, "phrasebook: $it") }
             Log.i(TAG, "phrasebook: ${phrasebook.size} phrases")
             modelsDir = File(app.filesDir, "models")
-            ensureLoaded()
+            if (ensureLoaded()) warmUp()
         }
+    }
+
+    /**
+     * Brain thread, once per process after the model loads, and only if no request has arrived since
+     * start (generation 0): the first inferences after a load are slow, so the model judges two look
+     * sentences (results discarded), then the eyes glance right and left — a visible "ready". Any
+     * real request bumps the generation, which cancels the warm-up inference (it runs as generation
+     * 0) and skips the glances; glances never delay a reaction.
+     */
+    private fun warmUp() {
+        if (warmedUp) return
+        warmedUp = true
+        for (sentence in WARM_UP_SENTENCES) {
+            if (generation.get() != 0L) {
+                Log.i(TAG, "warm-up skipped: a real request came first")
+                return
+            }
+            val d = classifyWithModel(sentence, 0L, SystemClock.uptimeMillis(), continueStory = false)
+            Log.i(TAG, "warm-up: '$sentence' -> ${d.body ?: d.error}")
+        }
+        if (generation.get() == 0L) EyeControllerHost.instance.glances(listOf(Look.RIGHT, Look.LEFT)) { generation.get() == 0L }
+        Log.i(TAG, "warm-up done")
     }
 
     fun submitSentence(sentence: String) {
@@ -283,6 +306,8 @@ class EyeBrainHost private constructor() {
         private const val THREADS = 6
         private const val TIMEOUT_MS = 8_000
         private const val NONE_GAP_THRESHOLD = 0f  // off until calibrated
+        /** Start-up warm-up: the eyes look right, then left (a newer one waits for the controller's dwell). */
+        private val WARM_UP_SENTENCES = listOf("Look to the right.", "Look to the left.")
 
         val instance: EyeBrainHost by lazy { EyeBrainHost() }
     }

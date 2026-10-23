@@ -49,11 +49,18 @@ data class MoodRules(
  * - a look request without an emotion turns the eyes but keeps the current mood (not extending it);
  * - a neutral or look sentence drops an older reaction still waiting for its dwell;
  * - a different reaction waits until the current one has been shown [MoodRules.dwellMs].
+ *
+ * Idle life: after [idleGlanceMs] with nothing to show (0 = off), the eyes glance to one side
+ * ([chooseSide]) for [glanceMs] and come back to the center. A glance is not a reaction: it never
+ * delays one (no dwell), and any reaction replaces it at once.
  */
 class EyeController(
     private val sink: EyeSink,
     private val minDwellMs: Long = 800,
     private val defaultHoldMs: Long = 3_000,
+    private val idleGlanceMs: Long = 0,
+    private val glanceMs: Long = 1_200,
+    private val chooseSide: () -> Look = { if (kotlin.random.Random.nextBoolean()) Look.LEFT else Look.RIGHT },
 ) {
     data class State(
         val active: EyeIntent?,
@@ -73,6 +80,20 @@ class EyeController(
 
     /** Story pacing; may be changed between submissions (debug channel). */
     var rules = MoodRules()
+
+    private var glanceUntilMs = 0L  // 0 = no glance showing
+    private var quietSinceMs = -1L  // when the eyes last became idle and still; -1 = not yet known
+
+    /**
+     * Glances to [look] for [glanceMs] if the eyes are idle (nothing shown or waiting); returns
+     * whether it did. Also used for the start-up warm-up.
+     */
+    fun glance(look: Look, nowMs: Long): Boolean {
+        if (active != null || pending != null) return false
+        sink.lookAt(look.x, look.y)
+        glanceUntilMs = maxOf(1L, saturatingAdd(nowMs, glanceMs))
+        return true
+    }
 
     val state: State get() = State(active, appliedAtMs, holdUntilMs, pending)
 
@@ -102,6 +123,16 @@ class EyeController(
 
     /** Call periodically; returns true when the eyes changed. */
     fun tick(nowMs: Long): Boolean {
+        if (glanceUntilMs != 0L && nowMs >= glanceUntilMs) {
+            glanceUntilMs = 0L
+            quietSinceMs = nowMs
+            sink.lookAt(0f, 0f)
+            return true
+        }
+        if (active == null && pending == null && glanceUntilMs == 0L && idleGlanceMs > 0) {
+            if (quietSinceMs < 0) quietSinceMs = nowMs
+            if (nowMs - quietSinceMs >= idleGlanceMs) return glance(chooseSide(), nowMs)
+        }
         val waiting = pending
         val waitingSentenceEnd = pendingSentenceEndMs
         val dwell = if (waitingSentenceEnd != null) rules.dwellMs else minDwellMs
@@ -177,6 +208,7 @@ class EyeController(
     }
 
     private fun show(intent: EyeIntent, nowMs: Long) {
+        glanceUntilMs = 0L  // a reaction replaces a glance at once
         sink.setExpression(requireNotNull(intent.expression.engineId))
         sink.lookAt(intent.look.x, intent.look.y)
         active = intent
@@ -186,6 +218,7 @@ class EyeController(
     }
 
     private fun returnToIdle() {
+        quietSinceMs = -1L  // the idle glance clock restarts at the next tick
         sink.setExpression(Expression.NEUTRAL.ordinal)
         sink.lookAt(0f, 0f)
         active = null

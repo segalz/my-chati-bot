@@ -23,7 +23,7 @@ class EyeControllerHost private constructor() {
     private val controller = EyeController(object : EyeSink {
         override fun setExpression(engineId: Int) = NativeBridge.nativeSetExpression(engineId)
         override fun lookAt(x: Float, y: Float) = NativeBridge.nativeLookAt(x, y)
-    })
+    }, idleGlanceMs = IDLE_GLANCE_MS)
     private var listener: Listener? = null  // handler thread only
     private var ticking = false  // handler thread only
     /** Whether the intent waiting in the controller still belongs to the current request (handler thread only). */
@@ -103,6 +103,19 @@ class EyeControllerHost private constructor() {
         if (story == null) handler.post(run) else handler.postAtTime(run, story.startAtMs)
     }
 
+    /**
+     * Start-up warm-up shown on the eyes: a glance to each of [looks] in turn, only while the eyes are
+     * idle and while [isCurrent] holds (checked before every step: a real request ends the sequence).
+     */
+    fun glances(looks: List<Look>, isCurrent: () -> Boolean) {
+        fun step(i: Int) {
+            if (i >= looks.size || !isCurrent()) return
+            if (!controller.glance(looks[i], SystemClock.uptimeMillis())) return
+            handler.postDelayed({ step(i + 1) }, GLANCE_STEP_MS)
+        }
+        handler.post { step(0) }
+    }
+
     /** Story pacing for the controller (debug channel); null keeps a value. */
     fun setMoodRules(lingerMs: Long?, carryMs: Long?, dwellMs: Long?) = handler.post {
         val r = controller.rules
@@ -160,6 +173,8 @@ class EyeControllerHost private constructor() {
     companion object {
         private const val TAG = "ChatiEyes"
         private const val TICK_MS = 100L
+        private const val IDLE_GLANCE_MS = 15_000L  // owner: after 15 s of quiet the eyes glance aside
+        private const val GLANCE_STEP_MS = 1_500L
 
         val instance: EyeControllerHost by lazy { EyeControllerHost() }
     }

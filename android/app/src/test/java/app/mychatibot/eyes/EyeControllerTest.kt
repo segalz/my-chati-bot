@@ -175,6 +175,46 @@ class EyeControllerTest {
         assertTrue(controller.tick(5_000))
     }
 
+    // --- Idle glances (owner: after 15 s of quiet the eyes glance aside) ---
+
+    private fun glancer(vararg sides: Look): EyeController {
+        val queue = ArrayDeque(sides.toList())
+        return EyeController(sink, idleGlanceMs = 15_000, glanceMs = 1_000, chooseSide = { queue.removeFirst() })
+    }
+
+    @Test fun idleGlanceAfterQuietThenBackToCenter() {
+        val c = glancer(Look.RIGHT, Look.LEFT)
+        assertFalse(c.tick(0))                      // starts the quiet clock
+        assertFalse(c.tick(14_999))
+        assertTrue(c.tick(15_000))                  // glance right
+        assertEquals(listOf("look:1.0,0.0"), sink.calls)
+        assertTrue(c.tick(16_000))                  // back to center
+        assertFalse(c.tick(30_999))
+        assertTrue(c.tick(31_000))                  // next glance 15 s after the last one ended
+        assertEquals(listOf("look:1.0,0.0", "look:0.0,0.0", "look:-1.0,0.0"), sink.calls)
+    }
+
+    @Test fun noGlanceWhileShowingAndReactionReplacesGlance() {
+        val c = glancer(Look.LEFT, Look.RIGHT)
+        c.tick(0)
+        c.submit(intent(Expression.HAPPY), 1_000)   // held until 4000, then idle
+        assertFalse(c.tick(3_999))
+        assertTrue(c.tick(4_000))                   // back to idle: quiet clock restarts at the next tick
+        c.tick(4_100)
+        assertFalse(c.tick(19_099))
+        assertTrue(c.tick(19_100))                  // glance left
+        assertEquals(Outcome.APPLIED, c.submit(intent(Expression.SAD), 19_200))  // no dwell from a glance
+        assertFalse(c.tick(20_100))                 // the glance's end does not recenter over SAD
+        assertEquals(Expression.SAD, c.state.active?.expression)
+    }
+
+    @Test fun glanceOnlyWhenIdle() {
+        val c = glancer()
+        c.submit(intent(Expression.HAPPY), 0)
+        assertFalse(c.glance(Look.RIGHT, 100))
+        assertTrue(EyeController(sink).glance(Look.LEFT, 0))  // idle glances off by default, explicit ones work
+    }
+
     // --- Codex review fixes ---
 
     @Test fun earlyIdleNeverDropsWaitingStoryReaction() {
