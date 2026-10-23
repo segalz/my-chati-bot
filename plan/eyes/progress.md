@@ -149,13 +149,16 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 8 review** (owner hears a story)
   - Result: story s02 spoken on the phone, eyes in sync; owner: "really good". Hebrew voice is a later stage.
 
-## Stage 9: Hebrew voice — WORKING 2026-10-23 (owner: "sounds excellent")
+## Stage 9: Hebrew voice — COMPLETED 2026-10-23 (owner: "excellent, this is the solution")
 - [x] 9.1 Route: research (evidence/hebrew-voice-research.md) found no open phone-ready Hebrew voice; owner chose Gemini TTS (cloud, own key, free tier / AI Pro credits).
   - Result: PC try-out: 4 emotional Hebrew lines, owner "sounds excellent"; per-sentence requests too slow (3.3–4.5 s) and flash-lite free tier is 3 req/min → one streamed request per line (first audio ~2.1 s, ~4× real time).
 - [x] 9.2 Language contract: Hebrew spoken, English per sentence for the eye model (R12); DEBUG_SPEAK --es text <he> --es en <en>.
 - [x] 9.3 GeminiVoice + SpeechHost cloud path + LineTiming; INTERNET permission for the cloud voice only; key in app-private storage, never logged/committed. Codex: 7 findings fixed, APPROVED; tests 72/72; APK 0.8.0.
 - [x] 9.4 Phone: first audio 2.7 s; eyes HAPPY → kept → SAD with the Hebrew sentences; without network the eyes continue alone ("network error"). Owner heard it: "sounds excellent".
   - Not done: offline Hebrew (by design needs network), long sessions/cost tracking, a Gemini voice per emotion.
+- [x] 9.5 Free route (owner will not pay; Gemini free tier = 10 requests/day, used up in one session): the phone's own Google TTS, offline Hebrew voice `he-il-x-heb-local`, sentence by sentence with speed+pitch per emotion (voice.txt), eyes from the English. Codex: 4 findings fixed, APPROVED; tests 76/76; APK 0.9.0.
+  - Result: on the phone, first line 8.2 s (engine start), then ~1 s to first audio and 0.1–1 s per sentence; owner: "excellent, this is the solution". Gemini stays in the code, off (`--es heng gemini`).
+  - Open: warm the speech engine at app start (first-line delay); the eye model sometimes misreads a sentence without context (e.g. "laughed at me" → SURPRISED).
 
 ## Stage 7: Acceptance and documentation — COMPLETED 2026-10-23
 - [x] 7.1 30-min smoke session → evidence/stage7-smoke.md — 2026-10-23

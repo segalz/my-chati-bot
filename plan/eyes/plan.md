@@ -209,7 +209,7 @@ Owner request 2026-10-23: in addition to the eyes, the phone answers in a human 
 
 **Stage 8 review:** owner hears and sees a story told by the phone and judges the voice and its emotion. Hebrew voice is a later stage.
 
-### Stage 9: Hebrew voice — ✅ working 2026-10-23 (owner: "sounds excellent")
+### Stage 9: Hebrew voice — ✅ completed 2026-10-23 (phone's Google TTS; owner: "this is the solution")
 Owner: after English, the phone speaks Hebrew. Research (2026-10-23, details in `evidence/hebrew-voice-research.md`):
 - No permissively licensed, phone-ready Hebrew neural voice exists today: sherpa-onnx has none; the Phonikud Hebrew voices (`phonikud-tts`, SASPEECH) are CC BY-NC with an **academic-only** restriction — not usable for a personal robot.
 - Hebrew text → pronunciation is solved openly: **ReNikud** (CC BY 4.0, ~20 MB ONNX, real time) or Phonikud (CC BY 4.0 code, MIT model but 294 MB).

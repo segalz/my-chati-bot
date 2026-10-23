@@ -67,7 +67,7 @@ Owner = zvi segal. Evidence lives under `plan/eyes/evidence/`.
 | 2026-10-23 | Stories: deterministic mood rules in the controller (linger 1.5 s, carry 6 s, dwell 1.5 s); model context off | Validated + accepted (owner: pacing good) | [stage6c](eyes/evidence/stage6c/); context A/B 48/70 vs 55/70 |
 | 2026-10-23 | Voice: Piper libritts_r-medium via sherpa-onnx v1.13.8, on the phone, 2 threads; emotion = speed per expression (`voice.txt`) | Accepted (owner left the choice to Claude; owner: "really good") | [voice-benchmark](eyes/evidence/voice-benchmark.md); Kokoro (RTF 6), Kitten, Supertonic measured |
 | 2026-10-23 | GPL-3.0 component (espeak-ng) accepted in the app | Accepted (owner) | [voice-shortlist](eyes/evidence/voice-shortlist.md) |
-| 2026-10-23 | Cloud voice only later, if on-phone emotion is not enough | Proposed | owner: start on the phone |
+| 2026-10-23 | Hebrew voice: the phone's own Google TTS (offline Hebrew voice), speed+pitch per expression; eyes get the English version per sentence (R12) | Accepted (owner: "this is the solution") | [hebrew-voice-research](eyes/evidence/hebrew-voice-research.md); Gemini TTS sounded best but its free tier is 10 requests/day and the owner will not pay — code kept, off |
 
 ## Decision log procedure
 
