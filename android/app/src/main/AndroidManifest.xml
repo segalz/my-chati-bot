@@ -5,6 +5,13 @@
          the eyes and the eye model never do. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Stage 9: the phone's speech engine (Hebrew voice) must be visible to the app (Android 11+). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="false"
         android:label="Chati Eyes"

@@ -1,12 +1,13 @@
-# How the phone's voice sounds for each eye expression (Stage 8).
-# Format: EXPRESSION speaker=N speed=F
-#   speaker: voice number in the Piper libritts_r model (0..903)
-#   speed:   1.0 = normal, 0.5..2.0
+# How the phone's voice sounds for each eye expression (Stage 8/9).
+# Format: EXPRESSION speaker=N speed=F pitch=F
+#   speaker: voice number in the Piper libritts_r model (0..903), English only
+#   speed:   1.0 = normal, 0.5..2.0 (both voices)
+#   pitch:   1.0 = normal, 0.5..2.0 (the phone's Hebrew voice only; optional)
 # Expressions not listed (and "no reaction") use NEUTRAL.
-NEUTRAL   speaker=0 speed=1.00
-HAPPY     speaker=0 speed=1.10
-SAD       speaker=0 speed=0.85
-ANGRY     speaker=0 speed=1.05
-SURPRISED speaker=0 speed=1.15
-SLEEPY    speaker=0 speed=0.85
-BORED     speaker=0 speed=0.90
+NEUTRAL   speaker=0 speed=1.00 pitch=1.00
+HAPPY     speaker=0 speed=1.10 pitch=1.10
+SAD       speaker=0 speed=0.85 pitch=0.90
+ANGRY     speaker=0 speed=1.05 pitch=0.95
+SURPRISED speaker=0 speed=1.15 pitch=1.15
+SLEEPY    speaker=0 speed=0.85 pitch=0.90
+BORED     speaker=0 speed=0.90 pitch=0.95

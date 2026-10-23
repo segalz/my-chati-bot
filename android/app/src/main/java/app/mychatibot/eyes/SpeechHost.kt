@@ -41,7 +41,8 @@ class SpeechHost private constructor() {
 
     private class Clip(val samples: FloatArray, val sampleRate: Int, val synthMs: Long)
     private class Ready(val decision: EyeBrainHost.Decision, val clip: Clip?)
-    private class Session(val generation: Long, val sentences: List<String>) {
+    /** [sentences] are what is spoken; [hebrew] lines use the phone's Hebrew voice instead of Piper. */
+    private class Session(val generation: Long, val sentences: List<String>, val hebrew: Boolean = false) {
         val ready: List<CompletableFuture<Ready>> = List(sentences.size) { CompletableFuture<Ready>() }
     }
 
@@ -56,6 +57,9 @@ class SpeechHost private constructor() {
     private var audio: AudioOut? = null  // player thread only: the stream of the line being spoken
     private val net = Executors.newSingleThreadExecutor { Thread(it, "voice-net") }
     @Volatile private var cloud: GeminiVoice? = null
+    @Volatile private var hebrewVoice: AndroidVoice? = null
+    /** Which voice speaks Hebrew: the phone's own (free, default) or the Gemini cloud voice. */
+    @Volatile private var hebrewEngine = HEBREW_ANDROID
 
     /**
      * One cloud line in flight: the network thread produces audio into a bounded queue and reports
@@ -74,6 +78,7 @@ class SpeechHost private constructor() {
     /** Reads the voice table asset and loads the voice model in the background. */
     fun init(context: Context) {
         val app = context.applicationContext
+        if (hebrewVoice == null) hebrewVoice = AndroidVoice(app)
         synth.post {
             val errors = mutableListOf<String>()
             table = runCatching { VoiceTable.parse(app.assets.open(TABLE_ASSET).reader().readText(), errors) }
@@ -90,19 +95,34 @@ class SpeechHost private constructor() {
      * to the cloud voice and needs [english] (the same line in English) for the eyes.
      */
     fun speak(text: String, english: String? = null) {
-        if (LineTiming.isHebrew(text)) return speakCloud(text, english)
+        val hebrew = LineTiming.isHebrew(text)
+        if (hebrew && hebrewEngine == HEBREW_GEMINI) return speakCloud(text, english)
         val sentences = StoryText.split(text)
         if (sentences.isEmpty()) {
             Log.w(TAG, "speak: no sentences")
             return
         }
         val brain = EyeBrainHost.instance
-        val session = Session(brain.beginRequest(), sentences)
-        Log.i(TAG, "speak: ${sentences.size} sentences, generation ${session.generation}")
-        brain.classifyAhead(session.generation, sentences) { i, decision ->
-            synth.post { session.ready[i].complete(Ready(decision, synthesize(session, i, decision))) }
+        val session = Session(brain.beginRequest(), sentences, hebrew)
+        // R12: the eye model reads English only — a Hebrew line brings its English version.
+        val forEyes = if (hebrew) LineTiming.englishFor(sentences, english?.let(StoryText::split).orEmpty()) else sentences
+        Log.i(TAG, "speak: ${sentences.size} sentences${if (hebrew) " (Hebrew, phone voice), ${forEyes.size} for the eyes" else ""}, " +
+            "generation ${session.generation}")
+        if (forEyes.isEmpty()) {
+            val none = EyeBrainHost.Decision(null, "NO ENGLISH FOR THE EYES", "", IntentSource.MODEL)
+            for (i in sentences.indices) synth.post { session.ready[i].complete(Ready(none, synthesize(session, i, none))) }
+        } else {
+            brain.classifyAhead(session.generation, forEyes) { i, decision ->
+                synth.post { session.ready[i].complete(Ready(decision, synthesize(session, i, decision))) }
+            }
         }
         player.execute { play(session) }
+    }
+
+    /** Development only (debug channel): which voice speaks Hebrew ("android" or "gemini"). */
+    fun setHebrewEngine(name: String?) {
+        if (name == HEBREW_ANDROID || name == HEBREW_GEMINI) hebrewEngine = name
+        Log.i(TAG, "Hebrew voice: $hebrewEngine")
     }
 
     private fun speakCloud(text: String, english: String?) {
@@ -231,7 +251,9 @@ class SpeechHost private constructor() {
 
     /** Null when the request is stale or the voice is unavailable (the eyes still react then). */
     private fun synthesize(session: Session, index: Int, decision: EyeBrainHost.Decision): Clip? {
-        if (!EyeBrainHost.instance.isCurrent(session.generation) || !ensureLoaded()) return null
+        if (!EyeBrainHost.instance.isCurrent(session.generation)) return null
+        if (session.hebrew) return synthesizeHebrew(session, index, decision)
+        if (!ensureLoaded()) return null
         val engine = tts ?: return null
         val style = table.styleFor(expressionOf(decision))
         val speaker = if (style.speaker < engine.numSpeakers()) style.speaker else 0
@@ -243,6 +265,17 @@ class SpeechHost private constructor() {
         val clip = Clip(audio.samples, audio.sampleRate, SystemClock.uptimeMillis() - started)
         Log.i(TAG, "synth ${index + 1}/${session.sentences.size}: ${clip.synthMs} ms for ${durationMs(clip)} ms " +
             "(speaker $speaker, speed ${style.speed})")
+        return clip
+    }
+
+    private fun synthesizeHebrew(session: Session, index: Int, decision: EyeBrainHost.Decision): Clip? {
+        val voice = hebrewVoice ?: return null
+        val style = table.styleFor(expressionOf(decision))
+        val started = SystemClock.uptimeMillis()
+        val audio = voice.synthesize(session.sentences[index], style.speed, style.pitch) ?: return null
+        val clip = Clip(audio.samples, audio.sampleRate, SystemClock.uptimeMillis() - started)
+        Log.i(TAG, "synth ${index + 1}/${session.sentences.size} (Hebrew): ${clip.synthMs} ms for ${durationMs(clip)} ms " +
+            "(speed ${style.speed}, pitch ${style.pitch})")
         return clip
     }
 
@@ -585,6 +618,8 @@ class SpeechHost private constructor() {
         private const val MODEL_FILE = "en_US-libritts_r-medium.onnx"
         private const val TABLE_ASSET = "voice.txt"
         private const val KEY_FILE = "gemini_api_key"
+        const val HEBREW_ANDROID = "android"
+        const val HEBREW_GEMINI = "gemini"
         private const val QUEUE_CHUNKS = 1_500  // ≈ 1–3 min of streamed audio; bounds memory
         private const val FIRST_AUDIO_TIMEOUT_MS = 20_000L
         private const val STALL_TIMEOUT_MS = 10_000L  // no new audio for this long ends the line

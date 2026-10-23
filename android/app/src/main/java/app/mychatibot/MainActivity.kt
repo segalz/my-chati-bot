@@ -185,7 +185,8 @@ class MainActivity : Activity() {
      * adb shell am broadcast -a app.mychatibot.DEBUG_STORY --es text "I lost my keys. Then I found them!"
      * # the phone says a line out loud and the eyes follow it (voice threads: --ei threads)
      * adb shell am broadcast -a app.mychatibot.DEBUG_SPEAK --es text "I got the job! I start on Monday."
-     * # Hebrew is spoken by the cloud voice; the eyes need the English (--es gvoice / --es gstyle optional)
+     * # Hebrew is spoken by the phone's voice (or --es heng gemini: the cloud voice, --es gvoice/gstyle);
+     * # the eyes need the English
      * adb shell am broadcast -a app.mychatibot.DEBUG_SPEAK --es text "קיבלתי את העבודה!" --es en "I got the job!"
      * ```
      * # benchmark only: switch eye model file / thread counts
@@ -211,6 +212,7 @@ class MainActivity : Activity() {
                     DEBUG_SPEAK_ACTION -> {
                         if (intent.hasExtra("threads")) SpeechHost.instance.setThreads(intent.getIntExtra("threads", 0))
                         SpeechHost.instance.setCloudVoice(intent.getStringExtra("gvoice"), intent.getStringExtra("gstyle"))
+                        if (intent.hasExtra("heng")) SpeechHost.instance.setHebrewEngine(intent.getStringExtra("heng"))
                         intent.getStringExtra("text")?.let { SpeechHost.instance.speak(it, intent.getStringExtra("en")) }
                     }
                     DEBUG_STORY_ACTION -> {

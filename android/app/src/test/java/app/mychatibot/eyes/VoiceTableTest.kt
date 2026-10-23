@@ -30,6 +30,9 @@ class VoiceTableTest {
             errors,
         )
         assertEquals(6, errors.size)
+        val withPitch = VoiceTable.parse("HAPPY speaker=1 speed=1.0 pitch=1.3\nSAD speaker=1 speed=1.0 pitch=3", errors)
+        assertEquals(VoiceStyle(1, 1.0f, 1.3f), withPitch.styleFor(Expression.HAPPY))
+        assertEquals(7, errors.size)  // pitch 3 is out of range
         assertEquals(VoiceTable.DEFAULT.styleFor(Expression.HAPPY), table.styleFor(Expression.HAPPY))
         assertEquals(VoiceStyle(1, 1.0f), table.styleFor(Expression.ANGRY))  // first one kept
     }
@@ -39,6 +42,6 @@ class VoiceTableTest {
         val text = java.io.File("src/main/assets/voice.txt").readText()
         val table = VoiceTable.parse(text, errors)
         assertTrue(errors.toString(), errors.isEmpty())
-        assertEquals(VoiceStyle(0, 0.85f), table.styleFor(Expression.SAD))
+        assertEquals(VoiceStyle(0, 0.85f, 0.90f), table.styleFor(Expression.SAD))
     }
 }
