@@ -191,7 +191,7 @@ Owner request 2026-10-23: test a story or conversation, not only single sentence
 
 **Stage 6C review:** owner watches a story played on the phone and judges the pacing.
 
-### Stage 8: Voice — the phone speaks the line with emotion (English first)
+### Stage 8: Voice — the phone speaks the line with emotion (English first) — ✅ completed 2026-10-23
 Owner request 2026-10-23: in addition to the eyes, the phone answers in a human voice with feeling. A line arrives (from Claude over the debug channel for now, later from the conversation side), the phone speaks it, and eyes and voice follow the same emotion. Owner decisions: **English first, Hebrew later**; start on the phone (offline), a cloud voice only later and only if on-phone emotion is not enough (R6 allows an API for conversation; the app has no INTERNET permission today).
 
 - [x] 8.1 Candidates and owner approval (R7): Kokoro-82M (int8, via sherpa-onnx; Apache-2.0) as the main candidate; a tiny fallback (Kitten TTS nano or a Piper English voice). Present exact files, sizes and licenses before any download.
@@ -200,11 +200,11 @@ Owner request 2026-10-23: in addition to the eyes, the phone answers in a human 
   - Check: `evidence/voice-benchmark.md` + audio samples.
 - [x] 8.3 `[HARD]` sherpa-onnx in the app: TTS on its own thread, AudioTrack playback, sentence by sentence (synthesize the next sentence while the current one plays), cancel on a newer line, release under memory pressure.
   - Check: unit tests for the queue; Codex review; no frame drops in the eyes while speaking.
-- [ ] 8.4 `[HARD]` Emotion → voice: the sentence's expression (from the eye model, R2: it still only picks the intent) selects deterministic voice settings — speaker, speed, and other supported controls — from an owner-editable table; punctuation kept for natural prosody.
+- [x] 8.4 `[HARD]` Emotion → voice: the sentence's expression (from the eye model, R2: it still only picks the intent) selects deterministic voice settings — speaker, speed, and other supported controls — from an owner-editable table; punctuation kept for natural prosody.
   - Check: table in assets; owner listening test per emotion.
 - [x] 8.5 Sync: the story timeline uses the real audio duration of each sentence instead of the word-count estimate; each sentence's reaction appears when its audio starts.
   - Check: on-phone timeline log shows reaction start within ~100 ms of audio start.
-- [ ] 8.6 `DEBUG_SPEAK --es text` (debug only): line → split → eyes + voice. Video with sound of a full story.
+- [x] 8.6 `DEBUG_SPEAK --es text` (debug only): line → split → eyes + voice. Video with sound of a full story.
   - Check: video; owner judges.
 
 **Stage 8 review:** owner hears and sees a story told by the phone and judges the voice and its emotion. Hebrew voice is a later stage.
