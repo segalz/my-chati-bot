@@ -13,7 +13,7 @@
 namespace {
 
 std::string version_string() {
-    return std::string("chati_eyes 0.5.1 | C++ ") + std::to_string(__cplusplus) +
+    return std::string("chati_eyes 0.5.2 | C++ ") + std::to_string(__cplusplus) +
            " | NDK r" + std::to_string(__NDK_MAJOR__) + "." + std::to_string(__NDK_MINOR__) +
            " | clang " + __clang_version__ + " | expressive_eyes v1.3.9 + Monochrome Blue";
 }
@@ -102,7 +102,7 @@ Java_app_mychatibot_NativeBridge_nativeBrainCancelOlderThan(JNIEnv *, jobject, j
     chati::EyeBrain::instance().cancel_older_than(generation);
 }
 
-/// Tab-separated: "OK|ERR", json-or-error, prompt_tokens, sampled_tokens, prompt_ms, generate_ms, total_ms.
+/// Tab-separated: "OK|ERR", json-or-error, prompt_tokens, sampled_tokens, prompt_ms, generate_ms, total_ms, none_gap.
 JNIEXPORT jstring JNICALL
 Java_app_mychatibot_NativeBridge_nativeBrainInfer(JNIEnv *env, jobject, jstring sentence, jint timeout_ms,
                                                  jlong generation) {
@@ -112,7 +112,7 @@ Java_app_mychatibot_NativeBridge_nativeBrainInfer(JNIEnv *env, jobject, jstring 
     const std::string out = std::string(r.ok ? "OK" : "ERR") + "\t" + (r.ok ? r.json : r.error) + "\t" +
                             std::to_string(r.prompt_tokens) + "\t" + std::to_string(r.sampled_tokens) + "\t" +
                             std::to_string(r.prompt_ms) + "\t" + std::to_string(r.generate_ms) + "\t" +
-                            std::to_string(r.total_ms);
+                            std::to_string(r.total_ms) + "\t" + std::to_string(r.none_gap);
     return env->NewStringUTF(out.c_str());
 }
 

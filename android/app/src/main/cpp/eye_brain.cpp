@@ -2,6 +2,7 @@
 
 #include <android/log.h>
 
+#include <algorithm>
 #include <atomic>
 #include <chrono>
 #include <cmath>
@@ -239,8 +240,27 @@ bool EyeBrain::load(const std::string &model_path, int threads, std::string &err
         return false;
     }
     prefix_tokens_ = static_cast<int>(prefix_tokens.size());
-    __android_log_print(ANDROID_LOG_INFO, kTag, "model loaded in %lld ms, prefix %d tokens, threads %d",
-                        static_cast<long long>(now_ms() - start), prefix_tokens_, threads);
+
+    // Once per load: which tokens the expression grammar allows first, and which of them lead to
+    // "NONE". Lets infer() report the gap to "no reaction" without scanning the whole vocabulary.
+    first_tokens_.clear();
+    first_leads_to_none_.clear();
+    if (llama_sampler *g = llama_sampler_init_grammar(vocab, kExpressionGrammar, "root")) {
+        const int n_vocab = llama_vocab_n_tokens(vocab);
+        std::vector<llama_token_data> all(n_vocab);
+        for (llama_token tok = 0; tok < n_vocab; ++tok) all[tok] = {tok, 0.0f, 0.0f};
+        llama_token_data_array cur{all.data(), all.size(), -1, false};
+        llama_sampler_apply(g, &cur);
+        for (size_t i = 0; i < cur.size; ++i) {
+            if (cur.data[i].logit == -INFINITY) continue;
+            const std::string p = piece(vocab, cur.data[i].id);
+            first_tokens_.push_back(cur.data[i].id);
+            first_leads_to_none_.push_back(!p.empty() && std::string("NONE").rfind(p, 0) == 0);
+        }
+        llama_sampler_free(g);
+    }
+    __android_log_print(ANDROID_LOG_INFO, kTag, "model loaded in %lld ms, prefix %d tokens, threads %d, %zu first tokens",
+                        static_cast<long long>(now_ms() - start), prefix_tokens_, threads, first_tokens_.size());
     return true;
 }
 
@@ -278,6 +298,16 @@ BrainResult EyeBrain::infer(const std::string &sentence, int timeout_ms, int64_t
 
     // Stop between phases too, not only inside llama_decode.
     auto stopped = [&] { return cancelled() || now_ms() > deadline_ms_.load(); };
+    if (prompt_ok) {
+        const float *logits = llama_get_logits_ith(ctx_, -1);
+        float best = -INFINITY, best_none = -INFINITY;
+        for (size_t i = 0; i < first_tokens_.size(); ++i) {
+            const float l = logits[first_tokens_[i]];
+            best = std::max(best, l);
+            if (first_leads_to_none_[i]) best_none = std::max(best_none, l);
+        }
+        r.none_gap = std::isfinite(best_none) ? best - best_none : 99.0f;
+    }
     std::string expression;
     const bool ok = prompt_ok && !stopped() && classify(ctx_, vocab, expression, r.sampled_tokens);
     const bool was_cancelled = cancelled();

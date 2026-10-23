@@ -103,21 +103,21 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 5 review** (phone check: intents over ADB)
   - Result: **13/13 PASS 2026-10-23 12:38** (`tools/model-bench/stage5_check.py`, [evidence/screens/stage5/stage5-check.txt](./evidence/screens/stage5/stage5-check.txt)): valid HAPPY / SAD down / SURPRISED left applied; JOYFUL, malformed, hold 50 ms, unknown field `camera`, duplicate key rejected with reasons shown; NONE and NEUTRAL+center ignored; SLEEPY→BORED queued then newest applied after dwell; back to idle after hold; DEBUG_SAY shows NOT AVAILABLE; crash buffer empty. Install: owner installed by hand (my two attempts to open/approve the installer were blocked by Claude Code's safety classifier and not worked around). Note: SURPRISED + look-left touches/clips at the 4:3 canvas edge (upstream geometry, seen in Stage 4).
 
-## Stage 6: On-phone small model: sentence → intent
-- [ ] 6.1 Model shortlist (owner approves weights download)
-  - Result: 
-- [ ] 6.2 Inference runtime in NDK build (pinned, licensed)
-  - Result: 
-- [ ] 6.3 [HARD] Inference wrapper thread (load, queue, cancel, timeout, memory release)
-  - Result: 
-- [ ] 6.4 [HARD] Constrained JSON output + validation (50 sentences)
-  - Result: 
-- [ ] 6.5 DEBUG_SAY → model → validator → controller
-  - Result: 
-- [ ] 6.6 On-phone benchmark and model selection → evidence/model-benchmark.md
-  - Result: 
-- [ ] **Stage 6 review** (phone check: airplane mode, English + Hebrew sentences, source = model)
-  - Result: 
+## Stage 6: On-phone small model: sentence → intent — WORKING 2026-10-23 (details: evidence/model-benchmark.md, progress-log.md)
+- [x] 6.1 Model: Gemma 3 1B it Q4_K_M (owner-approved after the Stage 2B comparison); plain/QAT Q4_0 measured as faster alternatives.
+  - Result: model file deployed to app-private storage via run-as, SHA-256 verified.
+- [x] 6.2 llama.cpp v0.7.0 (submodule, 620d222, MIT) in the NDK build; native code built optimized (Release) even in debug APKs.
+  - Result: APK 10 MB, libchati_eyes.so 7.5 MB.
+- [x] 6.3 [HARD] Inference on its own thread: cached system prompt (swa_full), request generations, request-specific cancellation, timeout, release on memory pressure.
+  - Result: Codex reviews: 3 rounds on cancellation/staleness until approved.
+- [x] 6.4 [HARD] Constrained output: expression classified from logits with early stop; look by LookRules; strict validation of the model output; model may not set timing.
+  - Result: 88/100 on the 100 English sentences (dev 37/40, holdout 51/60).
+- [x] 6.5 DEBUG_SAY → phrasebook or model → validator → controller; overlay shows source, latency, gap.
+  - Result: talk demo video 7/7 correct (evidence/demo/talk-demo-0.4.1.mp4).
+- [x] 6.6 On-phone benchmark and model selection
+  - Result: latency p50 2.09 s → **1.07 s** (Q4_K_M, 6 threads), phrasebook ~1 ms; threads sweep (6 best); Q4_0 0.47 s but 84/100 (86 calibrated) → **Q4_K_M kept** per the agreed rule. Eyes keep 60 fps during inference.
+- [~] **Stage 6 review** (airplane mode, sentence set, source = model)
+  - Result: offline by construction (the app has no INTERNET permission) — airplane-mode run itself not yet done. Hebrew input intentionally out of scope (R12).
 
 ## Stage 7: Acceptance and documentation
 - [ ] 7.1 30-min smoke session → evidence/stage7-smoke.md

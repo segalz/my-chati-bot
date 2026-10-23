@@ -36,6 +36,9 @@ class EyeBrainHost private constructor() {
     private var modelName = MODEL_FILE
     private var threads = THREADS
     private var threadsBatch = THREADS
+    /** "No reaction" calibration: a non-NONE expression whose logit gap to NONE is below this
+     *  (and with no explicit look request) is treated as NONE. 0 = off. */
+    @Volatile private var noneGapThreshold = NONE_GAP_THRESHOLD
     private var loadError: String? = null
 
     /** Loads the phrasebook asset and starts loading the model (app-private files dir) in the background. */
@@ -92,7 +95,8 @@ class EyeBrainHost private constructor() {
      * models dir and/or the thread counts. A model switch releases and reloads; thread changes apply
      * to the loaded model directly. Null keeps the current value.
      */
-    fun configure(model: String?, threads: Int?, threadsBatch: Int?) = handler.post {
+    fun configure(model: String?, threads: Int?, threadsBatch: Int?, noneGap: Float? = null) = handler.post {
+        noneGap?.takeIf { it in 0f..20f }?.let { noneGapThreshold = it }
         if (model != null && model != modelName) {
             if (!Regex("""[A-Za-z0-9._-]+\.gguf""").matches(model)) {
                 Log.w(TAG, "configure: rejected model name '$model'")
@@ -104,7 +108,8 @@ class EyeBrainHost private constructor() {
         threads?.takeIf { it in 1..8 }?.let { this.threads = it }
         threadsBatch?.takeIf { it in 1..8 }?.let { this.threadsBatch = it }
         if (ensureLoaded()) NativeBridge.nativeBrainSetThreads(this.threads, this.threadsBatch)
-        Log.i(TAG, "configure: model=$modelName threads=${this.threads} batch=${this.threadsBatch} loaded=${loadError == null}")
+        Log.i(TAG, "configure: model=$modelName threads=${this.threads} batch=${this.threadsBatch} " +
+            "none_gap=$noneGapThreshold loaded=${loadError == null}")
     }
 
     private fun ensureLoaded(): Boolean {
@@ -135,15 +140,17 @@ class EyeBrainHost private constructor() {
         val ok = fields.getOrNull(0) == "OK"
         val payload = fields.getOrNull(1).orEmpty()
         val endToEnd = SystemClock.uptimeMillis() - request.receivedAtMs
+        val gap = fields.getOrNull(7)?.toFloatOrNull()
         val detail = if (fields.size >= 7) {
-            "$endToEnd ms (model ${fields[6]} ms: prompt ${fields[2]} tok ${fields[4]} ms, ${fields[3]} tok ${fields[5]} ms)"
+            "$endToEnd ms (model ${fields[6]} ms: prompt ${fields[2]} tok ${fields[4]} ms, ${fields[3]} tok ${fields[5]} ms, " +
+                "gap ${"%.2f".format(gap ?: -1f)})"
         } else "$endToEnd ms"
         Log.i(TAG, "brain: '${request.sentence}' -> ${fields.joinToString(" | ")} | end-to-end $endToEnd ms")
         if (!ok) {
             controller.submitDecision(request.sentence, null, "MODEL ERROR $payload", detail, IntentSource.MODEL, isCurrent)
             return
         }
-        val body = composeBody(payload, request.sentence)
+        val body = composeBody(payload, request.sentence, gap)
         if (body == null) {
             controller.submitDecision(request.sentence, null, "MODEL OUTPUT REJECTED not {\"expression\":…}: $payload",
                 detail, IntentSource.MODEL, isCurrent)
@@ -156,14 +163,21 @@ class EyeBrainHost private constructor() {
      * The model returns `{"expression":"X"}`; the gaze comes from [LookRules]. An explicit look
      * request the model judged "no reaction" still turns the eyes (NEUTRAL + that direction).
      */
-    private fun composeBody(modelJson: String, sentence: String): String? {
+    private fun composeBody(modelJson: String, sentence: String, noneGap: Float?): String? {
         // The model output must be exactly {"expression":"<string>"}; anything else (extra fields,
         // nesting, trailing data) is an explicit rejection — the model never supplies the look.
         val fields = runCatching { StrictJson.parseFlatObject(modelJson) }.getOrNull()
         val expression = (fields?.takeIf { it.keys == setOf("expression") }?.get("expression") as? String)
             ?: return null
         val look = LookRules.detect(sentence)
-        val chosen = if (expression == Expression.NONE.name && look != Look.CENTER) Expression.NEUTRAL.name else expression
+        val threshold = noneGapThreshold
+        val chosen = when {
+            expression == Expression.NONE.name && look != Look.CENTER -> Expression.NEUTRAL.name
+            // Calibration: a weak reaction that was nearly "no reaction", with no look request.
+            threshold > 0f && look == Look.CENTER && noneGap != null && noneGap < threshold &&
+                expression != Expression.NONE.name && expression != Expression.NEUTRAL.name -> Expression.NONE.name
+            else -> expression
+        }
         return """{"expression":"$chosen","look":"${look.name.lowercase()}"}"""
     }
 
@@ -173,6 +187,7 @@ class EyeBrainHost private constructor() {
         private const val PHRASEBOOK_ASSET = "phrasebook.txt"
         private const val THREADS = 6
         private const val TIMEOUT_MS = 8_000
+        private const val NONE_GAP_THRESHOLD = 0f  // off until calibrated
 
         val instance: EyeBrainHost by lazy { EyeBrainHost() }
     }

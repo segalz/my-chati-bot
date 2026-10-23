@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <mutex>
 #include <string>
+#include <vector>
 
 struct llama_model;
 struct llama_context;
@@ -13,10 +14,13 @@ namespace chati {
 /// Result of one sentence → intent inference.
 struct BrainResult {
     bool ok = false;
-    std::string json;   // {"expression":"…","look":"…"} on success
+    std::string json;   // {"expression":"…"} on success
     std::string error;  // reason on failure
     int prompt_tokens = 0;
     int sampled_tokens = 0;
+    /// Logit of the best allowed first token minus the best first token on the path to "NONE"
+    /// (0 when the model's top choice already leads to NONE). Small = close to "no reaction".
+    float none_gap = 0.0f;
     int64_t prompt_ms = 0;
     int64_t generate_ms = 0;
     int64_t total_ms = 0;
@@ -65,6 +69,8 @@ private:
     llama_context *ctx_ = nullptr;
     int prefix_tokens_ = 0;
     std::string prompt_suffix_;  // template text after the sentence (special tokens allowed)
+    std::vector<int32_t> first_tokens_;  // tokens the expression grammar allows first
+    std::vector<bool> first_leads_to_none_;
     std::atomic<int64_t> deadline_ms_{0};  // read by abort_check (may run on ggml worker threads)
     std::atomic<int64_t> cancel_below_{0};
     std::atomic<int64_t> running_generation_{INT64_MAX};  // INT64_MAX = not cancellable (load)

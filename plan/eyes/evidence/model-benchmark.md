@@ -135,7 +135,14 @@ Remaining floor: prompt processing ~1.0 s.
 
 6 threads is best for every model; the brainstorm's "2 threads on the A75 cores" did not hold on this phone.
 
-**100-sentence accuracy at 6 threads ([stage6/](./stage6/)):** Q4_K_M **88/100** (1.07 s p50); plain Q4_0 **84/100** (0.47 s p50, 0.59 s p90); QAT Q4_0 **82/100** (0.46 s). Q4_0's extra misses are mostly over-reactions to neutral facts. Decision pending with the owner; a possible fix is calibrating the "no reaction" decision on the dev set and checking it on the holdout. Next options from the brainstorm: 2 threads on the A75 cores, Q4_0 (repacked, pp ×2.7) now that the output is a logit classification, incremental prefill during speech (P3), a distilled tiny classifier (endgame).
+**100-sentence accuracy at 6 threads ([stage6/](./stage6/)):** Q4_K_M **88/100** (1.07 s p50); plain Q4_0 **84/100** (0.47 s p50, 0.59 s p90); QAT Q4_0 **82/100** (0.46 s). Q4_0's extra misses are mostly over-reactions to neutral facts. **"No reaction" calibration (0.5.2)**: the app can turn a weak reaction into NONE when the logit gap between the model's top first token and the best first token leading to NONE is below T (no look request). The data was collected with T off ([stage6/gap-0.5.2-*.txt](./stage6/)), T was chosen on the 40 dev sentences only, and the result was checked on the 60 holdout sentences (`tools/model-bench/tune_none_gap.py`):
+
+| Model | T off | T chosen on dev | Result |
+|---|---|---|---|
+| plain Q4_0 | 84/100 | 2.6 | **86/100** (holdout 49 → 50) |
+| Q4_K_M | 88/100 | none helps | 88/100 |
+
+T = 4.0 would give Q4_0 87/100, but only by looking at the holdout, so it is not used. **Decision (agreed rule: Q4_0 only if ≥ 87): default stays Q4_K_M at 6 threads — 88/100, ~1.07 s p50.** The calibration stays in the code, off by default. Plain Q4_0 (~0.47 s, 84–86/100) is a known faster option if speed is ever preferred over accuracy. Next options from the brainstorm: 2 threads on the A75 cores, Q4_0 (repacked, pp ×2.7) now that the output is a logit classification, incremental prefill during speech (P3), a distilled tiny classifier (endgame).
 
 ## Limits of this test
 

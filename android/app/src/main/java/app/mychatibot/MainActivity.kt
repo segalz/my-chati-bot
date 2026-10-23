@@ -178,7 +178,7 @@ class MainActivity : Activity() {
      * adb shell am broadcast -a app.mychatibot.DEBUG_SAY --es text "I got the job!"
      * ```
      * # benchmark only: switch eye model file / thread counts
-     * adb shell am broadcast -a app.mychatibot.DEBUG_BRAIN --es model gemma-3-1b-it-qat-Q4_0.gguf --ei threads 2 --ei threads_batch 4
+     * adb shell am broadcast -a app.mychatibot.DEBUG_BRAIN --es model gemma-3-1b-it-qat-Q4_0.gguf --ei threads 6 --ei threads_batch 6 --ef none_gap 1.5
      * `--ez overlay false|true` hides/shows both overlays; `--ez stats true` logs renderer counters.
      */
     private fun registerDebugReceiver() {
@@ -192,6 +192,7 @@ class MainActivity : Activity() {
                         intent.getStringExtra("model"),
                         intent.getIntExtra("threads", 0).takeIf { it > 0 },
                         intent.getIntExtra("threads_batch", 0).takeIf { it > 0 },
+                        if (intent.hasExtra("none_gap")) intent.getFloatExtra("none_gap", 0f) else null,
                     )
                     DEBUG_SAY_ACTION -> intent.getStringExtra("text")
                         ?.let { EyeBrainHost.instance.submitSentence(it) }
