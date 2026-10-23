@@ -209,16 +209,16 @@ Owner request 2026-10-23: in addition to the eyes, the phone answers in a human 
 
 **Stage 8 review:** owner hears and sees a story told by the phone and judges the voice and its emotion. Hebrew voice is a later stage.
 
-### Stage 9: Hebrew voice (planned 2026-10-23)
+### Stage 9: Hebrew voice — ✅ working 2026-10-23 (owner: "sounds excellent")
 Owner: after English, the phone speaks Hebrew. Research (2026-10-23, details in `evidence/hebrew-voice-research.md`):
 - No permissively licensed, phone-ready Hebrew neural voice exists today: sherpa-onnx has none; the Phonikud Hebrew voices (`phonikud-tts`, SASPEECH) are CC BY-NC with an **academic-only** restriction — not usable for a personal robot.
 - Hebrew text → pronunciation is solved openly: **ReNikud** (CC BY 4.0, ~20 MB ONNX, real time) or Phonikud (CC BY 4.0 code, MIT model but 294 MB).
 - The phone already has **Google TTS** (`com.google.android.tts`, updated 2026-10-19), which has a Hebrew voice and can run offline when its voice data is installed; Android's `TextToSpeech` API gives speech rate and pitch per sentence.
 
-- [ ] 9.1 Decide the route with the owner: (A) Android/Google TTS Hebrew voice (no download by us, offline if the voice data is present, rate/pitch per emotion); (B) a cloud voice with real emotion (ElevenLabs/Gemini/OpenAI; internet, key, cost); (C) long term: train an own Hebrew voice on permissively licensed data with ReNikud.
-- [ ] 9.2 Language contract: a Hebrew line is spoken in Hebrew while the eye model still gets English (R12) — the sender supplies an English version per sentence (or an affect hint); debug channel `DEBUG_SPEAK --es text <he> --es en <en>`.
-- [ ] 9.3 `[HARD]` Voice engine behind one interface (Piper for English, the chosen Hebrew engine), same sentence pipeline, eyes synced to real audio start.
-- [ ] 9.4 Phone check: offline (airplane mode), latency to first audio, owner listening test per emotion.
+- [x] 9.1 Decide the route with the owner: (A) Android/Google TTS Hebrew voice (no download by us, offline if the voice data is present, rate/pitch per emotion); (B) a cloud voice with real emotion (ElevenLabs/Gemini/OpenAI; internet, key, cost); (C) long term: train an own Hebrew voice on permissively licensed data with ReNikud.
+- [x] 9.2 Language contract: a Hebrew line is spoken in Hebrew while the eye model still gets English (R12) — the sender supplies an English version per sentence (or an affect hint); debug channel `DEBUG_SPEAK --es text <he> --es en <en>`.
+- [x] 9.3 `[HARD]` Voice engine behind one interface (Piper for English, the chosen Hebrew engine), same sentence pipeline, eyes synced to real audio start.
+- [x] 9.4 Phone check: offline (airplane mode), latency to first audio, owner listening test per emotion.
 
 ### Stage 7: Acceptance and documentation — ✅ completed 2026-10-23
 Close the stage with evidence and updated plans.

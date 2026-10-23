@@ -149,6 +149,14 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 8 review** (owner hears a story)
   - Result: story s02 spoken on the phone, eyes in sync; owner: "really good". Hebrew voice is a later stage.
 
+## Stage 9: Hebrew voice — WORKING 2026-10-23 (owner: "sounds excellent")
+- [x] 9.1 Route: research (evidence/hebrew-voice-research.md) found no open phone-ready Hebrew voice; owner chose Gemini TTS (cloud, own key, free tier / AI Pro credits).
+  - Result: PC try-out: 4 emotional Hebrew lines, owner "sounds excellent"; per-sentence requests too slow (3.3–4.5 s) and flash-lite free tier is 3 req/min → one streamed request per line (first audio ~2.1 s, ~4× real time).
+- [x] 9.2 Language contract: Hebrew spoken, English per sentence for the eye model (R12); DEBUG_SPEAK --es text <he> --es en <en>.
+- [x] 9.3 GeminiVoice + SpeechHost cloud path + LineTiming; INTERNET permission for the cloud voice only; key in app-private storage, never logged/committed. Codex: 7 findings fixed, APPROVED; tests 72/72; APK 0.8.0.
+- [x] 9.4 Phone: first audio 2.7 s; eyes HAPPY → kept → SAD with the Hebrew sentences; without network the eyes continue alone ("network error"). Owner heard it: "sounds excellent".
+  - Not done: offline Hebrew (by design needs network), long sessions/cost tracking, a Gemini voice per emotion.
+
 ## Stage 7: Acceptance and documentation — COMPLETED 2026-10-23
 - [x] 7.1 30-min smoke session → evidence/stage7-smoke.md — 2026-10-23
   - Result: PASS. 117 sentences (103 correct, 0 missing), 60.0 fps, RSS flat ~990 MB, no crash/restart, battery 30–31 °C, p50 945 ms.
