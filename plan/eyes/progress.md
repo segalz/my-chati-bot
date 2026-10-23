@@ -133,6 +133,15 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 6C review** (owner watches a story)
   - Result: story s02 played on the phone, 7/7 as labeled; video evidence/demo/story-demo-0.6.1.mp4; owner: "good for now".
 
+## Stage 8: Voice with emotion (English first) — PLANNED 2026-10-23 (owner request)
+- [ ] 8.1 Candidates and owner approval
+- [ ] 8.2 CLI benchmark on the phone + samples
+- [ ] 8.3 sherpa-onnx TTS in the app
+- [ ] 8.4 Emotion → voice settings
+- [ ] 8.5 Eyes synced to real audio
+- [ ] 8.6 DEBUG_SPEAK + video with sound
+- [ ] **Stage 8 review** (owner hears a story)
+
 ## Stage 7: Acceptance and documentation
 - [x] 7.1 30-min smoke session → evidence/stage7-smoke.md — 2026-10-23
   - Result: PASS. 117 sentences (103 correct, 0 missing), 60.0 fps, RSS flat ~990 MB, no crash/restart, battery 30–31 °C, p50 945 ms.

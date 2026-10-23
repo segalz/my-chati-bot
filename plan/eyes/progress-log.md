@@ -114,3 +114,4 @@ Times are local Israel time (HH:MM). Newest entries at the bottom. Details: [pro
 17:30 6C review: playing story s02 (job news) on the phone for the owner, recording video.
 17:31 Story s02 played: SURPRISED → HAPPY → (kept HAPPY ×2) → SAD → SURPRISED → HAPPY, all 7 as labeled. Video: evidence/demo/story-demo-0.6.1.mp4. Waiting for owner's judgment of the pacing.
 17:56 Owner: story pacing good for now → Stage 6C closed. Next (owner): the phone answers in a human, emotional voice in addition to the eyes. Researching options.
+17:59 Owner: voice next — English first, Hebrew later. Stage 8 planned (on-phone TTS, Kokoro-82M via sherpa-onnx as main candidate; emotion from the eye intent drives voice settings; eyes synced to real audio). Waiting for owner approval of model/size/license before download (R7).
