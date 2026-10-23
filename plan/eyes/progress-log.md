@@ -92,3 +92,6 @@ Times are local Israel time (HH:MM). Newest entries at the bottom. Details: [pro
 14:48 0.5.2 built: native reports the logit gap to NONE per sentence; app can treat weak near-NONE reactions as NONE (threshold, off by default; debug-settable). Tests 45/45. APK 0.5.2 READY TO INSTALL: Download/chati-eyes-0.5.2-debug.apk, SHA-256 9508bec4…b7e3 (verified). 0.5.1 removed. NEED FROM YOU: install it, don't open it.
 14:51 0.5.2 installed by owner (14:50:17), loaded (29 allowed first tokens). Collecting none_gap data: 100 sentences × {plain Q4_0, Q4_K_M}, threshold off.
 15:03 Calibration (threshold chosen on dev only): plain Q4_0 84 → 86/100 at T=2.6 (holdout 49→50/60); below the agreed 87 bar. (T=4.0 would give 87 but only by looking at the holdout — not used.) Q4_K_M unchanged at 88 for every T. DECISION per agreed rule: default stays Q4_K_M @6 threads (88/100, ~1.07 s); calibration code kept, off by default.
+15:05 Calibration work committed and pushed.
+15:08 Stage 6 review started: airplane mode ON (verified, no active network), app running, Q4_K_M 6 threads.
+15:15 Stage 6 review PASSED offline: 88/100 (dev 37/40, holdout 51/60), same as online; model p50 0.93 s, p90 1.09 s; evidence/stage6/eval-0.5.2-airplane.txt. Owner may turn airplane mode off.

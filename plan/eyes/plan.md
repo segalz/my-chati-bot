@@ -157,20 +157,20 @@ A safe, typed path from "something wants an expression" to the engine.
 
 **Stage 5 review:** phone check — Claude sends 10 raw intents (valid and invalid) over ADB; valid ones change the eyes, invalid ones are rejected and visible in the overlay and logcat; eyes return to idle after hold time.
 
-### Stage 6: On-phone small model: sentence → intent
+### Stage 6: On-phone small model: sentence → intent — COMPLETED 2026-10-23
 The local model reads a sentence and chooses the eyes' reaction, fully offline.
 
-- [ ] 6.1 (Largely done in Stage 2B: recommended model **Gemma 3 1B it Q4_K_M**, single model; fallback Gemma QAT Q4_0 for speed. Confirm the owner's choice and license note here.) Research and shortlist 2–3 small instruction models that fit the Stage 1 memory budget and the chosen runtime (Qwen / SmolLM / Gemma small variants in GGUF are leads); record exact model card, revision, license, quantization, file size, language coverage (English + Hebrew).
+- [x] 6.1 (Largely done in Stage 2B: recommended model **Gemma 3 1B it Q4_K_M**, single model; fallback Gemma QAT Q4_0 for speed. Confirm the owner's choice and license note here.) Research and shortlist 2–3 small instruction models that fit the Stage 1 memory budget and the chosen runtime (Qwen / SmolLM / Gemma small variants in GGUF are leads); record exact model card, revision, license, quantization, file size, language coverage (English + Hebrew).
   - Check: shortlist table in `evidence/model-shortlist.md`; owner approves which weights to download.
-- [ ] 6.2 Add the inference runtime (llama.cpp at a pinned tag, unless the audit says otherwise) to the NDK build for the phone ABI, with its license recorded.
+- [x] 6.2 Add the inference runtime (llama.cpp at a pinned tag, unless the audit says otherwise) to the NDK build for the phone ABI, with its license recorded.
   - Check: native build succeeds; APK size delta recorded.
-- [ ] 6.3 `[HARD]` Inference wrapper on its own thread: load model from app-private storage, single-request queue with cancellation, timeout, and memory-pressure release; never on the render or UI thread.
+- [x] 6.3 `[HARD]` Inference wrapper on its own thread: load model from app-private storage, single-request queue with cancellation, timeout, and memory-pressure release; never on the render or UI thread.
   - Check: loading a model pushed with `adb push` succeeds; cold-load time and resident memory logged.
-- [ ] 6.4 `[HARD]` Constrained output: prompt v4 (`{"expression":…,"look":…}`, `NONE` = no reaction; `NEUTRAL`+`center` = no change) with its grammar; output always goes through the 5.1 validator. **Speed:** keep the system-prompt state cached; feed grammar-forced tokens (answer prefix and the `","look":"` / `"}` literals) as batched input instead of generating them; threads `-t 6 -tb 6`. Target ≤ 1.5 s p50 on the phone (Stage 2B measured 1.76 s with prefix prefill only; estimate ~1.2–1.4 s).
+- [x] 6.4 `[HARD]` Constrained output: prompt v4 (`{"expression":…,"look":…}`, `NONE` = no reaction; `NEUTRAL`+`center` = no change) with its grammar; output always goes through the 5.1 validator. **Speed:** keep the system-prompt state cached; feed grammar-forced tokens (answer prefix and the `","look":"` / `"}` literals) as batched input instead of generating them; threads `-t 6 -tb 6`. Target ≤ 1.5 s p50 on the phone (Stage 2B measured 1.76 s with prefix prefill only; estimate ~1.2–1.4 s).
   - Check: 50 scripted sentences produce ≥ 95 % schema-valid outputs (target to confirm with owner after measuring); every output is validated, none bypass it.
-- [ ] 6.5 Wire `DEBUG_SAY` → inference → validator → `EyeController`; overlay shows sentence, raw model output, latency, and whether the applied intent came from the model or fallback.
+- [x] 6.5 Wire `DEBUG_SAY` → inference → validator → `EyeController`; overlay shows sentence, raw model output, latency, and whether the applied intent came from the model or fallback.
   - Check: one sentence over ADB changes the eyes on the phone; overlay says `model`.
-- [ ] 6.6 Benchmark the shortlisted models on the phone with the same sentence set: cold load, warm p50/p95 latency, peak memory, valid-schema rate, expression accuracy against an expected-label set, frame-time impact during inference, temperature.
+- [x] 6.6 Benchmark the shortlisted models on the phone with the same sentence set: cold load, warm p50/p95 latency, peak memory, valid-schema rate, expression accuracy against an expected-label set, frame-time impact during inference, temperature.
   - Check: `evidence/model-benchmark.md` with numbers per model; smallest model meeting the targets is selected and the choice recorded in [13_DECISIONS_RISKS_AND_OPEN_QUESTIONS.md](../13_DECISIONS_RISKS_AND_OPEN_QUESTIONS.md).
 
 **Stage 6 review:** phone check in airplane mode — Claude sends a set of English and Hebrew sentences (happy, sad, surprised, sleepy, angry, neutral, "look left", etc.); the eyes react correctly, the animation never freezes during inference, and the overlay shows `model` as the source. Killing the model (memory pressure) visibly falls back to `fallback` mode.
