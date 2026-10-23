@@ -1,0 +1,20 @@
+
+I ordered a phone two weeks ago and it still has not arrived! And now they refuse to give my money back. This is ridiculous!
+  first audio - ms, speech - ms, FAILED: HTTP 429 (rate limit)
+  1/3: APPLIED ANGRY center
+  2/3: EXTENDED ANGRY center
+
+I walked into my home and the lights were off. Suddenly everyone jumped out and shouted surprise! I could not believe it!
+  first audio - ms, speech - ms, FAILED: HTTP 429 (rate limit)
+  1/3: CARRIED NEUTRAL center
+  2/3: APPLIED SURPRISED center
+
+It has been a very long day. I worked for twelve hours. I can barely keep my eyes open.
+  first audio - ms, speech - ms, FAILED: HTTP 429 (rate limit)
+  1/3: APPLIED SAD center
+  2/3: APPLIED BORED center
+
+It has been raining all week and I felt lonely. Then my sister called me. She is coming to visit tomorrow! We are going to bake cookies together.
+  first audio - ms, speech - ms, FAILED: HTTP 429 (rate limit)
+  1/4: APPLIED SAD center
+  2/4: CARRIED NEUTRAL center
