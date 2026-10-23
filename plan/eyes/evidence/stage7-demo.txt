@@ -1,0 +1,33 @@
+
+== 18:35:28 1. idle eyes (5 s)
+
+== 18:35:33 2. single sentences -> on-phone eye model
+  I passed my driving test! -> APPLIED HAPPY center | model 1123 ms (model 1118 ms: prompt 14 tok 1115 ms, 1 tok 3 ms, gap 17.64)
+  My grandmother is in the hospital. -> APPLIED SAD center | model 1053 ms (model 1052 ms: prompt 15 tok 944 ms, 2 tok 108 ms, gap 11.12)
+  Look to the left, please. -> APPLIED NEUTRAL left | model 787 ms (model 785 ms: prompt 15 tok 783 ms, 1 tok 2 ms, gap 14.96)
+  The meeting is at three o'clock. -> IGNORED_NO_CHANGE NEUTRAL center | model 937 ms (model 935 ms: prompt 17 tok 933 ms, 1 tok 2 ms, gap 1.27)
+  Someone stole my bike again! -> APPLIED ANGRY center | model 874 ms (model 873 ms: prompt 14 tok 872 ms, 1 tok 1 ms, gap 18.26)
+  Wow, I did not expect that at all! -> APPLIED SURPRISED center | model 1016 ms (model 1015 ms: prompt 18 tok 1013 ms, 1 tok 2 ms, gap 17.39)
+
+== 18:36:08 3. silent story (eyes only, speaking pace)
+  IGNORED_NO_REACTION NONE center  (1/5)
+  IGNORED_NO_CHANGE NEUTRAL center  (2/5)
+  APPLIED SLEEPY center  (3/5)
+  APPLIED HAPPY center  (4/5)
+  APPLIED HAPPY center  (4/5)
+  APPLIED HAPPY center  (4/5)
+  EXTENDED HAPPY center  (5/5)
+  EXTENDED HAPPY center  (5/5)
+
+== 18:36:30 4. spoken story (voice + eyes)
+  IGNORED_NO_CHANGE NEUTRAL center  (1/5)
+  APPLIED SAD center  (2/5)
+  CARRIED NEUTRAL center  (3/5)
+  APPLIED HAPPY center  (4/5)
+  EXTENDED HAPPY center  (5/5)
+
+== demo finished
+
+Note: during step 4 the owner heard nothing although the log shows all 5 sentences played; the media
+volume was then 15/15 on the speaker and the replay was heard ("in the end yes"). Replay decisions:
+1/5 NEUTRAL, 2/5 SAD, 3/5 kept SAD, 4/5 HAPPY, 5/5 HAPPY (eyes and voice together). Airplane mode was on.

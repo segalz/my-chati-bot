@@ -130,3 +130,6 @@ Times are local Israel time (HH:MM). Newest entries at the bottom. Details: [pro
 18:32 Owner listened to the spoken story: "really good" → Stage 8 review passed (English voice). App memory with eyes + eye model + voice: VmHWM: 1690148 kB VmRSS: 1689368 kB . Not done: video with sound (Android screenrecord has no audio).
 18:33 Owner: close Stage 7 (docs + live demo). Started 7.3.
 18:34 7.3 done: plan/11 status table, plan/13 risk statuses + decision log, evidence addendum (stories, voice, memory). Next: live demo; NEED FROM YOU: airplane mode on, watch the phone.
+18:35 Stage 7 review demo started: airplane mode ON (verified, no network).
+18:37 Demo: owner heard nothing during step 4 although the audio played (log); media volume then at 15/15 on the speaker, owner hears it now → spoken story replayed.
+18:37 Stage 7 demo done offline: single sentences 6/6 sensible (HAPPY, SAD, look left, no reaction for the meeting time, ANGRY, SURPRISED; ~0.8–1.1 s each); silent story meeting → SLEEPY → HAPPY; spoken story heard on replay. Evidence: evidence/stage7-demo.txt. NEED FROM YOU: sign-off on Stage 7; airplane mode can go off.
