@@ -1,0 +1,14 @@
+model | threads/batch | n | model p50 ms | max ms | prompt p50 ms
+gemma-3-1b-it-Q4_K_M.gguf | 2/2 | 8 | 2007.0 | 2396 | 1951.0
+gemma-3-1b-it-Q4_K_M.gguf | 4/4 | 8 | 1395.0 | 1653 | 1359.0
+gemma-3-1b-it-Q4_K_M.gguf | 6/6 | 8 | 1049.5 | 1263 | 1018.0
+gemma-3-1b-it-Q4_K_M.gguf | 8/8 | 8 | 1154.0 | 1487 | 1141.0
+gemma-3-1b-it-qat-Q4_0.gguf | 2/2 | 8 | 1091.5 | 1283 | 1059.0
+gemma-3-1b-it-qat-Q4_0.gguf | 4/4 | 8 | 759.0 | 971 | 757.5
+gemma-3-1b-it-qat-Q4_0.gguf | 6/6 | 8 | 530.0 | 648 | 510.0
+gemma-3-1b-it-qat-Q4_0.gguf | 8/8 | 8 | 596.5 | 765 | 562.5
+gemma-3-1b-it-Q4_0.gguf | 2/2 | 8 | 1170.5 | 1314 | 1116.0
+gemma-3-1b-it-Q4_0.gguf | 4/4 | 8 | 781.0 | 954 | 743.5
+gemma-3-1b-it-Q4_0.gguf | 6/6 | 8 | 495.5 | 614 | 488.0
+gemma-3-1b-it-Q4_0.gguf | 8/8 | 8 | 549.0 | 2325 | 546.5
+Temperature{mValue=47.0, mType=0, mName=CPU, mStatus=0}

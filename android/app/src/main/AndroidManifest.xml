@@ -7,9 +7,11 @@
         android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
 
         <!-- No configChanges: rotation must recreate the activity (Stage 4 lifecycle tests). -->
+        <!-- singleTask: one eyes screen; launching again (adb, installer "Open") reuses it. -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

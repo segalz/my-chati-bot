@@ -34,9 +34,14 @@ public:
     /// Starts the render thread once per process; later calls are no-ops.
     void start();
 
-    /// Attaches a window (acquired here) or detaches with nullptr. Blocks until any frame that is
-    /// writing to the previous window has finished, so it is safe to call from surfaceDestroyed.
-    void set_window(ANativeWindow *window);
+    /// Attaches a window (acquired here) for `owner` (an id of the SurfaceView that owns it).
+    /// The newest attach wins.
+    void attach_window(ANativeWindow *window, int32_t owner);
+
+    /// Detaches the window only if `owner` still owns it, so an older SurfaceView being destroyed
+    /// cannot clear a newer one's window. Blocks until any frame writing to that window has
+    /// finished, so it is safe to call from surfaceDestroyed.
+    void detach_window(int32_t owner);
 
     void post(EyeCommand command);
 
@@ -63,6 +68,7 @@ private:
     // Guards window_ and the copy into it.
     std::mutex window_mutex_;
     ANativeWindow *window_ = nullptr;
+    int32_t window_owner_ = 0;
     bool window_needs_geometry_ = false;
 
     // Render-thread state.

@@ -1,0 +1,74 @@
+#pragma once
+
+#include <atomic>
+#include <cstdint>
+#include <mutex>
+#include <string>
+
+struct llama_model;
+struct llama_context;
+
+namespace chati {
+
+/// Result of one sentence → intent inference.
+struct BrainResult {
+    bool ok = false;
+    std::string json;   // {"expression":"…","look":"…"} on success
+    std::string error;  // reason on failure
+    int prompt_tokens = 0;
+    int sampled_tokens = 0;
+    int64_t prompt_ms = 0;
+    int64_t generate_ms = 0;
+    int64_t total_ms = 0;
+};
+
+/// The on-phone eye model (Gemma 3 1B via llama.cpp). It reads one English sentence and picks an
+/// expression; it never draws and never decides timing (the EyeController does) or gaze (the
+/// app's look rules do).
+///
+/// Speed: the system prompt is decoded once and kept in the KV cache; each sentence only removes
+/// the previous request's tokens and decodes its own. The expression is classified from the
+/// logits under a grammar and stops as soon as one label is left, usually with no decode beyond
+/// the sentence itself. Output: {"expression":"…"}.
+///
+/// Not called from the render thread; calls are serialized by an internal mutex.
+class EyeBrain {
+public:
+    static EyeBrain &instance();
+
+    /// Loads the GGUF model and decodes the system prompt. Returns false with `error` set.
+    bool load(const std::string &model_path, int threads, std::string &error);
+    bool loaded();
+    void release();
+
+    /// Changes generation / prompt-processing thread counts of the loaded model (no reload).
+    void set_threads(int threads, int threads_batch);
+
+    /// `generation` identifies the request; it is cancelled if cancel_older_than() later passes a
+    /// larger generation.
+    BrainResult infer(const std::string &sentence, int timeout_ms, int64_t generation);
+
+    /// Stops every request whose generation is < `generation` at its next step (thread-safe).
+    /// Request-specific: the request for `generation` itself is never affected.
+    void cancel_older_than(int64_t generation) {
+        int64_t current = cancel_below_.load();
+        while (current < generation && !cancel_below_.compare_exchange_weak(current, generation)) {}
+    }
+
+private:
+    EyeBrain() = default;
+    static bool abort_check(void *self);
+    void release_locked();
+
+    std::mutex mutex_;
+    llama_model *model_ = nullptr;
+    llama_context *ctx_ = nullptr;
+    int prefix_tokens_ = 0;
+    std::string prompt_suffix_;  // template text after the sentence (special tokens allowed)
+    std::atomic<int64_t> deadline_ms_{0};  // read by abort_check (may run on ggml worker threads)
+    std::atomic<int64_t> cancel_below_{0};
+    std::atomic<int64_t> running_generation_{INT64_MAX};  // INT64_MAX = not cancellable (load)
+    bool cancelled() const { return running_generation_.load() < cancel_below_.load(); }
+};
+
+}  // namespace chati

@@ -57,18 +57,36 @@ void EyeRenderer::start() {
     thread_.detach();  // lives for the whole process
 }
 
-void EyeRenderer::set_window(ANativeWindow *window) {
-    if (window != nullptr) ANativeWindow_acquire(window);
+void EyeRenderer::attach_window(ANativeWindow *window, int32_t owner) {
+    if (window == nullptr) return;
+    ANativeWindow_acquire(window);
     ANativeWindow *previous;
     {
         std::lock_guard<std::mutex> lock(window_mutex_);
         previous = window_;
         window_ = window;
-        window_needs_geometry_ = window != nullptr;
+        window_owner_ = owner;
+        window_needs_geometry_ = true;
     }
     if (previous != nullptr) ANativeWindow_release(previous);
     // Resume frame scheduling if the render thread is sleeping without a window.
-    if (ALooper *looper = looper_.load(); window != nullptr && looper != nullptr) ALooper_wake(looper);
+    if (ALooper *looper = looper_.load(); looper != nullptr) ALooper_wake(looper);
+}
+
+void EyeRenderer::detach_window(int32_t owner) {
+    ANativeWindow *previous = nullptr;
+    {
+        std::lock_guard<std::mutex> lock(window_mutex_);
+        if (window_ == nullptr || window_owner_ != owner) {
+            __android_log_print(ANDROID_LOG_INFO, kTag, "detach from %d ignored (owner %d)", owner, window_owner_);
+            return;
+        }
+        previous = window_;
+        window_ = nullptr;
+        window_owner_ = 0;
+        window_needs_geometry_ = false;
+    }
+    ANativeWindow_release(previous);
 }
 
 bool EyeRenderer::has_window() {
@@ -160,7 +178,7 @@ void EyeRenderer::thread_main() {
                         LVGL_VERSION_PATCH);
 
     // Frames run only while a window is attached. The check happens before every sleep; a
-    // set_window() racing with it wakes the looper (ALooper_wake is sticky), so no attach is missed.
+    // attach_window() racing with it wakes the looper (ALooper_wake is sticky), so no attach is missed.
     while (true) {
         if (!frame_scheduled_ && has_window()) {
             last_frame_nanos_ = 0;  // resume without jumping the animation forward
@@ -177,7 +195,7 @@ void EyeRenderer::on_frame(int64_t frame_time_nanos, void *self) {
     if (renderer->has_window()) {
         AChoreographer_postFrameCallback64(AChoreographer_getInstance(), on_frame, self);
     } else {
-        renderer->frame_scheduled_ = false;  // suspended until the next set_window()
+        renderer->frame_scheduled_ = false;  // suspended until the next attach_window()
     }
 }
 

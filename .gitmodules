@@ -6,3 +6,7 @@
 	path = third_party/fmt
 	url = https://github.com/fmtlib/fmt.git
 	shallow = true
+[submodule "third_party/llama.cpp"]
+	path = third_party/llama.cpp
+	url = https://github.com/ggml-org/llama.cpp.git
+	shallow = true

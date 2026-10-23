@@ -1,0 +1,20 @@
+# Chati Eyes phrasebook — instant reactions for common short phrases (no model needed).
+#
+# Format:  EXPRESSION [look]: phrase | phrase | ...
+#   EXPRESSION: NEUTRAL HAPPY SAD ANGRY SURPRISED SLEEPY BORED WINK_LEFT WINK_RIGHT NONE
+#   look (optional): center left right up down   (default center)
+# Matching is EXACT after normalizing: lower case, trimmed, spaces collapsed, and leading/trailing
+# punctuation removed ("Hello!" == "hello"). Anything not listed goes to the on-phone model.
+# Keep phrases short and unambiguous; the app's validator still checks every entry.
+
+HAPPY: hello | hi | hey | hi there | hello there | good morning | good afternoon | good evening
+HAPPY: thank you | thanks | thank you so much | thanks a lot | well done | great job | good job
+HAPPY: congratulations | congrats | yay | i love you | love you | you're awesome | you are awesome
+HAPPY: bye | goodbye | see you | see you later | see you soon | take care
+SLEEPY: good night | goodnight | night night | i'm tired | i am tired | i'm sleepy | i am sleepy
+SURPRISED: wow | whoa | oh wow | oh my god | oh my gosh | no way | really | seriously
+SAD: i'm sad | i am sad | i feel sad | that's sad | that is sad | i'm sorry | i am sorry
+ANGRY: i'm angry | i am angry | i'm so angry | i'm mad | i am mad | i'm furious
+BORED: i'm bored | i am bored | so boring | how boring | boring
+WINK_LEFT: wink | wink at me | give me a wink
+NONE: ok | okay | fine | sure | yes | no | hmm | alright | all right | got it

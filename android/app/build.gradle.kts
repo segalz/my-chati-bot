@@ -11,11 +11,18 @@ android {
         applicationId = "app.mychatibot"
         minSdk = 29
         targetSdk = 36
-        versionCode = 3
-        versionName = "0.2.1"
+        versionCode = 9
+        versionName = "0.5.1"
 
         ndk {
             abiFilters += "arm64-v8a"
+        }
+        externalNativeBuild {
+            cmake {
+                // Optimized native code even in debug APKs: unoptimized llama.cpp/LVGL are several
+                // times slower, which would distort every phone measurement.
+                arguments += "-DCMAKE_BUILD_TYPE=Release"
+            }
         }
     }
 
@@ -30,4 +37,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
+
+dependencies {
+    testImplementation("junit:junit:4.13.2")
 }

@@ -90,17 +90,18 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 4 review** (phone check: all expressions vs upstream, 10 min idle, rotation; owner approves look)
   - Result: all technical checks PASSED 2026-10-23 11:47. **Owner approved the look on the phone (2026-10-23).** Not committed (branch eyes/stage3-android-skeleton).
 
-## Stage 5: Intent contract and debug input channel
-- [ ] 5.1 [HARD] EyeIntent schema + strict validator + unit tests
-  - Result: 
-- [ ] 5.2 [HARD] EyeController (newest-valid, dwell, expiry, fallback)
-  - Result: 
-- [ ] 5.3 Debug-only broadcast receiver (DEBUG_INTENT, DEBUG_SAY)
-  - Result: 
-- [ ] 5.4 Debug overlay (input, validation, applied intent, mode)
-  - Result: 
-- [ ] **Stage 5 review** (phone check: 10 raw intents over ADB)
-  - Result: 
+## Stage 5: Intent contract and debug input channel — COMPLETED 2026-10-23 (APK 0.3.0, SHA-256 d8dc6b61…13c7)
+- [x] 5.1 [HARD] EyeIntent schema + strict validator + unit tests
+  - Result: `eyes/EyeIntent.kt` + own `eyes/StrictJson.kt` (flat RFC 8259 object; rejects duplicate keys, nested values, trailing content, non-standard syntax, fractions/huge numbers, unknown fields, out-of-range values — no silent clamping). Wire format v1: `expression` (9 upstream + NONE), `look` word, optional `hold_ms` (debug only — MODEL may not set timing, R2), `session_id`, `expires_in_ms`. Upstream engine has no intensity parameter, so intensity is not part of the contract.
+- [x] 5.2 [HARD] EyeController (newest-valid, dwell, expiry, fallback)
+  - Result: `eyes/EyeController.kt`: newest valid wins, 0.8 s minimum dwell with a single pending slot, default 3 s hold, idle fallback (NEUTRAL centered), NONE and NEUTRAL+center = no change, expired intents dropped. Process-wide `EyeControllerHost` on its own HandlerThread (survives rotation). Unit tests **35/35** (21 parser, 14 controller).
+  - Reviews: Codex `gpt-6-astra/high` round 1 **reject** (5 required: stale pending replay, org.json not strict/Android parity, ticker race, listener lifecycle, overflow) → all fixed; round 2 **approve with 1 change** (listener registration on handler thread) → fixed.
+- [x] 5.3 Debug-only broadcast receiver (DEBUG_INTENT, DEBUG_SAY)
+  - Result: runtime-registered only when `FLAG_DEBUGGABLE` (no receiver in the manifest at all), `RECEIVER_EXPORTED` on API 33+. DEBUG_INTENT → validator → controller; DEBUG_SAY recorded as "NOT AVAILABLE" until Stage 6; DEBUG_EYES raw engine commands kept for low-level tests (bypass the controller). Coder per model-picker = Codex → **refused** (its global policy) → fallback Claude.
+- [x] 5.4 Debug overlay (input, validation, applied intent, mode)
+  - Result: blue status overlay bottom-left: mode / in / result (incl. rejection reason) / applied (+ pending).
+- [x] **Stage 5 review** (phone check: intents over ADB)
+  - Result: **13/13 PASS 2026-10-23 12:38** (`tools/model-bench/stage5_check.py`, [evidence/screens/stage5/stage5-check.txt](./evidence/screens/stage5/stage5-check.txt)): valid HAPPY / SAD down / SURPRISED left applied; JOYFUL, malformed, hold 50 ms, unknown field `camera`, duplicate key rejected with reasons shown; NONE and NEUTRAL+center ignored; SLEEPY→BORED queued then newest applied after dwell; back to idle after hold; DEBUG_SAY shows NOT AVAILABLE; crash buffer empty. Install: owner installed by hand (my two attempts to open/approve the installer were blocked by Claude Code's safety classifier and not worked around). Note: SURPRISED + look-left touches/clips at the 4:3 canvas edge (upstream geometry, seen in Stage 4).
 
 ## Stage 6: On-phone small model: sentence → intent
 - [ ] 6.1 Model shortlist (owner approves weights download)

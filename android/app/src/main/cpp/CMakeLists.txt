@@ -35,9 +35,23 @@ target_include_directories(espp_eyes SYSTEM PUBLIC
     ${THIRD_PARTY}/fmt/include)
 target_link_libraries(espp_eyes PUBLIC lvgl::lvgl)
 
+# --- llama.cpp v0.7.0 (submodule at 620d222) for the on-phone eye model ------------------------
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(LLAMA_BUILD_COMMON OFF CACHE BOOL "" FORCE)
+set(LLAMA_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(LLAMA_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
+set(LLAMA_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(LLAMA_BUILD_SERVER OFF CACHE BOOL "" FORCE)
+set(LLAMA_OPENSSL OFF CACHE BOOL "" FORCE)
+set(GGML_NATIVE OFF CACHE BOOL "" FORCE)
+set(GGML_OPENMP OFF CACHE BOOL "" FORCE)
+set(GGML_LLAMAFILE OFF CACHE BOOL "" FORCE)
+set(GGML_CPU_ARM_ARCH "armv8.2-a+dotprod+fp16" CACHE STRING "" FORCE)  # Redmi 10: A75/A55 dotprod
+add_subdirectory(${THIRD_PARTY}/llama.cpp ${CMAKE_CURRENT_BINARY_DIR}/llama.cpp)
+
 # --- Our Android host -------------------------------------------------------------------------
-add_library(chati_eyes SHARED native_bridge.cpp eye_renderer.cpp)
+add_library(chati_eyes SHARED native_bridge.cpp eye_renderer.cpp eye_brain.cpp)
 target_compile_options(chati_eyes PRIVATE -Wall -Wextra -Werror)
 find_library(log-lib log)
 find_library(android-lib android)
-target_link_libraries(chati_eyes PRIVATE espp_eyes ${android-lib} ${log-lib})
+target_link_libraries(chati_eyes PRIVATE espp_eyes llama ${android-lib} ${log-lib})

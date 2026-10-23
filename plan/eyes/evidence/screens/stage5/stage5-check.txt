@@ -1,0 +1,14 @@
+ 1. PASS valid HAPPY: expect APPLIED | mode=debug in: debug: {"schema_version":1,"expression":"HAPPY","look":"center"} result: APPLIED HAPPY center applied: HAPPY center
+ 2. PASS bad enum: expect REJECTED | mode=idle in: debug: {"schema_version":1,"expression":"JOYFUL","look":"center"} result: REJECTED unknown expression 'JOYFUL' applied: NEUTRAL center (idle)
+ 3. PASS valid SAD down: expect APPLIED | mode=debug in: debug: {"schema_version":1,"expression":"SAD","look":"down"} result: APPLIED SAD down applied: SAD down
+ 4. PASS malformed: expect REJECTED | mode=debug in: debug: {"schema_version":1,"expression":"HAPPY" result: REJECTED malformed JSON: unexpected end applied: SAD down
+ 5. PASS NONE: expect IGNORED_NO_REACTION | mode=idle in: debug: {"schema_version":1,"expression":"NONE","look":"center"} result: IGNORED_NO_REACTION NONE center applied: NEUTRAL center (idle)
+ 6. PASS NEUTRAL center: expect IGNORED_NO_CHANGE | mode=idle in: debug: {"schema_version":1,"expression":"NEUTRAL","look":"center"} result: IGNORED_NO_CHANGE NEUTRAL center applied: NEUTRAL center (idle)
+ 7. PASS hold out of range: expect REJECTED | mode=idle in: debug: {"schema_version":1,"expression":"ANGRY","look":"center","hold_ms":50} result: REJECTED hold_ms out of range 300..10000 applied: NEUTRAL center (idle)
+ 8. PASS unknown field: expect REJECTED | mode=idle in: debug: {"schema_version":1,"expression":"ANGRY","look":"center","camera":"on"} result: REJECTED unknown field(s): camera applied: NEUTRAL center (idle)
+ 9. PASS duplicate key: expect REJECTED | mode=idle in: debug: {"schema_version":1,"expression":"HAPPY","expression":"SAD","look":"center"} result: REJECTED malformed JSON: duplicate key 'expression' applied: NEUTRAL center (idle)
+10. PASS valid SURPRISED left: expect APPLIED | mode=debug in: debug: {"schema_version":1,"expression":"SURPRISED","look":"left","hold_ms":1500} result: APPLIED SURPRISED left applied: SURPRISED left
+11. PASS sentence (Stage 6): expect NOT AVAILABLE | mode=idle in: say: I got the job! result: NOT AVAILABLE eye model arrives in Stage 6 applied: NEUTRAL center (idle)
+12. PASS dwell/newest wins: queued -> mode=debug in: debug: {"schema_version":1,"expression":"BORED","look":"up"} result: QUEUED BORED up applied: SLEEPY center | pending BORED | after -> mode=debug in: debug: {"schema_version":1,"expression":"BORED","look":"up"} result: QUEUED BORED up applied: BORED up
+13. PASS back to idle after hold: mode=idle in: debug: {"schema_version":1,"expression":"BORED","look":"up"} result: QUEUED BORED up applied: NEUTRAL center (idle)
+crash buffer: empty

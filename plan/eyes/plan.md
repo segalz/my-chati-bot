@@ -143,16 +143,16 @@ Run the original animation on the Android surface.
 
 **Stage 4 review:** phone check — every v1.3.9 expression is shown once via the debug channel and screenshot-compared with upstream; idle runs 10 min smoothly; rotation and backgrounding survive. Owner looks at the phone and approves the look.
 
-### Stage 5: Intent contract and debug input channel
+### Stage 5: Intent contract and debug input channel — ✅ completed 2026-10-23 (see progress.md)
 A safe, typed path from "something wants an expression" to the engine.
 
-- [ ] 5.1 `[HARD]` Kotlin `EyeIntent` schema (schema_version, `react` boolean — the model may decide **not** to react, which leaves the current animation untouched — expression enum mapped to the 2.7 identifiers `NEUTRAL, HAPPY, SAD, ANGRY, SURPRISED, SLEEPY, BORED, WINK_LEFT, WINK_RIGHT`, intensity 0–1, gaze x/y in [-1, 1], hold_ms bounded, session_id, expires_at_monotonic_ms) and a strict parser/validator (unknown fields/values rejected, NaN/out-of-range rejected or clamped per contract).
+- [x] 5.1 `[HARD]` Kotlin `EyeIntent` schema (schema_version, `react` boolean — the model may decide **not** to react, which leaves the current animation untouched — expression enum mapped to the 2.7 identifiers `NEUTRAL, HAPPY, SAD, ANGRY, SURPRISED, SLEEPY, BORED, WINK_LEFT, WINK_RIGHT`, intensity 0–1, gaze x/y in [-1, 1], hold_ms bounded, session_id, expires_at_monotonic_ms) and a strict parser/validator (unknown fields/values rejected, NaN/out-of-range rejected or clamped per contract).
   - Check: JVM unit tests for valid, invalid enum, NaN, out-of-range, expired, oversized input — all pass.
-- [ ] 5.2 `[HARD]` `EyeController`: newest-valid-intent wins, minimum dwell, hold expiry back to idle, deterministic fallback when no intent; single owner thread feeding JNI.
+- [x] 5.2 `[HARD]` `EyeController`: newest-valid-intent wins, minimum dwell, hold expiry back to idle, deterministic fallback when no intent; single owner thread feeding JNI.
   - Check: unit tests with a fake clock cover expiry, dwell, and fallback; Codex review clean.
-- [ ] 5.3 Debug-only broadcast receiver (`debug` build type only, not exported in release): action `…DEBUG_INTENT` with a JSON extra, and action `…DEBUG_SAY` with a `text` extra (consumed in Stage 6).
+- [x] 5.3 Debug-only broadcast receiver (`debug` build type only, not exported in release): action `…DEBUG_INTENT` with a JSON extra, and action `…DEBUG_SAY` with a `text` extra (consumed in Stage 6).
   - Check: release manifest (merged) has no such receiver; debug build receives `adb shell am broadcast -a … --es json '{…}'`.
-- [ ] 5.4 On-screen debug overlay (toggle) showing last input, validation result, applied intent, and mode (`model` / `fallback`).
+- [x] 5.4 On-screen debug overlay (toggle) showing last input, validation result, applied intent, and mode (`model` / `fallback`).
   - Check: overlay shows the rejection reason for a malformed JSON broadcast.
 
 **Stage 5 review:** phone check — Claude sends 10 raw intents (valid and invalid) over ADB; valid ones change the eyes, invalid ones are rejected and visible in the overlay and logcat; eyes return to idle after hold time.

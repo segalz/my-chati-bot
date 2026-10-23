@@ -104,6 +104,39 @@ Q4_0 variants use more anonymous memory because repacked weights are copied out 
 
 Remaining visible errors of Gemma Q4_K_M are mostly "secret / wink" sentences read as SAD or SURPRISED and a few neutral facts answered HAPPY. These can be improved with more few-shot examples, but must be re-validated on new sentences to avoid fitting the test set.
 
+## In-app latency work (2026-10-23, owner request; ideas from a Codex/Grok/AGY brainstorm)
+
+Clean in-app baseline (0.4.1, 10 sentences, no harness load): **median 2.09 s** = prompt ~15 tokens 1.0 s (15 tok/s; Q4_K_M gets no ARM repack) + generation 1.13 s.
+
+Implemented in 0.5.0 (all reviewed by Codex, 45 unit tests):
+1. **Expression classified from the logits**: grammar-greedy over the labels, stopping as soon as one label is left (usually after the first token, read from the prompt's own logits — no extra decode).
+2. **Gaze by keyword rules** (`LookRules`: look verb + direction, phrasal "look up X" excluded, negation → center).
+3. **Owner phrasebook** (`assets/phrasebook.txt`, 74 exact-match phrases) — instant, model skipped.
+4. **Instant blink** on every sentence.
+
+Result on the phone, 100 English sentences ([stage6/eval-0.5.0.txt](./stage6/eval-0.5.0.txt)):
+
+| | Before (0.4.1) | **0.5.0** |
+|---|---|---|
+| Accuracy (100) | 89/100 (benchmark) | **88/100** (dev 37/40, holdout 51/60) |
+| Model latency p50 / p90 | 2.09 s / – | **1.07 s / 1.29 s** (max 2.6 s) |
+| Phrasebook latency | – | **~1 ms** (2 of 100 test sentences hit: "OK.", "Fine.") |
+| Eye frame work during inference | – | avg 1.9 ms, max 17 ms (60 fps kept) |
+
+Remaining floor: prompt processing ~1.0 s.
+
+**Threads × quantization sweep (0.5.1, debug-only runtime switch; [stage6/speed-sweep-0.5.1.txt](./stage6/speed-sweep-0.5.1.txt)):** model time p50 over 8 sentences.
+
+| Model | 2 threads | 4 | **6** | 8 |
+|---|---|---|---|---|
+| Q4_K_M | 2.01 s | 1.40 s | **1.05 s** | 1.15 s |
+| QAT Q4_0 | 1.09 s | 0.76 s | **0.53 s** | 0.60 s |
+| plain Q4_0 | 1.17 s | 0.78 s | **0.50 s** | 0.55 s |
+
+6 threads is best for every model; the brainstorm's "2 threads on the A75 cores" did not hold on this phone.
+
+**100-sentence accuracy at 6 threads ([stage6/](./stage6/)):** Q4_K_M **88/100** (1.07 s p50); plain Q4_0 **84/100** (0.47 s p50, 0.59 s p90); QAT Q4_0 **82/100** (0.46 s). Q4_0's extra misses are mostly over-reactions to neutral facts. Decision pending with the owner; a possible fix is calibrating the "no reaction" decision on the dev set and checking it on the holdout. Next options from the brainstorm: 2 threads on the A75 cores, Q4_0 (repacked, pp ×2.7) now that the output is a logit classification, incremental prefill during speech (P3), a distilled tiny classifier (endgame).
+
 ## Limits of this test
 
 Test set of 100 English sentences labeled by one person (Claude), so the labels themselves may be debatable; a single run per model; short sessions (no sustained-thermal data); RSS includes mapped files; run with `llama-server`, not yet inside the app. Server logs of the first rounds were lost during phone cleanup (the 2026-10-23 logs are in `bench/server-logs/`) (a Git Bash path-rewrite bug in the pull command), but per-request timings are preserved in the JSON results. Phone cleanup confirmed: `/data/local/tmp/chati-bench` removed, no server running, the benchmark port forward removed. The models remain on the PC in `models/bench/` (~1.57 GB).

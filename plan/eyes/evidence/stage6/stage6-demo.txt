@@ -1,0 +1,11 @@
+ 1. PASS [2096 ms] I got the job I wanted! -> APPLIED HAPPY center | model 2096 ms (prompt 15 tok 1103 ms, gen 2 tok 993 ms) applied: HAPPY center
+ 2. PASS [3775 ms] My dog is sick and I'm worried. -> APPLIED SAD center | model 3775 ms (prompt 18 tok 1839 ms, gen 3 tok 1936 ms) applied: SAD center
+ 3. PASS [2441 ms] Someone stole my bike, I'm furious! -> APPLIED ANGRY center | model 2441 ms (prompt 18 tok 1190 ms, gen 4 tok 1251 ms) applied: ANGRY center
+ 4. PASS [2363 ms] Whoa, a shooting star! -> APPLIED SURPRISED center | model 2363 ms (prompt 15 tok 1060 ms, gen 4 tok 1303 ms) applied: SURPRISED center
+ 5. PASS [2373 ms] I'm so sleepy, time for bed. -> APPLIED SLEEPY down | model 2373 ms (prompt 18 tok 1163 ms, gen 4 tok 1210 ms) applied: SLEEPY down
+ 6. PASS [1985 ms] Look to the left. -> APPLIED NEUTRAL left | model 1985 ms (prompt 13 tok 897 ms, gen 3 tok 1088 ms) applied: NEUTRAL left
+ 7. PASS [2134 ms] Can you look up at the ceiling? -> APPLIED NEUTRAL up | model 2134 ms (prompt 16 tok 1056 ms, gen 3 tok 1078 ms) applied: NEUTRAL up
+ 8. PASS [2192 ms] The meeting is at three o'clock. -> IGNORED_NO_CHANGE NEUTRAL center | model 2192 ms (prompt 17 tok 1066 ms, gen 3 tok 1126 ms) applied: NEUTRAL center (idle)
+ 9. FAIL [2364 ms] Just between us, it's a secret. -> APPLIED SURPRISED center | model 2364 ms (prompt 18 tok 1153 ms, gen 4 tok 1211 ms) applied: SURPRISED center
+10. PASS [2316 ms] This waiting room is so boring. -> APPLIED BORED center | model 2316 ms (prompt 15 tok 1083 ms, gen 4 tok 1233 ms) applied: BORED center
+passed 9/10; latency p50 2363 ms, max 3775 ms

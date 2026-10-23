@@ -1,0 +1,179 @@
+package app.mychatibot.eyes
+
+import android.content.Context
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.SystemClock
+import android.util.Log
+import app.mychatibot.NativeBridge
+import java.io.File
+import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.atomic.AtomicReference
+
+/**
+ * Turns a sentence into an eye reaction as fast as possible:
+ * 1. an instant blink so the eyes visibly "hear" it,
+ * 2. the owner phrasebook (exact matches) for an immediate answer,
+ * 3. otherwise the on-phone eye model (Gemma 3 1B, llama.cpp) on its own thread, never on the UI
+ *    or render thread — it classifies the expression; gaze comes from [LookRules].
+ * Everything goes to [EyeControllerHost], where the Stage 5 validator and controller decide.
+ *
+ * Only the newest sentence matters: a new one cancels the running inference, and a result whose
+ * generation is no longer current is dropped, never applied. The model is loaded once (model
+ * load time is outside the per-sentence timeout) and can be released under memory pressure.
+ */
+class EyeBrainHost private constructor() {
+
+    private class Request(val generation: Long, val sentence: String, val receivedAtMs: Long)
+
+    private val thread = HandlerThread("eye-brain").apply { start() }
+    private val handler = Handler(thread.looper)
+    private val submitLock = Any()
+    private val generation = AtomicLong(0)
+    private val latest = AtomicReference<Request?>(null)
+    @Volatile private var phrasebook = Phrasebook.EMPTY
+    private var modelsDir: File? = null  // brain thread only
+    private var modelName = MODEL_FILE
+    private var threads = THREADS
+    private var threadsBatch = THREADS
+    private var loadError: String? = null
+
+    /** Loads the phrasebook asset and starts loading the model (app-private files dir) in the background. */
+    fun init(context: Context) {
+        val app = context.applicationContext
+        handler.post {
+            val errors = mutableListOf<String>()
+            phrasebook = runCatching { Phrasebook.parse(app.assets.open(PHRASEBOOK_ASSET).reader().readText(), errors) }
+                .getOrElse { errors += "cannot read $PHRASEBOOK_ASSET: ${it.message}"; Phrasebook.EMPTY }
+            errors.forEach { Log.w(TAG, "phrasebook: $it") }
+            Log.i(TAG, "phrasebook: ${phrasebook.size} phrases")
+            modelsDir = File(app.filesDir, "models")
+            ensureLoaded()
+        }
+    }
+
+    fun submitSentence(sentence: String) {
+        val now = SystemClock.uptimeMillis()
+        val hit = phrasebook.lookup(sentence)
+        // Allocating the generation and publishing the request happen together, so concurrent
+        // callers can never leave an older request in `latest` after a newer one. A phrasebook hit
+        // is never published to the model queue (and clears any waiting older request).
+        val request = synchronized(submitLock) {
+            Request(generation.incrementAndGet(), sentence, now).also { latest.set(if (hit == null) it else null) }
+        }
+        NativeBridge.nativeBlink()  // instant micro-reaction: the eyes "heard" something
+        // Only older requests stop early; a worker already running this request is unaffected.
+        NativeBridge.nativeBrainCancelOlderThan(request.generation)
+
+        val isCurrent = { request.generation == generation.get() }
+        if (hit != null) {
+            val (expression, look) = hit
+            val body = """{"expression":"${expression.name}","look":"${look.name.lowercase()}"}"""
+            EyeControllerHost.instance.submitDecision(
+                sentence, body, null, "${SystemClock.uptimeMillis() - now} ms", IntentSource.PHRASEBOOK, isCurrent,
+            )
+            return
+        }
+        handler.post(::processLatest)
+    }
+
+    /** Frees the model (e.g. on memory pressure); the next sentence reloads it. */
+    fun release() {
+        val stale = synchronized(submitLock) { generation.incrementAndGet() }
+        NativeBridge.nativeBrainCancelOlderThan(stale)  // anything in flight is now stale
+        handler.post {
+            NativeBridge.nativeBrainRelease()
+            Log.i(TAG, "model released")
+        }
+    }
+
+    /**
+     * Development/benchmark only (debug channel): switch the model file inside the app's private
+     * models dir and/or the thread counts. A model switch releases and reloads; thread changes apply
+     * to the loaded model directly. Null keeps the current value.
+     */
+    fun configure(model: String?, threads: Int?, threadsBatch: Int?) = handler.post {
+        if (model != null && model != modelName) {
+            if (!Regex("""[A-Za-z0-9._-]+\.gguf""").matches(model)) {
+                Log.w(TAG, "configure: rejected model name '$model'")
+                return@post
+            }
+            NativeBridge.nativeBrainRelease()
+            modelName = model
+        }
+        threads?.takeIf { it in 1..8 }?.let { this.threads = it }
+        threadsBatch?.takeIf { it in 1..8 }?.let { this.threadsBatch = it }
+        if (ensureLoaded()) NativeBridge.nativeBrainSetThreads(this.threads, this.threadsBatch)
+        Log.i(TAG, "configure: model=$modelName threads=${this.threads} batch=${this.threadsBatch} loaded=${loadError == null}")
+    }
+
+    private fun ensureLoaded(): Boolean {
+        val file = modelsDir?.let { File(it, modelName) } ?: return false
+        if (!file.isFile) {
+            loadError = "model file missing: ${file.path}"
+            return false
+        }
+        val error = NativeBridge.nativeBrainLoad(file.path, threads)
+        loadError = error
+        if (error != null) Log.w(TAG, "model load failed: $error")
+        else NativeBridge.nativeBrainSetThreads(threads, threadsBatch)
+        return error == null
+    }
+
+    private fun processLatest() {
+        val request = latest.getAndSet(null) ?: return
+        val controller = EyeControllerHost.instance
+        // Checked again on the controller thread right before anything is applied.
+        val isCurrent = { request.generation == generation.get() }
+        if (!ensureLoaded()) {
+            controller.submitDecision(
+                request.sentence, null, "MODEL UNAVAILABLE ${loadError ?: ""}", "", IntentSource.MODEL, isCurrent,
+            )
+            return
+        }
+        val fields = NativeBridge.nativeBrainInfer(request.sentence, TIMEOUT_MS, request.generation).split('\t')
+        val ok = fields.getOrNull(0) == "OK"
+        val payload = fields.getOrNull(1).orEmpty()
+        val endToEnd = SystemClock.uptimeMillis() - request.receivedAtMs
+        val detail = if (fields.size >= 7) {
+            "$endToEnd ms (model ${fields[6]} ms: prompt ${fields[2]} tok ${fields[4]} ms, ${fields[3]} tok ${fields[5]} ms)"
+        } else "$endToEnd ms"
+        Log.i(TAG, "brain: '${request.sentence}' -> ${fields.joinToString(" | ")} | end-to-end $endToEnd ms")
+        if (!ok) {
+            controller.submitDecision(request.sentence, null, "MODEL ERROR $payload", detail, IntentSource.MODEL, isCurrent)
+            return
+        }
+        val body = composeBody(payload, request.sentence)
+        if (body == null) {
+            controller.submitDecision(request.sentence, null, "MODEL OUTPUT REJECTED not {\"expression\":…}: $payload",
+                detail, IntentSource.MODEL, isCurrent)
+            return
+        }
+        controller.submitDecision(request.sentence, body, null, detail, IntentSource.MODEL, isCurrent)
+    }
+
+    /**
+     * The model returns `{"expression":"X"}`; the gaze comes from [LookRules]. An explicit look
+     * request the model judged "no reaction" still turns the eyes (NEUTRAL + that direction).
+     */
+    private fun composeBody(modelJson: String, sentence: String): String? {
+        // The model output must be exactly {"expression":"<string>"}; anything else (extra fields,
+        // nesting, trailing data) is an explicit rejection — the model never supplies the look.
+        val fields = runCatching { StrictJson.parseFlatObject(modelJson) }.getOrNull()
+        val expression = (fields?.takeIf { it.keys == setOf("expression") }?.get("expression") as? String)
+            ?: return null
+        val look = LookRules.detect(sentence)
+        val chosen = if (expression == Expression.NONE.name && look != Look.CENTER) Expression.NEUTRAL.name else expression
+        return """{"expression":"$chosen","look":"${look.name.lowercase()}"}"""
+    }
+
+    companion object {
+        private const val TAG = "ChatiBrain"
+        const val MODEL_FILE = "gemma-3-1b-it-Q4_K_M.gguf"
+        private const val PHRASEBOOK_ASSET = "phrasebook.txt"
+        private const val THREADS = 6
+        private const val TIMEOUT_MS = 8_000
+
+        val instance: EyeBrainHost by lazy { EyeBrainHost() }
+    }
+}
