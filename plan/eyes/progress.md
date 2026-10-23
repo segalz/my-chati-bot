@@ -133,9 +133,11 @@ Branch `eyes/stage3-android-skeleton` (nothing committed; awaiting owner approva
 - [x] **Stage 6C review** (owner watches a story)
   - Result: story s02 played on the phone, 7/7 as labeled; video evidence/demo/story-demo-0.6.1.mp4; owner: "good for now".
 
-## Stage 8: Voice with emotion (English first) — PLANNED 2026-10-23 (owner request)
-- [ ] 8.1 Candidates and owner approval
-- [ ] 8.2 CLI benchmark on the phone + samples
+## Stage 8: Voice with emotion (English first) — IN PROGRESS (owner request 2026-10-23)
+- [x] 8.1 Candidates and owner approval
+  - Result: evidence/voice-shortlist.md; owner approved two download rounds (hashes verified).
+- [x] 8.2 CLI benchmark on the phone + samples
+  - Result: Kokoro int8 RTF 6.0 (too slow), Kitten int8 1.43, Kitten fp32 0.73, Supertonic 0.48, **Piper libritts_r-medium 0.25** → Piper chosen (owner left it to Claude). Samples in evidence/voice-samples/. Memory not captured yet.
 - [ ] 8.3 sherpa-onnx TTS in the app
 - [ ] 8.4 Emotion → voice settings
 - [ ] 8.5 Eyes synced to real audio
