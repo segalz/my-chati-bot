@@ -14,6 +14,7 @@
 // Original espp/expressive_eyes v1.3.9 engine and its Monochrome Blue example drawer, unmodified.
 #include "expressive_eyes.hpp"
 #include "extra_drawers.hpp"
+#include "effects_overlay.hpp"
 #include "monochrome_blue_drawer.hpp"
 
 namespace chati {
@@ -44,6 +45,7 @@ struct RenderState {
     lv_obj_t *canvas = nullptr;
     std::unique_ptr<eye_drawer::EyeDrawer> drawer;  // the original drawer unless a shape is chosen
     int shape = static_cast<int>(Shape::ORIGINAL);
+    EffectsOverlay effects;
     eye_drawer::EyeDrawer::DrawCallback draw;  // the current drawer's callback
     std::unique_ptr<espp::ExpressiveEyes> eyes;
     // Eye color (0xRRGGBB): the drawer's default electric blue, then fades set by SetColor.
@@ -226,11 +228,10 @@ void EyeRenderer::thread_main() {
         .on_draw =
             [this](const espp::ExpressiveEyes::EyeState &left, const espp::ExpressiveEyes::EyeState &right) {
                 RenderState &st = *g_state;
-                st.draw(left, right);
-                st.last_draw = Clock::now();
                 st.last_left = left;
                 st.last_right = right;
                 st.have_last = true;
+                draw_eyes();
                 canvas_dirty_ = true;
                 redraws_.fetch_add(1, std::memory_order_relaxed);
             },
@@ -277,10 +278,10 @@ void EyeRenderer::frame(int64_t frame_time_nanos) {
     advance_color_fade(dt);
     g_state->eyes->update(dt);  // may call the drawer, which sets canvas_dirty_
     RenderState &s = *g_state;
-    if (s.shape == static_cast<int>(Shape::SLEEP) && s.have_last &&
-        Clock::now() - s.last_draw >= std::chrono::milliseconds(100)) {
-        s.draw(s.last_left, s.last_right);
-        s.last_draw = Clock::now();
+    const bool animate_effects = s.effects.mask() != 0 && s.shape == static_cast<int>(Shape::ORIGINAL);
+    if ((s.shape == static_cast<int>(Shape::SLEEP) || animate_effects) && s.have_last &&
+        Clock::now() - s.last_draw >= std::chrono::milliseconds(animate_effects ? 33 : 100)) {
+        draw_eyes();
         canvas_dirty_ = true;
         redraws_.fetch_add(1, std::memory_order_relaxed);
     }
@@ -314,6 +315,11 @@ void EyeRenderer::apply_commands() {
             eyes.look_at(l->x, l->y);
         } else if (std::holds_alternative<Blink>(command)) {
             eyes.blink();
+        } else if (const auto *fx = std::get_if<SetEffects>(&command)) {
+            if (g_state->effects.set_mask(fx->mask) && g_state->have_last) {
+                draw_eyes();  // also clears the old overlay immediately when disabled
+                canvas_dirty_ = true;
+            }
         } else if (const auto *sh = std::get_if<SetShape>(&command)) {
             if (sh->id >= static_cast<int>(Shape::ORIGINAL) &&
                 sh->id <= static_cast<int>(Shape::CROSS)) {
@@ -389,10 +395,22 @@ void EyeRenderer::rebuild_drawer(int shape, uint32_t rgb) {
     s.shape = shape;
     s.color = rgb;
     if (s.have_last) {
-        s.draw(s.last_left, s.last_right);
-        s.last_draw = Clock::now();
+        draw_eyes();
         canvas_dirty_ = true;
     }
+}
+
+void EyeRenderer::draw_eyes() {
+    RenderState &s = *g_state;
+    // Preserve the original zero-mask drawer path, including its mutex ownership.
+    if (s.effects.mask() == 0 || s.shape != static_cast<int>(Shape::ORIGINAL)) {
+        s.draw(s.last_left, s.last_right);
+    } else {
+        std::lock_guard<std::recursive_mutex> lock(s.lvgl_mutex);
+        s.draw(s.last_left, s.last_right);
+        s.effects.draw(s.canvas, s.last_left, s.last_right, s.color);
+    }
+    s.last_draw = Clock::now();
 }
 
 void EyeRenderer::present() {

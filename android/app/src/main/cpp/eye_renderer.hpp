@@ -24,7 +24,8 @@ struct SetColor { uint32_t rgb; int fade_ms; };
 /// changes, between frames. Unknown ids are ignored. Later stages add shapes (heart, …).
 enum class Shape : int { ORIGINAL = 0, SLEEP = 1, CROSS = 2 };
 struct SetShape { int id; };
-using EyeCommand = std::variant<SetExpression, LookAt, Blink, SetColor, SetShape>;
+struct SetEffects { uint32_t mask; };
+using EyeCommand = std::variant<SetExpression, LookAt, Blink, SetColor, SetShape, SetEffects>;
 
 /// Owns the original espp::ExpressiveEyes engine, LVGL and the Monochrome Blue drawer on one
 /// dedicated thread (LVGL is built with LV_OS_NONE, so it must never be touched elsewhere).
@@ -63,6 +64,7 @@ private:
     void frame(int64_t frame_time_nanos);
     void apply_commands();
     void present();
+    void draw_eyes();  // redraw last geometry, then overlay, on the render thread
     bool has_window();
 
     std::thread thread_;

@@ -24,6 +24,7 @@ class EyeControllerHost private constructor() {
     private var errorUntilMs = 0L
     private fun renderShape() {
         val error = Effects.isOn("error_eyes") && SystemClock.uptimeMillis() < errorUntilMs
+        if (error || baseShape != Shapes.ORIGINAL) setEffectsMask(0)
         NativeBridge.nativeSetShape(if (error) Shapes.CROSS else baseShape)
     }
     private val restoreShape = Runnable { renderShape() }
@@ -43,6 +44,32 @@ class EyeControllerHost private constructor() {
     private var lastInput = "-"
     private var lastResult = "-"
     private var speaking = false  // handler thread only
+    private var shownExpression: Expression? = null
+    private var previousExpression: Expression? = null
+    private var expressionChangedAtMs = 0L
+    private var shownEffects = 0
+
+    private fun setEffectsMask(mask: Int) {
+        if (mask == shownEffects) return
+        shownEffects = mask
+        NativeBridge.nativeSetEffects(mask)
+    }
+
+    private fun updateEffects() {
+        val now = SystemClock.uptimeMillis()
+        val active = controller.state.active
+        val expression = active?.expression
+        if (expression != shownExpression) {
+            previousExpression = shownExpression
+            shownExpression = expression
+            expressionChangedAtMs = now
+        }
+        val error = Effects.isOn("error_eyes") && now < errorUntilMs
+        setEffectsMask(if (controller.sleeping || error || baseShape != Shapes.ORIGINAL) 0 else
+            EffectRules.effectsFor(expression, active?.strength ?: 0.5f, speaking,
+                previousExpression, now - expressionChangedAtMs, Effects::isOn))
+    }
+
     private var shownColor = ColorTable.DEFAULT.waiting  // native renderer starts in the original blue
 
     private val ticker = object : Runnable {
@@ -62,6 +89,7 @@ class EyeControllerHost private constructor() {
                 renderShape()
             }
             updateColor()
+            updateEffects()
             handler.postDelayed(this, TICK_MS)
         }
     }
@@ -141,6 +169,10 @@ class EyeControllerHost private constructor() {
 
     /** A prompt-bundle switch (E0.7): the eyes go back to idle and the original shape at once. */
     fun resetToIdle() = handler.post {
+        setEffectsMask(0)
+        shownExpression = null
+        previousExpression = null
+        expressionChangedAtMs = SystemClock.uptimeMillis()
         controller.reset(SystemClock.uptimeMillis())
         pendingIsCurrent = null
         speaking = false
@@ -240,6 +272,7 @@ class EyeControllerHost private constructor() {
 
     private fun publish() {
         updateColor()
+        updateEffects()
         val s = controller.state
         if (s.active == null) mode = "idle"
         val applied = s.active?.let { "${it.expression} ${it.look.name.lowercase()}" } ?: "NEUTRAL center (idle)"

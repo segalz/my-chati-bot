@@ -27,7 +27,7 @@ Status: **E0 accepted 2026-10-24 (tag emotions-E0)** (plan approved by the owner
 - [ ] E2.4 Heart drawer + pulse, voice style
 - [ ] E2.5 Full measurements incl. confusion matrix
 
-## E3 — Effects layer — NOT STARTED
+## E3 — Effects layer — DONE (APK 0.13.0, install 4; tag emotions-E3; all effects off by default, sweat visibility fix pending)
 - [ ] E3.1 Overlay layer on the render thread
 - [ ] E3.2 #25 sweat · #26 anger mark · #27 sparkles · #28 ?/! · #29 notes · #30 rain cloud (temporary triggers where the label does not exist yet)
 

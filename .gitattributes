@@ -1,0 +1,2 @@
+android/app/src/main/assets/**/*.txt text eol=lf
+android/app/src/main/assets/*.txt text eol=lf

@@ -62,7 +62,18 @@ class EffectsTest {
         assertTrue(errors.isEmpty())
     }
 
-    @Test fun shippedAssetIncludesIntensity() {
+    @Test fun overlaySwitchesDefaultOffAndCanBeEnabledIndividually() {
+        val names = setOf("fx_sweat", "fx_anger", "fx_sparkles", "fx_qmark", "fx_notes", "fx_rain")
+        assertEquals(names, Effects.KNOWN.keys.filter { it.startsWith("fx_") }.toSet())
+        for (name in names) {
+            assertFalse(Effects.KNOWN.getValue(name))
+            assertEquals(Effects.KNOWN + (name to true), Effects.parse("$name=on", errors))
+            assertEquals(Effects.KNOWN + (name to true), Effects.merge(Effects.KNOWN, "$name=on", errors))
+        }
+        assertTrue(errors.isEmpty())
+    }
+
+    @Test fun shippedAssetIncludesAllDefaults() {
         assertEquals(Effects.KNOWN, Effects.parse(File("src/main/assets/effects.txt").readText(), errors))
         assertTrue(errors.isEmpty())
     }

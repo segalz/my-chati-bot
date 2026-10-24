@@ -28,6 +28,7 @@ object NativeBridge {
     external fun nativeBlink()
     /** Which drawer paints the eyes (0 = the original Monochrome Blue; later stages add shapes). */
     external fun nativeSetShape(id: Int)
+    external fun nativeSetEffects(mask: Int)
     /** Eye color 0xRRGGBB, faded in over [fadeMs] (the original drawer's own color setting). */
     external fun nativeSetColor(rgb: Int, fadeMs: Int)
     external fun nativeStats(): String

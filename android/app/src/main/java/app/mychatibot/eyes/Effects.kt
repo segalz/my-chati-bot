@@ -26,6 +26,13 @@ object Effects {
         "thinking" to true,
         "sleep" to true,
         "error_eyes" to true,
+        "fx_sweat" to false,
+        "fx_anger" to false,
+        "fx_sparkles" to false,
+        "fx_qmark" to false,
+        "fx_notes" to false,
+        "fx_rain" to false,
+
     ))
 
     @Volatile private var state: Map<String, Boolean> = KNOWN

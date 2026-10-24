@@ -75,6 +75,11 @@ Java_app_mychatibot_NativeBridge_nativeSetShape(JNIEnv *, jobject, jint id) {
 }
 
 JNIEXPORT void JNICALL
+Java_app_mychatibot_NativeBridge_nativeSetEffects(JNIEnv *, jobject, jint mask) {
+    renderer().post(chati::SetEffects{static_cast<uint32_t>(mask)});
+}
+
+JNIEXPORT void JNICALL
 Java_app_mychatibot_NativeBridge_nativeSetColor(JNIEnv *, jobject, jint rgb, jint fade_ms) {
     renderer().post(chati::SetColor{static_cast<uint32_t>(rgb) & 0xffffffu, fade_ms});
 }

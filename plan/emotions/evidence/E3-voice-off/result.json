@@ -1,0 +1,865 @@
+{
+  "schema_version": 1,
+  "runs": 3,
+  "skipped": [
+    "accuracy",
+    "latency",
+    "smoke",
+    "startup",
+    "stories"
+  ],
+  "errors": {},
+  "voice": {
+    "lines": {
+      "en3": {
+        "runs": [
+          {
+            "first_audio_ms": 3329.0,
+            "starts_ms": {
+              "1": 275321639,
+              "2": 275324711,
+              "3": 275326919
+            },
+            "audio_ms": {
+              "1": 2856,
+              "2": 1996,
+              "3": 1137
+            },
+            "gaps_ms": [
+              216,
+              212
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 275321639,
+                "presented_t": 275321605,
+                "offset_ms": -34
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 275324711,
+                "presented_t": 275324711,
+                "offset_ms": 0
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 275326919,
+                "presented_t": 275326958,
+                "offset_ms": 39
+              }
+            ],
+            "offsets_ms": [
+              -34,
+              0,
+              39
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 3329.0,
+              "gap_p50": 212,
+              "gap_p90": 216,
+              "gap_p99": 216,
+              "offset_p50": 0,
+              "offset_p90": 39,
+              "offset_p99": 39
+            }
+          },
+          {
+            "first_audio_ms": 2966.0,
+            "starts_ms": {
+              "1": 275331638,
+              "2": 275334999,
+              "3": 275337591
+            },
+            "audio_ms": {
+              "1": 3146,
+              "2": 2380,
+              "3": 1091
+            },
+            "gaps_ms": [
+              215,
+              212
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 275331638,
+                "presented_t": 275331605,
+                "offset_ms": -33
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 275334999,
+                "presented_t": 275335001,
+                "offset_ms": 2
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 275337591,
+                "presented_t": 275337631,
+                "offset_ms": 40
+              }
+            ],
+            "offsets_ms": [
+              -33,
+              2,
+              40
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 2966.0,
+              "gap_p50": 212,
+              "gap_p90": 215,
+              "gap_p99": 215,
+              "offset_p50": 2,
+              "offset_p90": 40,
+              "offset_p99": 40
+            }
+          },
+          {
+            "first_audio_ms": 3805.0,
+            "starts_ms": {
+              "1": 275342820,
+              "2": 275346372,
+              "3": 275348484
+            },
+            "audio_ms": {
+              "1": 3320,
+              "2": 1904,
+              "3": 1102
+            },
+            "gaps_ms": [
+              232,
+              208
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 275342820,
+                "presented_t": 275342786,
+                "offset_ms": -34
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 275346372,
+                "presented_t": 275346357,
+                "offset_ms": -15
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 275348484,
+                "presented_t": 275348511,
+                "offset_ms": 27
+              }
+            ],
+            "offsets_ms": [
+              -34,
+              -15,
+              27
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 3805.0,
+              "gap_p50": 208,
+              "gap_p90": 232,
+              "gap_p99": 232,
+              "offset_p50": -15,
+              "offset_p90": 27,
+              "offset_p99": 27
+            }
+          }
+        ],
+        "complete": true
+      },
+      "en7": {
+        "runs": [
+          {
+            "first_audio_ms": 2856.0,
+            "starts_ms": {
+              "1": 275370237,
+              "2": 275373213,
+              "3": 275375422,
+              "4": 275376766,
+              "5": 275379262,
+              "6": 275380510,
+              "7": 275382238
+            },
+            "audio_ms": {
+              "1": 2751,
+              "2": 1950,
+              "3": 1126,
+              "4": 2205,
+              "5": 1056,
+              "6": 1428,
+              "7": 1520
+            },
+            "gaps_ms": [
+              225,
+              259,
+              218,
+              291,
+              192,
+              300
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 7,
+                "proxy_t": 275370237,
+                "presented_t": 275370204,
+                "offset_ms": -33
+              },
+              {
+                "sentence": 2,
+                "total": 7,
+                "proxy_t": 275373213,
+                "presented_t": 275373206,
+                "offset_ms": -7
+              },
+              {
+                "sentence": 3,
+                "total": 7,
+                "proxy_t": 275375422,
+                "presented_t": 275375406,
+                "offset_ms": -16
+              },
+              {
+                "sentence": 4,
+                "total": 7,
+                "proxy_t": 275376766,
+                "presented_t": 275376782,
+                "offset_ms": 16
+              },
+              {
+                "sentence": 5,
+                "total": 7,
+                "proxy_t": 275379262,
+                "presented_t": 275379238,
+                "offset_ms": -24
+              },
+              {
+                "sentence": 6,
+                "total": 7,
+                "proxy_t": 275380510,
+                "presented_t": 275380545,
+                "offset_ms": 35
+              },
+              {
+                "sentence": 7,
+                "total": 7,
+                "proxy_t": 275382238,
+                "presented_t": 275382223,
+                "offset_ms": -15
+              }
+            ],
+            "offsets_ms": [
+              -33,
+              -7,
+              -16,
+              16,
+              -24,
+              35,
+              -15
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 2856.0,
+              "gap_p50": 225,
+              "gap_p90": 300,
+              "gap_p99": 300,
+              "offset_p50": -15,
+              "offset_p90": 35,
+              "offset_p99": 35
+            }
+          },
+          {
+            "first_audio_ms": 3944.0,
+            "starts_ms": {
+              "1": 275388214,
+              "2": 275391576,
+              "3": 275393784,
+              "4": 275395128,
+              "5": 275397720,
+              "6": 275399160,
+              "7": 275400792
+            },
+            "audio_ms": {
+              "1": 3123,
+              "2": 1950,
+              "3": 1091,
+              "4": 2403,
+              "5": 1207,
+              "6": 1381,
+              "7": 1532
+            },
+            "gaps_ms": [
+              239,
+              258,
+              253,
+              189,
+              233,
+              251
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 7,
+                "proxy_t": 275388214,
+                "presented_t": 275388182,
+                "offset_ms": -32
+              },
+              {
+                "sentence": 2,
+                "total": 7,
+                "proxy_t": 275391576,
+                "presented_t": 275391555,
+                "offset_ms": -21
+              },
+              {
+                "sentence": 3,
+                "total": 7,
+                "proxy_t": 275393783,
+                "presented_t": 275393755,
+                "offset_ms": -28
+              },
+              {
+                "sentence": 4,
+                "total": 7,
+                "proxy_t": 275395128,
+                "presented_t": 275395096,
+                "offset_ms": -32
+              },
+              {
+                "sentence": 5,
+                "total": 7,
+                "proxy_t": 275397720,
+                "presented_t": 275397750,
+                "offset_ms": 30
+              },
+              {
+                "sentence": 6,
+                "total": 7,
+                "proxy_t": 275399160,
+                "presented_t": 275399207,
+                "offset_ms": 47
+              },
+              {
+                "sentence": 7,
+                "total": 7,
+                "proxy_t": 275400792,
+                "presented_t": 275400839,
+                "offset_ms": 47
+              }
+            ],
+            "offsets_ms": [
+              -32,
+              -21,
+              -28,
+              -32,
+              30,
+              47,
+              47
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 3944.0,
+              "gap_p50": 239,
+              "gap_p90": 258,
+              "gap_p99": 258,
+              "offset_p50": -21,
+              "offset_p90": 47,
+              "offset_p99": 47
+            }
+          },
+          {
+            "first_audio_ms": 3509.0,
+            "starts_ms": {
+              "1": 275406446,
+              "2": 275409712,
+              "3": 275411921,
+              "4": 275413457,
+              "5": 275416049,
+              "6": 275417393,
+              "7": 275419128
+            },
+            "audio_ms": {
+              "1": 3006,
+              "2": 2043,
+              "3": 1207,
+              "4": 2356,
+              "5": 1137,
+              "6": 1451,
+              "7": 1474
+            },
+            "gaps_ms": [
+              260,
+              166,
+              329,
+              236,
+              207,
+              284
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 7,
+                "proxy_t": 275406446,
+                "presented_t": 275406414,
+                "offset_ms": -32
+              },
+              {
+                "sentence": 2,
+                "total": 7,
+                "proxy_t": 275409712,
+                "presented_t": 275409671,
+                "offset_ms": -41
+              },
+              {
+                "sentence": 3,
+                "total": 7,
+                "proxy_t": 275411921,
+                "presented_t": 275411965,
+                "offset_ms": 44
+              },
+              {
+                "sentence": 4,
+                "total": 7,
+                "proxy_t": 275413456,
+                "presented_t": 275413422,
+                "offset_ms": -34
+              },
+              {
+                "sentence": 5,
+                "total": 7,
+                "proxy_t": 275416049,
+                "presented_t": 275416029,
+                "offset_ms": -20
+              },
+              {
+                "sentence": 6,
+                "total": 7,
+                "proxy_t": 275417393,
+                "presented_t": 275417417,
+                "offset_ms": 24
+              },
+              {
+                "sentence": 7,
+                "total": 7,
+                "proxy_t": 275419128,
+                "presented_t": 275419126,
+                "offset_ms": -2
+              }
+            ],
+            "offsets_ms": [
+              -32,
+              -41,
+              44,
+              -34,
+              -20,
+              24,
+              -2
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 3509.0,
+              "gap_p50": 236,
+              "gap_p90": 329,
+              "gap_p99": 329,
+              "offset_p50": -20,
+              "offset_p90": 44,
+              "offset_p99": 44
+            }
+          }
+        ],
+        "complete": true
+      },
+      "he3": {
+        "runs": [
+          {
+            "first_audio_ms": 1582.0,
+            "starts_ms": {
+              "1": 275433336,
+              "2": 275437176,
+              "3": 275440440
+            },
+            "audio_ms": {
+              "1": 3600,
+              "2": 3045,
+              "3": 1445
+            },
+            "gaps_ms": [
+              240,
+              219
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 275433336,
+                "presented_t": 275433302,
+                "offset_ms": -34
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 275437176,
+                "presented_t": 275437152,
+                "offset_ms": -24
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 275440440,
+                "presented_t": 275440448,
+                "offset_ms": 8
+              }
+            ],
+            "offsets_ms": [
+              -34,
+              -24,
+              8
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 1582.0,
+              "gap_p50": 219,
+              "gap_p90": 240,
+              "gap_p99": 240,
+              "offset_p50": -24,
+              "offset_p90": 8,
+              "offset_p99": 8
+            }
+          },
+          {
+            "first_audio_ms": 1545.0,
+            "starts_ms": {
+              "1": 275443991,
+              "2": 275447831,
+              "3": 275451102
+            },
+            "audio_ms": {
+              "1": 3600,
+              "2": 3045,
+              "3": 1445
+            },
+            "gaps_ms": [
+              240,
+              226
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 275443991,
+                "presented_t": 275443959,
+                "offset_ms": -32
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 275447831,
+                "presented_t": 275447809,
+                "offset_ms": -22
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 275451102,
+                "presented_t": 275451109,
+                "offset_ms": 7
+              }
+            ],
+            "offsets_ms": [
+              -32,
+              -22,
+              7
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 1545.0,
+              "gap_p50": 226,
+              "gap_p90": 240,
+              "gap_p99": 240,
+              "offset_p50": -22,
+              "offset_p90": 7,
+              "offset_p99": 7
+            }
+          },
+          {
+            "first_audio_ms": 1580.0,
+            "starts_ms": {
+              "1": 275454721,
+              "2": 275458561,
+              "3": 275461825
+            },
+            "audio_ms": {
+              "1": 3600,
+              "2": 3045,
+              "3": 1445
+            },
+            "gaps_ms": [
+              240,
+              219
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 275454721,
+                "presented_t": 275454684,
+                "offset_ms": -37
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 275458561,
+                "presented_t": 275458534,
+                "offset_ms": -27
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 275461824,
+                "presented_t": 275461829,
+                "offset_ms": 5
+              }
+            ],
+            "offsets_ms": [
+              -37,
+              -27,
+              5
+            ],
+            "complete": true,
+            "missing": [],
+            "metrics": {
+              "first_audio_ms": 1580.0,
+              "gap_p50": 219,
+              "gap_p90": 240,
+              "gap_p99": 240,
+              "offset_p50": -27,
+              "offset_p90": 5,
+              "offset_p99": 5
+            }
+          }
+        ],
+        "complete": true
+      }
+    },
+    "complete": true
+  },
+  "gates": [
+    {
+      "row": "voice.data",
+      "value": true,
+      "baseline_band": "complete",
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en3.first_audio_ms",
+      "value": 3329.0,
+      "baseline_band": [
+        3684.0,
+        4176.0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en3.gap_p50",
+      "value": 212,
+      "baseline_band": [
+        189,
+        218
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en3.gap_p90",
+      "value": 216,
+      "baseline_band": [
+        236,
+        319
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en3.gap_p99",
+      "value": 216,
+      "baseline_band": [
+        236,
+        319
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en3.offset_p50",
+      "value": 0,
+      "baseline_band": [
+        -33,
+        -18
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "voice.en3.offset_p90",
+      "value": 39,
+      "baseline_band": [
+        13,
+        30
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "voice.en3.offset_p99",
+      "value": 39,
+      "baseline_band": [
+        13,
+        30
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "voice.en7.first_audio_ms",
+      "value": 3509.0,
+      "baseline_band": [
+        3900.0,
+        4706.0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en7.gap_p50",
+      "value": 236,
+      "baseline_band": [
+        216,
+        244
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en7.gap_p90",
+      "value": 300,
+      "baseline_band": [
+        280,
+        306
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en7.gap_p99",
+      "value": 300,
+      "baseline_band": [
+        280,
+        306
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en7.offset_p50",
+      "value": -20,
+      "baseline_band": [
+        -8,
+        29
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "voice.en7.offset_p90",
+      "value": 44,
+      "baseline_band": [
+        35,
+        50
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.en7.offset_p99",
+      "value": 44,
+      "baseline_band": [
+        35,
+        50
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.he3.first_audio_ms",
+      "value": 1580.0,
+      "baseline_band": [
+        1729.0,
+        1777.0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.he3.gap_p50",
+      "value": 219,
+      "baseline_band": [
+        218,
+        219
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.he3.gap_p90",
+      "value": 240,
+      "baseline_band": [
+        240,
+        241
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.he3.gap_p99",
+      "value": 240,
+      "baseline_band": [
+        240,
+        241
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.he3.offset_p50",
+      "value": -24,
+      "baseline_band": [
+        -28,
+        -24
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.he3.offset_p90",
+      "value": 7,
+      "baseline_band": [
+        4,
+        7
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "voice.he3.offset_p99",
+      "value": 7,
+      "baseline_band": [
+        4,
+        7
+      ],
+      "status": "PASS"
+    }
+  ]
+}
