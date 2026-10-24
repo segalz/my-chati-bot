@@ -94,6 +94,7 @@ class EyeBrainHost private constructor() {
     }
 
     fun submitSentence(sentence: String) {
+        EyeControllerHost.instance.activity()
         val now = SystemClock.uptimeMillis()
         val hit = phrasebook.lookup(sentence)
         // Allocating the generation and publishing the request happen together, so concurrent
@@ -141,6 +142,7 @@ class EyeBrainHost private constructor() {
      * generation. The eyes blink at once (they "heard" something) and older inferences stop early.
      */
     fun beginRequest(): Long {
+        EyeControllerHost.instance.activity()
         val generation = synchronized(submitLock) {
             this.generation.incrementAndGet().also { latest.set(null) }
         }
@@ -286,15 +288,29 @@ class EyeBrainHost private constructor() {
         // Checked again on the controller thread right before anything is applied.
         val isCurrent = { request.generation == generation.get() }
         val d = classifyWithModel(request.sentence, request.generation, request.receivedAtMs, continueStory = false)
-        EyeControllerHost.instance.submitDecision(request.sentence, d.body, d.error, d.detail, d.source, isCurrent)
+        EyeControllerHost.instance.submitDecision(request.sentence, d.body, d.error, d.detail, d.source, isCurrent, gap = d.gap)
     }
 
     /** What the eyes should do for one sentence: a `{"expression","look"}` body, or an error. */
-    class Decision(val body: String?, val error: String?, val detail: String, val source: IntentSource)
+    class Decision(val body: String?, val error: String?, val detail: String, val source: IntentSource, val gap: Float? = null)
 
     private fun classifyWithModel(sentence: String, generation: Long, receivedAtMs: Long, continueStory: Boolean): Decision {
-        if (!ensureLoaded()) return Decision(null, "MODEL UNAVAILABLE ${loadError ?: ""}", "", IntentSource.MODEL)
-        val fields = NativeBridge.nativeBrainInfer(sentence, TIMEOUT_MS, generation, continueStory).split('\t')
+        fun failed(error: String, detail: String = "", gap: Float? = null): Decision {
+            if (isCurrent(generation) && !error.contains("cancel", ignoreCase = true) &&
+                !error.contains("stale", ignoreCase = true)) {
+                EyeControllerHost.instance.showError("model decision failed") { isCurrent(generation) }
+            }
+            return Decision(null, error, detail, IntentSource.MODEL, gap)
+        }
+        if (!ensureLoaded()) return failed("MODEL UNAVAILABLE ${loadError ?: ""}")
+        EyeControllerHost.instance.thinking(true)
+        val fields = try {
+            NativeBridge.nativeBrainInfer(sentence, TIMEOUT_MS, generation, continueStory).split('\t')
+        } catch (e: Exception) {
+            return failed("MODEL ERROR inference failed")
+        } finally {
+            EyeControllerHost.instance.thinking(false)
+        }
         val ok = fields.getOrNull(0) == "OK"
         val payload = fields.getOrNull(1).orEmpty()
         val endToEnd = SystemClock.uptimeMillis() - receivedAtMs
@@ -304,10 +320,10 @@ class EyeBrainHost private constructor() {
                 "gap ${"%.2f".format(gap ?: -1f)})"
         } else "$endToEnd ms"
         Log.i(TAG, "brain: '$sentence' -> ${fields.joinToString(" | ")} | end-to-end $endToEnd ms")
-        if (!ok) return Decision(null, "MODEL ERROR $payload", detail, IntentSource.MODEL)
+        if (!ok) return failed("MODEL ERROR $payload", detail, gap)
         val body = composeBody(payload, sentence, gap)
-            ?: return Decision(null, "MODEL OUTPUT REJECTED not {\"expression\":…}: $payload", detail, IntentSource.MODEL)
-        return Decision(body, null, detail, IntentSource.MODEL)
+            ?: return failed("MODEL OUTPUT REJECTED", detail, gap)
+        return Decision(body, null, detail, IntentSource.MODEL, gap)
     }
 
     /**
@@ -330,7 +346,7 @@ class EyeBrainHost private constructor() {
             val spokenMs = StoryText.spokenMs(sentence, wordsPerSecond)
             nextStartMs = startMs + spokenMs
             EyeControllerHost.instance.submitDecision(sentence, d.body, d.error, d.detail, d.source, isCurrent,
-                EyeControllerHost.StoryStep(i, sentences.size, startMs, spokenMs))
+                EyeControllerHost.StoryStep(i, sentences.size, startMs, spokenMs), gap = d.gap)
         }
     }
 

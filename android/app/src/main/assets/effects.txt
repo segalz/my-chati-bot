@@ -1,4 +1,8 @@
 # Expressive features: on or off (private config/effects.txt overrides this asset).
 colors=on
+intensity=on
 idle_glance=on
 warmup_glance=on
+thinking=on
+sleep=on
+error_eyes=on

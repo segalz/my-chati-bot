@@ -55,9 +55,21 @@ class EffectsTest {
 
     private val errors = mutableListOf<String>()
 
+    @Test fun intensityDefaultsOnAndCanBeDisabled() {
+        assertTrue(Effects.KNOWN.getValue("intensity"))
+        assertFalse(Effects.parse("intensity=off", errors).getValue("intensity"))
+        assertEquals(Effects.KNOWN + ("intensity" to false), Effects.merge(Effects.KNOWN, "intensity=off", errors))
+        assertTrue(errors.isEmpty())
+    }
+
+    @Test fun shippedAssetIncludesIntensity() {
+        assertEquals(Effects.KNOWN, Effects.parse(File("src/main/assets/effects.txt").readText(), errors))
+        assertTrue(errors.isEmpty())
+    }
+
     @Test fun validSwitches() {
         val parsed = Effects.parse("colors=off\nidle_glance=on\nwarmup_glance=off", errors)
-        assertEquals(mapOf("colors" to false, "idle_glance" to true, "warmup_glance" to false), parsed)
+        assertEquals(Effects.KNOWN + mapOf("colors" to false, "warmup_glance" to false), parsed)
         assertTrue(errors.isEmpty())
     }
 
@@ -89,6 +101,7 @@ class EffectsTest {
         val parsed = Effects.parse("colors=off", errors)
         assertTrue(parsed.getValue("idle_glance"))
         assertTrue(parsed.getValue("warmup_glance"))
+        assertTrue(parsed.getValue("intensity"))
         assertTrue(errors.isEmpty())
     }
 
@@ -99,7 +112,7 @@ class EffectsTest {
 
     @Test fun mergeKeepsCurrentValuesAndAcceptsBothSeparators() {
         val current = Effects.KNOWN + ("warmup_glance" to false)
-        assertEquals(mapOf("colors" to false, "idle_glance" to false, "warmup_glance" to false),
+        assertEquals(Effects.KNOWN + mapOf("colors" to false, "idle_glance" to false, "warmup_glance" to false),
             Effects.merge(current, "colors=off,idle_glance=off\nwarmup_glance=off", errors))
         assertEquals(Effects.KNOWN + ("warmup_glance" to false), current)
         assertTrue(errors.isEmpty())

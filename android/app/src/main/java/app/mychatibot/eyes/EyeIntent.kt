@@ -32,6 +32,8 @@ data class EyeIntent(
     val sessionId: String? = null,
     /** Monotonic deadline (ms) after which the intent must not be applied; null = no deadline. */
     val expiresAtMs: Long? = null,
+    /** App-owned confidence strength, never accepted from the wire. */
+    val strength: Float? = null,
 )
 
 sealed interface ParseResult {

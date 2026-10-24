@@ -29,6 +29,7 @@ import android.widget.TextView
 import app.mychatibot.eyes.EyeBrainHost
 import app.mychatibot.eyes.ConfigManifest
 import app.mychatibot.eyes.Effects
+import app.mychatibot.eyes.EyeColors
 import app.mychatibot.eyes.SpeechHost
 import app.mychatibot.eyes.EyeControllerHost
 import app.mychatibot.eyes.IntentSource
@@ -62,6 +63,7 @@ class MainActivity : Activity() {
         Log.i(TAG, info)
         NativeBridge.nativeStart()
         Effects.init(this)
+        EyeColors.init(this)
         EyeBrainHost.instance.init(this)  // loads the eye model in the background
         SpeechHost.instance.init(this)  // loads the voice model in the background
 
@@ -224,13 +226,20 @@ class MainActivity : Activity() {
                         if (intent.hasExtra("heng")) SpeechHost.instance.setHebrewEngine(intent.getStringExtra("heng"))
                         intent.getStringExtra("text")?.let { SpeechHost.instance.speak(it, intent.getStringExtra("en")) }
                     }
-                    DEBUG_LOOK_ACTION -> intent.getStringExtra("effects")
-                        ?.let {
+                    DEBUG_LOOK_ACTION -> {
+                        intent.getStringExtra("effects")?.let {
                             val applied = Effects.apply(this@MainActivity, it)
                             Log.i(TAG, "debug: effects ${if (applied) "applied" else "rejected"} ($applied)")
                             if (applied) ConfigManifest.write(this@MainActivity, EyeBrainHost.instance.activeBundle)
                         }
-                        ?: Log.w(TAG, "debug: DEBUG_LOOK without effects extra")
+                        if (intent.getBooleanExtra("colors_reload", false)) {
+                            val reloaded = EyeColors.reload(this@MainActivity)
+                            Log.i(TAG, "debug: colors reload $reloaded")
+                            ConfigManifest.write(this@MainActivity, EyeBrainHost.instance.activeBundle)
+                        } else if (!intent.hasExtra("effects")) {
+                            Log.w(TAG, "debug: DEBUG_LOOK without effects or colors_reload extra")
+                        }
+                    }
                     DEBUG_STORY_ACTION -> {
                         fun ms(key: String) = if (intent.hasExtra(key)) intent.getIntExtra(key, -1).toLong() else null
                         eyeHost.setMoodRules(ms("linger_ms"), ms("carry_ms"), ms("dwell_ms"))

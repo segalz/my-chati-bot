@@ -4,6 +4,13 @@ package app.mychatibot.eyes
 interface EyeSink {
     fun setExpression(engineId: Int)
     fun lookAt(x: Float, y: Float)
+    fun setShape(id: Int) {}
+}
+
+object Shapes {
+    const val ORIGINAL = 0
+    const val SLEEP = 1
+    const val CROSS = 2
 }
 
 /** What the controller did with an intent, for the overlay and logs. */
@@ -60,6 +67,8 @@ class EyeController(
     private val defaultHoldMs: Long = 3_000,
     private val idleGlanceMs: Long = 0,
     private val glanceMs: Long = 1_200,
+    val thinkingDelayMs: Long = 300,
+    var sleepAfterMs: Long = 0,
     private val chooseSide: () -> Look = { if (kotlin.random.Random.nextBoolean()) Look.LEFT else Look.RIGHT },
 ) {
     data class State(
@@ -84,6 +93,46 @@ class EyeController(
     /** Automatic idle glances; may be changed between ticks without affecting explicit glances. */
     var idleGlances = true
 
+    var thinkingEnabled = false
+    var sleepEnabled = true
+    var sleeping = false
+        private set
+    var lastActivityMs = -1L
+        private set
+    private var lastNowMs = 0L
+    private var busySinceMs: Long? = null
+    private var thinkingGlance = false
+
+    fun thinking(busy: Boolean, nowMs: Long) {
+        lastNowMs = nowMs
+        if (busy) {
+            if (busySinceMs == null) busySinceMs = nowMs
+        } else {
+            busySinceMs = null
+            clearThinkingGlance()
+        }
+    }
+
+    private fun clearThinkingGlance(): Boolean {
+        if (!thinkingGlance) return false
+        thinkingGlance = false
+        sink.lookAt(0f, 0f)
+        return true
+    }
+
+    /** Input activity wakes immediately, even if it ultimately has no reaction. */
+    fun wake(nowMs: Long): Boolean {
+        lastNowMs = nowMs
+        lastActivityMs = nowMs
+        if (!sleeping) return false
+        sleeping = false
+        sink.setShape(Shapes.ORIGINAL)
+        sink.setExpression(requireNotNull(Expression.NEUTRAL.engineId))
+        sink.lookAt(0f, 0f)
+        quietSinceMs = -1L
+        return true
+    }
+
     private var idleGlanceActive = false
     private var glanceUntilMs = 0L  // 0 = no glance showing
     private var quietSinceMs = -1L  // when the eyes last became idle and still; -1 = not yet known
@@ -93,7 +142,8 @@ class EyeController(
      * whether it did. Also used for the start-up warm-up.
      */
     fun glance(look: Look, nowMs: Long): Boolean {
-        if (active != null || pending != null) return false
+        lastNowMs = nowMs
+        if (active != null || pending != null || sleeping || thinkingGlance) return false
         idleGlanceActive = false  // explicit glances ignore the idle switch
         sink.lookAt(look.x, look.y)
         glanceUntilMs = maxOf(1L, saturatingAdd(nowMs, glanceMs))
@@ -103,11 +153,14 @@ class EyeController(
     val state: State get() = State(active, appliedAtMs, holdUntilMs, pending)
 
     /** Back to idle at once (a prompt-bundle switch): no reaction, nothing waiting, no glance. */
-    fun reset() {
+    fun reset(nowMs: Long = lastNowMs) {
+        wake(nowMs)
+        busySinceMs = null
+        thinkingGlance = false
         glanceUntilMs = 0L
         idleGlanceActive = false
         if (active != null) {
-            returnToIdle()
+            returnToIdle(nowMs)
         } else {
             dropPending()
             sink.lookAt(0f, 0f)  // a glance may have been showing
@@ -126,6 +179,7 @@ class EyeController(
      * conversation (story mode); null for a single sentence or a debug intent.
      */
     fun submit(intent: EyeIntent, nowMs: Long, spokenMs: Long? = null): Outcome {
+        wake(nowMs)
         if (isExpired(intent, nowMs)) return Outcome.REJECTED_EXPIRED
         if (spokenMs != null) return submitInStory(intent, nowMs, saturatingAdd(nowMs, maxOf(spokenMs, 0)))
         if (intent.expression == Expression.NONE) return Outcome.IGNORED_NO_REACTION
@@ -141,6 +195,27 @@ class EyeController(
 
     /** Call periodically; returns true when the eyes changed. */
     fun tick(nowMs: Long): Boolean {
+        lastNowMs = nowMs
+        if (lastActivityMs < 0) lastActivityMs = nowMs
+        if (sleeping) {
+            if (!sleepEnabled || sleepAfterMs <= 0) return wake(nowMs)
+            return false
+        }
+        if (!thinkingEnabled && clearThinkingGlance()) return true
+        if (active == null && pending == null && glanceUntilMs == 0L && !thinkingGlance &&
+            busySinceMs == null && sleepEnabled && sleepAfterMs > 0 && nowMs - lastActivityMs >= sleepAfterMs) {
+            sleeping = true
+            sink.setExpression(requireNotNull(Expression.SLEEPY.engineId))
+            sink.setShape(Shapes.SLEEP)
+            return true
+        }
+        val busyAt = busySinceMs
+        if (thinkingEnabled && busyAt != null && nowMs - busyAt >= thinkingDelayMs &&
+            active == null && pending == null && glanceUntilMs == 0L && !thinkingGlance) {
+            thinkingGlance = true
+            sink.lookAt(-0.5f, -0.7f)
+            return true
+        }
         if (!idleGlances) {
             quietSinceMs = -1L
             if (idleGlanceActive) {
@@ -157,7 +232,7 @@ class EyeController(
             sink.lookAt(0f, 0f)
             return true
         }
-        if (idleGlances && active == null && pending == null && glanceUntilMs == 0L && idleGlanceMs > 0) {
+        if (idleGlances && !thinkingGlance && (!thinkingEnabled || busySinceMs == null) && active == null && pending == null && glanceUntilMs == 0L && idleGlanceMs > 0) {
             if (quietSinceMs < 0) quietSinceMs = nowMs
             if (nowMs - quietSinceMs >= idleGlanceMs) {
                 val started = glance(chooseSide(), nowMs)
@@ -178,7 +253,7 @@ class EyeController(
         }
         // Never go idle while something waits: it is shown once the dwell has passed.
         if (active != null && pending == null && nowMs >= holdUntilMs) {
-            returnToIdle()
+            returnToIdle(nowMs)
             return true
         }
         return false
@@ -240,6 +315,8 @@ class EyeController(
     }
 
     private fun show(intent: EyeIntent, nowMs: Long) {
+        wake(nowMs)
+        thinkingGlance = false
         glanceUntilMs = 0L  // a reaction replaces a glance at once
         idleGlanceActive = false
         sink.setExpression(requireNotNull(intent.expression.engineId))
@@ -250,7 +327,9 @@ class EyeController(
         appliedAtMs = nowMs
     }
 
-    private fun returnToIdle() {
+    private fun returnToIdle(nowMs: Long) {
+        lastActivityMs = nowMs
+        lastNowMs = nowMs
         quietSinceMs = -1L  // the idle glance clock restarts at the next tick
         sink.setExpression(Expression.NEUTRAL.ordinal)
         sink.lookAt(0f, 0f)

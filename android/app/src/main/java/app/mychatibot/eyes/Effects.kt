@@ -20,8 +20,12 @@ object Effects {
 
     val KNOWN: Map<String, Boolean> = Collections.unmodifiableMap(mapOf(
         "colors" to true,
+        "intensity" to true,
         "idle_glance" to true,
         "warmup_glance" to true,
+        "thinking" to true,
+        "sleep" to true,
+        "error_eyes" to true,
     ))
 
     @Volatile private var state: Map<String, Boolean> = KNOWN

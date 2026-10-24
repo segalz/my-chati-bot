@@ -11,12 +11,14 @@ Status: **E0 accepted 2026-10-24 (tag emotions-E0)** (plan approved by the owner
 - [x] E0.6 Shape framework in the renderer — by Claude, reviewed (Codex, opencode), builds; phone check with APK 0.10.0
 - [x] E0.7 Prompt bundles as files in private storage (bundle v4 = today, byte-identical, unit-tested) — by Claude, reviewed (Codex ×5 rounds, opencode ×2), builds; phone check with APK 0.10.0
 
-## E1 — App-level life — NOT STARTED
-- [ ] E1.1 #15 colors.txt
-- [ ] E1.2 #13 intensity (dev-only calibration)
-- [ ] E1.3 #9 thinking glance
-- [ ] E1.4 #10 sleeping + wake
-- [ ] E1.5 #17 × × on failures
+## E1 — App-level life — MEASURED, waiting for the owner's decision (APK 0.11.0, install 2)
+- [x] E1.1 #15 colors.txt — phone check PASS
+- [x] E1.2 #13 intensity (dev-only calibration gap 10.3..20.1) — phone check PASS
+- [x] E1.3 #9 thinking glance — phone check PASS
+- [x] E1.4 #10 sleeping + wake — phone check PASS
+- [x] E1.5 #17 × × on failures — drawing PASS; trigger by review only
+- [x] Regression all-off = E0 (evidence/E1-all-off/, timing re-run), all-on (evidence/E1-all-on/)
+- [ ] Owner decision → commit + tag emotions-E1
 
 ## E2 — Love — NOT STARTED
 - [ ] E2.1 Test sets (love, near-misses incl. negation/sarcasm/keywords, 2 stories)

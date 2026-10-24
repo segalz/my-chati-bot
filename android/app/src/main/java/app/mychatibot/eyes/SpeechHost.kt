@@ -183,7 +183,10 @@ class SpeechHost private constructor() {
         } finally {
             line.totalFrames = produced
             line.ended = true
-            line.error?.let { Log.w(TAG, "cloud voice failed: $it") }
+            line.error?.let {
+                Log.w(TAG, "cloud voice failed: $it")
+                if (isCurrent() && !line.call.cancelled) EyeControllerHost.instance.showError("cloud voice failed", isCurrent)
+            }
         }
     }
 
@@ -268,6 +271,7 @@ class SpeechHost private constructor() {
             Log.w(TAG, "synthesis failed: ${it.message}")
             return null
         }
+        if (audio.samples.isEmpty() || audio.sampleRate <= 0) return null
         val clip = Clip(audio.samples, audio.sampleRate, SystemClock.uptimeMillis() - started)
         Log.i(TAG, "synth ${index + 1}/${session.sentences.size}: ${clip.synthMs} ms for ${durationMs(clip)} ms " +
             "(speaker $speaker, speed ${style.speed})")
@@ -293,6 +297,7 @@ class SpeechHost private constructor() {
         val style = table.styleFor(expressionOf(decision))
         val started = SystemClock.uptimeMillis()
         val audio = voice.synthesize(session.sentences[index], style.speed, style.pitch) ?: return null
+        if (audio.samples.isEmpty() || audio.sampleRate <= 0) return null
         val clip = Clip(audio.samples, audio.sampleRate, SystemClock.uptimeMillis() - started)
         Log.i(TAG, "synth ${index + 1}/${session.sentences.size} (Hebrew): ${clip.synthMs} ms for ${durationMs(clip)} ms " +
             "(speed ${style.speed}, pitch ${style.pitch})")
@@ -440,7 +445,9 @@ class SpeechHost private constructor() {
             for (i in 0 until n) {
                 val ready = await(session.ready[i], isCurrent) ?: return stopped()
                 val sentence = session.sentences[i]
+                if (!isCurrent()) return stopped()
                 val clip = ready.clip
+                if (clip == null) EyeControllerHost.instance.showError("voice unavailable or synthesis failed", isCurrent)
                 val audioMs = clip?.let(::durationMs) ?: StoryText.spokenMs(sentence)
                 val d = ready.decision
                 val voice = clip?.let { " | voice ${it.synthMs} ms for $audioMs ms" } ?: " | voice unavailable"
@@ -449,7 +456,7 @@ class SpeechHost private constructor() {
                     if (startedAtMs == 0L) {  // exactly once per sentence, whatever happens to the audio
                         startedAtMs = SystemClock.uptimeMillis()
                         EyeControllerHost.instance.submitDecision(sentence, d.body, d.error, d.detail + voice, d.source,
-                            isCurrent, EyeControllerHost.StoryStep(i, n, startedAtMs, audioMs + GAP_MS))
+                            isCurrent, EyeControllerHost.StoryStep(i, n, startedAtMs, audioMs + GAP_MS), gap = d.gap)
                         Log.i(TAG, "speech: ${i + 1}/$n start t=$startedAtMs audio=$audioMs ms")
                     }
                 }
@@ -458,11 +465,15 @@ class SpeechHost private constructor() {
                     audio = AudioOut.open(clip.sampleRate)
                     when (audio?.start(isCurrent)) {
                         AudioOut.Result.STALE -> return stopped()
-                        AudioOut.Result.FAILED -> dropAudio()
+                        AudioOut.Result.FAILED -> {
+                            if (isCurrent()) EyeControllerHost.instance.showError("audio output failed", isCurrent)
+                            dropAudio()
+                        }
                         else -> Unit
                     }
                 }
                 val out = audio
+                if (clip != null && out == null && isCurrent()) EyeControllerHost.instance.showError("audio output unavailable", isCurrent)
                 val result = when {
                     // Green only once this sentence's audio really plays (the playback position reached it).
                     clip != null && out != null -> {
@@ -494,6 +505,7 @@ class SpeechHost private constructor() {
                     AudioOut.Result.FAILED -> {
                         // e.g. ERROR_DEAD_OBJECT after an audio service restart: drop the stream (the
                         // next sentence opens a new one); the eyes still get this sentence, on time.
+                        if (isCurrent()) EyeControllerHost.instance.showError("audio output failed", isCurrent)
                         dropAudio()
                         EyeControllerHost.instance.setSpeaking(false)
                         onStart()
@@ -542,11 +554,16 @@ class SpeechHost private constructor() {
             }
         }
         try {
+            if (!isCurrent()) return stopped()
             if (out == null) {
                 line.call.cancel()
                 return playEyesOnly(session, 0, "audio output unavailable", isCurrent)
             }
-            if (out.start(isCurrent) == AudioOut.Result.STALE) return stopped()
+            when (out.start(isCurrent)) {
+                AudioOut.Result.STALE -> return stopped()
+                AudioOut.Result.FAILED -> return playEyesOnly(session, 0, "audio output failed", isCurrent)
+                AudioOut.Result.OK -> Unit
+            }
             var consumed = 0L
             while (true) {
                 if (!isCurrent()) return stopped()
@@ -554,6 +571,7 @@ class SpeechHost private constructor() {
                 if (!line.ended && !line.call.cancelled) {
                     val stuck = if (speechStart < 0) now > deadline else now - line.lastAudioAtMs > STALL_TIMEOUT_MS
                     if (stuck) {
+                        if (isCurrent()) EyeControllerHost.instance.showError("cloud audio timeout or stall", isCurrent)
                         Log.w(TAG, if (speechStart < 0) "cloud: no audio in time" else "cloud: stream stalled; ending the line")
                         line.call.cancel()  // the producer then ends the line with what it has
                     }
@@ -570,7 +588,11 @@ class SpeechHost private constructor() {
                         AudioOut.Result.OK -> consumed += chunk.size
                     }
                 } else if (speechStart < 0 && !line.ended) {
-                    out.silence(SILENCE_STEP_MS, isCurrent)  // waiting for the first audio
+                    when (out.silence(SILENCE_STEP_MS, isCurrent)) {
+                        AudioOut.Result.STALE -> return stopped()
+                        AudioOut.Result.FAILED -> return playEyesOnly(session, next, "audio output failed", isCurrent)
+                        AudioOut.Result.OK -> Unit
+                    }
                 }
                 if (line.ended && exact == null) {
                     if (line.totalFrames == 0L) {
@@ -596,6 +618,8 @@ class SpeechHost private constructor() {
 
     /** No cloud audio: the eyes follow the remaining sentences alone, on estimated speaking time. */
     private fun playEyesOnly(session: Session, from: Int, reason: String, isCurrent: () -> Boolean) {
+        if (!isCurrent()) return stopped()
+        EyeControllerHost.instance.showError("cloud voice unavailable or playback failed", isCurrent)
         EyeControllerHost.instance.setSpeaking(false)  // silent from here on: back to the waiting color
         for (i in from until session.sentences.size) {
             val ready = await(session.ready[i], isCurrent) ?: return stopped()
@@ -611,7 +635,7 @@ class SpeechHost private constructor() {
         val n = session.sentences.size
         val startMs = SystemClock.uptimeMillis()
         EyeControllerHost.instance.submitDecision(session.sentences[i], d.body, d.error, d.detail + voice, d.source,
-            isCurrent, EyeControllerHost.StoryStep(i, n, startMs, spokenMs))
+            isCurrent, EyeControllerHost.StoryStep(i, n, startMs, spokenMs), gap = d.gap)
         Log.i(TAG, "speech: ${i + 1}/$n start t=$startMs audio=$spokenMs ms")
     }
 

@@ -13,6 +13,7 @@
 
 // Original espp/expressive_eyes v1.3.9 engine and its Monochrome Blue example drawer, unmodified.
 #include "expressive_eyes.hpp"
+#include "extra_drawers.hpp"
 #include "monochrome_blue_drawer.hpp"
 
 namespace chati {
@@ -56,6 +57,7 @@ struct RenderState {
     espp::ExpressiveEyes::EyeState last_left{};
     espp::ExpressiveEyes::EyeState last_right{};
     bool have_last = false;
+    Clock::time_point last_draw{};
 };
 
 uint32_t lerp_rgb(uint32_t a, uint32_t b, float t) {
@@ -225,6 +227,7 @@ void EyeRenderer::thread_main() {
             [this](const espp::ExpressiveEyes::EyeState &left, const espp::ExpressiveEyes::EyeState &right) {
                 RenderState &st = *g_state;
                 st.draw(left, right);
+                st.last_draw = Clock::now();
                 st.last_left = left;
                 st.last_right = right;
                 st.have_last = true;
@@ -273,6 +276,14 @@ void EyeRenderer::frame(int64_t frame_time_nanos) {
     apply_commands();
     advance_color_fade(dt);
     g_state->eyes->update(dt);  // may call the drawer, which sets canvas_dirty_
+    RenderState &s = *g_state;
+    if (s.shape == static_cast<int>(Shape::SLEEP) && s.have_last &&
+        Clock::now() - s.last_draw >= std::chrono::milliseconds(100)) {
+        s.draw(s.last_left, s.last_right);
+        s.last_draw = Clock::now();
+        canvas_dirty_ = true;
+        redraws_.fetch_add(1, std::memory_order_relaxed);
+    }
     present();
 
     const auto work_us = static_cast<uint64_t>(
@@ -304,7 +315,8 @@ void EyeRenderer::apply_commands() {
         } else if (std::holds_alternative<Blink>(command)) {
             eyes.blink();
         } else if (const auto *sh = std::get_if<SetShape>(&command)) {
-            if (sh->id == static_cast<int>(Shape::ORIGINAL)) {
+            if (sh->id >= static_cast<int>(Shape::ORIGINAL) &&
+                sh->id <= static_cast<int>(Shape::CROSS)) {
                 rebuild_drawer(sh->id, g_state->color);
             } else {
                 __android_log_print(ANDROID_LOG_WARN, kTag, "ignored shape id %d", sh->id);
@@ -342,6 +354,24 @@ void EyeRenderer::rebuild_drawer(int shape, uint32_t rgb) {
     RenderState &s = *g_state;
     std::unique_ptr<eye_drawer::EyeDrawer> drawer;
     switch (static_cast<Shape>(shape)) {
+        case Shape::SLEEP:
+            drawer = std::make_unique<eye_drawer::SleepDrawer>(
+                eye_drawer::SleepDrawer::Config{.screen_width = kCanvasWidth,
+                                                .screen_height = kCanvasHeight,
+                                                .color = lv_color_hex(rgb),
+                                                .canvas = s.canvas,
+                                                .canvas_buffer = s.canvas_buffer,
+                                                .lvgl_mutex = s.lvgl_mutex});
+            break;
+        case Shape::CROSS:
+            drawer = std::make_unique<eye_drawer::CrossDrawer>(
+                eye_drawer::CrossDrawer::Config{.screen_width = kCanvasWidth,
+                                                .screen_height = kCanvasHeight,
+                                                .color = lv_color_hex(rgb),
+                                                .canvas = s.canvas,
+                                                .canvas_buffer = s.canvas_buffer,
+                                                .lvgl_mutex = s.lvgl_mutex});
+            break;
         case Shape::ORIGINAL:
         default:
             drawer = std::make_unique<eye_drawer::MonochromeBlueDrawer>(
@@ -360,6 +390,7 @@ void EyeRenderer::rebuild_drawer(int shape, uint32_t rgb) {
     s.color = rgb;
     if (s.have_last) {
         s.draw(s.last_left, s.last_right);
+        s.last_draw = Clock::now();
         canvas_dirty_ = true;
     }
 }

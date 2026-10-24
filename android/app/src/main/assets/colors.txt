@@ -1,0 +1,18 @@
+# Eye colors (#15). waiting/speaking: base color; tint X: an emotion's color mixed in by strength;
+# strong X: an emotion shown in its own color; tint_min/tint_max: mix at the lowest/highest strength;
+# gap_low/gap_high: eye-model confidence (logit gap) mapped to strength 0..1 (#13, chosen on dev sentences)
+waiting=#00BFFF
+speaking=#00E676
+tint HAPPY=#FFD54F
+tint SAD=#3D5AFE
+tint SURPRISED=#FFFFFF
+tint SLEEPY=#9575CD
+tint BORED=#9E9E9E
+tint WINK_LEFT=#FFD54F
+tint WINK_RIGHT=#FFD54F
+strong ANGRY=#FF2A2A
+tint_min=0.15
+tint_max=0.55
+fade_ms=300
+gap_low=10.3
+gap_high=20.1

@@ -22,7 +22,7 @@ struct Blink {};
 struct SetColor { uint32_t rgb; int fade_ms; };
 /// Which drawer paints the eyes (E0.6). The engine and its state stay the same; only the drawing
 /// changes, between frames. Unknown ids are ignored. Later stages add shapes (heart, …).
-enum class Shape : int { ORIGINAL = 0 };
+enum class Shape : int { ORIGINAL = 0, SLEEP = 1, CROSS = 2 };
 struct SetShape { int id; };
 using EyeCommand = std::variant<SetExpression, LookAt, Blink, SetColor, SetShape>;
 

@@ -20,10 +20,21 @@ class EyeControllerHost private constructor() {
 
     private val thread = HandlerThread("eye-controller").apply { start() }
     private val handler = Handler(thread.looper)
+    private var baseShape = Shapes.ORIGINAL
+    private var errorUntilMs = 0L
+    private fun renderShape() {
+        val error = Effects.isOn("error_eyes") && SystemClock.uptimeMillis() < errorUntilMs
+        NativeBridge.nativeSetShape(if (error) Shapes.CROSS else baseShape)
+    }
+    private val restoreShape = Runnable { renderShape() }
     private val controller = EyeController(object : EyeSink {
         override fun setExpression(engineId: Int) = NativeBridge.nativeSetExpression(engineId)
         override fun lookAt(x: Float, y: Float) = NativeBridge.nativeLookAt(x, y)
-    }, idleGlanceMs = IDLE_GLANCE_MS)
+        override fun setShape(id: Int) {
+            baseShape = id
+            renderShape()
+        }
+    }, idleGlanceMs = IDLE_GLANCE_MS, sleepAfterMs = 120_000)
     private var listener: Listener? = null  // handler thread only
     private var ticking = false  // handler thread only
     /** Whether the intent waiting in the controller still belongs to the current request (handler thread only). */
@@ -32,7 +43,7 @@ class EyeControllerHost private constructor() {
     private var lastInput = "-"
     private var lastResult = "-"
     private var speaking = false  // handler thread only
-    private var shownColor = EyeColors.WAITING  // handler thread only
+    private var shownColor = ColorTable.DEFAULT.waiting  // native renderer starts in the original blue
 
     private val ticker = object : Runnable {
         override fun run() {
@@ -43,7 +54,13 @@ class EyeControllerHost private constructor() {
                 Log.i(TAG, "stale waiting reaction dropped")
             }
             controller.idleGlances = Effects.isOn("idle_glance")  // same handler thread as tick(): no sharing
+            controller.thinkingEnabled = Effects.isOn("thinking")
+            controller.sleepEnabled = Effects.isOn("sleep") && !speaking  // never asleep while talking
             if (controller.tick(SystemClock.uptimeMillis())) publish()
+            if (errorUntilMs != 0L && (!Effects.isOn("error_eyes") || SystemClock.uptimeMillis() >= errorUntilMs)) {
+                errorUntilMs = 0L
+                renderShape()
+            }
             updateColor()
             handler.postDelayed(this, TICK_MS)
         }
@@ -78,12 +95,14 @@ class EyeControllerHost private constructor() {
 
     /** Validates and submits a raw intent (debug channel now, the eye model in Stage 6). */
     fun submitJson(json: String, source: IntentSource) = handler.post {
+        activity()
         val now = SystemClock.uptimeMillis()
         lastInput = "${source.name.lowercase()}: ${json.take(120)}"
         lastResult = when (val parsed = EyeIntentParser.parse(json, source, now)) {
             is ParseResult.Rejected -> "REJECTED ${parsed.reason}"
             is ParseResult.Valid -> {
-                val outcome = controller.submit(parsed.intent, now)
+                val intent = parsed.intent.copy(strength = EyeColors.table.strength(null))
+                val outcome = controller.submit(intent, now)
                 if (outcome == Outcome.QUEUED) pendingIsCurrent = null
                 if (outcome == Outcome.APPLIED || outcome == Outcome.QUEUED) mode = source.name.lowercase()
                 "$outcome ${parsed.intent.expression} ${parsed.intent.look.name.lowercase()}"
@@ -101,9 +120,9 @@ class EyeControllerHost private constructor() {
      */
     fun submitDecision(
         sentence: String, body: String?, error: String?, detail: String, source: IntentSource,
-        isCurrent: () -> Boolean, story: StoryStep? = null,
+        isCurrent: () -> Boolean, story: StoryStep? = null, gap: Float? = null,
     ) {
-        val run = Runnable { decide(sentence, body, error, detail, source, isCurrent, story) }
+        val run = Runnable { decide(sentence, body, error, detail, source, isCurrent, story, gap) }
         if (story == null) handler.post(run) else handler.postAtTime(run, story.startAtMs)
     }
 
@@ -122,11 +141,36 @@ class EyeControllerHost private constructor() {
 
     /** A prompt-bundle switch (E0.7): the eyes go back to idle and the original shape at once. */
     fun resetToIdle() = handler.post {
-        controller.reset()
+        controller.reset(SystemClock.uptimeMillis())
         pendingIsCurrent = null
         speaking = false
-        NativeBridge.nativeSetShape(0)
+        baseShape = Shapes.ORIGINAL
+        renderShape()
         publish()
+    }
+
+    /** Incoming input, before waiting for a model decision (any thread). */
+    fun activity() {
+        val run = Runnable {
+            if (controller.wake(SystemClock.uptimeMillis())) NativeBridge.nativeBlink()
+        }
+        if (android.os.Looper.myLooper() == handler.looper) run.run() else handler.post(run)
+    }
+
+    fun thinking(busy: Boolean) = handler.post {
+        controller.thinkingEnabled = Effects.isOn("thinking")
+        controller.thinking(busy, SystemClock.uptimeMillis())
+    }
+
+    /** Callers supply fixed failure categories, never model/server text or credentials. */
+    fun showError(reason: String, isCurrent: () -> Boolean = { true }) = handler.post {
+        if (!isCurrent()) return@post
+        Log.w(TAG, "eye error: $reason")
+        if (!Effects.isOn("error_eyes")) return@post
+        errorUntilMs = SystemClock.uptimeMillis() + 1_200
+        renderShape()
+        handler.removeCallbacks(restoreShape)
+        handler.postAtTime(restoreShape, errorUntilMs)
     }
 
     /** Story pacing for the controller (debug channel); null keeps a value. */
@@ -142,7 +186,7 @@ class EyeControllerHost private constructor() {
 
     private fun decide(
         sentence: String, body: String?, error: String?, detail: String, source: IntentSource,
-        isCurrent: () -> Boolean, story: StoryStep?,
+        isCurrent: () -> Boolean, story: StoryStep?, gap: Float? = null,
     ) {
         if (!isCurrent()) {
             Log.i(TAG, "stale ${source.name.lowercase()} result for '${sentence.take(60)}' dropped")
@@ -161,7 +205,8 @@ class EyeControllerHost private constructor() {
         } else when (val parsed = EyeIntentParser.parse(EyeIntentParser.wrapModelOutput(body), source, now)) {
             is ParseResult.Rejected -> "${who.uppercase()} OUTPUT REJECTED ${parsed.reason} | $body | $who $detail$step"
             is ParseResult.Valid -> {
-                val outcome = controller.submit(parsed.intent, now, story?.spokenMs)
+                val intent = parsed.intent.copy(strength = EyeColors.table.strength(gap))
+                val outcome = controller.submit(intent, now, story?.spokenMs)
                 if (outcome == Outcome.QUEUED) pendingIsCurrent = isCurrent
                 if (outcome == Outcome.APPLIED || outcome == Outcome.QUEUED) mode = who
                 "$outcome ${parsed.intent.expression} ${parsed.intent.look.name.lowercase()} | $who $detail$step"
@@ -177,15 +222,20 @@ class EyeControllerHost private constructor() {
     fun setSpeaking(value: Boolean, isCurrent: () -> Boolean = { true }) = handler.post {
         if (value && !isCurrent()) return@post
         speaking = value
+        // Speech counts as activity: it wakes the eyes and restarts the quiet clock when it ends.
+        if (controller.wake(SystemClock.uptimeMillis())) publish()
         updateColor()
     }
 
     private fun updateColor() {
-        val color = if (Effects.isOn("colors")) EyeColors.colorFor(speaking, controller.state.active?.expression)
-            else EyeColors.WAITING
+        val table = EyeColors.table
+        val active = controller.state.active
+        val strengthOrMid = if (Effects.isOn("intensity")) active?.strength ?: 0.5f else 0.5f
+        val color = if (Effects.isOn("colors")) table.colorFor(speaking, active?.expression, strengthOrMid)
+            else table.waiting
         if (color == shownColor) return
         shownColor = color
-        NativeBridge.nativeSetColor(color, EyeColors.FADE_MS)
+        NativeBridge.nativeSetColor(color, table.fadeMs)
     }
 
     private fun publish() {

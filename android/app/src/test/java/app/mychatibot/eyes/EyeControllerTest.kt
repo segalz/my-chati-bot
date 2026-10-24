@@ -12,6 +12,7 @@ class EyeControllerTest {
         val calls = mutableListOf<String>()
         override fun setExpression(engineId: Int) { calls += "expr:${Expression.entries[engineId]}" }
         override fun lookAt(x: Float, y: Float) { calls += "look:$x,$y" }
+        override fun setShape(id: Int) { calls += "shape:$id" }
     }
 
     private val sink = FakeSink()
@@ -310,5 +311,183 @@ class EyeControllerTest {
         assertEquals(Outcome.CARRIED, controller.submit(intent(Expression.NEUTRAL, Look.LEFT), 3_200, spokenMs = 2_400))
         assertFalse(controller.tick(5_999))
         assertTrue(controller.tick(6_000))
+    }
+
+    @Test fun thinkingWaitsForDelayAndRecentersWhenDone() {
+        val c = EyeController(sink).apply { thinkingEnabled = true }
+        c.thinking(true, 0)
+        c.thinking(true, 100) // repeated busy notifications do not restart the delay
+        assertFalse(c.tick(299))
+        assertTrue(c.tick(300))
+        assertEquals(listOf("look:-0.5,-0.7"), sink.calls)
+        assertFalse(c.tick(400))
+        c.thinking(false, 401)
+        assertEquals("look:0.0,0.0", sink.calls.last())
+        assertFalse(c.tick(500))
+    }
+
+    @Test fun quickInferenceNeverShowsThinking() {
+        val c = EyeController(sink).apply { thinkingEnabled = true }
+        c.thinking(true, 0)
+        c.thinking(false, 299)
+        assertFalse(c.tick(300))
+        assertTrue(sink.calls.isEmpty())
+    }
+
+    @Test fun reactionReplacesThinkingWithoutDwellOrLateRecenter() {
+        val c = EyeController(sink).apply { thinkingEnabled = true }
+        c.thinking(true, 0)
+        c.tick(300)
+        assertEquals(Outcome.APPLIED, c.submit(intent(Expression.HAPPY, Look.RIGHT), 301))
+        val calls = sink.calls.toList()
+        c.thinking(false, 302)
+        assertEquals(calls, sink.calls)
+        assertEquals(listOf("expr:HAPPY", "look:1.0,0.0"), sink.calls.takeLast(2))
+    }
+
+    @Test fun thinkingDoesNotReplaceActivePendingOrExplicitGlance() {
+        val c = EyeController(sink).apply { thinkingEnabled = true }
+        c.submit(intent(Expression.HAPPY), 0)
+        c.submit(intent(Expression.SAD), 100)
+        c.thinking(true, 0)
+        assertFalse(c.tick(300))
+        assertTrue(c.tick(800))
+        assertFalse(sink.calls.contains("look:-0.5,-0.7"))
+        c.reset(900)
+        c.glance(Look.LEFT, 900)
+        c.thinking(true, 900)
+        assertFalse(c.tick(1_200))
+        assertFalse(sink.calls.contains("look:-0.5,-0.7"))
+        c.tick(2_100) // explicit glance ends first
+        assertTrue(c.tick(2_200))
+        assertEquals("look:-0.5,-0.7", sink.calls.last())
+    }
+
+    @Test fun disablingThinkingRecentersOnlyItsOwnGlance() {
+        val c = EyeController(sink).apply { thinkingEnabled = true }
+        c.thinking(true, 0)
+        c.tick(300)
+        c.thinkingEnabled = false
+        assertTrue(c.tick(301))
+        assertEquals("look:0.0,0.0", sink.calls.last())
+        assertFalse(c.tick(1_000))
+    }
+
+    @Test fun sleepAfterTwoMinutesAndNoGlancesWhileAsleep() {
+        val c = EyeController(sink, sleepAfterMs = 120_000, idleGlanceMs = 15_000).apply {
+            thinkingEnabled = true
+            idleGlances = false
+        }
+        assertFalse(c.tick(0))
+        assertFalse(c.tick(119_999))
+        assertTrue(c.tick(120_000))
+        assertTrue(c.sleeping)
+        assertEquals(listOf("expr:SLEEPY", "shape:1"), sink.calls)
+        c.idleGlances = true
+        c.thinking(true, 120_000)
+        assertFalse(c.glance(Look.RIGHT, 120_100))
+        assertFalse(c.tick(121_000))
+        assertEquals(2, sink.calls.size)
+    }
+
+    @Test fun inputWakeRestoresOriginalNeutralCenteredAndRestartsQuietTime() {
+        val c = EyeController(sink, sleepAfterMs = 120_000)
+        c.tick(0)
+        c.tick(120_000)
+        assertTrue(c.wake(120_001))
+        assertFalse(c.sleeping)
+        assertEquals(listOf("shape:0", "expr:NEUTRAL", "look:0.0,0.0"), sink.calls.takeLast(3))
+        assertFalse(c.wake(120_002))
+        assertFalse(c.tick(240_001))
+        assertTrue(c.tick(240_002))
+    }
+
+    @Test fun noneSubmitWakesAndCountsAsActivity() {
+        val c = EyeController(sink, sleepAfterMs = 120_000)
+        c.tick(0)
+        c.submit(intent(Expression.NONE), 119_999)
+        assertFalse(c.tick(120_000))
+        assertTrue(c.tick(239_999))
+        assertEquals(Outcome.IGNORED_NO_REACTION, c.submit(intent(Expression.NONE), 240_000))
+        assertFalse(c.sleeping)
+        assertEquals(240_000L, c.lastActivityMs)
+    }
+
+    @Test fun reactionSubmitWakesAndAppliesImmediately() {
+        val c = EyeController(sink, sleepAfterMs = 120_000)
+        c.tick(0)
+        c.tick(120_000)
+        assertEquals(Outcome.APPLIED, c.submit(intent(Expression.SAD, Look.LEFT), 120_001))
+        assertFalse(c.sleeping)
+        assertEquals(listOf("shape:0", "expr:NEUTRAL", "look:0.0,0.0", "expr:SAD", "look:-1.0,0.0"), sink.calls.takeLast(5))
+    }
+
+    @Test fun resetWakesAndClearsThinking() {
+        val c = EyeController(sink, sleepAfterMs = 120_000).apply { thinkingEnabled = true }
+        c.tick(0)
+        c.tick(120_000)
+        c.thinking(true, 120_100)
+        c.reset()
+        assertFalse(c.sleeping)
+        assertTrue(sink.calls.contains("shape:0"))
+        assertEquals("look:0.0,0.0", sink.calls.last())
+        assertFalse(c.tick(120_400))
+    }
+
+    @Test fun glancesDoNotPostponeSleepAndIdleReturnCountsAsActivity() {
+        val c = EyeController(sink, sleepAfterMs = 120_000)
+        c.submit(intent(Expression.HAPPY), 0)
+        c.tick(3_000)
+        assertEquals(3_000L, c.lastActivityMs)
+        assertTrue(c.glance(Look.RIGHT, 100_000))
+        c.tick(101_200)
+        assertEquals(3_000L, c.lastActivityMs)
+        assertFalse(c.tick(122_999))
+        assertTrue(c.tick(123_000))
+    }
+
+    @Test fun sleepSwitchOffWakesAndPreventsSleep() {
+        val c = EyeController(sink, sleepAfterMs = 120_000)
+        c.tick(0)
+        c.tick(120_000)
+        c.sleepEnabled = false
+        assertTrue(c.tick(120_001))
+        assertFalse(c.sleeping)
+        assertFalse(c.tick(360_000))
+        c.sleepEnabled = true
+        assertTrue(c.tick(360_001))
+        c.sleepAfterMs = 0
+        assertTrue(c.tick(360_002))
+        assertFalse(c.sleeping)
+    }
+
+    @Test fun defaultsKeepThinkingAndSleepOff() {
+        controller.thinking(true, 0)
+        assertFalse(controller.tick(0))
+        assertFalse(controller.tick(300))
+        assertFalse(controller.tick(120_000))
+        assertFalse(controller.sleeping)
+        assertTrue(sink.calls.isEmpty())
+    }
+
+    @Test fun disabledThinkingKeepsOldIdleGlances() {
+        val c = glancer(Look.RIGHT)
+        c.thinking(true, 0)
+        assertFalse(c.tick(0))
+        assertTrue(c.tick(15_000))
+        assertEquals(listOf("look:1.0,0.0"), sink.calls)
+        c.thinking(false, 15_001)
+        assertEquals(1, sink.calls.size) // ending thinking must not recenter an idle glance
+    }
+
+    @Test fun sleepCannotReplaceAnActiveReactionOrPendingIntent() {
+        val c = EyeController(sink, sleepAfterMs = 120_000)
+        c.rules = MoodRules(dwellMs = 200_000)
+        c.submit(intent(Expression.HAPPY, hold = 180_000), 0)
+        c.submit(intent(Expression.SAD), 1, spokenMs = 180_000)
+        assertFalse(c.tick(120_001))
+        assertFalse(c.sleeping)
+        assertEquals(Expression.HAPPY, c.state.active?.expression)
+        assertEquals(Expression.SAD, c.state.pending?.expression)
     }
 }

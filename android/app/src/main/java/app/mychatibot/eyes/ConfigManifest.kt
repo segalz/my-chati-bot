@@ -25,10 +25,11 @@ object ConfigManifest {
     fun write(context: Context, bundle: PromptBundle?) {
         val app = context.applicationContext
         val effects = Effects.KNOWN.keys.sorted().associateWith { Effects.isOn(it) }
-        writer.execute { writeNow(app, bundle, effects) }
+        val colorsText = EyeColors.table.text
+        writer.execute { writeNow(app, bundle, effects, colorsText) }
     }
 
-    private fun writeNow(context: Context, bundle: PromptBundle?, effects: Map<String, Boolean>) {
+    private fun writeNow(context: Context, bundle: PromptBundle?, effects: Map<String, Boolean>, colorsText: String) {
         runCatching {
             val info = context.packageManager.getPackageInfo(context.packageName, 0)
             val apk = File(context.applicationInfo.sourceDir)
@@ -38,6 +39,7 @@ object ConfigManifest {
                 appendLine("app=${info.versionName} (${info.longVersionCode})")
                 appendLine("apk_sha256=${apkSha256(apk)}")
                 appendLine("bundle=v${bundle?.version ?: 0} sha256=${sha256(content.toByteArray(Charsets.UTF_8))}")
+                appendLine("colors sha256=${sha256(colorsText.toByteArray(Charsets.UTF_8))}")
                 effects.forEach { (name, on) -> appendLine("effect $name=${if (on) "on" else "off"}") }
             }
             val dir = File(context.filesDir, "config").apply { mkdirs() }
