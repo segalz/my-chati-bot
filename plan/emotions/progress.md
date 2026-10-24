@@ -20,7 +20,7 @@ Status: **E0 accepted 2026-10-24 (tag emotions-E0)** (plan approved by the owner
 - [x] Regression all-off = E0 (evidence/E1-all-off/, timing re-run), all-on (evidence/E1-all-on/)
 - [x] Owner approved → commit bbea3df + tag emotions-E1
 
-## E2 — Love — NOT STARTED
+## E2 — Love — STOPPED by the owner (the 1B model cannot learn LOVE without flips; keyword option declined)
 - [ ] E2.1 Test sets (love, near-misses incl. negation/sarcasm/keywords, 2 stories)
 - [ ] E2.2 Tokenizer/grammar checks, cold+warm latency
 - [ ] E2.3 Prompt bundle v5 (LOVE only)
