@@ -8,6 +8,7 @@
 |---|---|
 | D01 | Repurpose an old Android phone as a charming desk companion with expressive blue eyes |
 | D02 | Target original `espp/expressive_eyes` v1.3.9 C++; prefer NDK/JNI port and original blue renderer/dependencies over reimplementation |
+| D02a | **2026-10-24 (owner):** the product is an expressive-eyes app, the base for an emotional AI conversation — the original engine and drawer stay, but colors, extra shapes, effects and emotions are added (plan/emotions). Replaces the "original blue eyes" requirement (eyes plan R1). |
 | D03 | Local on-device small AI selects expressions and autonomous eye intentions; deterministic animation renders frames |
 | D04 | Central configurable AI handles conversation; avoid central LLM token costs for ordinary eye control |
 | D05 | Local wake word, sleep/wake commands, speech input/output, optional visual awareness and contextual sight |

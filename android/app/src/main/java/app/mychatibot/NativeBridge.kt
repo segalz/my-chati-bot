@@ -26,6 +26,8 @@ object NativeBridge {
     external fun nativeSetExpression(id: Int)
     external fun nativeLookAt(x: Float, y: Float)
     external fun nativeBlink()
+    /** Eye color 0xRRGGBB, faded in over [fadeMs] (the original drawer's own color setting). */
+    external fun nativeSetColor(rgb: Int, fadeMs: Int)
     external fun nativeStats(): String
 
     /** Eye model (Stage 6). Returns null on success, else the error. */

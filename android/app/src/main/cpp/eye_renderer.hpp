@@ -17,7 +17,10 @@ namespace chati {
 struct SetExpression { int id; };          // espp::ExpressiveEyes::Expression ordinal (0..8)
 struct LookAt { float x; float y; };       // -1..1, clamped by the engine
 struct Blink {};
-using EyeCommand = std::variant<SetExpression, LookAt, Blink>;
+/// Eye color 0xRRGGBB, reached by a linear fade over fade_ms (0 = at once). The original drawer's
+/// own Config.color is used: a drawer with the new color replaces the old one between frames.
+struct SetColor { uint32_t rgb; int fade_ms; };
+using EyeCommand = std::variant<SetExpression, LookAt, Blink, SetColor>;
 
 /// Owns the original espp::ExpressiveEyes engine, LVGL and the Monochrome Blue drawer on one
 /// dedicated thread (LVGL is built with LV_OS_NONE, so it must never be touched elsewhere).
@@ -78,6 +81,9 @@ private:
     bool format_error_logged_ = false;
 
     // Counters (written on the render thread, read by stats()).
+    void set_drawer_color(uint32_t rgb);  // render thread only
+    void advance_color_fade(float dt);    // render thread only
+
     std::atomic<uint64_t> frames_{0};
     std::atomic<uint64_t> redraws_{0};
     std::atomic<uint64_t> presents_{0};

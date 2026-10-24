@@ -13,7 +13,7 @@
 namespace {
 
 std::string version_string() {
-    return std::string("chati_eyes 0.6.1 | C++ ") + std::to_string(__cplusplus) +
+    return std::string("chati_eyes 0.9.4 | C++ ") + std::to_string(__cplusplus) +
            " | NDK r" + std::to_string(__NDK_MAJOR__) + "." + std::to_string(__NDK_MINOR__) +
            " | clang " + __clang_version__ + " | expressive_eyes v1.3.9 + Monochrome Blue";
 }
@@ -67,6 +67,11 @@ Java_app_mychatibot_NativeBridge_nativeLookAt(JNIEnv *, jobject, jfloat x, jfloa
 JNIEXPORT void JNICALL
 Java_app_mychatibot_NativeBridge_nativeBlink(JNIEnv *, jobject) {
     renderer().post(chati::Blink{});
+}
+
+JNIEXPORT void JNICALL
+Java_app_mychatibot_NativeBridge_nativeSetColor(JNIEnv *, jobject, jint rgb, jint fade_ms) {
+    renderer().post(chati::SetColor{static_cast<uint32_t>(rgb) & 0xffffffu, fade_ms});
 }
 
 JNIEXPORT jstring JNICALL

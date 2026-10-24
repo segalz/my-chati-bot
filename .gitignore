@@ -51,3 +51,6 @@ captures/
 
 # sherpa-onnx prebuilt JNI library (fetch with tools/fetch_sherpa_onnx.ps1)
 third_party/sherpa-onnx-*/jniLibs/
+
+# archived stage APKs (emotions plan)
+plan/emotions/evidence/apk/

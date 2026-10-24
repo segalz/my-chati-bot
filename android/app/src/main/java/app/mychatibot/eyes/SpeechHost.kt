@@ -450,15 +450,21 @@ class SpeechHost private constructor() {
                 }
                 val out = audio
                 val result = when {
-                    clip != null && out != null -> out.feed(clip.samples, isCurrent, onStart).let { r ->
+                    // Green only once this sentence's audio really plays (the playback position reached it).
+                    clip != null && out != null -> out.feed(clip.samples, isCurrent, {
+                        EyeControllerHost.instance.setSpeaking(true)
+                        onStart()
+                    }).let { r ->
                         if (r == AudioOut.Result.OK) out.silence(GAP_MS, isCurrent) else r
                     }
                     // No voice for this sentence: the eyes keep its timing; an open stream is kept fed.
                     out != null -> {
+                        EyeControllerHost.instance.setSpeaking(false)
                         onStart()
                         out.silence(audioMs + GAP_MS, isCurrent)
                     }
                     else -> {
+                        EyeControllerHost.instance.setSpeaking(false)
                         onStart()
                         if (waitUntil(startedAtMs + audioMs + GAP_MS, isCurrent)) AudioOut.Result.OK
                         else AudioOut.Result.STALE
@@ -470,6 +476,7 @@ class SpeechHost private constructor() {
                         // e.g. ERROR_DEAD_OBJECT after an audio service restart: drop the stream (the
                         // next sentence opens a new one); the eyes still get this sentence, on time.
                         dropAudio()
+                        EyeControllerHost.instance.setSpeaking(false)
                         onStart()
                         if (!waitUntil(startedAtMs + audioMs + GAP_MS, isCurrent)) return stopped()
                     }
@@ -480,6 +487,7 @@ class SpeechHost private constructor() {
         } finally {
             audio?.close()
             audio = null
+            EyeControllerHost.instance.setSpeaking(false)
         }
     }
 
@@ -509,6 +517,7 @@ class SpeechHost private constructor() {
                 val ready = session.ready[next].getNow(null) ?: break
                 val ms = (exact?.let { s -> (if (next + 1 < n) s[next + 1] else line.totalFrames) - s[next] }
                     ?.times(1_000)?.div(GeminiVoice.SAMPLE_RATE)) ?: StoryText.spokenMs(sentences[next])
+                EyeControllerHost.instance.setSpeaking(true)
                 startEyes(session, next, ready.decision, ms, " | voice gemini", isCurrent)
                 next++
             }
@@ -562,11 +571,13 @@ class SpeechHost private constructor() {
         } finally {
             line.call.cancel()
             out?.close()
+            EyeControllerHost.instance.setSpeaking(false)
         }
     }
 
     /** No cloud audio: the eyes follow the remaining sentences alone, on estimated speaking time. */
     private fun playEyesOnly(session: Session, from: Int, reason: String, isCurrent: () -> Boolean) {
+        EyeControllerHost.instance.setSpeaking(false)  // silent from here on: back to the waiting color
         for (i in from until session.sentences.size) {
             val ready = await(session.ready[i], isCurrent) ?: return stopped()
             val ms = StoryText.spokenMs(session.sentences[i])

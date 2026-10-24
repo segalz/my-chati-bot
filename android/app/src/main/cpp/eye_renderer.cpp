@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <cmath>
 #include <cstdlib>
 #include <cstring>
 #include <memory>
@@ -28,6 +29,8 @@ uint32_t lvgl_tick_ms() {
         std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - kProcessStart).count());
 }
 
+constexpr uint32_t kDefaultColor = 0x00BFFF;  // the original drawer's electric blue
+
 void lvgl_log(lv_log_level_t level, const char *message) {
     __android_log_print(level >= LV_LOG_LEVEL_ERROR ? ANDROID_LOG_ERROR : ANDROID_LOG_WARN, "LVGL",
                         "%s", message);
@@ -39,8 +42,29 @@ struct RenderState {
     lv_color_t *canvas_buffer = nullptr;
     lv_obj_t *canvas = nullptr;
     std::unique_ptr<eye_drawer::MonochromeBlueDrawer> drawer;
+    eye_drawer::EyeDrawer::DrawCallback draw;  // the current drawer's callback
     std::unique_ptr<espp::ExpressiveEyes> eyes;
+    // Eye color (0xRRGGBB): the drawer's default electric blue, then fades set by SetColor.
+    uint32_t color = kDefaultColor;
+    uint32_t fade_from = kDefaultColor;
+    uint32_t fade_to = kDefaultColor;
+    float fade_s = 0.0f;
+    float fade_t = 1.0f;  // 1 = no fade running
+    // The latest eye states, so a color change is drawn at once even when the engine has nothing
+    // new to draw.
+    espp::ExpressiveEyes::EyeState last_left{};
+    espp::ExpressiveEyes::EyeState last_right{};
+    bool have_last = false;
 };
+
+uint32_t lerp_rgb(uint32_t a, uint32_t b, float t) {
+    auto ch = [&](int shift) {
+        const float x = static_cast<float>((a >> shift) & 0xff);
+        const float y = static_cast<float>((b >> shift) & 0xff);
+        return static_cast<uint32_t>(std::lround(x + (y - x) * t)) & 0xff;
+    };
+    return (ch(16) << 16) | (ch(8) << 8) | ch(0);
+}
 
 RenderState *g_state = nullptr;  // created and used on the render thread only
 
@@ -144,13 +168,7 @@ void EyeRenderer::thread_main() {
     lv_canvas_fill_bg(s.canvas, lv_color_black(), LV_OPA_COVER);
     canvas_dirty_ = true;
 
-    s.drawer = std::make_unique<eye_drawer::MonochromeBlueDrawer>(
-        eye_drawer::MonochromeBlueDrawer::Config{.screen_width = kCanvasWidth,
-                                                 .screen_height = kCanvasHeight,
-                                                 .canvas = s.canvas,
-                                                 .canvas_buffer = s.canvas_buffer,
-                                                 .lvgl_mutex = s.lvgl_mutex});
-    auto draw = s.drawer->get_draw_callback();
+    set_drawer_color(kDefaultColor);
 
     // Eye geometry exactly as in the upstream example.
     espp::ExpressiveEyes::Config config{
@@ -164,9 +182,12 @@ void EyeRenderer::thread_main() {
         .enable_auto_blink = true,
         .enable_pupil_physics = true,
         .on_draw =
-            [this, draw](const espp::ExpressiveEyes::EyeState &left,
-                         const espp::ExpressiveEyes::EyeState &right) {
-                draw(left, right);
+            [this](const espp::ExpressiveEyes::EyeState &left, const espp::ExpressiveEyes::EyeState &right) {
+                RenderState &st = *g_state;
+                st.draw(left, right);
+                st.last_left = left;
+                st.last_right = right;
+                st.have_last = true;
                 canvas_dirty_ = true;
                 redraws_.fetch_add(1, std::memory_order_relaxed);
             },
@@ -209,6 +230,7 @@ void EyeRenderer::frame(int64_t frame_time_nanos) {
     last_frame_nanos_ = frame_time_nanos;
 
     apply_commands();
+    advance_color_fade(dt);
     g_state->eyes->update(dt);  // may call the drawer, which sets canvas_dirty_
     present();
 
@@ -240,7 +262,42 @@ void EyeRenderer::apply_commands() {
             eyes.look_at(l->x, l->y);
         } else if (std::holds_alternative<Blink>(command)) {
             eyes.blink();
+        } else if (const auto *c = std::get_if<SetColor>(&command)) {
+            RenderState &s = *g_state;
+            s.fade_from = s.color;
+            s.fade_to = c->rgb & 0xffffff;
+            s.fade_s = static_cast<float>(std::clamp(c->fade_ms, 0, 5000)) / 1000.0f;
+            s.fade_t = s.fade_s > 0.0f ? 0.0f : 1.0f;
+            if (s.fade_t >= 1.0f) set_drawer_color(s.fade_to);
         }
+    }
+}
+
+void EyeRenderer::advance_color_fade(float dt) {
+    RenderState &s = *g_state;
+    if (s.fade_t >= 1.0f) return;
+    s.fade_t = std::min(1.0f, s.fade_t + (s.fade_s > 0.0f ? dt / s.fade_s : 1.0f));
+    set_drawer_color(lerp_rgb(s.fade_from, s.fade_to, s.fade_t));
+}
+
+/// Replaces the drawer with one of the same original class in color [rgb] (its own Config.color)
+/// and redraws the latest eye state with it, so the change is visible on the next present.
+void EyeRenderer::set_drawer_color(uint32_t rgb) {
+    RenderState &s = *g_state;
+    if (s.drawer != nullptr && rgb == s.color) return;
+    auto drawer = std::make_unique<eye_drawer::MonochromeBlueDrawer>(
+        eye_drawer::MonochromeBlueDrawer::Config{.screen_width = kCanvasWidth,
+                                                 .screen_height = kCanvasHeight,
+                                                 .color = lv_color_hex(rgb),
+                                                 .canvas = s.canvas,
+                                                 .canvas_buffer = s.canvas_buffer,
+                                                 .lvgl_mutex = s.lvgl_mutex});
+    s.draw = drawer->get_draw_callback();  // replace the callback before the old drawer goes away
+    s.drawer = std::move(drawer);
+    s.color = rgb;
+    if (s.have_last) {
+        s.draw(s.last_left, s.last_right);
+        canvas_dirty_ = true;
     }
 }
 

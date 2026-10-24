@@ -31,6 +31,8 @@ class EyeControllerHost private constructor() {
     private var mode = "idle"
     private var lastInput = "-"
     private var lastResult = "-"
+    private var speaking = false  // handler thread only
+    private var shownColor = EyeColors.WAITING  // handler thread only
 
     private val ticker = object : Runnable {
         override fun run() {
@@ -157,7 +159,21 @@ class EyeControllerHost private constructor() {
         publish()
     }
 
+    /** The phone started or stopped speaking (any thread); the eye color follows. */
+    fun setSpeaking(value: Boolean) = handler.post {
+        speaking = value
+        updateColor()
+    }
+
+    private fun updateColor() {
+        val color = EyeColors.colorFor(speaking, controller.state.active?.expression)
+        if (color == shownColor) return
+        shownColor = color
+        NativeBridge.nativeSetColor(color, EyeColors.FADE_MS)
+    }
+
     private fun publish() {
+        updateColor()
         val s = controller.state
         if (s.active == null) mode = "idle"
         val applied = s.active?.let { "${it.expression} ${it.look.name.lowercase()}" } ?: "NEUTRAL center (idle)"
