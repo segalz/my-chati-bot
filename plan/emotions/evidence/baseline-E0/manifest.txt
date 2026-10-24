@@ -1,0 +1,6 @@
+app=0.10.0 (22)
+apk_sha256=406484b0d6cac775810d021c46ab7f984dc4610e185595dc9335314c6492e176
+bundle=v4 sha256=59b5e252c4c6ac552f24208d0b04de8b7ec6c2a86f87eda9a4a7a8ad8e847b97
+effect colors=on
+effect idle_glance=on
+effect warmup_glance=on

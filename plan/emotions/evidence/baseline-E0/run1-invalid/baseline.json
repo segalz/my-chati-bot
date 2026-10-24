@@ -1,0 +1,5806 @@
+{
+  "schema_version": 1,
+  "runs": 3,
+  "skipped": [],
+  "errors": {},
+  "accuracy": {
+    "items": [
+      {
+        "id": "en01",
+        "set": "dev",
+        "result": "APPLIED HAPPY center | model 827 ms (model 825 ms: prompt 16 tok 823 ms, 1 tok 2 ms, gap 18.37) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 827,
+        "source": "model"
+      },
+      {
+        "id": "en02",
+        "set": "dev",
+        "result": "APPLIED SAD center | model 1047 ms (model 1046 ms: prompt 14 tok 932 ms, 2 tok 114 ms, gap 13.66) applied: SAD center",
+        "pass": true,
+        "model_ms": 1047,
+        "source": "model"
+      },
+      {
+        "id": "en03",
+        "set": "dev",
+        "result": "APPLIED ANGRY center | model 1077 ms (model 1076 ms: prompt 21 tok 1074 ms, 1 tok 2 ms, gap 23.81) applied: ANGRY center",
+        "pass": true,
+        "model_ms": 1077,
+        "source": "model"
+      },
+      {
+        "id": "en04",
+        "set": "dev",
+        "result": "APPLIED SURPRISED center | model 963 ms (model 962 ms: prompt 18 tok 960 ms, 1 tok 2 ms, gap 17.39) applied: SURPRISED center",
+        "pass": true,
+        "model_ms": 963,
+        "source": "model"
+      },
+      {
+        "id": "en05",
+        "set": "dev",
+        "result": "APPLIED SLEEPY center | model 1187 ms (model 1186 ms: prompt 22 tok 1183 ms, 1 tok 3 ms, gap 16.56) applied: SLEEPY center",
+        "pass": true,
+        "model_ms": 1187,
+        "source": "model"
+      },
+      {
+        "id": "en06",
+        "set": "dev",
+        "result": "APPLIED SAD center | model 1065 ms (model 1063 ms: prompt 18 tok 952 ms, 2 tok 111 ms, gap 10.25) applied: SAD center",
+        "pass": false,
+        "model_ms": 1065,
+        "source": "model"
+      },
+      {
+        "id": "en07",
+        "set": "dev",
+        "result": "APPLIED SLEEPY center | model 862 ms (model 861 ms: prompt 15 tok 858 ms, 1 tok 3 ms, gap 13.24) applied: SLEEPY center",
+        "pass": true,
+        "model_ms": 862,
+        "source": "model"
+      },
+      {
+        "id": "en08",
+        "set": "dev",
+        "result": "APPLIED WINK_RIGHT center | model 1222 ms (model 1221 ms: prompt 18 tok 895 ms, 4 tok 326 ms, gap 12.66) applied: WINK_RIGHT center",
+        "pass": true,
+        "model_ms": 1222,
+        "source": "model"
+      },
+      {
+        "id": "en09",
+        "set": "dev",
+        "result": "APPLIED NEUTRAL left | model 843 ms (model 841 ms: prompt 13 tok 839 ms, 1 tok 2 ms, gap 13.61) applied: NEUTRAL left",
+        "pass": true,
+        "model_ms": 843,
+        "source": "model"
+      },
+      {
+        "id": "en10",
+        "set": "dev",
+        "result": "APPLIED NEUTRAL right | model 1021 ms (model 1020 ms: prompt 17 tok 1017 ms, 1 tok 3 ms, gap 11.99) applied: NEUTRAL right",
+        "pass": true,
+        "model_ms": 1021,
+        "source": "model"
+      },
+      {
+        "id": "en11",
+        "set": "dev",
+        "result": "APPLIED NEUTRAL up | model 810 ms (model 809 ms: prompt 14 tok 807 ms, 1 tok 2 ms, gap 14.95) applied: NEUTRAL up",
+        "pass": true,
+        "model_ms": 810,
+        "source": "model"
+      },
+      {
+        "id": "en12",
+        "set": "dev",
+        "result": "APPLIED NEUTRAL down | model 804 ms (model 803 ms: prompt 14 tok 801 ms, 1 tok 2 ms, gap 0.41) applied: NEUTRAL down",
+        "pass": true,
+        "model_ms": 804,
+        "source": "model"
+      },
+      {
+        "id": "en13",
+        "set": "dev",
+        "result": "APPLIED HAPPY center | model 915 ms (model 913 ms: prompt 13 tok 912 ms, 1 tok 1 ms, gap 20.72) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 915,
+        "source": "model"
+      },
+      {
+        "id": "en14",
+        "set": "dev",
+        "result": "APPLIED SAD center | model 954 ms (model 953 ms: prompt 15 tok 838 ms, 2 tok 115 ms, gap 14.47) applied: SAD center",
+        "pass": true,
+        "model_ms": 954,
+        "source": "model"
+      },
+      {
+        "id": "en15",
+        "set": "dev",
+        "result": "APPLIED ANGRY center | model 954 ms (model 953 ms: prompt 18 tok 951 ms, 1 tok 2 ms, gap 22.16) applied: ANGRY center",
+        "pass": true,
+        "model_ms": 954,
+        "source": "model"
+      },
+      {
+        "id": "en16",
+        "set": "dev",
+        "result": "APPLIED ANGRY center | model 939 ms (model 937 ms: prompt 18 tok 936 ms, 1 tok 1 ms, gap 9.45) applied: ANGRY center",
+        "pass": false,
+        "model_ms": 939,
+        "source": "model"
+      },
+      {
+        "id": "en17",
+        "set": "dev",
+        "result": "APPLIED SLEEPY center | model 692 ms (model 691 ms: prompt 13 tok 690 ms, 1 tok 1 ms, gap 19.44) applied: SLEEPY center",
+        "pass": true,
+        "model_ms": 692,
+        "source": "model"
+      },
+      {
+        "id": "en18",
+        "set": "dev",
+        "result": "APPLIED BORED center | model 1052 ms (model 1050 ms: prompt 17 tok 1048 ms, 1 tok 2 ms, gap 13.15) applied: BORED center",
+        "pass": true,
+        "model_ms": 1052,
+        "source": "model"
+      },
+      {
+        "id": "en19",
+        "set": "dev",
+        "result": "APPLIED HAPPY center | model 924 ms (model 922 ms: prompt 17 tok 921 ms, 1 tok 1 ms, gap 19.59) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 924,
+        "source": "model"
+      },
+      {
+        "id": "en20",
+        "set": "dev",
+        "result": "APPLIED SAD center | model 1032 ms (model 1031 ms: prompt 15 tok 915 ms, 2 tok 116 ms, gap 16.41) applied: SAD center",
+        "pass": true,
+        "model_ms": 1032,
+        "source": "model"
+      },
+      {
+        "id": "en21",
+        "set": "dev",
+        "result": "APPLIED HAPPY center | model 869 ms (model 868 ms: prompt 17 tok 866 ms, 1 tok 2 ms, gap 17.43) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 869,
+        "source": "model"
+      },
+      {
+        "id": "en22",
+        "set": "dev",
+        "result": "APPLIED ANGRY center | model 914 ms (model 913 ms: prompt 17 tok 911 ms, 1 tok 2 ms, gap 20.08) applied: ANGRY center",
+        "pass": true,
+        "model_ms": 914,
+        "source": "model"
+      },
+      {
+        "id": "en23",
+        "set": "dev",
+        "result": "APPLIED HAPPY center | model 899 ms (model 898 ms: prompt 17 tok 895 ms, 1 tok 3 ms, gap 15.71) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 899,
+        "source": "model"
+      },
+      {
+        "id": "en24",
+        "set": "dev",
+        "result": "APPLIED SLEEPY center | model 928 ms (model 927 ms: prompt 16 tok 926 ms, 1 tok 1 ms, gap 16.52) applied: SLEEPY center",
+        "pass": true,
+        "model_ms": 928,
+        "source": "model"
+      },
+      {
+        "id": "en25",
+        "set": "dev",
+        "result": "APPLIED SLEEPY center | model 904 ms (model 903 ms: prompt 17 tok 900 ms, 1 tok 3 ms, gap 10.34) applied: SLEEPY center",
+        "pass": false,
+        "model_ms": 904,
+        "source": "model"
+      },
+      {
+        "id": "en26",
+        "set": "dev",
+        "result": "APPLIED SAD center | model 1074 ms (model 1072 ms: prompt 14 tok 963 ms, 2 tok 109 ms, gap 13.27) applied: SAD center",
+        "pass": true,
+        "model_ms": 1074,
+        "source": "model"
+      },
+      {
+        "id": "en27",
+        "set": "dev",
+        "result": "APPLIED SURPRISED left | model 1013 ms (model 1012 ms: prompt 19 tok 1009 ms, 1 tok 3 ms, gap 11.84) applied: SURPRISED left",
+        "pass": true,
+        "model_ms": 1013,
+        "source": "model"
+      },
+      {
+        "id": "en28",
+        "set": "dev",
+        "result": "APPLIED HAPPY center | model 1113 ms (model 1112 ms: prompt 20 tok 1110 ms, 1 tok 2 ms, gap 15.85) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 1113,
+        "source": "model"
+      },
+      {
+        "id": "nr01",
+        "set": "dev",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 922 ms (model 921 ms: prompt 17 tok 919 ms, 1 tok 2 ms, gap 1.27) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 922,
+        "source": "model"
+      },
+      {
+        "id": "nr02",
+        "set": "dev",
+        "result": "IGNORED_NO_REACTION NONE center | model 740 ms (model 738 ms: prompt 16 tok 736 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 740,
+        "source": "model"
+      },
+      {
+        "id": "nr03",
+        "set": "dev",
+        "result": "IGNORED_NO_REACTION NONE center | model 821 ms (model 820 ms: prompt 16 tok 817 ms, 1 tok 3 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 821,
+        "source": "model"
+      },
+      {
+        "id": "nr04",
+        "set": "dev",
+        "result": "IGNORED_NO_REACTION NONE center | model 967 ms (model 965 ms: prompt 16 tok 963 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 967,
+        "source": "model"
+      },
+      {
+        "id": "nr05",
+        "set": "dev",
+        "result": "IGNORED_NO_REACTION NONE center | model 960 ms (model 959 ms: prompt 15 tok 957 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 960,
+        "source": "model"
+      },
+      {
+        "id": "nr06",
+        "set": "dev",
+        "result": "IGNORED_NO_REACTION NONE center | model 901 ms (model 900 ms: prompt 15 tok 898 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 901,
+        "source": "model"
+      },
+      {
+        "id": "nr07",
+        "set": "dev",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 958 ms (model 956 ms: prompt 16 tok 955 ms, 1 tok 1 ms, gap 9.45) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 958,
+        "source": "model"
+      },
+      {
+        "id": "nr08",
+        "set": "dev",
+        "result": "IGNORED_NO_REACTION NONE center | model 847 ms (model 846 ms: prompt 14 tok 844 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 847,
+        "source": "model"
+      },
+      {
+        "id": "nr09",
+        "set": "dev",
+        "result": "IGNORED_NO_REACTION NONE center | model 775 ms (model 774 ms: prompt 14 tok 772 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 775,
+        "source": "model"
+      },
+      {
+        "id": "nr10",
+        "set": "dev",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 550 ms (model 549 ms: prompt 12 tok 548 ms, 1 tok 1 ms, gap 1.77) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 550,
+        "source": "model"
+      },
+      {
+        "id": "nr11",
+        "set": "dev",
+        "result": "IGNORED_NO_REACTION NONE center | phrasebook 0 ms applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": null,
+        "source": "phrasebook"
+      },
+      {
+        "id": "nr12",
+        "set": "dev",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 818 ms (model 817 ms: prompt 14 tok 815 ms, 1 tok 2 ms, gap 1.84) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 818,
+        "source": "model"
+      },
+      {
+        "id": "ho01",
+        "set": "holdout",
+        "result": "APPLIED HAPPY center | model 889 ms (model 888 ms: prompt 14 tok 886 ms, 1 tok 2 ms, gap 17.91) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 889,
+        "source": "model"
+      },
+      {
+        "id": "ho02",
+        "set": "holdout",
+        "result": "APPLIED HAPPY center | model 846 ms (model 845 ms: prompt 17 tok 842 ms, 1 tok 3 ms, gap 19.94) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 846,
+        "source": "model"
+      },
+      {
+        "id": "ho03",
+        "set": "holdout",
+        "result": "APPLIED HAPPY center | model 1003 ms (model 1002 ms: prompt 18 tok 1000 ms, 1 tok 2 ms, gap 18.30) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 1003,
+        "source": "model"
+      },
+      {
+        "id": "ho04",
+        "set": "holdout",
+        "result": "APPLIED HAPPY center | model 928 ms (model 927 ms: prompt 16 tok 925 ms, 1 tok 2 ms, gap 11.34) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 928,
+        "source": "model"
+      },
+      {
+        "id": "ho05",
+        "set": "holdout",
+        "result": "APPLIED HAPPY center | model 922 ms (model 921 ms: prompt 15 tok 920 ms, 1 tok 1 ms, gap 17.55) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 922,
+        "source": "model"
+      },
+      {
+        "id": "ho06",
+        "set": "holdout",
+        "result": "APPLIED SAD center | model 943 ms (model 942 ms: prompt 15 tok 829 ms, 2 tok 113 ms, gap 5.64) applied: SAD center",
+        "pass": true,
+        "model_ms": 943,
+        "source": "model"
+      },
+      {
+        "id": "ho07",
+        "set": "holdout",
+        "result": "APPLIED SAD center | model 1060 ms (model 1059 ms: prompt 17 tok 946 ms, 2 tok 113 ms, gap 14.90) applied: SAD center",
+        "pass": true,
+        "model_ms": 1060,
+        "source": "model"
+      },
+      {
+        "id": "ho08",
+        "set": "holdout",
+        "result": "APPLIED SAD center | model 944 ms (model 941 ms: prompt 15 tok 824 ms, 2 tok 117 ms, gap 19.20) applied: SAD center",
+        "pass": true,
+        "model_ms": 944,
+        "source": "model"
+      },
+      {
+        "id": "ho09",
+        "set": "holdout",
+        "result": "APPLIED SAD center | model 1036 ms (model 1035 ms: prompt 17 tok 921 ms, 2 tok 114 ms, gap 13.76) applied: SAD center",
+        "pass": true,
+        "model_ms": 1036,
+        "source": "model"
+      },
+      {
+        "id": "ho10",
+        "set": "holdout",
+        "result": "APPLIED SAD center | model 934 ms (model 933 ms: prompt 15 tok 819 ms, 2 tok 114 ms, gap 12.67) applied: SAD center",
+        "pass": true,
+        "model_ms": 934,
+        "source": "model"
+      },
+      {
+        "id": "ho11",
+        "set": "holdout",
+        "result": "APPLIED ANGRY center | model 922 ms (model 921 ms: prompt 17 tok 919 ms, 1 tok 2 ms, gap 16.87) applied: ANGRY center",
+        "pass": true,
+        "model_ms": 922,
+        "source": "model"
+      },
+      {
+        "id": "ho12",
+        "set": "holdout",
+        "result": "APPLIED ANGRY center | model 938 ms (model 936 ms: prompt 19 tok 934 ms, 1 tok 2 ms, gap 13.55) applied: ANGRY center",
+        "pass": true,
+        "model_ms": 938,
+        "source": "model"
+      },
+      {
+        "id": "ho13",
+        "set": "holdout",
+        "result": "APPLIED ANGRY center | model 977 ms (model 976 ms: prompt 19 tok 974 ms, 1 tok 2 ms, gap 23.51) applied: ANGRY center",
+        "pass": true,
+        "model_ms": 977,
+        "source": "model"
+      },
+      {
+        "id": "ho14",
+        "set": "holdout",
+        "result": "APPLIED ANGRY center | model 923 ms (model 921 ms: prompt 17 tok 919 ms, 1 tok 2 ms, gap 20.62) applied: ANGRY center",
+        "pass": true,
+        "model_ms": 923,
+        "source": "model"
+      },
+      {
+        "id": "ho15",
+        "set": "holdout",
+        "result": "APPLIED ANGRY center | model 1128 ms (model 1127 ms: prompt 20 tok 1126 ms, 1 tok 1 ms, gap 14.77) applied: ANGRY center",
+        "pass": true,
+        "model_ms": 1128,
+        "source": "model"
+      },
+      {
+        "id": "ho16",
+        "set": "holdout",
+        "result": "APPLIED ANGRY center | model 856 ms (model 855 ms: prompt 16 tok 854 ms, 1 tok 1 ms, gap 16.24) applied: ANGRY center",
+        "pass": false,
+        "model_ms": 856,
+        "source": "model"
+      },
+      {
+        "id": "ho17",
+        "set": "holdout",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 776 ms (model 775 ms: prompt 14 tok 774 ms, 1 tok 1 ms, gap 5.09) applied: ANGRY center",
+        "pass": false,
+        "model_ms": 776,
+        "source": "model"
+      },
+      {
+        "id": "ho18",
+        "set": "holdout",
+        "result": "APPLIED SURPRISED center | model 796 ms (model 796 ms: prompt 17 tok 794 ms, 1 tok 2 ms, gap 10.92) applied: SURPRISED center",
+        "pass": true,
+        "model_ms": 796,
+        "source": "model"
+      },
+      {
+        "id": "ho19",
+        "set": "holdout",
+        "result": "APPLIED SURPRISED center | model 853 ms (model 852 ms: prompt 19 tok 849 ms, 1 tok 3 ms, gap 10.22) applied: SURPRISED center",
+        "pass": true,
+        "model_ms": 853,
+        "source": "model"
+      },
+      {
+        "id": "ho20",
+        "set": "holdout",
+        "result": "APPLIED SURPRISED center | model 893 ms (model 891 ms: prompt 16 tok 888 ms, 1 tok 3 ms, gap 15.89) applied: SURPRISED center",
+        "pass": true,
+        "model_ms": 893,
+        "source": "model"
+      },
+      {
+        "id": "ho21",
+        "set": "holdout",
+        "result": "APPLIED SLEEPY center | model 998 ms (model 997 ms: prompt 18 tok 995 ms, 1 tok 2 ms, gap 15.95) applied: SLEEPY center",
+        "pass": true,
+        "model_ms": 998,
+        "source": "model"
+      },
+      {
+        "id": "ho22",
+        "set": "holdout",
+        "result": "APPLIED SLEEPY center | model 1106 ms (model 1104 ms: prompt 20 tok 1103 ms, 1 tok 1 ms, gap 10.92) applied: SLEEPY center",
+        "pass": true,
+        "model_ms": 1106,
+        "source": "model"
+      },
+      {
+        "id": "ho23",
+        "set": "holdout",
+        "result": "APPLIED SLEEPY center | model 910 ms (model 909 ms: prompt 19 tok 907 ms, 1 tok 2 ms, gap 17.86) applied: SLEEPY center",
+        "pass": true,
+        "model_ms": 910,
+        "source": "model"
+      },
+      {
+        "id": "ho24",
+        "set": "holdout",
+        "result": "APPLIED SAD center | model 1197 ms (model 1195 ms: prompt 20 tok 1074 ms, 2 tok 121 ms, gap 6.69) applied: SAD center",
+        "pass": false,
+        "model_ms": 1197,
+        "source": "model"
+      },
+      {
+        "id": "ho25",
+        "set": "holdout",
+        "result": "APPLIED BORED center | model 939 ms (model 937 ms: prompt 16 tok 935 ms, 1 tok 2 ms, gap 13.25) applied: BORED center",
+        "pass": true,
+        "model_ms": 939,
+        "source": "model"
+      },
+      {
+        "id": "ho26",
+        "set": "holdout",
+        "result": "APPLIED BORED center | model 831 ms (model 831 ms: prompt 16 tok 829 ms, 1 tok 2 ms, gap 5.78) applied: BORED center",
+        "pass": true,
+        "model_ms": 831,
+        "source": "model"
+      },
+      {
+        "id": "ho27",
+        "set": "holdout",
+        "result": "APPLIED BORED center | model 1078 ms (model 1076 ms: prompt 20 tok 1074 ms, 1 tok 2 ms, gap 12.81) applied: BORED center",
+        "pass": true,
+        "model_ms": 1078,
+        "source": "model"
+      },
+      {
+        "id": "ho28",
+        "set": "holdout",
+        "result": "APPLIED SAD center | model 999 ms (model 998 ms: prompt 16 tok 884 ms, 2 tok 114 ms, gap 10.57) applied: SAD center",
+        "pass": false,
+        "model_ms": 999,
+        "source": "model"
+      },
+      {
+        "id": "ho29",
+        "set": "holdout",
+        "result": "APPLIED ANGRY center | model 1159 ms (model 1158 ms: prompt 21 tok 1156 ms, 1 tok 2 ms, gap 6.06) applied: ANGRY center",
+        "pass": false,
+        "model_ms": 1159,
+        "source": "model"
+      },
+      {
+        "id": "ho30",
+        "set": "holdout",
+        "result": "APPLIED WINK_RIGHT center | model 1238 ms (model 1235 ms: prompt 16 tok 845 ms, 4 tok 390 ms, gap 17.52) applied: WINK_RIGHT center",
+        "pass": true,
+        "model_ms": 1238,
+        "source": "model"
+      },
+      {
+        "id": "ho31",
+        "set": "holdout",
+        "result": "APPLIED SAD center | model 1116 ms (model 1115 ms: prompt 18 tok 1004 ms, 2 tok 111 ms, gap 11.79) applied: SAD center",
+        "pass": false,
+        "model_ms": 1116,
+        "source": "model"
+      },
+      {
+        "id": "ho32",
+        "set": "holdout",
+        "result": "APPLIED SURPRISED left | model 1017 ms (model 1015 ms: prompt 17 tok 1013 ms, 1 tok 2 ms, gap 12.40) applied: SURPRISED left",
+        "pass": true,
+        "model_ms": 1017,
+        "source": "model"
+      },
+      {
+        "id": "ho33",
+        "set": "holdout",
+        "result": "APPLIED WINK_RIGHT right | model 1239 ms (model 1238 ms: prompt 15 tok 869 ms, 4 tok 369 ms, gap 16.13) applied: WINK_RIGHT right",
+        "pass": false,
+        "model_ms": 1239,
+        "source": "model"
+      },
+      {
+        "id": "ho34",
+        "set": "holdout",
+        "result": "APPLIED NEUTRAL up | model 823 ms (model 822 ms: prompt 15 tok 820 ms, 1 tok 2 ms, gap 16.23) applied: NEUTRAL up",
+        "pass": true,
+        "model_ms": 823,
+        "source": "model"
+      },
+      {
+        "id": "ho35",
+        "set": "holdout",
+        "result": "APPLIED SLEEPY down | model 901 ms (model 899 ms: prompt 14 tok 897 ms, 1 tok 2 ms, gap 12.11) applied: SLEEPY down",
+        "pass": false,
+        "model_ms": 901,
+        "source": "model"
+      },
+      {
+        "id": "ho36",
+        "set": "holdout",
+        "result": "",
+        "pass": false,
+        "model_ms": null,
+        "source": "missing"
+      },
+      {
+        "id": "ho37",
+        "set": "holdout",
+        "result": "APPLIED NEUTRAL left | model 756 ms (model 755 ms: prompt 14 tok 754 ms, 1 tok 1 ms, gap 9.45) applied: NEUTRAL left",
+        "pass": true,
+        "model_ms": 756,
+        "source": "model"
+      },
+      {
+        "id": "ho38",
+        "set": "holdout",
+        "result": "APPLIED NEUTRAL down | model 868 ms (model 867 ms: prompt 14 tok 865 ms, 1 tok 2 ms, gap 5.66) applied: NEUTRAL down",
+        "pass": true,
+        "model_ms": 868,
+        "source": "model"
+      },
+      {
+        "id": "ho39",
+        "set": "holdout",
+        "result": "APPLIED HAPPY center | model 849 ms (model 848 ms: prompt 13 tok 846 ms, 1 tok 2 ms, gap 14.59) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 849,
+        "source": "model"
+      },
+      {
+        "id": "ho40",
+        "set": "holdout",
+        "result": "APPLIED HAPPY center | model 773 ms (model 772 ms: prompt 14 tok 771 ms, 1 tok 1 ms, gap 14.96) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 773,
+        "source": "model"
+      },
+      {
+        "id": "hn01",
+        "set": "holdout",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 796 ms (model 795 ms: prompt 14 tok 793 ms, 1 tok 2 ms, gap 1.73) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 796,
+        "source": "model"
+      },
+      {
+        "id": "hn02",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 844 ms (model 842 ms: prompt 16 tok 840 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 844,
+        "source": "model"
+      },
+      {
+        "id": "hn03",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 700 ms (model 699 ms: prompt 15 tok 697 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 700,
+        "source": "model"
+      },
+      {
+        "id": "hn04",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 821 ms (model 821 ms: prompt 15 tok 819 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 821,
+        "source": "model"
+      },
+      {
+        "id": "hn05",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 903 ms (model 901 ms: prompt 16 tok 899 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 903,
+        "source": "model"
+      },
+      {
+        "id": "hn06",
+        "set": "holdout",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 813 ms (model 812 ms: prompt 15 tok 811 ms, 1 tok 1 ms, gap 0.68) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 813,
+        "source": "model"
+      },
+      {
+        "id": "hn07",
+        "set": "holdout",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 923 ms (model 922 ms: prompt 14 tok 920 ms, 1 tok 2 ms, gap 5.37) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 923,
+        "source": "model"
+      },
+      {
+        "id": "hn08",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 947 ms (model 946 ms: prompt 16 tok 944 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 947,
+        "source": "model"
+      },
+      {
+        "id": "hn09",
+        "set": "holdout",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 984 ms (model 983 ms: prompt 15 tok 982 ms, 1 tok 1 ms, gap 4.34) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 984,
+        "source": "model"
+      },
+      {
+        "id": "hn10",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 700 ms (model 699 ms: prompt 15 tok 697 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 700,
+        "source": "model"
+      },
+      {
+        "id": "hn11",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 811 ms (model 810 ms: prompt 16 tok 809 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 811,
+        "source": "model"
+      },
+      {
+        "id": "hn12",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 827 ms (model 826 ms: prompt 15 tok 823 ms, 1 tok 3 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 827,
+        "source": "model"
+      },
+      {
+        "id": "hn13",
+        "set": "holdout",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 1030 ms (model 1028 ms: prompt 15 tok 1026 ms, 1 tok 2 ms, gap 1.86) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 1030,
+        "source": "model"
+      },
+      {
+        "id": "hn14",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 937 ms (model 935 ms: prompt 15 tok 933 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 937,
+        "source": "model"
+      },
+      {
+        "id": "hn15",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 881 ms (model 880 ms: prompt 16 tok 878 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 881,
+        "source": "model"
+      },
+      {
+        "id": "hn16",
+        "set": "holdout",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 910 ms (model 909 ms: prompt 17 tok 908 ms, 1 tok 1 ms, gap 4.62) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 910,
+        "source": "model"
+      },
+      {
+        "id": "hn17",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | phrasebook 1 ms applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": null,
+        "source": "phrasebook"
+      },
+      {
+        "id": "hn18",
+        "set": "holdout",
+        "result": "APPLIED HAPPY center | model 820 ms (model 818 ms: prompt 14 tok 817 ms, 1 tok 1 ms, gap 8.65) applied: HAPPY center",
+        "pass": false,
+        "model_ms": 820,
+        "source": "model"
+      },
+      {
+        "id": "hn19",
+        "set": "holdout",
+        "result": "IGNORED_NO_CHANGE NEUTRAL center | model 838 ms (model 836 ms: prompt 15 tok 834 ms, 1 tok 2 ms, gap 0.65) applied: HAPPY center",
+        "pass": true,
+        "model_ms": 838,
+        "source": "model"
+      },
+      {
+        "id": "hn20",
+        "set": "holdout",
+        "result": "IGNORED_NO_REACTION NONE center | model 656 ms (model 654 ms: prompt 14 tok 652 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+        "pass": true,
+        "model_ms": 656,
+        "source": "model"
+      }
+    ],
+    "counts": {
+      "dev": 37,
+      "holdout": 50
+    },
+    "complete": false
+  },
+  "latency": {
+    "runs": [
+      {
+        "samples_ms": [
+          827,
+          1047,
+          1077,
+          963,
+          1187,
+          1065,
+          862,
+          1222,
+          843,
+          1021,
+          810,
+          804,
+          915,
+          954,
+          954,
+          939,
+          692,
+          1052,
+          924,
+          1032,
+          869,
+          914,
+          899,
+          928,
+          904,
+          1074,
+          1013,
+          1113,
+          922,
+          740,
+          821,
+          967,
+          960,
+          901,
+          958,
+          847,
+          775,
+          550,
+          818,
+          889,
+          846,
+          1003,
+          928,
+          922,
+          943,
+          1060,
+          944,
+          1036,
+          934,
+          922,
+          938,
+          977,
+          923,
+          1128,
+          856,
+          776,
+          796,
+          853,
+          893,
+          998,
+          1106,
+          910,
+          1197,
+          939,
+          831,
+          1078,
+          999,
+          1159,
+          1238,
+          1116,
+          1017,
+          1239,
+          823,
+          901,
+          756,
+          868,
+          849,
+          773,
+          796,
+          844,
+          700,
+          821,
+          903,
+          813,
+          923,
+          947,
+          984,
+          700,
+          811,
+          827,
+          1030,
+          937,
+          881,
+          910,
+          820,
+          838,
+          656
+        ],
+        "items": [
+          {
+            "id": "en01",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 827 ms (model 825 ms: prompt 16 tok 823 ms, 1 tok 2 ms, gap 18.37) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 827,
+            "source": "model"
+          },
+          {
+            "id": "en02",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 1047 ms (model 1046 ms: prompt 14 tok 932 ms, 2 tok 114 ms, gap 13.66) applied: SAD center",
+            "pass": true,
+            "model_ms": 1047,
+            "source": "model"
+          },
+          {
+            "id": "en03",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 1077 ms (model 1076 ms: prompt 21 tok 1074 ms, 1 tok 2 ms, gap 23.81) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1077,
+            "source": "model"
+          },
+          {
+            "id": "en04",
+            "set": "dev",
+            "result": "APPLIED SURPRISED center | model 963 ms (model 962 ms: prompt 18 tok 960 ms, 1 tok 2 ms, gap 17.39) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 963,
+            "source": "model"
+          },
+          {
+            "id": "en05",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 1187 ms (model 1186 ms: prompt 22 tok 1183 ms, 1 tok 3 ms, gap 16.56) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1187,
+            "source": "model"
+          },
+          {
+            "id": "en06",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 1065 ms (model 1063 ms: prompt 18 tok 952 ms, 2 tok 111 ms, gap 10.25) applied: SAD center",
+            "pass": false,
+            "model_ms": 1065,
+            "source": "model"
+          },
+          {
+            "id": "en07",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 862 ms (model 861 ms: prompt 15 tok 858 ms, 1 tok 3 ms, gap 13.24) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 862,
+            "source": "model"
+          },
+          {
+            "id": "en08",
+            "set": "dev",
+            "result": "APPLIED WINK_RIGHT center | model 1222 ms (model 1221 ms: prompt 18 tok 895 ms, 4 tok 326 ms, gap 12.66) applied: WINK_RIGHT center",
+            "pass": true,
+            "model_ms": 1222,
+            "source": "model"
+          },
+          {
+            "id": "en09",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL left | model 843 ms (model 841 ms: prompt 13 tok 839 ms, 1 tok 2 ms, gap 13.61) applied: NEUTRAL left",
+            "pass": true,
+            "model_ms": 843,
+            "source": "model"
+          },
+          {
+            "id": "en10",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL right | model 1021 ms (model 1020 ms: prompt 17 tok 1017 ms, 1 tok 3 ms, gap 11.99) applied: NEUTRAL right",
+            "pass": true,
+            "model_ms": 1021,
+            "source": "model"
+          },
+          {
+            "id": "en11",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL up | model 810 ms (model 809 ms: prompt 14 tok 807 ms, 1 tok 2 ms, gap 14.95) applied: NEUTRAL up",
+            "pass": true,
+            "model_ms": 810,
+            "source": "model"
+          },
+          {
+            "id": "en12",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL down | model 804 ms (model 803 ms: prompt 14 tok 801 ms, 1 tok 2 ms, gap 0.41) applied: NEUTRAL down",
+            "pass": true,
+            "model_ms": 804,
+            "source": "model"
+          },
+          {
+            "id": "en13",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 915 ms (model 913 ms: prompt 13 tok 912 ms, 1 tok 1 ms, gap 20.72) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 915,
+            "source": "model"
+          },
+          {
+            "id": "en14",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 954 ms (model 953 ms: prompt 15 tok 838 ms, 2 tok 115 ms, gap 14.47) applied: SAD center",
+            "pass": true,
+            "model_ms": 954,
+            "source": "model"
+          },
+          {
+            "id": "en15",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 954 ms (model 953 ms: prompt 18 tok 951 ms, 1 tok 2 ms, gap 22.16) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 954,
+            "source": "model"
+          },
+          {
+            "id": "en16",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 939 ms (model 937 ms: prompt 18 tok 936 ms, 1 tok 1 ms, gap 9.45) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 939,
+            "source": "model"
+          },
+          {
+            "id": "en17",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 692 ms (model 691 ms: prompt 13 tok 690 ms, 1 tok 1 ms, gap 19.44) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 692,
+            "source": "model"
+          },
+          {
+            "id": "en18",
+            "set": "dev",
+            "result": "APPLIED BORED center | model 1052 ms (model 1050 ms: prompt 17 tok 1048 ms, 1 tok 2 ms, gap 13.15) applied: BORED center",
+            "pass": true,
+            "model_ms": 1052,
+            "source": "model"
+          },
+          {
+            "id": "en19",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 924 ms (model 922 ms: prompt 17 tok 921 ms, 1 tok 1 ms, gap 19.59) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 924,
+            "source": "model"
+          },
+          {
+            "id": "en20",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 1032 ms (model 1031 ms: prompt 15 tok 915 ms, 2 tok 116 ms, gap 16.41) applied: SAD center",
+            "pass": true,
+            "model_ms": 1032,
+            "source": "model"
+          },
+          {
+            "id": "en21",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 869 ms (model 868 ms: prompt 17 tok 866 ms, 1 tok 2 ms, gap 17.43) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 869,
+            "source": "model"
+          },
+          {
+            "id": "en22",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 914 ms (model 913 ms: prompt 17 tok 911 ms, 1 tok 2 ms, gap 20.08) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 914,
+            "source": "model"
+          },
+          {
+            "id": "en23",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 899 ms (model 898 ms: prompt 17 tok 895 ms, 1 tok 3 ms, gap 15.71) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 899,
+            "source": "model"
+          },
+          {
+            "id": "en24",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 928 ms (model 927 ms: prompt 16 tok 926 ms, 1 tok 1 ms, gap 16.52) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 928,
+            "source": "model"
+          },
+          {
+            "id": "en25",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 904 ms (model 903 ms: prompt 17 tok 900 ms, 1 tok 3 ms, gap 10.34) applied: SLEEPY center",
+            "pass": false,
+            "model_ms": 904,
+            "source": "model"
+          },
+          {
+            "id": "en26",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 1074 ms (model 1072 ms: prompt 14 tok 963 ms, 2 tok 109 ms, gap 13.27) applied: SAD center",
+            "pass": true,
+            "model_ms": 1074,
+            "source": "model"
+          },
+          {
+            "id": "en27",
+            "set": "dev",
+            "result": "APPLIED SURPRISED left | model 1013 ms (model 1012 ms: prompt 19 tok 1009 ms, 1 tok 3 ms, gap 11.84) applied: SURPRISED left",
+            "pass": true,
+            "model_ms": 1013,
+            "source": "model"
+          },
+          {
+            "id": "en28",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 1113 ms (model 1112 ms: prompt 20 tok 1110 ms, 1 tok 2 ms, gap 15.85) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 1113,
+            "source": "model"
+          },
+          {
+            "id": "nr01",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 922 ms (model 921 ms: prompt 17 tok 919 ms, 1 tok 2 ms, gap 1.27) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 922,
+            "source": "model"
+          },
+          {
+            "id": "nr02",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 740 ms (model 738 ms: prompt 16 tok 736 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 740,
+            "source": "model"
+          },
+          {
+            "id": "nr03",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 821 ms (model 820 ms: prompt 16 tok 817 ms, 1 tok 3 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 821,
+            "source": "model"
+          },
+          {
+            "id": "nr04",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 967 ms (model 965 ms: prompt 16 tok 963 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 967,
+            "source": "model"
+          },
+          {
+            "id": "nr05",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 960 ms (model 959 ms: prompt 15 tok 957 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 960,
+            "source": "model"
+          },
+          {
+            "id": "nr06",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 901 ms (model 900 ms: prompt 15 tok 898 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 901,
+            "source": "model"
+          },
+          {
+            "id": "nr07",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 958 ms (model 956 ms: prompt 16 tok 955 ms, 1 tok 1 ms, gap 9.45) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 958,
+            "source": "model"
+          },
+          {
+            "id": "nr08",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 847 ms (model 846 ms: prompt 14 tok 844 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 847,
+            "source": "model"
+          },
+          {
+            "id": "nr09",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 775 ms (model 774 ms: prompt 14 tok 772 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 775,
+            "source": "model"
+          },
+          {
+            "id": "nr10",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 550 ms (model 549 ms: prompt 12 tok 548 ms, 1 tok 1 ms, gap 1.77) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 550,
+            "source": "model"
+          },
+          {
+            "id": "nr11",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | phrasebook 0 ms applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": null,
+            "source": "phrasebook"
+          },
+          {
+            "id": "nr12",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 818 ms (model 817 ms: prompt 14 tok 815 ms, 1 tok 2 ms, gap 1.84) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 818,
+            "source": "model"
+          },
+          {
+            "id": "ho01",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 889 ms (model 888 ms: prompt 14 tok 886 ms, 1 tok 2 ms, gap 17.91) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 889,
+            "source": "model"
+          },
+          {
+            "id": "ho02",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 846 ms (model 845 ms: prompt 17 tok 842 ms, 1 tok 3 ms, gap 19.94) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 846,
+            "source": "model"
+          },
+          {
+            "id": "ho03",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 1003 ms (model 1002 ms: prompt 18 tok 1000 ms, 1 tok 2 ms, gap 18.30) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 1003,
+            "source": "model"
+          },
+          {
+            "id": "ho04",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 928 ms (model 927 ms: prompt 16 tok 925 ms, 1 tok 2 ms, gap 11.34) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 928,
+            "source": "model"
+          },
+          {
+            "id": "ho05",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 922 ms (model 921 ms: prompt 15 tok 920 ms, 1 tok 1 ms, gap 17.55) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 922,
+            "source": "model"
+          },
+          {
+            "id": "ho06",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 943 ms (model 942 ms: prompt 15 tok 829 ms, 2 tok 113 ms, gap 5.64) applied: SAD center",
+            "pass": true,
+            "model_ms": 943,
+            "source": "model"
+          },
+          {
+            "id": "ho07",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1060 ms (model 1059 ms: prompt 17 tok 946 ms, 2 tok 113 ms, gap 14.90) applied: SAD center",
+            "pass": true,
+            "model_ms": 1060,
+            "source": "model"
+          },
+          {
+            "id": "ho08",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 944 ms (model 941 ms: prompt 15 tok 824 ms, 2 tok 117 ms, gap 19.20) applied: SAD center",
+            "pass": true,
+            "model_ms": 944,
+            "source": "model"
+          },
+          {
+            "id": "ho09",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1036 ms (model 1035 ms: prompt 17 tok 921 ms, 2 tok 114 ms, gap 13.76) applied: SAD center",
+            "pass": true,
+            "model_ms": 1036,
+            "source": "model"
+          },
+          {
+            "id": "ho10",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 934 ms (model 933 ms: prompt 15 tok 819 ms, 2 tok 114 ms, gap 12.67) applied: SAD center",
+            "pass": true,
+            "model_ms": 934,
+            "source": "model"
+          },
+          {
+            "id": "ho11",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 922 ms (model 921 ms: prompt 17 tok 919 ms, 1 tok 2 ms, gap 16.87) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 922,
+            "source": "model"
+          },
+          {
+            "id": "ho12",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 938 ms (model 936 ms: prompt 19 tok 934 ms, 1 tok 2 ms, gap 13.55) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 938,
+            "source": "model"
+          },
+          {
+            "id": "ho13",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 977 ms (model 976 ms: prompt 19 tok 974 ms, 1 tok 2 ms, gap 23.51) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 977,
+            "source": "model"
+          },
+          {
+            "id": "ho14",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 923 ms (model 921 ms: prompt 17 tok 919 ms, 1 tok 2 ms, gap 20.62) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 923,
+            "source": "model"
+          },
+          {
+            "id": "ho15",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1128 ms (model 1127 ms: prompt 20 tok 1126 ms, 1 tok 1 ms, gap 14.77) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1128,
+            "source": "model"
+          },
+          {
+            "id": "ho16",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 856 ms (model 855 ms: prompt 16 tok 854 ms, 1 tok 1 ms, gap 16.24) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 856,
+            "source": "model"
+          },
+          {
+            "id": "ho17",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 776 ms (model 775 ms: prompt 14 tok 774 ms, 1 tok 1 ms, gap 5.09) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 776,
+            "source": "model"
+          },
+          {
+            "id": "ho18",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 796 ms (model 796 ms: prompt 17 tok 794 ms, 1 tok 2 ms, gap 10.92) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 796,
+            "source": "model"
+          },
+          {
+            "id": "ho19",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 853 ms (model 852 ms: prompt 19 tok 849 ms, 1 tok 3 ms, gap 10.22) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 853,
+            "source": "model"
+          },
+          {
+            "id": "ho20",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 893 ms (model 891 ms: prompt 16 tok 888 ms, 1 tok 3 ms, gap 15.89) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 893,
+            "source": "model"
+          },
+          {
+            "id": "ho21",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 998 ms (model 997 ms: prompt 18 tok 995 ms, 1 tok 2 ms, gap 15.95) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 998,
+            "source": "model"
+          },
+          {
+            "id": "ho22",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 1106 ms (model 1104 ms: prompt 20 tok 1103 ms, 1 tok 1 ms, gap 10.92) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1106,
+            "source": "model"
+          },
+          {
+            "id": "ho23",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 910 ms (model 909 ms: prompt 19 tok 907 ms, 1 tok 2 ms, gap 17.86) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 910,
+            "source": "model"
+          },
+          {
+            "id": "ho24",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1197 ms (model 1195 ms: prompt 20 tok 1074 ms, 2 tok 121 ms, gap 6.69) applied: SAD center",
+            "pass": false,
+            "model_ms": 1197,
+            "source": "model"
+          },
+          {
+            "id": "ho25",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 939 ms (model 937 ms: prompt 16 tok 935 ms, 1 tok 2 ms, gap 13.25) applied: BORED center",
+            "pass": true,
+            "model_ms": 939,
+            "source": "model"
+          },
+          {
+            "id": "ho26",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 831 ms (model 831 ms: prompt 16 tok 829 ms, 1 tok 2 ms, gap 5.78) applied: BORED center",
+            "pass": true,
+            "model_ms": 831,
+            "source": "model"
+          },
+          {
+            "id": "ho27",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 1078 ms (model 1076 ms: prompt 20 tok 1074 ms, 1 tok 2 ms, gap 12.81) applied: BORED center",
+            "pass": true,
+            "model_ms": 1078,
+            "source": "model"
+          },
+          {
+            "id": "ho28",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 999 ms (model 998 ms: prompt 16 tok 884 ms, 2 tok 114 ms, gap 10.57) applied: SAD center",
+            "pass": false,
+            "model_ms": 999,
+            "source": "model"
+          },
+          {
+            "id": "ho29",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1159 ms (model 1158 ms: prompt 21 tok 1156 ms, 1 tok 2 ms, gap 6.06) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 1159,
+            "source": "model"
+          },
+          {
+            "id": "ho30",
+            "set": "holdout",
+            "result": "APPLIED WINK_RIGHT center | model 1238 ms (model 1235 ms: prompt 16 tok 845 ms, 4 tok 390 ms, gap 17.52) applied: WINK_RIGHT center",
+            "pass": true,
+            "model_ms": 1238,
+            "source": "model"
+          },
+          {
+            "id": "ho31",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1116 ms (model 1115 ms: prompt 18 tok 1004 ms, 2 tok 111 ms, gap 11.79) applied: SAD center",
+            "pass": false,
+            "model_ms": 1116,
+            "source": "model"
+          },
+          {
+            "id": "ho32",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED left | model 1017 ms (model 1015 ms: prompt 17 tok 1013 ms, 1 tok 2 ms, gap 12.40) applied: SURPRISED left",
+            "pass": true,
+            "model_ms": 1017,
+            "source": "model"
+          },
+          {
+            "id": "ho33",
+            "set": "holdout",
+            "result": "APPLIED WINK_RIGHT right | model 1239 ms (model 1238 ms: prompt 15 tok 869 ms, 4 tok 369 ms, gap 16.13) applied: WINK_RIGHT right",
+            "pass": false,
+            "model_ms": 1239,
+            "source": "model"
+          },
+          {
+            "id": "ho34",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL up | model 823 ms (model 822 ms: prompt 15 tok 820 ms, 1 tok 2 ms, gap 16.23) applied: NEUTRAL up",
+            "pass": true,
+            "model_ms": 823,
+            "source": "model"
+          },
+          {
+            "id": "ho35",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY down | model 901 ms (model 899 ms: prompt 14 tok 897 ms, 1 tok 2 ms, gap 12.11) applied: SLEEPY down",
+            "pass": false,
+            "model_ms": 901,
+            "source": "model"
+          },
+          {
+            "id": "ho36",
+            "set": "holdout",
+            "result": "",
+            "pass": false,
+            "model_ms": null,
+            "source": "missing"
+          },
+          {
+            "id": "ho37",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL left | model 756 ms (model 755 ms: prompt 14 tok 754 ms, 1 tok 1 ms, gap 9.45) applied: NEUTRAL left",
+            "pass": true,
+            "model_ms": 756,
+            "source": "model"
+          },
+          {
+            "id": "ho38",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL down | model 868 ms (model 867 ms: prompt 14 tok 865 ms, 1 tok 2 ms, gap 5.66) applied: NEUTRAL down",
+            "pass": true,
+            "model_ms": 868,
+            "source": "model"
+          },
+          {
+            "id": "ho39",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 849 ms (model 848 ms: prompt 13 tok 846 ms, 1 tok 2 ms, gap 14.59) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 849,
+            "source": "model"
+          },
+          {
+            "id": "ho40",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 773 ms (model 772 ms: prompt 14 tok 771 ms, 1 tok 1 ms, gap 14.96) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 773,
+            "source": "model"
+          },
+          {
+            "id": "hn01",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 796 ms (model 795 ms: prompt 14 tok 793 ms, 1 tok 2 ms, gap 1.73) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 796,
+            "source": "model"
+          },
+          {
+            "id": "hn02",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 844 ms (model 842 ms: prompt 16 tok 840 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 844,
+            "source": "model"
+          },
+          {
+            "id": "hn03",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 700 ms (model 699 ms: prompt 15 tok 697 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 700,
+            "source": "model"
+          },
+          {
+            "id": "hn04",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 821 ms (model 821 ms: prompt 15 tok 819 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 821,
+            "source": "model"
+          },
+          {
+            "id": "hn05",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 903 ms (model 901 ms: prompt 16 tok 899 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 903,
+            "source": "model"
+          },
+          {
+            "id": "hn06",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 813 ms (model 812 ms: prompt 15 tok 811 ms, 1 tok 1 ms, gap 0.68) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 813,
+            "source": "model"
+          },
+          {
+            "id": "hn07",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 923 ms (model 922 ms: prompt 14 tok 920 ms, 1 tok 2 ms, gap 5.37) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 923,
+            "source": "model"
+          },
+          {
+            "id": "hn08",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 947 ms (model 946 ms: prompt 16 tok 944 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 947,
+            "source": "model"
+          },
+          {
+            "id": "hn09",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 984 ms (model 983 ms: prompt 15 tok 982 ms, 1 tok 1 ms, gap 4.34) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 984,
+            "source": "model"
+          },
+          {
+            "id": "hn10",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 700 ms (model 699 ms: prompt 15 tok 697 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 700,
+            "source": "model"
+          },
+          {
+            "id": "hn11",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 811 ms (model 810 ms: prompt 16 tok 809 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 811,
+            "source": "model"
+          },
+          {
+            "id": "hn12",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 827 ms (model 826 ms: prompt 15 tok 823 ms, 1 tok 3 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 827,
+            "source": "model"
+          },
+          {
+            "id": "hn13",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 1030 ms (model 1028 ms: prompt 15 tok 1026 ms, 1 tok 2 ms, gap 1.86) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 1030,
+            "source": "model"
+          },
+          {
+            "id": "hn14",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 937 ms (model 935 ms: prompt 15 tok 933 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 937,
+            "source": "model"
+          },
+          {
+            "id": "hn15",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 881 ms (model 880 ms: prompt 16 tok 878 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 881,
+            "source": "model"
+          },
+          {
+            "id": "hn16",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 910 ms (model 909 ms: prompt 17 tok 908 ms, 1 tok 1 ms, gap 4.62) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 910,
+            "source": "model"
+          },
+          {
+            "id": "hn17",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | phrasebook 1 ms applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": null,
+            "source": "phrasebook"
+          },
+          {
+            "id": "hn18",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 820 ms (model 818 ms: prompt 14 tok 817 ms, 1 tok 1 ms, gap 8.65) applied: HAPPY center",
+            "pass": false,
+            "model_ms": 820,
+            "source": "model"
+          },
+          {
+            "id": "hn19",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 838 ms (model 836 ms: prompt 15 tok 834 ms, 1 tok 2 ms, gap 0.65) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 838,
+            "source": "model"
+          },
+          {
+            "id": "hn20",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 656 ms (model 654 ms: prompt 14 tok 652 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 656,
+            "source": "model"
+          }
+        ],
+        "metrics": {
+          "p50": 922,
+          "p90": 1106,
+          "p99": 1239
+        },
+        "complete": false
+      },
+      {
+        "samples_ms": [
+          846,
+          984,
+          1181,
+          981,
+          1180,
+          997,
+          883,
+          1480,
+          725,
+          986,
+          871,
+          806,
+          790,
+          948,
+          1022,
+          984,
+          815,
+          912,
+          980,
+          1047,
+          986,
+          881,
+          937,
+          858,
+          928,
+          968,
+          964,
+          988,
+          917,
+          749,
+          885,
+          958,
+          980,
+          815,
+          982,
+          816,
+          860,
+          549,
+          698,
+          900,
+          922,
+          1009,
+          846,
+          802,
+          1013,
+          1108,
+          1043,
+          1059,
+          1102,
+          929,
+          1078,
+          1105,
+          915,
+          1177,
+          874,
+          906,
+          767,
+          1021,
+          887,
+          1023,
+          1117,
+          1003,
+          1141,
+          884,
+          930,
+          1098,
+          1039,
+          1128,
+          1341,
+          1097,
+          968,
+          1153,
+          914,
+          897,
+          905,
+          746,
+          938,
+          748,
+          814,
+          706,
+          895,
+          824,
+          874,
+          996,
+          861,
+          779,
+          891,
+          916,
+          701,
+          716,
+          791,
+          932,
+          798,
+          907,
+          941,
+          696,
+          886,
+          673
+        ],
+        "items": [
+          {
+            "id": "en01",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 846 ms (model 845 ms: prompt 16 tok 843 ms, 1 tok 2 ms, gap 18.37) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 846,
+            "source": "model"
+          },
+          {
+            "id": "en02",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 984 ms (model 983 ms: prompt 14 tok 851 ms, 2 tok 132 ms, gap 13.66) applied: SAD center",
+            "pass": true,
+            "model_ms": 984,
+            "source": "model"
+          },
+          {
+            "id": "en03",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 1181 ms (model 1179 ms: prompt 21 tok 1178 ms, 1 tok 1 ms, gap 23.81) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1181,
+            "source": "model"
+          },
+          {
+            "id": "en04",
+            "set": "dev",
+            "result": "APPLIED SURPRISED center | model 981 ms (model 979 ms: prompt 18 tok 977 ms, 1 tok 2 ms, gap 17.39) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 981,
+            "source": "model"
+          },
+          {
+            "id": "en05",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 1180 ms (model 1179 ms: prompt 22 tok 1176 ms, 1 tok 3 ms, gap 16.56) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1180,
+            "source": "model"
+          },
+          {
+            "id": "en06",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 997 ms (model 995 ms: prompt 18 tok 882 ms, 2 tok 113 ms, gap 10.25) applied: SAD center",
+            "pass": false,
+            "model_ms": 997,
+            "source": "model"
+          },
+          {
+            "id": "en07",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 883 ms (model 881 ms: prompt 15 tok 878 ms, 1 tok 3 ms, gap 13.24) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 883,
+            "source": "model"
+          },
+          {
+            "id": "en08",
+            "set": "dev",
+            "result": "APPLIED WINK_RIGHT center | model 1480 ms (model 1478 ms: prompt 18 tok 992 ms, 4 tok 486 ms, gap 12.66) applied: WINK_RIGHT center",
+            "pass": true,
+            "model_ms": 1480,
+            "source": "model"
+          },
+          {
+            "id": "en09",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL left | model 725 ms (model 724 ms: prompt 13 tok 721 ms, 1 tok 3 ms, gap 13.61) applied: NEUTRAL left",
+            "pass": true,
+            "model_ms": 725,
+            "source": "model"
+          },
+          {
+            "id": "en10",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL right | model 986 ms (model 984 ms: prompt 17 tok 982 ms, 1 tok 2 ms, gap 11.99) applied: NEUTRAL right",
+            "pass": true,
+            "model_ms": 986,
+            "source": "model"
+          },
+          {
+            "id": "en11",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL up | model 871 ms (model 869 ms: prompt 14 tok 867 ms, 1 tok 2 ms, gap 14.95) applied: NEUTRAL up",
+            "pass": true,
+            "model_ms": 871,
+            "source": "model"
+          },
+          {
+            "id": "en12",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL down | model 806 ms (model 805 ms: prompt 14 tok 803 ms, 1 tok 2 ms, gap 0.41) applied: NEUTRAL down",
+            "pass": true,
+            "model_ms": 806,
+            "source": "model"
+          },
+          {
+            "id": "en13",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 790 ms (model 789 ms: prompt 13 tok 787 ms, 1 tok 2 ms, gap 20.72) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 790,
+            "source": "model"
+          },
+          {
+            "id": "en14",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 948 ms (model 946 ms: prompt 15 tok 826 ms, 2 tok 120 ms, gap 14.47) applied: SAD center",
+            "pass": true,
+            "model_ms": 948,
+            "source": "model"
+          },
+          {
+            "id": "en15",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 1022 ms (model 1020 ms: prompt 18 tok 1018 ms, 1 tok 2 ms, gap 22.16) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1022,
+            "source": "model"
+          },
+          {
+            "id": "en16",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 984 ms (model 982 ms: prompt 18 tok 981 ms, 1 tok 1 ms, gap 9.45) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 984,
+            "source": "model"
+          },
+          {
+            "id": "en17",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 815 ms (model 813 ms: prompt 13 tok 811 ms, 1 tok 2 ms, gap 19.44) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 815,
+            "source": "model"
+          },
+          {
+            "id": "en18",
+            "set": "dev",
+            "result": "APPLIED BORED center | model 912 ms (model 911 ms: prompt 17 tok 910 ms, 1 tok 1 ms, gap 13.15) applied: BORED center",
+            "pass": true,
+            "model_ms": 912,
+            "source": "model"
+          },
+          {
+            "id": "en19",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 980 ms (model 979 ms: prompt 17 tok 977 ms, 1 tok 2 ms, gap 19.59) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 980,
+            "source": "model"
+          },
+          {
+            "id": "en20",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 1047 ms (model 1045 ms: prompt 15 tok 872 ms, 2 tok 173 ms, gap 16.41) applied: SAD center",
+            "pass": true,
+            "model_ms": 1047,
+            "source": "model"
+          },
+          {
+            "id": "en21",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 986 ms (model 985 ms: prompt 17 tok 983 ms, 1 tok 2 ms, gap 17.43) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 986,
+            "source": "model"
+          },
+          {
+            "id": "en22",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 881 ms (model 880 ms: prompt 17 tok 878 ms, 1 tok 2 ms, gap 20.08) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 881,
+            "source": "model"
+          },
+          {
+            "id": "en23",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 937 ms (model 935 ms: prompt 17 tok 933 ms, 1 tok 2 ms, gap 15.71) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 937,
+            "source": "model"
+          },
+          {
+            "id": "en24",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 858 ms (model 857 ms: prompt 16 tok 854 ms, 1 tok 3 ms, gap 16.52) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 858,
+            "source": "model"
+          },
+          {
+            "id": "en25",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 928 ms (model 927 ms: prompt 17 tok 925 ms, 1 tok 2 ms, gap 10.34) applied: SLEEPY center",
+            "pass": false,
+            "model_ms": 928,
+            "source": "model"
+          },
+          {
+            "id": "en26",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 968 ms (model 966 ms: prompt 14 tok 807 ms, 2 tok 159 ms, gap 13.27) applied: SAD center",
+            "pass": true,
+            "model_ms": 968,
+            "source": "model"
+          },
+          {
+            "id": "en27",
+            "set": "dev",
+            "result": "APPLIED SURPRISED left | model 964 ms (model 963 ms: prompt 19 tok 961 ms, 1 tok 2 ms, gap 11.84) applied: SURPRISED left",
+            "pass": true,
+            "model_ms": 964,
+            "source": "model"
+          },
+          {
+            "id": "en28",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 988 ms (model 986 ms: prompt 20 tok 984 ms, 1 tok 2 ms, gap 15.85) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 988,
+            "source": "model"
+          },
+          {
+            "id": "nr01",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 917 ms (model 916 ms: prompt 17 tok 914 ms, 1 tok 2 ms, gap 1.27) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 917,
+            "source": "model"
+          },
+          {
+            "id": "nr02",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 749 ms (model 747 ms: prompt 16 tok 746 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 749,
+            "source": "model"
+          },
+          {
+            "id": "nr03",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 885 ms (model 883 ms: prompt 16 tok 882 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 885,
+            "source": "model"
+          },
+          {
+            "id": "nr04",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 958 ms (model 955 ms: prompt 16 tok 953 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 958,
+            "source": "model"
+          },
+          {
+            "id": "nr05",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 980 ms (model 978 ms: prompt 15 tok 977 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 980,
+            "source": "model"
+          },
+          {
+            "id": "nr06",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 815 ms (model 814 ms: prompt 15 tok 813 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 815,
+            "source": "model"
+          },
+          {
+            "id": "nr07",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 982 ms (model 981 ms: prompt 16 tok 978 ms, 1 tok 3 ms, gap 9.45) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 982,
+            "source": "model"
+          },
+          {
+            "id": "nr08",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 816 ms (model 815 ms: prompt 14 tok 813 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 816,
+            "source": "model"
+          },
+          {
+            "id": "nr09",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 860 ms (model 859 ms: prompt 14 tok 856 ms, 1 tok 3 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 860,
+            "source": "model"
+          },
+          {
+            "id": "nr10",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 549 ms (model 547 ms: prompt 12 tok 546 ms, 1 tok 1 ms, gap 1.77) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 549,
+            "source": "model"
+          },
+          {
+            "id": "nr11",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | phrasebook 0 ms applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": null,
+            "source": "phrasebook"
+          },
+          {
+            "id": "nr12",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 698 ms (model 697 ms: prompt 14 tok 695 ms, 1 tok 2 ms, gap 1.84) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 698,
+            "source": "model"
+          },
+          {
+            "id": "ho01",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 900 ms (model 899 ms: prompt 14 tok 896 ms, 1 tok 3 ms, gap 17.91) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 900,
+            "source": "model"
+          },
+          {
+            "id": "ho02",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 922 ms (model 920 ms: prompt 17 tok 919 ms, 1 tok 1 ms, gap 19.94) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 922,
+            "source": "model"
+          },
+          {
+            "id": "ho03",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 1009 ms (model 1007 ms: prompt 18 tok 1005 ms, 1 tok 2 ms, gap 18.30) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 1009,
+            "source": "model"
+          },
+          {
+            "id": "ho04",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 846 ms (model 844 ms: prompt 16 tok 842 ms, 1 tok 2 ms, gap 11.34) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 846,
+            "source": "model"
+          },
+          {
+            "id": "ho05",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 802 ms (model 801 ms: prompt 15 tok 799 ms, 1 tok 2 ms, gap 17.55) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 802,
+            "source": "model"
+          },
+          {
+            "id": "ho06",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1013 ms (model 1012 ms: prompt 15 tok 903 ms, 2 tok 109 ms, gap 5.64) applied: SAD center",
+            "pass": true,
+            "model_ms": 1013,
+            "source": "model"
+          },
+          {
+            "id": "ho07",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1108 ms (model 1107 ms: prompt 17 tok 1001 ms, 2 tok 106 ms, gap 14.90) applied: SAD center",
+            "pass": true,
+            "model_ms": 1108,
+            "source": "model"
+          },
+          {
+            "id": "ho08",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1043 ms (model 1042 ms: prompt 15 tok 929 ms, 2 tok 113 ms, gap 19.20) applied: SAD center",
+            "pass": true,
+            "model_ms": 1043,
+            "source": "model"
+          },
+          {
+            "id": "ho09",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1059 ms (model 1056 ms: prompt 17 tok 939 ms, 2 tok 117 ms, gap 13.76) applied: SAD center",
+            "pass": true,
+            "model_ms": 1059,
+            "source": "model"
+          },
+          {
+            "id": "ho10",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1102 ms (model 1100 ms: prompt 15 tok 935 ms, 2 tok 165 ms, gap 12.67) applied: SAD center",
+            "pass": true,
+            "model_ms": 1102,
+            "source": "model"
+          },
+          {
+            "id": "ho11",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 929 ms (model 927 ms: prompt 17 tok 926 ms, 1 tok 1 ms, gap 16.87) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 929,
+            "source": "model"
+          },
+          {
+            "id": "ho12",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1078 ms (model 1075 ms: prompt 19 tok 1074 ms, 1 tok 1 ms, gap 13.55) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1078,
+            "source": "model"
+          },
+          {
+            "id": "ho13",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1105 ms (model 1104 ms: prompt 19 tok 1101 ms, 1 tok 3 ms, gap 23.51) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1105,
+            "source": "model"
+          },
+          {
+            "id": "ho14",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 915 ms (model 914 ms: prompt 17 tok 913 ms, 1 tok 1 ms, gap 20.62) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 915,
+            "source": "model"
+          },
+          {
+            "id": "ho15",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1177 ms (model 1176 ms: prompt 20 tok 1174 ms, 1 tok 2 ms, gap 14.77) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1177,
+            "source": "model"
+          },
+          {
+            "id": "ho16",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 874 ms (model 872 ms: prompt 16 tok 870 ms, 1 tok 2 ms, gap 16.24) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 874,
+            "source": "model"
+          },
+          {
+            "id": "ho17",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 906 ms (model 904 ms: prompt 14 tok 902 ms, 1 tok 2 ms, gap 5.09) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 906,
+            "source": "model"
+          },
+          {
+            "id": "ho18",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 767 ms (model 766 ms: prompt 17 tok 764 ms, 1 tok 2 ms, gap 10.92) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 767,
+            "source": "model"
+          },
+          {
+            "id": "ho19",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 1021 ms (model 1019 ms: prompt 19 tok 1018 ms, 1 tok 1 ms, gap 10.22) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 1021,
+            "source": "model"
+          },
+          {
+            "id": "ho20",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 887 ms (model 886 ms: prompt 16 tok 884 ms, 1 tok 2 ms, gap 15.89) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 887,
+            "source": "model"
+          },
+          {
+            "id": "ho21",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 1023 ms (model 1022 ms: prompt 18 tok 1020 ms, 1 tok 2 ms, gap 15.95) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1023,
+            "source": "model"
+          },
+          {
+            "id": "ho22",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 1117 ms (model 1114 ms: prompt 20 tok 1112 ms, 1 tok 2 ms, gap 10.92) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1117,
+            "source": "model"
+          },
+          {
+            "id": "ho23",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 1003 ms (model 1002 ms: prompt 19 tok 1000 ms, 1 tok 2 ms, gap 17.86) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1003,
+            "source": "model"
+          },
+          {
+            "id": "ho24",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1141 ms (model 1140 ms: prompt 20 tok 1030 ms, 2 tok 110 ms, gap 6.69) applied: SAD center",
+            "pass": false,
+            "model_ms": 1141,
+            "source": "model"
+          },
+          {
+            "id": "ho25",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 884 ms (model 883 ms: prompt 16 tok 882 ms, 1 tok 1 ms, gap 13.25) applied: BORED center",
+            "pass": true,
+            "model_ms": 884,
+            "source": "model"
+          },
+          {
+            "id": "ho26",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 930 ms (model 928 ms: prompt 16 tok 926 ms, 1 tok 2 ms, gap 5.78) applied: BORED center",
+            "pass": true,
+            "model_ms": 930,
+            "source": "model"
+          },
+          {
+            "id": "ho27",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 1098 ms (model 1096 ms: prompt 20 tok 1093 ms, 1 tok 3 ms, gap 12.81) applied: BORED center",
+            "pass": true,
+            "model_ms": 1098,
+            "source": "model"
+          },
+          {
+            "id": "ho28",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1039 ms (model 1038 ms: prompt 16 tok 923 ms, 2 tok 115 ms, gap 10.57) applied: SAD center",
+            "pass": false,
+            "model_ms": 1039,
+            "source": "model"
+          },
+          {
+            "id": "ho29",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1128 ms (model 1127 ms: prompt 21 tok 1125 ms, 1 tok 2 ms, gap 6.06) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 1128,
+            "source": "model"
+          },
+          {
+            "id": "ho30",
+            "set": "holdout",
+            "result": "APPLIED WINK_RIGHT center | model 1341 ms (model 1339 ms: prompt 16 tok 952 ms, 4 tok 387 ms, gap 17.52) applied: WINK_RIGHT center",
+            "pass": true,
+            "model_ms": 1341,
+            "source": "model"
+          },
+          {
+            "id": "ho31",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1097 ms (model 1096 ms: prompt 18 tok 979 ms, 2 tok 117 ms, gap 11.79) applied: SAD center",
+            "pass": false,
+            "model_ms": 1097,
+            "source": "model"
+          },
+          {
+            "id": "ho32",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED left | model 968 ms (model 965 ms: prompt 17 tok 963 ms, 1 tok 2 ms, gap 12.40) applied: SURPRISED left",
+            "pass": true,
+            "model_ms": 968,
+            "source": "model"
+          },
+          {
+            "id": "ho33",
+            "set": "holdout",
+            "result": "APPLIED WINK_RIGHT right | model 1153 ms (model 1152 ms: prompt 15 tok 784 ms, 4 tok 368 ms, gap 16.13) applied: WINK_RIGHT right",
+            "pass": false,
+            "model_ms": 1153,
+            "source": "model"
+          },
+          {
+            "id": "ho34",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL up | model 914 ms (model 912 ms: prompt 15 tok 910 ms, 1 tok 2 ms, gap 16.23) applied: NEUTRAL up",
+            "pass": true,
+            "model_ms": 914,
+            "source": "model"
+          },
+          {
+            "id": "ho35",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY down | model 897 ms (model 895 ms: prompt 14 tok 893 ms, 1 tok 2 ms, gap 12.11) applied: SLEEPY down",
+            "pass": false,
+            "model_ms": 897,
+            "source": "model"
+          },
+          {
+            "id": "ho36",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED right | model 905 ms (model 904 ms: prompt 17 tok 902 ms, 1 tok 2 ms, gap 10.14) applied: SURPRISED right",
+            "pass": true,
+            "model_ms": 905,
+            "source": "model"
+          },
+          {
+            "id": "ho37",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL left | model 746 ms (model 743 ms: prompt 14 tok 741 ms, 1 tok 2 ms, gap 9.45) applied: NEUTRAL left",
+            "pass": true,
+            "model_ms": 746,
+            "source": "model"
+          },
+          {
+            "id": "ho38",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL down | model 938 ms (model 937 ms: prompt 14 tok 935 ms, 1 tok 2 ms, gap 5.66) applied: NEUTRAL down",
+            "pass": true,
+            "model_ms": 938,
+            "source": "model"
+          },
+          {
+            "id": "ho39",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 748 ms (model 746 ms: prompt 13 tok 745 ms, 1 tok 1 ms, gap 14.59) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 748,
+            "source": "model"
+          },
+          {
+            "id": "ho40",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 814 ms (model 813 ms: prompt 14 tok 811 ms, 1 tok 2 ms, gap 14.96) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 814,
+            "source": "model"
+          },
+          {
+            "id": "hn01",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 706 ms (model 704 ms: prompt 14 tok 702 ms, 1 tok 2 ms, gap 1.73) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 706,
+            "source": "model"
+          },
+          {
+            "id": "hn02",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 895 ms (model 894 ms: prompt 16 tok 892 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 895,
+            "source": "model"
+          },
+          {
+            "id": "hn03",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 824 ms (model 823 ms: prompt 15 tok 822 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 824,
+            "source": "model"
+          },
+          {
+            "id": "hn04",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 874 ms (model 873 ms: prompt 15 tok 871 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 874,
+            "source": "model"
+          },
+          {
+            "id": "hn05",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 996 ms (model 994 ms: prompt 16 tok 993 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 996,
+            "source": "model"
+          },
+          {
+            "id": "hn06",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 861 ms (model 859 ms: prompt 15 tok 857 ms, 1 tok 2 ms, gap 0.68) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 861,
+            "source": "model"
+          },
+          {
+            "id": "hn07",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 779 ms (model 777 ms: prompt 14 tok 775 ms, 1 tok 2 ms, gap 5.37) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 779,
+            "source": "model"
+          },
+          {
+            "id": "hn08",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 891 ms (model 890 ms: prompt 16 tok 888 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 891,
+            "source": "model"
+          },
+          {
+            "id": "hn09",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 916 ms (model 915 ms: prompt 15 tok 913 ms, 1 tok 2 ms, gap 4.34) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 916,
+            "source": "model"
+          },
+          {
+            "id": "hn10",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 701 ms (model 700 ms: prompt 15 tok 698 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 701,
+            "source": "model"
+          },
+          {
+            "id": "hn11",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 716 ms (model 714 ms: prompt 16 tok 712 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 716,
+            "source": "model"
+          },
+          {
+            "id": "hn12",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 791 ms (model 789 ms: prompt 15 tok 787 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 791,
+            "source": "model"
+          },
+          {
+            "id": "hn13",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 932 ms (model 930 ms: prompt 15 tok 929 ms, 1 tok 1 ms, gap 1.86) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 932,
+            "source": "model"
+          },
+          {
+            "id": "hn14",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 798 ms (model 796 ms: prompt 15 tok 795 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 798,
+            "source": "model"
+          },
+          {
+            "id": "hn15",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 907 ms (model 906 ms: prompt 16 tok 904 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 907,
+            "source": "model"
+          },
+          {
+            "id": "hn16",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 941 ms (model 939 ms: prompt 17 tok 937 ms, 1 tok 2 ms, gap 4.62) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 941,
+            "source": "model"
+          },
+          {
+            "id": "hn17",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | phrasebook 1 ms applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": null,
+            "source": "phrasebook"
+          },
+          {
+            "id": "hn18",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 696 ms (model 695 ms: prompt 14 tok 693 ms, 1 tok 2 ms, gap 8.65) applied: HAPPY center",
+            "pass": false,
+            "model_ms": 696,
+            "source": "model"
+          },
+          {
+            "id": "hn19",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 886 ms (model 885 ms: prompt 15 tok 883 ms, 1 tok 2 ms, gap 0.65) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 886,
+            "source": "model"
+          },
+          {
+            "id": "hn20",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 673 ms (model 672 ms: prompt 14 tok 671 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 673,
+            "source": "model"
+          }
+        ],
+        "metrics": {
+          "p50": 917,
+          "p90": 1108,
+          "p99": 1480
+        },
+        "complete": true
+      },
+      {
+        "samples_ms": [
+          716,
+          939,
+          1096,
+          1013,
+          1207,
+          1116,
+          871,
+          1396,
+          796,
+          868,
+          790,
+          899,
+          855,
+          1083,
+          960,
+          888,
+          764,
+          833,
+          824,
+          900,
+          1056,
+          980,
+          908,
+          911,
+          974,
+          1052,
+          1013,
+          1052,
+          870,
+          722,
+          713,
+          805,
+          939,
+          850,
+          858,
+          779,
+          902,
+          557,
+          816,
+          885,
+          1009,
+          972,
+          968,
+          794,
+          969,
+          1157,
+          1060,
+          1015,
+          998,
+          922,
+          941,
+          1144,
+          911,
+          1220,
+          931,
+          805,
+          768,
+          957,
+          877,
+          997,
+          1114,
+          1104,
+          1188,
+          807,
+          978,
+          1096,
+          1102,
+          1136,
+          1234,
+          1116,
+          816,
+          1330,
+          885,
+          869,
+          1023,
+          802,
+          763,
+          715,
+          915,
+          762,
+          890,
+          935,
+          863,
+          1042,
+          1000,
+          858,
+          979,
+          863,
+          720,
+          1011,
+          886,
+          857,
+          1014,
+          852,
+          996,
+          648,
+          694,
+          774
+        ],
+        "items": [
+          {
+            "id": "en01",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 716 ms (model 716 ms: prompt 16 tok 715 ms, 1 tok 1 ms, gap 18.37) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 716,
+            "source": "model"
+          },
+          {
+            "id": "en02",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 939 ms (model 938 ms: prompt 14 tok 773 ms, 2 tok 165 ms, gap 13.66) applied: SAD center",
+            "pass": true,
+            "model_ms": 939,
+            "source": "model"
+          },
+          {
+            "id": "en03",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 1096 ms (model 1095 ms: prompt 21 tok 1094 ms, 1 tok 1 ms, gap 23.81) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1096,
+            "source": "model"
+          },
+          {
+            "id": "en04",
+            "set": "dev",
+            "result": "APPLIED SURPRISED center | model 1013 ms (model 1011 ms: prompt 18 tok 1009 ms, 1 tok 2 ms, gap 17.39) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 1013,
+            "source": "model"
+          },
+          {
+            "id": "en05",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 1207 ms (model 1206 ms: prompt 22 tok 1203 ms, 1 tok 3 ms, gap 16.56) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1207,
+            "source": "model"
+          },
+          {
+            "id": "en06",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 1116 ms (model 1113 ms: prompt 18 tok 997 ms, 2 tok 116 ms, gap 10.25) applied: SAD center",
+            "pass": false,
+            "model_ms": 1116,
+            "source": "model"
+          },
+          {
+            "id": "en07",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 871 ms (model 869 ms: prompt 15 tok 868 ms, 1 tok 1 ms, gap 13.24) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 871,
+            "source": "model"
+          },
+          {
+            "id": "en08",
+            "set": "dev",
+            "result": "APPLIED WINK_RIGHT center | model 1396 ms (model 1394 ms: prompt 18 tok 1003 ms, 4 tok 391 ms, gap 12.66) applied: WINK_RIGHT center",
+            "pass": true,
+            "model_ms": 1396,
+            "source": "model"
+          },
+          {
+            "id": "en09",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL left | model 796 ms (model 795 ms: prompt 13 tok 793 ms, 1 tok 2 ms, gap 13.61) applied: NEUTRAL left",
+            "pass": true,
+            "model_ms": 796,
+            "source": "model"
+          },
+          {
+            "id": "en10",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL right | model 868 ms (model 867 ms: prompt 17 tok 865 ms, 1 tok 2 ms, gap 11.99) applied: NEUTRAL right",
+            "pass": true,
+            "model_ms": 868,
+            "source": "model"
+          },
+          {
+            "id": "en11",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL up | model 790 ms (model 788 ms: prompt 14 tok 786 ms, 1 tok 2 ms, gap 14.95) applied: NEUTRAL up",
+            "pass": true,
+            "model_ms": 790,
+            "source": "model"
+          },
+          {
+            "id": "en12",
+            "set": "dev",
+            "result": "APPLIED NEUTRAL down | model 899 ms (model 898 ms: prompt 14 tok 896 ms, 1 tok 2 ms, gap 0.41) applied: NEUTRAL down",
+            "pass": true,
+            "model_ms": 899,
+            "source": "model"
+          },
+          {
+            "id": "en13",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 855 ms (model 854 ms: prompt 13 tok 852 ms, 1 tok 2 ms, gap 20.72) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 855,
+            "source": "model"
+          },
+          {
+            "id": "en14",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 1083 ms (model 1081 ms: prompt 15 tok 948 ms, 2 tok 133 ms, gap 14.47) applied: SAD center",
+            "pass": true,
+            "model_ms": 1083,
+            "source": "model"
+          },
+          {
+            "id": "en15",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 960 ms (model 958 ms: prompt 18 tok 956 ms, 1 tok 2 ms, gap 22.16) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 960,
+            "source": "model"
+          },
+          {
+            "id": "en16",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 888 ms (model 887 ms: prompt 18 tok 885 ms, 1 tok 2 ms, gap 9.45) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 888,
+            "source": "model"
+          },
+          {
+            "id": "en17",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 764 ms (model 763 ms: prompt 13 tok 761 ms, 1 tok 2 ms, gap 19.44) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 764,
+            "source": "model"
+          },
+          {
+            "id": "en18",
+            "set": "dev",
+            "result": "APPLIED BORED center | model 833 ms (model 832 ms: prompt 17 tok 830 ms, 1 tok 2 ms, gap 13.15) applied: BORED center",
+            "pass": true,
+            "model_ms": 833,
+            "source": "model"
+          },
+          {
+            "id": "en19",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 824 ms (model 823 ms: prompt 17 tok 821 ms, 1 tok 2 ms, gap 19.59) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 824,
+            "source": "model"
+          },
+          {
+            "id": "en20",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 900 ms (model 899 ms: prompt 15 tok 792 ms, 2 tok 107 ms, gap 16.41) applied: SAD center",
+            "pass": true,
+            "model_ms": 900,
+            "source": "model"
+          },
+          {
+            "id": "en21",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 1056 ms (model 1054 ms: prompt 17 tok 1052 ms, 1 tok 2 ms, gap 17.43) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 1056,
+            "source": "model"
+          },
+          {
+            "id": "en22",
+            "set": "dev",
+            "result": "APPLIED ANGRY center | model 980 ms (model 979 ms: prompt 17 tok 976 ms, 1 tok 3 ms, gap 20.08) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 980,
+            "source": "model"
+          },
+          {
+            "id": "en23",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 908 ms (model 906 ms: prompt 17 tok 905 ms, 1 tok 1 ms, gap 15.71) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 908,
+            "source": "model"
+          },
+          {
+            "id": "en24",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 911 ms (model 910 ms: prompt 16 tok 908 ms, 1 tok 2 ms, gap 16.52) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 911,
+            "source": "model"
+          },
+          {
+            "id": "en25",
+            "set": "dev",
+            "result": "APPLIED SLEEPY center | model 974 ms (model 971 ms: prompt 17 tok 970 ms, 1 tok 1 ms, gap 10.34) applied: SLEEPY center",
+            "pass": false,
+            "model_ms": 974,
+            "source": "model"
+          },
+          {
+            "id": "en26",
+            "set": "dev",
+            "result": "APPLIED SAD center | model 1052 ms (model 1050 ms: prompt 14 tok 929 ms, 2 tok 121 ms, gap 13.27) applied: SAD center",
+            "pass": true,
+            "model_ms": 1052,
+            "source": "model"
+          },
+          {
+            "id": "en27",
+            "set": "dev",
+            "result": "APPLIED SURPRISED left | model 1013 ms (model 1012 ms: prompt 19 tok 1011 ms, 1 tok 1 ms, gap 11.84) applied: SURPRISED left",
+            "pass": true,
+            "model_ms": 1013,
+            "source": "model"
+          },
+          {
+            "id": "en28",
+            "set": "dev",
+            "result": "APPLIED HAPPY center | model 1052 ms (model 1050 ms: prompt 20 tok 1049 ms, 1 tok 1 ms, gap 15.85) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 1052,
+            "source": "model"
+          },
+          {
+            "id": "nr01",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 870 ms (model 868 ms: prompt 17 tok 865 ms, 1 tok 3 ms, gap 1.27) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 870,
+            "source": "model"
+          },
+          {
+            "id": "nr02",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 722 ms (model 721 ms: prompt 16 tok 719 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 722,
+            "source": "model"
+          },
+          {
+            "id": "nr03",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 713 ms (model 713 ms: prompt 16 tok 711 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 713,
+            "source": "model"
+          },
+          {
+            "id": "nr04",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 805 ms (model 803 ms: prompt 16 tok 801 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 805,
+            "source": "model"
+          },
+          {
+            "id": "nr05",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 939 ms (model 937 ms: prompt 15 tok 936 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 939,
+            "source": "model"
+          },
+          {
+            "id": "nr06",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 850 ms (model 849 ms: prompt 15 tok 848 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 850,
+            "source": "model"
+          },
+          {
+            "id": "nr07",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 858 ms (model 857 ms: prompt 16 tok 855 ms, 1 tok 2 ms, gap 9.45) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 858,
+            "source": "model"
+          },
+          {
+            "id": "nr08",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 779 ms (model 777 ms: prompt 14 tok 776 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 779,
+            "source": "model"
+          },
+          {
+            "id": "nr09",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | model 902 ms (model 900 ms: prompt 14 tok 899 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 902,
+            "source": "model"
+          },
+          {
+            "id": "nr10",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 557 ms (model 557 ms: prompt 12 tok 555 ms, 1 tok 2 ms, gap 1.77) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 557,
+            "source": "model"
+          },
+          {
+            "id": "nr11",
+            "set": "dev",
+            "result": "IGNORED_NO_REACTION NONE center | phrasebook 1 ms applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": null,
+            "source": "phrasebook"
+          },
+          {
+            "id": "nr12",
+            "set": "dev",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 816 ms (model 814 ms: prompt 14 tok 813 ms, 1 tok 1 ms, gap 1.84) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 816,
+            "source": "model"
+          },
+          {
+            "id": "ho01",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 885 ms (model 883 ms: prompt 14 tok 881 ms, 1 tok 2 ms, gap 17.91) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 885,
+            "source": "model"
+          },
+          {
+            "id": "ho02",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 1009 ms (model 1008 ms: prompt 17 tok 1005 ms, 1 tok 3 ms, gap 19.94) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 1009,
+            "source": "model"
+          },
+          {
+            "id": "ho03",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 972 ms (model 970 ms: prompt 18 tok 969 ms, 1 tok 1 ms, gap 18.30) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 972,
+            "source": "model"
+          },
+          {
+            "id": "ho04",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 968 ms (model 967 ms: prompt 16 tok 965 ms, 1 tok 2 ms, gap 11.34) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 968,
+            "source": "model"
+          },
+          {
+            "id": "ho05",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 794 ms (model 793 ms: prompt 15 tok 791 ms, 1 tok 2 ms, gap 17.55) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 794,
+            "source": "model"
+          },
+          {
+            "id": "ho06",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 969 ms (model 968 ms: prompt 15 tok 847 ms, 2 tok 121 ms, gap 5.64) applied: SAD center",
+            "pass": true,
+            "model_ms": 969,
+            "source": "model"
+          },
+          {
+            "id": "ho07",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1157 ms (model 1156 ms: prompt 17 tok 994 ms, 2 tok 162 ms, gap 14.90) applied: SAD center",
+            "pass": true,
+            "model_ms": 1157,
+            "source": "model"
+          },
+          {
+            "id": "ho08",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1060 ms (model 1057 ms: prompt 15 tok 941 ms, 2 tok 116 ms, gap 19.20) applied: SAD center",
+            "pass": true,
+            "model_ms": 1060,
+            "source": "model"
+          },
+          {
+            "id": "ho09",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1015 ms (model 1014 ms: prompt 17 tok 902 ms, 2 tok 112 ms, gap 13.76) applied: SAD center",
+            "pass": true,
+            "model_ms": 1015,
+            "source": "model"
+          },
+          {
+            "id": "ho10",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 998 ms (model 996 ms: prompt 15 tok 831 ms, 2 tok 165 ms, gap 12.67) applied: SAD center",
+            "pass": true,
+            "model_ms": 998,
+            "source": "model"
+          },
+          {
+            "id": "ho11",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 922 ms (model 921 ms: prompt 17 tok 919 ms, 1 tok 2 ms, gap 16.87) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 922,
+            "source": "model"
+          },
+          {
+            "id": "ho12",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 941 ms (model 939 ms: prompt 19 tok 938 ms, 1 tok 1 ms, gap 13.55) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 941,
+            "source": "model"
+          },
+          {
+            "id": "ho13",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1144 ms (model 1142 ms: prompt 19 tok 1140 ms, 1 tok 2 ms, gap 23.51) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1144,
+            "source": "model"
+          },
+          {
+            "id": "ho14",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 911 ms (model 911 ms: prompt 17 tok 909 ms, 1 tok 2 ms, gap 20.62) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 911,
+            "source": "model"
+          },
+          {
+            "id": "ho15",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1220 ms (model 1218 ms: prompt 20 tok 1216 ms, 1 tok 2 ms, gap 14.77) applied: ANGRY center",
+            "pass": true,
+            "model_ms": 1220,
+            "source": "model"
+          },
+          {
+            "id": "ho16",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 931 ms (model 930 ms: prompt 16 tok 928 ms, 1 tok 2 ms, gap 16.24) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 931,
+            "source": "model"
+          },
+          {
+            "id": "ho17",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 805 ms (model 804 ms: prompt 14 tok 803 ms, 1 tok 1 ms, gap 5.09) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 805,
+            "source": "model"
+          },
+          {
+            "id": "ho18",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 768 ms (model 767 ms: prompt 17 tok 765 ms, 1 tok 2 ms, gap 10.92) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 768,
+            "source": "model"
+          },
+          {
+            "id": "ho19",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 957 ms (model 957 ms: prompt 19 tok 955 ms, 1 tok 2 ms, gap 10.22) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 957,
+            "source": "model"
+          },
+          {
+            "id": "ho20",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED center | model 877 ms (model 876 ms: prompt 16 tok 874 ms, 1 tok 2 ms, gap 15.89) applied: SURPRISED center",
+            "pass": true,
+            "model_ms": 877,
+            "source": "model"
+          },
+          {
+            "id": "ho21",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 997 ms (model 996 ms: prompt 18 tok 994 ms, 1 tok 2 ms, gap 15.95) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 997,
+            "source": "model"
+          },
+          {
+            "id": "ho22",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 1114 ms (model 1112 ms: prompt 20 tok 1110 ms, 1 tok 2 ms, gap 10.92) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1114,
+            "source": "model"
+          },
+          {
+            "id": "ho23",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY center | model 1104 ms (model 1102 ms: prompt 19 tok 1100 ms, 1 tok 2 ms, gap 17.86) applied: SLEEPY center",
+            "pass": true,
+            "model_ms": 1104,
+            "source": "model"
+          },
+          {
+            "id": "ho24",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1188 ms (model 1188 ms: prompt 20 tok 1064 ms, 2 tok 124 ms, gap 6.69) applied: SAD center",
+            "pass": false,
+            "model_ms": 1188,
+            "source": "model"
+          },
+          {
+            "id": "ho25",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 807 ms (model 806 ms: prompt 16 tok 804 ms, 1 tok 2 ms, gap 13.25) applied: BORED center",
+            "pass": true,
+            "model_ms": 807,
+            "source": "model"
+          },
+          {
+            "id": "ho26",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 978 ms (model 976 ms: prompt 16 tok 975 ms, 1 tok 1 ms, gap 5.78) applied: BORED center",
+            "pass": true,
+            "model_ms": 978,
+            "source": "model"
+          },
+          {
+            "id": "ho27",
+            "set": "holdout",
+            "result": "APPLIED BORED center | model 1096 ms (model 1094 ms: prompt 20 tok 1092 ms, 1 tok 2 ms, gap 12.81) applied: BORED center",
+            "pass": true,
+            "model_ms": 1096,
+            "source": "model"
+          },
+          {
+            "id": "ho28",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1102 ms (model 1100 ms: prompt 16 tok 935 ms, 2 tok 165 ms, gap 10.57) applied: SAD center",
+            "pass": false,
+            "model_ms": 1102,
+            "source": "model"
+          },
+          {
+            "id": "ho29",
+            "set": "holdout",
+            "result": "APPLIED ANGRY center | model 1136 ms (model 1134 ms: prompt 21 tok 1133 ms, 1 tok 1 ms, gap 6.06) applied: ANGRY center",
+            "pass": false,
+            "model_ms": 1136,
+            "source": "model"
+          },
+          {
+            "id": "ho30",
+            "set": "holdout",
+            "result": "APPLIED WINK_RIGHT center | model 1234 ms (model 1231 ms: prompt 16 tok 807 ms, 4 tok 424 ms, gap 17.52) applied: WINK_RIGHT center",
+            "pass": true,
+            "model_ms": 1234,
+            "source": "model"
+          },
+          {
+            "id": "ho31",
+            "set": "holdout",
+            "result": "APPLIED SAD center | model 1116 ms (model 1114 ms: prompt 18 tok 1001 ms, 2 tok 113 ms, gap 11.79) applied: SAD center",
+            "pass": false,
+            "model_ms": 1116,
+            "source": "model"
+          },
+          {
+            "id": "ho32",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED left | model 816 ms (model 814 ms: prompt 17 tok 812 ms, 1 tok 2 ms, gap 12.40) applied: SURPRISED left",
+            "pass": true,
+            "model_ms": 816,
+            "source": "model"
+          },
+          {
+            "id": "ho33",
+            "set": "holdout",
+            "result": "APPLIED WINK_RIGHT right | model 1330 ms (model 1328 ms: prompt 15 tok 948 ms, 4 tok 380 ms, gap 16.13) applied: WINK_RIGHT right",
+            "pass": false,
+            "model_ms": 1330,
+            "source": "model"
+          },
+          {
+            "id": "ho34",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL up | model 885 ms (model 884 ms: prompt 15 tok 882 ms, 1 tok 2 ms, gap 16.23) applied: NEUTRAL up",
+            "pass": true,
+            "model_ms": 885,
+            "source": "model"
+          },
+          {
+            "id": "ho35",
+            "set": "holdout",
+            "result": "APPLIED SLEEPY down | model 869 ms (model 868 ms: prompt 14 tok 866 ms, 1 tok 2 ms, gap 12.11) applied: SLEEPY down",
+            "pass": false,
+            "model_ms": 869,
+            "source": "model"
+          },
+          {
+            "id": "ho36",
+            "set": "holdout",
+            "result": "APPLIED SURPRISED right | model 1023 ms (model 1022 ms: prompt 17 tok 1021 ms, 1 tok 1 ms, gap 10.14) applied: SURPRISED right",
+            "pass": true,
+            "model_ms": 1023,
+            "source": "model"
+          },
+          {
+            "id": "ho37",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL left | model 802 ms (model 801 ms: prompt 14 tok 800 ms, 1 tok 1 ms, gap 9.45) applied: NEUTRAL left",
+            "pass": true,
+            "model_ms": 802,
+            "source": "model"
+          },
+          {
+            "id": "ho38",
+            "set": "holdout",
+            "result": "APPLIED NEUTRAL down | model 763 ms (model 762 ms: prompt 14 tok 760 ms, 1 tok 2 ms, gap 5.66) applied: NEUTRAL down",
+            "pass": true,
+            "model_ms": 763,
+            "source": "model"
+          },
+          {
+            "id": "ho39",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 715 ms (model 714 ms: prompt 13 tok 713 ms, 1 tok 1 ms, gap 14.59) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 715,
+            "source": "model"
+          },
+          {
+            "id": "ho40",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 915 ms (model 913 ms: prompt 14 tok 912 ms, 1 tok 1 ms, gap 14.96) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 915,
+            "source": "model"
+          },
+          {
+            "id": "hn01",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 762 ms (model 760 ms: prompt 14 tok 758 ms, 1 tok 2 ms, gap 1.73) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 762,
+            "source": "model"
+          },
+          {
+            "id": "hn02",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 890 ms (model 889 ms: prompt 16 tok 887 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 890,
+            "source": "model"
+          },
+          {
+            "id": "hn03",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 935 ms (model 933 ms: prompt 15 tok 931 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 935,
+            "source": "model"
+          },
+          {
+            "id": "hn04",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 863 ms (model 861 ms: prompt 15 tok 859 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 863,
+            "source": "model"
+          },
+          {
+            "id": "hn05",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 1042 ms (model 1041 ms: prompt 16 tok 1040 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 1042,
+            "source": "model"
+          },
+          {
+            "id": "hn06",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 1000 ms (model 999 ms: prompt 15 tok 998 ms, 1 tok 1 ms, gap 0.68) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 1000,
+            "source": "model"
+          },
+          {
+            "id": "hn07",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 858 ms (model 855 ms: prompt 14 tok 853 ms, 1 tok 2 ms, gap 5.37) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 858,
+            "source": "model"
+          },
+          {
+            "id": "hn08",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 979 ms (model 978 ms: prompt 16 tok 977 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 979,
+            "source": "model"
+          },
+          {
+            "id": "hn09",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 863 ms (model 861 ms: prompt 15 tok 859 ms, 1 tok 2 ms, gap 4.34) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 863,
+            "source": "model"
+          },
+          {
+            "id": "hn10",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 720 ms (model 719 ms: prompt 15 tok 717 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 720,
+            "source": "model"
+          },
+          {
+            "id": "hn11",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 1011 ms (model 1010 ms: prompt 16 tok 1009 ms, 1 tok 1 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 1011,
+            "source": "model"
+          },
+          {
+            "id": "hn12",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 886 ms (model 885 ms: prompt 15 tok 883 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 886,
+            "source": "model"
+          },
+          {
+            "id": "hn13",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 857 ms (model 857 ms: prompt 15 tok 855 ms, 1 tok 2 ms, gap 1.86) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 857,
+            "source": "model"
+          },
+          {
+            "id": "hn14",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 1014 ms (model 1013 ms: prompt 15 tok 1011 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 1014,
+            "source": "model"
+          },
+          {
+            "id": "hn15",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 852 ms (model 850 ms: prompt 16 tok 848 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 852,
+            "source": "model"
+          },
+          {
+            "id": "hn16",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 996 ms (model 994 ms: prompt 17 tok 992 ms, 1 tok 2 ms, gap 4.62) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 996,
+            "source": "model"
+          },
+          {
+            "id": "hn17",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | phrasebook 1 ms applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": null,
+            "source": "phrasebook"
+          },
+          {
+            "id": "hn18",
+            "set": "holdout",
+            "result": "APPLIED HAPPY center | model 648 ms (model 647 ms: prompt 14 tok 645 ms, 1 tok 2 ms, gap 8.65) applied: HAPPY center",
+            "pass": false,
+            "model_ms": 648,
+            "source": "model"
+          },
+          {
+            "id": "hn19",
+            "set": "holdout",
+            "result": "IGNORED_NO_CHANGE NEUTRAL center | model 694 ms (model 693 ms: prompt 15 tok 692 ms, 1 tok 1 ms, gap 0.65) applied: HAPPY center",
+            "pass": true,
+            "model_ms": 694,
+            "source": "model"
+          },
+          {
+            "id": "hn20",
+            "set": "holdout",
+            "result": "IGNORED_NO_REACTION NONE center | model 774 ms (model 773 ms: prompt 14 tok 771 ms, 1 tok 2 ms, gap 0.00) applied: NEUTRAL center (idle)",
+            "pass": true,
+            "model_ms": 774,
+            "source": "model"
+          }
+        ],
+        "metrics": {
+          "p50": 911,
+          "p90": 1116,
+          "p99": 1396
+        },
+        "complete": true
+      }
+    ],
+    "complete": false
+  },
+  "stories": {
+    "items": [
+      {
+        "id": "s01",
+        "set": "dev",
+        "correct": 5,
+        "total": 7,
+        "started": 7,
+        "changes": 3,
+        "shortest_ms": 7602,
+        "details": [
+          "  PASS 1 shown NEUTRAL center | want NEUTRAL/HAPPY | decided IGNORED_NO_CHANGE NEUTRAL center | Yesterday I went to the park with my dog.",
+          "  PASS 2 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | He loves chasing the ducks there.",
+          "  FAIL 3 shown HAPPY center | want SURPRISED/SAD | decided CARRIED NEUTRAL center | Then he ran into the road.",
+          "  FAIL 4 shown HAPPY center | want SAD/SURPRISED | decided CARRIED NONE center | A car hit him.",
+          "  PASS 5 shown SAD center | want SAD | decided APPLIED SAD center | The vet said he will not make it.",
+          "  PASS 6 shown SAD center | want SAD | decided CARRIED NEUTRAL center | We sat with him until the end.",
+          "  PASS 7 shown SAD center | want SAD | decided EXTENDED SAD center | I still miss him every day."
+        ]
+      },
+      {
+        "id": "s02",
+        "set": "dev",
+        "correct": 7,
+        "total": 7,
+        "started": 7,
+        "changes": 5,
+        "shortest_ms": 2001,
+        "details": [
+          "  PASS 1 shown SURPRISED center | want SURPRISED/HAPPY/NEUTRAL | decided APPLIED SURPRISED center | Guess what happened today!",
+          "  PASS 2 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | I got the job at the bakery!",
+          "  PASS 3 shown HAPPY center | want HAPPY | decided CARRIED NEUTRAL center | They called me this morning.",
+          "  PASS 4 shown HAPPY center | want HAPPY/NEUTRAL | decided CARRIED NEUTRAL center | I start on Monday.",
+          "  PASS 5 shown SAD center | want SLEEPY/SAD/BORED | decided APPLIED SAD center | The only problem is that I have to wake up at four.",
+          "  PASS 6 shown SURPRISED center | want SURPRISED/SLEEPY/BORED | decided APPLIED SURPRISED center | Four in the morning, can you believe it?",
+          "  PASS 7 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | Still, I am so happy."
+        ]
+      },
+      {
+        "id": "s03",
+        "set": "dev",
+        "correct": 7,
+        "total": 7,
+        "started": 7,
+        "changes": 3,
+        "shortest_ms": 6002,
+        "details": [
+          "  PASS 1 shown NEUTRAL center | want NEUTRAL | decided IGNORED_NO_CHANGE NEUTRAL center | I ordered a new phone two weeks ago.",
+          "  PASS 2 shown SAD center | want ANGRY/SAD/NEUTRAL | decided APPLIED SAD center | It still has not arrived.",
+          "  PASS 3 shown SAD center | want ANGRY/SAD/SURPRISED | decided CARRIED NONE center | Today the shop told me they lost it.",
+          "  PASS 4 shown ANGRY center | want ANGRY | decided APPLIED ANGRY center | And they refuse to give my money back!",
+          "  PASS 5 shown ANGRY center | want ANGRY | decided CARRIED NONE center | I called them five times.",
+          "  PASS 6 shown ANGRY center | want ANGRY/SAD | decided CARRIED NEUTRAL center | Nobody answers.",
+          "  PASS 7 shown ANGRY center | want ANGRY | decided EXTENDED ANGRY center | This is ridiculous."
+        ]
+      },
+      {
+        "id": "s04",
+        "set": "dev",
+        "correct": 5,
+        "total": 7,
+        "started": 7,
+        "changes": 5,
+        "shortest_ms": 2402,
+        "details": [
+          "  PASS 1 shown SAD center | want SLEEPY/NEUTRAL/SAD | decided APPLIED SAD center | It has been a very long day.",
+          "  FAIL 2 shown BORED center | want SLEEPY/SAD/NEUTRAL | decided APPLIED BORED center | I worked for twelve hours.",
+          "  PASS 3 shown SLEEPY center | want SLEEPY | decided APPLIED SLEEPY center | I can barely keep my eyes open.",
+          "  PASS 4 shown SLEEPY center | want SLEEPY/NEUTRAL | decided EXTENDED SLEEPY center | Maybe I will just watch something.",
+          "  PASS 5 shown BORED center | want BORED | decided APPLIED BORED center | This show is so slow and boring.",
+          "  FAIL 6 shown SLEEPY center | want BORED | decided APPLIED SLEEPY center | Nothing happens in it at all.",
+          "  PASS 7 shown SLEEPY center | want SLEEPY/NEUTRAL | decided EXTENDED SLEEPY center | Good night."
+        ]
+      },
+      {
+        "id": "s05",
+        "set": "dev",
+        "correct": 6,
+        "total": 7,
+        "started": 7,
+        "changes": 3,
+        "shortest_ms": 5601,
+        "details": [
+          "  PASS 1 shown HAPPY center | want NEUTRAL/HAPPY | decided APPLIED HAPPY center | Let me tell you about my birthday.",
+          "  FAIL 2 shown HAPPY center | want NEUTRAL/SURPRISED | decided CARRIED NEUTRAL center | I walked into my apartment and the lights were off.",
+          "  PASS 3 shown SURPRISED center | want SURPRISED | decided APPLIED SURPRISED center | Suddenly everyone jumped out and shouted surprise!",
+          "  PASS 4 shown SURPRISED center | want SURPRISED/HAPPY | decided EXTENDED SURPRISED center | I could not believe it!",
+          "  PASS 5 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | All my friends were there.",
+          "  PASS 6 shown HAPPY left | want HAPPY/NEUTRAL look left | decided APPLIED HAPPY left | Look at the cake on the left.",
+          "  PASS 7 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | It was the best day of my life."
+        ]
+      },
+      {
+        "id": "s06",
+        "set": "holdout",
+        "correct": 7,
+        "total": 7,
+        "started": 7,
+        "changes": 5,
+        "shortest_ms": 3200,
+        "details": [
+          "  PASS 1 shown NEUTRAL center | want NEUTRAL | decided IGNORED_NO_CHANGE NEUTRAL center | I had my driving test this morning.",
+          "  PASS 2 shown SAD center | want NEUTRAL/SAD/SURPRISED | decided APPLIED SAD center | I was so nervous.",
+          "  PASS 3 shown SAD center | want SAD | decided EXTENDED SAD center | I failed the first part.",
+          "  PASS 4 shown ANGRY center | want ANGRY/SAD | decided APPLIED ANGRY center | The examiner was really rude to me.",
+          "  PASS 5 shown HAPPY center | want HAPPY/SURPRISED | decided APPLIED HAPPY center | But then I passed the rest!",
+          "  PASS 6 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | I finally have my license!",
+          "  PASS 7 shown SAD center | want HAPPY/SAD/NEUTRAL | decided APPLIED SAD center | My mom cried when I told her."
+        ]
+      },
+      {
+        "id": "s07",
+        "set": "holdout",
+        "correct": 3,
+        "total": 7,
+        "started": 7,
+        "changes": 4,
+        "shortest_ms": 5200,
+        "details": [
+          "  PASS 1 shown NEUTRAL center | want NEUTRAL/SURPRISED | decided IGNORED_NO_CHANGE NEUTRAL center | Hey, are you awake?",
+          "  FAIL 2 shown HAPPY center | want NEUTRAL | decided APPLIED HAPPY center | I need your help with something.",
+          "  FAIL 3 shown HAPPY up | want NEUTRAL look up | decided APPLIED NEUTRAL up | Look up at the shelf.",
+          "  FAIL 4 shown SURPRISED center | want NEUTRAL | decided APPLIED SURPRISED center | Do you see the red box?",
+          "  FAIL 5 shown SURPRISED down | want NEUTRAL look down | decided APPLIED NEUTRAL down | Now look down at the floor.",
+          "  PASS 6 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | Great job, thank you!",
+          "  PASS 7 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | You are the best."
+        ]
+      },
+      {
+        "id": "s08",
+        "set": "holdout",
+        "correct": 7,
+        "total": 7,
+        "started": 7,
+        "changes": 3,
+        "shortest_ms": 7602,
+        "details": [
+          "  PASS 1 shown NEUTRAL center | want SAD/BORED/NEUTRAL | decided IGNORED_NO_CHANGE NEUTRAL center | It has been raining all week.",
+          "  PASS 2 shown SAD center | want SAD/BORED | decided APPLIED SAD center | I could not go outside even once.",
+          "  PASS 3 shown SAD center | want SAD | decided EXTENDED SAD center | I feel so lonely.",
+          "  PASS 4 shown SAD center | want SAD/NEUTRAL | decided CARRIED NEUTRAL center | Then my sister called me.",
+          "  PASS 5 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | She is coming to visit tomorrow!",
+          "  PASS 6 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | We are going to bake cookies together.",
+          "  PASS 7 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | I can't wait."
+        ]
+      },
+      {
+        "id": "s09",
+        "set": "holdout",
+        "correct": 3,
+        "total": 7,
+        "started": 7,
+        "changes": 3,
+        "shortest_ms": 4400,
+        "details": [
+          "  PASS 1 shown NEUTRAL center | want ANGRY/NEUTRAL/BORED | decided IGNORED_NO_CHANGE NEUTRAL center | My neighbor plays loud music every night.",
+          "  FAIL 2 shown NEUTRAL center | want ANGRY | decided IGNORED_NO_CHANGE NEUTRAL center | Last night it went on until three.",
+          "  FAIL 3 shown HAPPY center | want ANGRY | decided APPLIED HAPPY center | I knocked on his door and he laughed at me!",
+          "  PASS 4 shown ANGRY center | want ANGRY | decided APPLIED ANGRY center | I was furious.",
+          "  FAIL 5 shown ANGRY center | want SURPRISED/HAPPY/NEUTRAL | decided CARRIED NEUTRAL center | This morning he left a note and some flowers.",
+          "  FAIL 6 shown ANGRY center | want HAPPY/NEUTRAL | decided CARRIED NEUTRAL center | He said he was sorry.",
+          "  PASS 7 shown NEUTRAL center | want HAPPY/NEUTRAL | decided IGNORED_NO_CHANGE NEUTRAL center | Okay, maybe he is not so bad."
+        ]
+      },
+      {
+        "id": "s10",
+        "set": "holdout",
+        "correct": 5,
+        "total": 7,
+        "started": 7,
+        "changes": 5,
+        "shortest_ms": 2000,
+        "details": [
+          "  PASS 1 shown NEUTRAL center | want BORED/NEUTRAL | decided IGNORED_NO_REACTION NONE center | Today we had a three hour meeting.",
+          "  FAIL 2 shown NEUTRAL center | want BORED | decided IGNORED_NO_CHANGE NEUTRAL center | The manager read every slide out loud.",
+          "  PASS 3 shown SLEEPY center | want SLEEPY/BORED | decided APPLIED SLEEPY center | I almost fell asleep.",
+          "  FAIL 4 shown HAPPY center | want SURPRISED | decided APPLIED HAPPY center | Then he announced that the company was sold!",
+          "  PASS 5 shown SURPRISED center | want SURPRISED | decided APPLIED SURPRISED center | Nobody saw that coming.",
+          "  PASS 6 shown HAPPY center | want HAPPY | decided APPLIED HAPPY center | Everyone got a big bonus.",
+          "  PASS 7 shown HAPPY center | want HAPPY | decided EXTENDED HAPPY center | Best meeting ever!"
+        ]
+      }
+    ],
+    "counts": {
+      "dev": 30,
+      "holdout": 25
+    },
+    "changes": 39,
+    "shortest_ms": 2000,
+    "complete": true
+  },
+  "voice": {
+    "lines": {
+      "en3": {
+        "runs": [
+          {
+            "first_audio_ms": 3863.0,
+            "starts_ms": {
+              "1": 242819637,
+              "2": 242823093,
+              "3": 242825205
+            },
+            "audio_ms": {
+              "1": 3204,
+              "2": 1927,
+              "3": 1195
+            },
+            "gaps_ms": [
+              252,
+              185
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 242819637,
+                "presented_t": 242819603,
+                "offset_ms": -34
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 242823093,
+                "presented_t": 242823057,
+                "offset_ms": -36
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 242825205,
+                "presented_t": 242825234,
+                "offset_ms": 29
+              }
+            ],
+            "offsets_ms": [
+              -34,
+              -36,
+              29
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 3863.0,
+              "gap_p50": 185,
+              "gap_p90": 252,
+              "gap_p99": 252,
+              "offset_p50": -34,
+              "offset_p90": 29,
+              "offset_p99": 29
+            }
+          },
+          {
+            "first_audio_ms": 3474.0,
+            "starts_ms": {
+              "1": 242999774,
+              "2": 243002847,
+              "3": 243005151
+            },
+            "audio_ms": {
+              "1": 2821,
+              "2": 2054,
+              "3": 975
+            },
+            "gaps_ms": [
+              252,
+              250
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 242999774,
+                "presented_t": 242999742,
+                "offset_ms": -32
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 243002847,
+                "presented_t": 243002813,
+                "offset_ms": -34
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 243005150,
+                "presented_t": 243005118,
+                "offset_ms": -32
+              }
+            ],
+            "offsets_ms": [
+              -32,
+              -34,
+              -32
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 3474.0,
+              "gap_p50": 250,
+              "gap_p90": 252,
+              "gap_p99": 252,
+              "offset_p50": -32,
+              "offset_p90": -32,
+              "offset_p99": -32
+            }
+          },
+          {
+            "first_audio_ms": 3549.0,
+            "starts_ms": {
+              "1": 243180322,
+              "2": 243183395,
+              "3": 243185699
+            },
+            "audio_ms": {
+              "1": 2890,
+              "2": 2054,
+              "3": 1114
+            },
+            "gaps_ms": [
+              183,
+              250
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 243180322,
+                "presented_t": 243180289,
+                "offset_ms": -33
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 243183394,
+                "presented_t": 243183429,
+                "offset_ms": 35
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 243185698,
+                "presented_t": 243185734,
+                "offset_ms": 36
+              }
+            ],
+            "offsets_ms": [
+              -33,
+              35,
+              36
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 3549.0,
+              "gap_p50": 183,
+              "gap_p90": 250,
+              "gap_p99": 250,
+              "offset_p50": 35,
+              "offset_p90": 36,
+              "offset_p99": 36
+            }
+          }
+        ],
+        "complete": false
+      },
+      "en7": {
+        "runs": [
+          {
+            "first_audio_ms": 2904.0,
+            "starts_ms": {
+              "1": 243541050,
+              "2": 243544122,
+              "3": 243546715,
+              "4": 243547963,
+              "5": 243550363,
+              "6": 243551899,
+              "7": 243553627
+            },
+            "audio_ms": {
+              "1": 2821,
+              "2": 2356,
+              "3": 1044,
+              "4": 2171,
+              "5": 1207,
+              "6": 1486,
+              "7": 1486
+            },
+            "gaps_ms": [
+              251,
+              237,
+              204,
+              229,
+              329,
+              242
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 7,
+                "proxy_t": 243541050,
+                "presented_t": 243541017,
+                "offset_ms": -33
+              },
+              {
+                "sentence": 2,
+                "total": 7,
+                "proxy_t": 243544122,
+                "presented_t": 243544088,
+                "offset_ms": -34
+              },
+              {
+                "sentence": 3,
+                "total": 7,
+                "proxy_t": 243546715,
+                "presented_t": 243546695,
+                "offset_ms": -20
+              },
+              {
+                "sentence": 4,
+                "total": 7,
+                "proxy_t": 243547963,
+                "presented_t": 243547990,
+                "offset_ms": 27
+              },
+              {
+                "sentence": 5,
+                "total": 7,
+                "proxy_t": 243550363,
+                "presented_t": 243550411,
+                "offset_ms": 48
+              },
+              {
+                "sentence": 6,
+                "total": 7,
+                "proxy_t": 243551899,
+                "presented_t": 243551868,
+                "offset_ms": -31
+              },
+              {
+                "sentence": 7,
+                "total": 7,
+                "proxy_t": 243553627,
+                "presented_t": 243553605,
+                "offset_ms": -22
+              }
+            ],
+            "offsets_ms": [
+              -33,
+              -34,
+              -20,
+              27,
+              48,
+              -31,
+              -22
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 2904.0,
+              "gap_p50": 237,
+              "gap_p90": 329,
+              "gap_p99": 329,
+              "offset_p50": -22,
+              "offset_p90": 48,
+              "offset_p99": 48
+            }
+          },
+          {
+            "first_audio_ms": 4139.0,
+            "starts_ms": {
+              "1": 243722639,
+              "2": 243725711,
+              "3": 243728207,
+              "4": 243729649,
+              "5": 243732241,
+              "6": 243733682,
+              "7": 243735410
+            },
+            "audio_ms": {
+              "1": 2798,
+              "2": 2217,
+              "3": 1195,
+              "4": 2345,
+              "5": 1149,
+              "6": 1520,
+              "7": 1462
+            },
+            "gaps_ms": [
+              274,
+              279,
+              247,
+              247,
+              292,
+              208
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 7,
+                "proxy_t": 243722639,
+                "presented_t": 243722685,
+                "offset_ms": 46
+              },
+              {
+                "sentence": 2,
+                "total": 7,
+                "proxy_t": 243725711,
+                "presented_t": 243725733,
+                "offset_ms": 22
+              },
+              {
+                "sentence": 3,
+                "total": 7,
+                "proxy_t": 243728207,
+                "presented_t": 243728201,
+                "offset_ms": -6
+              },
+              {
+                "sentence": 4,
+                "total": 7,
+                "proxy_t": 243729649,
+                "presented_t": 243729646,
+                "offset_ms": -3
+              },
+              {
+                "sentence": 5,
+                "total": 7,
+                "proxy_t": 243732241,
+                "presented_t": 243732242,
+                "offset_ms": 1
+              },
+              {
+                "sentence": 6,
+                "total": 7,
+                "proxy_t": 243733681,
+                "presented_t": 243733641,
+                "offset_ms": -40
+              },
+              {
+                "sentence": 7,
+                "total": 7,
+                "proxy_t": 243735409,
+                "presented_t": 243735412,
+                "offset_ms": 3
+              }
+            ],
+            "offsets_ms": [
+              46,
+              22,
+              -6,
+              -3,
+              1,
+              -40,
+              3
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 4139.0,
+              "gap_p50": 247,
+              "gap_p90": 292,
+              "gap_p99": 292,
+              "offset_p50": 1,
+              "offset_p90": 46,
+              "offset_p99": 46
+            }
+          },
+          {
+            "first_audio_ms": 3431.0,
+            "starts_ms": {
+              "1": 243902402,
+              "2": 243905858,
+              "3": 243908163,
+              "4": 243909507,
+              "5": 243912217,
+              "6": 243913561,
+              "7": 243915288
+            },
+            "audio_ms": {
+              "1": 3250,
+              "2": 2066,
+              "3": 1079,
+              "4": 2449,
+              "5": 1091,
+              "6": 1451,
+              "7": 1497
+            },
+            "gaps_ms": [
+              206,
+              239,
+              265,
+              261,
+              253,
+              276
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 7,
+                "proxy_t": 243902402,
+                "presented_t": 243902369,
+                "offset_ms": -33
+              },
+              {
+                "sentence": 2,
+                "total": 7,
+                "proxy_t": 243905858,
+                "presented_t": 243905870,
+                "offset_ms": 12
+              },
+              {
+                "sentence": 3,
+                "total": 7,
+                "proxy_t": 243908163,
+                "presented_t": 243908186,
+                "offset_ms": 23
+              },
+              {
+                "sentence": 4,
+                "total": 7,
+                "proxy_t": 243909507,
+                "presented_t": 243909516,
+                "offset_ms": 9
+              },
+              {
+                "sentence": 5,
+                "total": 7,
+                "proxy_t": 243912216,
+                "presented_t": 243912238,
+                "offset_ms": 22
+              },
+              {
+                "sentence": 6,
+                "total": 7,
+                "proxy_t": 243913560,
+                "presented_t": 243913579,
+                "offset_ms": 19
+              },
+              {
+                "sentence": 7,
+                "total": 7,
+                "proxy_t": 243915288,
+                "presented_t": 243915280,
+                "offset_ms": -8
+              }
+            ],
+            "offsets_ms": [
+              -33,
+              12,
+              23,
+              9,
+              22,
+              19,
+              -8
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 3431.0,
+              "gap_p50": 253,
+              "gap_p90": 276,
+              "gap_p99": 276,
+              "offset_p50": 12,
+              "offset_p90": 23,
+              "offset_p99": 23
+            }
+          }
+        ],
+        "complete": false
+      },
+      "he3": {
+        "runs": [
+          {
+            "first_audio_ms": 1599.0,
+            "starts_ms": {
+              "1": 244261735,
+              "2": 244265576,
+              "3": 244268839
+            },
+            "audio_ms": {
+              "1": 3600,
+              "2": 3045,
+              "3": 1445
+            },
+            "gaps_ms": [
+              241,
+              218
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 244261735,
+                "presented_t": 244261702,
+                "offset_ms": -33
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 244265575,
+                "presented_t": 244265552,
+                "offset_ms": -23
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 244268839,
+                "presented_t": 244268847,
+                "offset_ms": 8
+              }
+            ],
+            "offsets_ms": [
+              -33,
+              -23,
+              8
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 1599.0,
+              "gap_p50": 218,
+              "gap_p90": 241,
+              "gap_p99": 241,
+              "offset_p50": -23,
+              "offset_p90": 8,
+              "offset_p99": 8
+            }
+          },
+          {
+            "first_audio_ms": 1710.0,
+            "starts_ms": {
+              "1": 244442420,
+              "2": 244446260,
+              "3": 244449524
+            },
+            "audio_ms": {
+              "1": 3600,
+              "2": 3045,
+              "3": 1445
+            },
+            "gaps_ms": [
+              240,
+              219
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 244442419,
+                "presented_t": 244442386,
+                "offset_ms": -33
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 244446260,
+                "presented_t": 244446236,
+                "offset_ms": -24
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 244449524,
+                "presented_t": 244449531,
+                "offset_ms": 7
+              }
+            ],
+            "offsets_ms": [
+              -33,
+              -24,
+              7
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 1710.0,
+              "gap_p50": 219,
+              "gap_p90": 240,
+              "gap_p99": 240,
+              "offset_p50": -24,
+              "offset_p90": 7,
+              "offset_p99": 7
+            }
+          },
+          {
+            "first_audio_ms": 1605.0,
+            "starts_ms": {
+              "1": 244622838,
+              "2": 244626679,
+              "3": 244629943
+            },
+            "audio_ms": {
+              "1": 3600,
+              "2": 3045,
+              "3": 1445
+            },
+            "gaps_ms": [
+              241,
+              219
+            ],
+            "audio_timestamps": [
+              {
+                "sentence": 1,
+                "total": 3,
+                "proxy_t": 244622838,
+                "presented_t": 244622805,
+                "offset_ms": -33
+              },
+              {
+                "sentence": 2,
+                "total": 3,
+                "proxy_t": 244626678,
+                "presented_t": 244626655,
+                "offset_ms": -23
+              },
+              {
+                "sentence": 3,
+                "total": 3,
+                "proxy_t": 244629942,
+                "presented_t": 244629950,
+                "offset_ms": 8
+              }
+            ],
+            "offsets_ms": [
+              -33,
+              -23,
+              8
+            ],
+            "complete": false,
+            "metrics": {
+              "first_audio_ms": 1605.0,
+              "gap_p50": 219,
+              "gap_p90": 241,
+              "gap_p99": 241,
+              "offset_p50": -23,
+              "offset_p90": 8,
+              "offset_p99": 8
+            }
+          }
+        ],
+        "complete": false
+      }
+    },
+    "complete": false
+  },
+  "startup": {
+    "ready": [
+      {
+        "ms": 17517.0,
+        "complete": true
+      },
+      {
+        "ms": 14957.0,
+        "complete": true
+      },
+      {
+        "ms": 16759.0,
+        "complete": true
+      }
+    ],
+    "audible": [
+      {
+        "ms": null,
+        "complete": false
+      },
+      {
+        "ms": null,
+        "complete": false
+      },
+      {
+        "ms": null,
+        "complete": false
+      }
+    ],
+    "complete": false
+  },
+  "smoke": {
+    "snapshots": [
+      {
+        "minute": 0,
+        "sample_monotonic_s": 234892.609,
+        "pid": "17945",
+        "stats": {
+          "frames": 119126,
+          "redraws": 59562,
+          "presents": 59563,
+          "work_avg_us": 2617,
+          "work_max_us": 13541,
+          "int_frames": 65,
+          "int_p99_us": 17000,
+          "int_max_us": 16771,
+          "int_over50": 0
+        },
+        "memory_kib": {
+          "VmHWM": 1664748,
+          "VmRSS": 1398680
+        },
+        "temperature_c": 28.2
+      },
+      {
+        "minute": 5.0,
+        "sample_monotonic_s": 235195.218,
+        "pid": "17945",
+        "stats": {
+          "frames": 137271,
+          "redraws": 68635,
+          "presents": 68942,
+          "work_avg_us": 2634,
+          "work_max_us": 14751,
+          "int_frames": 218,
+          "int_p99_us": 17000,
+          "int_max_us": 16726,
+          "int_over50": 0
+        },
+        "memory_kib": {
+          "VmHWM": 1664748,
+          "VmRSS": 1628668
+        },
+        "temperature_c": 29.0
+      },
+      {
+        "minute": 10.0,
+        "sample_monotonic_s": 235495.476,
+        "pid": "17945",
+        "stats": {
+          "frames": 155264,
+          "redraws": 77631,
+          "presents": 78100,
+          "work_avg_us": 2634,
+          "work_max_us": 15281,
+          "int_frames": 219,
+          "int_p99_us": 17000,
+          "int_max_us": 16733,
+          "int_over50": 0
+        },
+        "memory_kib": {
+          "VmHWM": 1664748,
+          "VmRSS": 1620480
+        },
+        "temperature_c": 29.2
+      },
+      {
+        "minute": 15.0,
+        "sample_monotonic_s": 235795.156,
+        "pid": "17945",
+        "stats": {
+          "frames": 173227,
+          "redraws": 86613,
+          "presents": 87442,
+          "work_avg_us": 2660,
+          "work_max_us": 15281,
+          "int_frames": 189,
+          "int_p99_us": 17000,
+          "int_max_us": 16725,
+          "int_over50": 0
+        },
+        "memory_kib": {
+          "VmHWM": 1669572,
+          "VmRSS": 1663308
+        },
+        "temperature_c": 29.5
+      },
+      {
+        "minute": 20.0,
+        "sample_monotonic_s": 236095.4215,
+        "pid": "17945",
+        "stats": {
+          "frames": 191227,
+          "redraws": 95613,
+          "presents": 96748,
+          "work_avg_us": 2669,
+          "work_max_us": 15281,
+          "int_frames": 196,
+          "int_p99_us": 17000,
+          "int_max_us": 16728,
+          "int_over50": 0
+        },
+        "memory_kib": {
+          "VmHWM": 1669572,
+          "VmRSS": 1658500
+        },
+        "temperature_c": 29.5
+      },
+      {
+        "minute": 25.0,
+        "sample_monotonic_s": 236395.37449999998,
+        "pid": "17945",
+        "stats": {
+          "frames": 209221,
+          "redraws": 104610,
+          "presents": 105817,
+          "work_avg_us": 2660,
+          "work_max_us": 15281,
+          "int_frames": 196,
+          "int_p99_us": 17000,
+          "int_max_us": 16726,
+          "int_over50": 0
+        },
+        "memory_kib": {
+          "VmHWM": 1669572,
+          "VmRSS": 1648284
+        },
+        "temperature_c": 29.7
+      },
+      {
+        "minute": 30.0,
+        "sample_monotonic_s": 236695.023,
+        "pid": "17945",
+        "stats": {
+          "frames": 227166,
+          "redraws": 113583,
+          "presents": 115078,
+          "work_avg_us": 2669,
+          "work_max_us": 16923,
+          "int_frames": 150,
+          "int_p99_us": 17000,
+          "int_max_us": 16717,
+          "int_over50": 0
+        },
+        "memory_kib": {
+          "VmHWM": 1669572,
+          "VmRSS": 1565244
+        },
+        "temperature_c": 29.7
+      }
+    ],
+    "intervals": [
+      {
+        "elapsed_s": 302.60899999999674,
+        "fps": 0.7204015743087693,
+        "stats": {
+          "frames": 137271,
+          "redraws": 68635,
+          "presents": 68942,
+          "work_avg_us": 2634,
+          "work_max_us": 14751,
+          "int_frames": 218,
+          "int_p99_us": 17000,
+          "int_max_us": 16726,
+          "int_over50": 0
+        }
+      },
+      {
+        "elapsed_s": 300.25800000000163,
+        "fps": 0.7293727394440741,
+        "stats": {
+          "frames": 155264,
+          "redraws": 77631,
+          "presents": 78100,
+          "work_avg_us": 2634,
+          "work_max_us": 15281,
+          "int_frames": 219,
+          "int_p99_us": 17000,
+          "int_max_us": 16733,
+          "int_over50": 0
+        }
+      },
+      {
+        "elapsed_s": 299.679999999993,
+        "fps": 0.6306727175654178,
+        "stats": {
+          "frames": 173227,
+          "redraws": 86613,
+          "presents": 87442,
+          "work_avg_us": 2660,
+          "work_max_us": 15281,
+          "int_frames": 189,
+          "int_p99_us": 17000,
+          "int_max_us": 16725,
+          "int_over50": 0
+        }
+      },
+      {
+        "elapsed_s": 300.2655000000086,
+        "fps": 0.6527556445878543,
+        "stats": {
+          "frames": 191227,
+          "redraws": 95613,
+          "presents": 96748,
+          "work_avg_us": 2669,
+          "work_max_us": 15281,
+          "int_frames": 196,
+          "int_p99_us": 17000,
+          "int_max_us": 16728,
+          "int_over50": 0
+        }
+      },
+      {
+        "elapsed_s": 299.9529999999795,
+        "fps": 0.6534357049271499,
+        "stats": {
+          "frames": 209221,
+          "redraws": 104610,
+          "presents": 105817,
+          "work_avg_us": 2660,
+          "work_max_us": 15281,
+          "int_frames": 196,
+          "int_p99_us": 17000,
+          "int_max_us": 16726,
+          "int_over50": 0
+        }
+      },
+      {
+        "elapsed_s": 299.64850000001024,
+        "fps": 0.5005865205398822,
+        "stats": {
+          "frames": 227166,
+          "redraws": 113583,
+          "presents": 115078,
+          "work_avg_us": 2669,
+          "work_max_us": 16923,
+          "int_frames": 150,
+          "int_p99_us": 17000,
+          "int_max_us": 16717,
+          "int_over50": 0
+        }
+      }
+    ],
+    "events": [
+      {
+        "elapsed_s": 0.0,
+        "kind": "sentence",
+        "id": "en01"
+      },
+      {
+        "elapsed_s": 0.0,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 15.280999999988126,
+        "kind": "sentence",
+        "id": "en02"
+      },
+      {
+        "elapsed_s": 30.155999999988126,
+        "kind": "sentence",
+        "id": "en03"
+      },
+      {
+        "elapsed_s": 45.296999999991385,
+        "kind": "sentence",
+        "id": "en04"
+      },
+      {
+        "elapsed_s": 60.437999999994645,
+        "kind": "sentence",
+        "id": "en05"
+      },
+      {
+        "elapsed_s": 75.07800000000861,
+        "kind": "sentence",
+        "id": "en06"
+      },
+      {
+        "elapsed_s": 90.23399999999674,
+        "kind": "sentence",
+        "id": "en07"
+      },
+      {
+        "elapsed_s": 105.39100000000326,
+        "kind": "sentence",
+        "id": "en08"
+      },
+      {
+        "elapsed_s": 120.03099999998813,
+        "kind": "sentence",
+        "id": "en09"
+      },
+      {
+        "elapsed_s": 120.03099999998813,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 135.31299999999464,
+        "kind": "sentence",
+        "id": "en10"
+      },
+      {
+        "elapsed_s": 150.48399999999674,
+        "kind": "sentence",
+        "id": "en11"
+      },
+      {
+        "elapsed_s": 165.10899999999674,
+        "kind": "sentence",
+        "id": "en12"
+      },
+      {
+        "elapsed_s": 180.0,
+        "kind": "sentence",
+        "id": "en13"
+      },
+      {
+        "elapsed_s": 195.17199999999139,
+        "kind": "sentence",
+        "id": "en14"
+      },
+      {
+        "elapsed_s": 210.31299999999464,
+        "kind": "sentence",
+        "id": "en15"
+      },
+      {
+        "elapsed_s": 225.45300000000861,
+        "kind": "sentence",
+        "id": "en16"
+      },
+      {
+        "elapsed_s": 240.10899999999674,
+        "kind": "sentence",
+        "id": "en17"
+      },
+      {
+        "elapsed_s": 240.10899999999674,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 255.40599999998813,
+        "kind": "sentence",
+        "id": "en18"
+      },
+      {
+        "elapsed_s": 270.06299999999464,
+        "kind": "sentence",
+        "id": "en19"
+      },
+      {
+        "elapsed_s": 285.2030000000086,
+        "kind": "sentence",
+        "id": "en20"
+      },
+      {
+        "elapsed_s": 300.35899999999674,
+        "kind": "sentence",
+        "id": "en21"
+      },
+      {
+        "elapsed_s": 315.09399999998277,
+        "kind": "sentence",
+        "id": "en22"
+      },
+      {
+        "elapsed_s": 330.25,
+        "kind": "sentence",
+        "id": "en23"
+      },
+      {
+        "elapsed_s": 345.4059999999881,
+        "kind": "sentence",
+        "id": "en24"
+      },
+      {
+        "elapsed_s": 360.06299999999464,
+        "kind": "sentence",
+        "id": "en25"
+      },
+      {
+        "elapsed_s": 360.06299999999464,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 375.375,
+        "kind": "sentence",
+        "id": "en26"
+      },
+      {
+        "elapsed_s": 390.01600000000326,
+        "kind": "sentence",
+        "id": "en27"
+      },
+      {
+        "elapsed_s": 405.1559999999881,
+        "kind": "sentence",
+        "id": "en28"
+      },
+      {
+        "elapsed_s": 420.3280000000086,
+        "kind": "sentence",
+        "id": "nr01"
+      },
+      {
+        "elapsed_s": 435.4530000000086,
+        "kind": "sentence",
+        "id": "nr02"
+      },
+      {
+        "elapsed_s": 450.10899999999674,
+        "kind": "sentence",
+        "id": "nr03"
+      },
+      {
+        "elapsed_s": 465.25,
+        "kind": "sentence",
+        "id": "nr04"
+      },
+      {
+        "elapsed_s": 480.4059999999881,
+        "kind": "sentence",
+        "id": "nr05"
+      },
+      {
+        "elapsed_s": 480.4059999999881,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 495.21899999998277,
+        "kind": "sentence",
+        "id": "nr06"
+      },
+      {
+        "elapsed_s": 510.35899999999674,
+        "kind": "sentence",
+        "id": "nr07"
+      },
+      {
+        "elapsed_s": 525.0309999999881,
+        "kind": "sentence",
+        "id": "nr08"
+      },
+      {
+        "elapsed_s": 540.2030000000086,
+        "kind": "sentence",
+        "id": "nr09"
+      },
+      {
+        "elapsed_s": 555.375,
+        "kind": "sentence",
+        "id": "nr10"
+      },
+      {
+        "elapsed_s": 570.0469999999914,
+        "kind": "sentence",
+        "id": "nr11"
+      },
+      {
+        "elapsed_s": 585.2030000000086,
+        "kind": "sentence",
+        "id": "nr12"
+      },
+      {
+        "elapsed_s": 600.3589999999967,
+        "kind": "sentence",
+        "id": "ho01"
+      },
+      {
+        "elapsed_s": 600.3589999999967,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 615.4219999999914,
+        "kind": "sentence",
+        "id": "ho02"
+      },
+      {
+        "elapsed_s": 630.0629999999946,
+        "kind": "sentence",
+        "id": "ho03"
+      },
+      {
+        "elapsed_s": 645.25,
+        "kind": "sentence",
+        "id": "ho04"
+      },
+      {
+        "elapsed_s": 660.4219999999914,
+        "kind": "sentence",
+        "id": "ho05"
+      },
+      {
+        "elapsed_s": 675.0780000000086,
+        "kind": "sentence",
+        "id": "ho06"
+      },
+      {
+        "elapsed_s": 690.2339999999967,
+        "kind": "sentence",
+        "id": "ho07"
+      },
+      {
+        "elapsed_s": 705.4219999999914,
+        "kind": "sentence",
+        "id": "ho08"
+      },
+      {
+        "elapsed_s": 720.0629999999946,
+        "kind": "sentence",
+        "id": "ho09"
+      },
+      {
+        "elapsed_s": 720.0629999999946,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 735.375,
+        "kind": "sentence",
+        "id": "ho10"
+      },
+      {
+        "elapsed_s": 750.0309999999881,
+        "kind": "sentence",
+        "id": "ho11"
+      },
+      {
+        "elapsed_s": 765.1879999999946,
+        "kind": "sentence",
+        "id": "ho12"
+      },
+      {
+        "elapsed_s": 780.3280000000086,
+        "kind": "sentence",
+        "id": "ho13"
+      },
+      {
+        "elapsed_s": 795.4689999999828,
+        "kind": "sentence",
+        "id": "ho14"
+      },
+      {
+        "elapsed_s": 810.1089999999967,
+        "kind": "sentence",
+        "id": "ho15"
+      },
+      {
+        "elapsed_s": 825.2339999999967,
+        "kind": "sentence",
+        "id": "ho16"
+      },
+      {
+        "elapsed_s": 840.375,
+        "kind": "sentence",
+        "id": "ho17"
+      },
+      {
+        "elapsed_s": 840.375,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 855.1559999999881,
+        "kind": "sentence",
+        "id": "ho18"
+      },
+      {
+        "elapsed_s": 870.2809999999881,
+        "kind": "sentence",
+        "id": "ho19"
+      },
+      {
+        "elapsed_s": 885.4219999999914,
+        "kind": "sentence",
+        "id": "ho20"
+      },
+      {
+        "elapsed_s": 900.0629999999946,
+        "kind": "sentence",
+        "id": "ho21"
+      },
+      {
+        "elapsed_s": 915.2339999999967,
+        "kind": "sentence",
+        "id": "ho22"
+      },
+      {
+        "elapsed_s": 930.3589999999967,
+        "kind": "sentence",
+        "id": "ho23"
+      },
+      {
+        "elapsed_s": 945.0309999999881,
+        "kind": "sentence",
+        "id": "ho24"
+      },
+      {
+        "elapsed_s": 960.1719999999914,
+        "kind": "sentence",
+        "id": "ho25"
+      },
+      {
+        "elapsed_s": 960.1719999999914,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 975.4379999999946,
+        "kind": "sentence",
+        "id": "ho26"
+      },
+      {
+        "elapsed_s": 990.0939999999828,
+        "kind": "sentence",
+        "id": "ho27"
+      },
+      {
+        "elapsed_s": 1005.2339999999967,
+        "kind": "sentence",
+        "id": "ho28"
+      },
+      {
+        "elapsed_s": 1020.375,
+        "kind": "sentence",
+        "id": "ho29"
+      },
+      {
+        "elapsed_s": 1035.0309999999881,
+        "kind": "sentence",
+        "id": "ho30"
+      },
+      {
+        "elapsed_s": 1050.1879999999946,
+        "kind": "sentence",
+        "id": "ho31"
+      },
+      {
+        "elapsed_s": 1065.3280000000086,
+        "kind": "sentence",
+        "id": "ho32"
+      },
+      {
+        "elapsed_s": 1080.4839999999967,
+        "kind": "sentence",
+        "id": "ho33"
+      },
+      {
+        "elapsed_s": 1080.4839999999967,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 1095.2809999999881,
+        "kind": "sentence",
+        "id": "ho34"
+      },
+      {
+        "elapsed_s": 1110.4379999999946,
+        "kind": "sentence",
+        "id": "ho35"
+      },
+      {
+        "elapsed_s": 1125.0939999999828,
+        "kind": "sentence",
+        "id": "ho36"
+      },
+      {
+        "elapsed_s": 1140.2189999999828,
+        "kind": "sentence",
+        "id": "ho37"
+      },
+      {
+        "elapsed_s": 1155.3589999999967,
+        "kind": "sentence",
+        "id": "ho38"
+      },
+      {
+        "elapsed_s": 1170.0,
+        "kind": "sentence",
+        "id": "ho39"
+      },
+      {
+        "elapsed_s": 1185.125,
+        "kind": "sentence",
+        "id": "ho40"
+      },
+      {
+        "elapsed_s": 1200.2660000000033,
+        "kind": "sentence",
+        "id": "hn01"
+      },
+      {
+        "elapsed_s": 1200.2660000000033,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 1215.4379999999946,
+        "kind": "sentence",
+        "id": "hn02"
+      },
+      {
+        "elapsed_s": 1230.0780000000086,
+        "kind": "sentence",
+        "id": "hn03"
+      },
+      {
+        "elapsed_s": 1245.2189999999828,
+        "kind": "sentence",
+        "id": "hn04"
+      },
+      {
+        "elapsed_s": 1260.375,
+        "kind": "sentence",
+        "id": "hn05"
+      },
+      {
+        "elapsed_s": 1275.0309999999881,
+        "kind": "sentence",
+        "id": "hn06"
+      },
+      {
+        "elapsed_s": 1290.1719999999914,
+        "kind": "sentence",
+        "id": "hn07"
+      },
+      {
+        "elapsed_s": 1305.3129999999946,
+        "kind": "sentence",
+        "id": "hn08"
+      },
+      {
+        "elapsed_s": 1320.4689999999828,
+        "kind": "sentence",
+        "id": "hn09"
+      },
+      {
+        "elapsed_s": 1320.4689999999828,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 1335.2189999999828,
+        "kind": "sentence",
+        "id": "hn10"
+      },
+      {
+        "elapsed_s": 1350.375,
+        "kind": "sentence",
+        "id": "hn11"
+      },
+      {
+        "elapsed_s": 1365.0160000000033,
+        "kind": "sentence",
+        "id": "hn12"
+      },
+      {
+        "elapsed_s": 1380.1559999999881,
+        "kind": "sentence",
+        "id": "hn13"
+      },
+      {
+        "elapsed_s": 1395.2969999999914,
+        "kind": "sentence",
+        "id": "hn14"
+      },
+      {
+        "elapsed_s": 1410.4530000000086,
+        "kind": "sentence",
+        "id": "hn15"
+      },
+      {
+        "elapsed_s": 1425.0939999999828,
+        "kind": "sentence",
+        "id": "hn16"
+      },
+      {
+        "elapsed_s": 1440.2809999999881,
+        "kind": "sentence",
+        "id": "hn17"
+      },
+      {
+        "elapsed_s": 1440.2809999999881,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 1455.0629999999946,
+        "kind": "sentence",
+        "id": "hn18"
+      },
+      {
+        "elapsed_s": 1470.1879999999946,
+        "kind": "sentence",
+        "id": "hn19"
+      },
+      {
+        "elapsed_s": 1485.3280000000086,
+        "kind": "sentence",
+        "id": "hn20"
+      },
+      {
+        "elapsed_s": 1500.4689999999828,
+        "kind": "sentence",
+        "id": "en01"
+      },
+      {
+        "elapsed_s": 1515.2969999999914,
+        "kind": "sentence",
+        "id": "en02"
+      },
+      {
+        "elapsed_s": 1530.4219999999914,
+        "kind": "sentence",
+        "id": "en03"
+      },
+      {
+        "elapsed_s": 1545.0939999999828,
+        "kind": "sentence",
+        "id": "en04"
+      },
+      {
+        "elapsed_s": 1560.2189999999828,
+        "kind": "sentence",
+        "id": "en05"
+      },
+      {
+        "elapsed_s": 1560.2189999999828,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 1575.0469999999914,
+        "kind": "sentence",
+        "id": "en06"
+      },
+      {
+        "elapsed_s": 1590.1719999999914,
+        "kind": "sentence",
+        "id": "en07"
+      },
+      {
+        "elapsed_s": 1605.3439999999828,
+        "kind": "sentence",
+        "id": "en08"
+      },
+      {
+        "elapsed_s": 1620.0,
+        "kind": "sentence",
+        "id": "en09"
+      },
+      {
+        "elapsed_s": 1635.125,
+        "kind": "sentence",
+        "id": "en10"
+      },
+      {
+        "elapsed_s": 1650.2809999999881,
+        "kind": "sentence",
+        "id": "en11"
+      },
+      {
+        "elapsed_s": 1665.4379999999946,
+        "kind": "sentence",
+        "id": "en12"
+      },
+      {
+        "elapsed_s": 1680.0939999999828,
+        "kind": "sentence",
+        "id": "en13"
+      },
+      {
+        "elapsed_s": 1680.0939999999828,
+        "kind": "voice"
+      },
+      {
+        "elapsed_s": 1695.3910000000033,
+        "kind": "sentence",
+        "id": "en14"
+      },
+      {
+        "elapsed_s": 1710.0469999999914,
+        "kind": "sentence",
+        "id": "en15"
+      },
+      {
+        "elapsed_s": 1725.1879999999946,
+        "kind": "sentence",
+        "id": "en16"
+      },
+      {
+        "elapsed_s": 1740.3280000000086,
+        "kind": "sentence",
+        "id": "en17"
+      },
+      {
+        "elapsed_s": 1755.4689999999828,
+        "kind": "sentence",
+        "id": "en18"
+      },
+      {
+        "elapsed_s": 1770.1089999999967,
+        "kind": "sentence",
+        "id": "en19"
+      },
+      {
+        "elapsed_s": 1785.25,
+        "kind": "sentence",
+        "id": "en20"
+      }
+    ],
+    "complete": true
+  },
+  "gates": [
+    {
+      "row": "accuracy.data",
+      "value": false,
+      "baseline_band": "complete",
+      "status": "FAIL"
+    },
+    {
+      "row": "accuracy.dev",
+      "value": 37,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "accuracy.holdout",
+      "value": 50,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "accuracy.flips",
+      "value": [],
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "stories.data",
+      "value": true,
+      "baseline_band": "complete",
+      "status": "PASS"
+    },
+    {
+      "row": "stories.dev",
+      "value": 30,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "stories.holdout",
+      "value": 25,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "stories.changes",
+      "value": 39,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "stories.shortest_ms",
+      "value": 2000,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "latency.data",
+      "value": false,
+      "baseline_band": "complete",
+      "status": "FAIL"
+    },
+    {
+      "row": "latency.p50",
+      "value": 917,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "latency.p90",
+      "value": 1108,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "latency.p99",
+      "value": 1396,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.data",
+      "value": false,
+      "baseline_band": "complete",
+      "status": "FAIL"
+    },
+    {
+      "row": "voice.en3.first_audio_ms",
+      "value": 3549.0,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en3.gap_p50",
+      "value": 185,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en3.gap_p90",
+      "value": 252,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en3.gap_p99",
+      "value": 252,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en3.offset_p50",
+      "value": -32,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en3.offset_p90",
+      "value": 29,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en3.offset_p99",
+      "value": 29,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en7.first_audio_ms",
+      "value": 3431.0,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en7.gap_p50",
+      "value": 247,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en7.gap_p90",
+      "value": 292,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en7.gap_p99",
+      "value": 292,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en7.offset_p50",
+      "value": 1,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en7.offset_p90",
+      "value": 46,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.en7.offset_p99",
+      "value": 46,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.he3.first_audio_ms",
+      "value": 1605.0,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.he3.gap_p50",
+      "value": 219,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.he3.gap_p90",
+      "value": 241,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.he3.gap_p99",
+      "value": 241,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.he3.offset_p50",
+      "value": -23,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.he3.offset_p90",
+      "value": 8,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "voice.he3.offset_p99",
+      "value": 8,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "startup.data",
+      "value": false,
+      "baseline_band": "complete",
+      "status": "FAIL"
+    },
+    {
+      "row": "startup.ready.ms",
+      "value": 16759.0,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "startup.audible.ms",
+      "value": null,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "smoke.data",
+      "value": true,
+      "baseline_band": "complete",
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.0.fps",
+      "value": 0.7204015743087693,
+      "baseline_band": [
+        59,
+        null
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "smoke.0.int_p99_us",
+      "value": 17000,
+      "baseline_band": [
+        null,
+        25000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.0.int_max_us",
+      "value": 16726,
+      "baseline_band": [
+        null,
+        50000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.0.int_over50",
+      "value": 0,
+      "baseline_band": [
+        null,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.1.fps",
+      "value": 0.7293727394440741,
+      "baseline_band": [
+        59,
+        null
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "smoke.1.int_p99_us",
+      "value": 17000,
+      "baseline_band": [
+        null,
+        25000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.1.int_max_us",
+      "value": 16733,
+      "baseline_band": [
+        null,
+        50000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.1.int_over50",
+      "value": 0,
+      "baseline_band": [
+        null,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.2.fps",
+      "value": 0.6306727175654178,
+      "baseline_band": [
+        59,
+        null
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "smoke.2.int_p99_us",
+      "value": 17000,
+      "baseline_band": [
+        null,
+        25000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.2.int_max_us",
+      "value": 16725,
+      "baseline_band": [
+        null,
+        50000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.2.int_over50",
+      "value": 0,
+      "baseline_band": [
+        null,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.3.fps",
+      "value": 0.6527556445878543,
+      "baseline_band": [
+        59,
+        null
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "smoke.3.int_p99_us",
+      "value": 17000,
+      "baseline_band": [
+        null,
+        25000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.3.int_max_us",
+      "value": 16728,
+      "baseline_band": [
+        null,
+        50000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.3.int_over50",
+      "value": 0,
+      "baseline_band": [
+        null,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.4.fps",
+      "value": 0.6534357049271499,
+      "baseline_band": [
+        59,
+        null
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "smoke.4.int_p99_us",
+      "value": 17000,
+      "baseline_band": [
+        null,
+        25000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.4.int_max_us",
+      "value": 16726,
+      "baseline_band": [
+        null,
+        50000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.4.int_over50",
+      "value": 0,
+      "baseline_band": [
+        null,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.5.fps",
+      "value": 0.5005865205398822,
+      "baseline_band": [
+        59,
+        null
+      ],
+      "status": "FAIL"
+    },
+    {
+      "row": "smoke.5.int_p99_us",
+      "value": 17000,
+      "baseline_band": [
+        null,
+        25000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.5.int_max_us",
+      "value": 16717,
+      "baseline_band": [
+        null,
+        50000
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.5.int_over50",
+      "value": 0,
+      "baseline_band": [
+        null,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.VmHWM_kib",
+      "value": 1669572,
+      "baseline_band": [
+        null,
+        1887436.8
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.RSS_30_minus_5_kib",
+      "value": -63424,
+      "baseline_band": [
+        null,
+        20480
+      ],
+      "status": "PASS"
+    },
+    {
+      "row": "smoke.temperature_c",
+      "value": 29.7,
+      "baseline_band": null,
+      "status": "no baseline"
+    },
+    {
+      "row": "smoke.work_avg_us",
+      "value": 2669,
+      "baseline_band": null,
+      "status": "no baseline"
+    }
+  ]
+}

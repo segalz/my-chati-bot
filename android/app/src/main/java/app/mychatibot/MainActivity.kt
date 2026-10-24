@@ -27,6 +27,8 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import app.mychatibot.eyes.EyeBrainHost
+import app.mychatibot.eyes.ConfigManifest
+import app.mychatibot.eyes.Effects
 import app.mychatibot.eyes.SpeechHost
 import app.mychatibot.eyes.EyeControllerHost
 import app.mychatibot.eyes.IntentSource
@@ -59,6 +61,7 @@ class MainActivity : Activity() {
         val info = "Chati Eyes ${appVersionName()}\n${NativeBridge.nativeVersion()}"
         Log.i(TAG, info)
         NativeBridge.nativeStart()
+        Effects.init(this)
         EyeBrainHost.instance.init(this)  // loads the eye model in the background
         SpeechHost.instance.init(this)  // loads the voice model in the background
 
@@ -183,15 +186,19 @@ class MainActivity : Activity() {
      * adb shell am broadcast -a app.mychatibot.DEBUG_SAY --es text "I got the job!"
      * # a story/conversation at speaking pace; optional: --ei linger_ms/carry_ms/dwell_ms, --ef wps, --ez context
      * adb shell am broadcast -a app.mychatibot.DEBUG_STORY --es text "I lost my keys. Then I found them!"
+     * # runtime expressive switches (persisted across restarts)
+     * adb shell am broadcast -a app.mychatibot.DEBUG_LOOK --es effects "colors=off,idle_glance=on"
      * # the phone says a line out loud and the eyes follow it (voice threads: --ei threads)
      * adb shell am broadcast -a app.mychatibot.DEBUG_SPEAK --es text "I got the job! I start on Monday."
      * # Hebrew is spoken by the phone's voice (or --es heng gemini: the cloud voice, --es gvoice/gstyle);
      * # the eyes need the English
      * adb shell am broadcast -a app.mychatibot.DEBUG_SPEAK --es text "קיבלתי את העבודה!" --es en "I got the job!"
      * ```
+     * # switch the eye model's prompt bundle (file config/bundles/v5.txt or packaged): --ei bundle 5
      * # benchmark only: switch eye model file / thread counts
      * adb shell am broadcast -a app.mychatibot.DEBUG_BRAIN --es model gemma-3-1b-it-qat-Q4_0.gguf --ei threads 6 --ei threads_batch 6 --ef none_gap 1.5
-     * `--ez overlay false|true` hides/shows both overlays; `--ez stats true` logs renderer counters.
+     * `--ez overlay false|true` hides/shows both overlays; `--ez stats true` logs renderer counters;
+     * DEBUG_EYES `--ei shape N` picks the drawer (0 = the original).
      */
     private fun registerDebugReceiver() {
         val receiver = object : BroadcastReceiver() {
@@ -200,7 +207,9 @@ class MainActivity : Activity() {
                     DEBUG_INTENT_ACTION -> intent.getStringExtra("json")
                         ?.let { eyeHost.submitJson(it, IntentSource.DEBUG) }
                         ?: Log.w(TAG, "debug: DEBUG_INTENT without json extra")
-                    DEBUG_BRAIN_ACTION -> EyeBrainHost.instance.configure(
+                    DEBUG_BRAIN_ACTION -> if (intent.hasExtra("bundle")) {
+                        EyeBrainHost.instance.switchBundle(intent.getIntExtra("bundle", 0))
+                    } else EyeBrainHost.instance.configure(
                         intent.getStringExtra("model"),
                         intent.getIntExtra("threads", 0).takeIf { it > 0 },
                         intent.getIntExtra("threads_batch", 0).takeIf { it > 0 },
@@ -215,6 +224,13 @@ class MainActivity : Activity() {
                         if (intent.hasExtra("heng")) SpeechHost.instance.setHebrewEngine(intent.getStringExtra("heng"))
                         intent.getStringExtra("text")?.let { SpeechHost.instance.speak(it, intent.getStringExtra("en")) }
                     }
+                    DEBUG_LOOK_ACTION -> intent.getStringExtra("effects")
+                        ?.let {
+                            val applied = Effects.apply(this@MainActivity, it)
+                            Log.i(TAG, "debug: effects ${if (applied) "applied" else "rejected"} ($applied)")
+                            if (applied) ConfigManifest.write(this@MainActivity, EyeBrainHost.instance.activeBundle)
+                        }
+                        ?: Log.w(TAG, "debug: DEBUG_LOOK without effects extra")
                     DEBUG_STORY_ACTION -> {
                         fun ms(key: String) = if (intent.hasExtra(key)) intent.getIntExtra(key, -1).toLong() else null
                         eyeHost.setMoodRules(ms("linger_ms"), ms("carry_ms"), ms("dwell_ms"))
@@ -238,6 +254,7 @@ class MainActivity : Activity() {
             addAction(DEBUG_SAY_ACTION)
             addAction(DEBUG_BRAIN_ACTION)
             addAction(DEBUG_STORY_ACTION)
+            addAction(DEBUG_LOOK_ACTION)
             addAction(DEBUG_SPEAK_ACTION)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -266,6 +283,11 @@ class MainActivity : Activity() {
         if (intent.getBooleanExtra("blink", false)) {
             NativeBridge.nativeBlink()
             Log.i(TAG, "debug: blink")
+        }
+        if (intent.hasExtra("shape")) {
+            val id = intent.getIntExtra("shape", 0)
+            NativeBridge.nativeSetShape(id)
+            Log.i(TAG, "debug: shape $id")
         }
     }
 
@@ -301,6 +323,7 @@ class MainActivity : Activity() {
         const val DEBUG_SAY_ACTION = "app.mychatibot.DEBUG_SAY"
         const val DEBUG_BRAIN_ACTION = "app.mychatibot.DEBUG_BRAIN"
         const val DEBUG_STORY_ACTION = "app.mychatibot.DEBUG_STORY"
+        const val DEBUG_LOOK_ACTION = "app.mychatibot.DEBUG_LOOK"
         const val DEBUG_SPEAK_ACTION = "app.mychatibot.DEBUG_SPEAK"
         const val STATS_INTERVAL_MS = 10_000L
     }

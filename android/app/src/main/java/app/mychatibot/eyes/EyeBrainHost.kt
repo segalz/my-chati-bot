@@ -41,6 +41,13 @@ class EyeBrainHost private constructor() {
     @Volatile private var noneGapThreshold = NONE_GAP_THRESHOLD
     private var loadError: String? = null
     private var warmedUp = false  // brain thread only
+    private var appContext: Context? = null  // brain thread only
+    /** The active prompt bundle's version (E0.7). */
+    @Volatile var bundleVersion = BundleStore.DEFAULT_VERSION
+        private set
+    /** The active prompt bundle itself (for the manifest). */
+    @Volatile var activeBundle: PromptBundle? = null
+        private set
     @Volatile private var wordsPerSecond = StoryText.DEFAULT_WORDS_PER_SECOND
     @Volatile private var storyContext = false  // off: it lowered story accuracy (6C.5, 2026-10-23)
 
@@ -54,7 +61,9 @@ class EyeBrainHost private constructor() {
             errors.forEach { Log.w(TAG, "phrasebook: $it") }
             Log.i(TAG, "phrasebook: ${phrasebook.size} phrases")
             modelsDir = File(app.filesDir, "models")
-            if (ensureLoaded()) warmUp()
+            appContext = app
+            if (startWithFirstWorkingBundle(app)) warmUp()
+            ConfigManifest.write(app, activeBundle)
         }
     }
 
@@ -76,7 +85,11 @@ class EyeBrainHost private constructor() {
             val d = classifyWithModel(sentence, 0L, SystemClock.uptimeMillis(), continueStory = false)
             Log.i(TAG, "warm-up: '$sentence' -> ${d.body ?: d.error}")
         }
-        if (generation.get() == 0L) EyeControllerHost.instance.glances(listOf(Look.RIGHT, Look.LEFT)) { generation.get() == 0L }
+        if (generation.get() == 0L && Effects.isOn("warmup_glance")) {
+            EyeControllerHost.instance.glances(listOf(Look.RIGHT, Look.LEFT)) {
+                generation.get() == 0L && Effects.isOn("warmup_glance")
+            }
+        }
         Log.i(TAG, "warm-up done")
     }
 
@@ -147,6 +160,70 @@ class EyeBrainHost private constructor() {
     fun classifyAhead(generation: Long, sentences: List<String>, onDecision: (Int, Decision) -> Unit) {
         val context = storyContext
         handler.post { classifyEach(generation, sentences, context, onDecision) }
+    }
+
+    /**
+     * Development only (debug channel): switch to prompt bundle [version] (a file in the app's private
+     * `config/bundles/`, or a packaged one). The switch is a new request: running inference is
+     * cancelled, speech stops (its generation is stale), the eyes go back to idle and the original
+     * shape; then the model's context is rebuilt with the new prompt. An invalid bundle changes
+     * nothing (the native side keeps the previous one).
+     */
+    fun switchBundle(version: Int) {
+        beginRequest()
+        EyeControllerHost.instance.resetToIdle()
+        handler.post {
+            val app = appContext ?: return@post
+            val bundle = BundleStore.load(app, version)
+            if (bundle == null) {
+                Log.w(TAG, "bundle: v$version rejected (missing or invalid); keeping v$bundleVersion")
+                return@post
+            }
+            // Persist first (a small atomic pointer write), then switch the model. If the model rejects
+            // the bundle, its current context is untouched (built-then-swapped natively) and only the
+            // pointer goes back; should that fail too, the next start falls back to last-known-good.
+            val previous = activeBundle
+            try {
+                BundleStore.activate(app, version)
+            } catch (e: Exception) {
+                Log.w(TAG, "bundle: v$version could not be saved (${e.javaClass.simpleName}); keeping v${previous?.version}")
+                return@post
+            }
+            if (!applyBundle(bundle)) {
+                runCatching { BundleStore.restoreActive(app, previous?.version ?: BundleStore.DEFAULT_VERSION) }
+                    .onFailure { Log.e(TAG, "bundle: pointer not restored (${it.javaClass.simpleName}); the next start uses last-known-good") }
+                return@post
+            }
+            ConfigManifest.write(app, bundle)
+        }
+    }
+
+    /**
+     * Brain thread, at start: the active bundle, else the last-known-good one, else the packaged
+     * default — the first one with which the model actually loads (a bundle can pass the file checks
+     * and still fail natively, e.g. a prompt over the token limit). True when the model is loaded.
+     */
+    private fun startWithFirstWorkingBundle(app: Context): Boolean {
+        for (bundle in BundleStore.candidates(app)) {
+            if (!applyBundle(bundle)) continue
+            if (ensureLoaded()) return true
+            if (loadError?.startsWith("model file missing") == true) return false  // no bundle helps
+            Log.w(TAG, "bundle: v${bundle.version} failed while loading the model ($loadError); trying the next one")
+        }
+        return false
+    }
+
+    /** Brain thread: hands [bundle] to the native model (rebuilding its context if loaded). */
+    private fun applyBundle(bundle: PromptBundle): Boolean {
+        val error = NativeBridge.nativeBrainSetPrompt(bundle.prompt.toByteArray(Charsets.UTF_8), bundle.labels.joinToString(","))
+        if (error != null) {
+            Log.w(TAG, "bundle: v${bundle.version} not applied: $error; keeping v$bundleVersion")
+            return false
+        }
+        activeBundle = bundle
+        bundleVersion = bundle.version
+        Log.i(TAG, "bundle: v${bundle.version} active, ${bundle.labels.size} labels")
+        return true
     }
 
     /** Development only (debug channel): whether stories give the model the earlier sentences. */

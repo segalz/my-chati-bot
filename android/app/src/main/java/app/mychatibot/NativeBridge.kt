@@ -26,6 +26,8 @@ object NativeBridge {
     external fun nativeSetExpression(id: Int)
     external fun nativeLookAt(x: Float, y: Float)
     external fun nativeBlink()
+    /** Which drawer paints the eyes (0 = the original Monochrome Blue; later stages add shapes). */
+    external fun nativeSetShape(id: Int)
     /** Eye color 0xRRGGBB, faded in over [fadeMs] (the original drawer's own color setting). */
     external fun nativeSetColor(rgb: Int, fadeMs: Int)
     external fun nativeStats(): String
@@ -34,6 +36,8 @@ object NativeBridge {
     external fun nativeBrainLoad(modelPath: String, threads: Int): String?
     external fun nativeBrainRelease()
     external fun nativeBrainSetThreads(threads: Int, threadsBatch: Int)
+    /** Prompt bundle (E0.7): system prompt as UTF-8 bytes + comma-separated labels; null on success, else the error. */
+    external fun nativeBrainSetPrompt(prompt: ByteArray, labels: String): String?
     /** Thread-safe: inferences for generations below [generation] stop at their next step. */
     external fun nativeBrainCancelOlderThan(generation: Long)
     /**

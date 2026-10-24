@@ -375,6 +375,20 @@ class SpeechHost private constructor() {
             return Result.OK
         }
 
+        /**
+         * Logs how late the sound of [frame] actually comes out compared with the playback-head
+         * proxy [proxyMs] (uptime when the head reached it, E0.4): `AudioTrack.getTimestamp` gives
+         * the frame being presented and its time; the frame's presentation time is extrapolated.
+         */
+        fun logPresentation(label: String, frame: Long, proxyMs: Long) {
+            val ts = android.media.AudioTimestamp()
+            if (!track.getTimestamp(ts)) return
+            val presentedNs = ts.nanoTime + (frame - ts.framePosition) * 1_000_000_000L / sampleRate
+            // AudioTimestamp.nanoTime is CLOCK_MONOTONIC, the same clock as SystemClock.uptimeMillis().
+            val presentedMs = presentedNs / 1_000_000
+            Log.i(TAG, "audio-timestamp: sentence $label proxy_t=$proxyMs presented_t=$presentedMs offset_ms=${presentedMs - proxyMs}")
+        }
+
         /** Waits until everything queued has been played. */
         fun drain(isCurrent: () -> Boolean) {
             val deadline = SystemClock.uptimeMillis() + BUFFER_MS + 1_000
@@ -451,11 +465,16 @@ class SpeechHost private constructor() {
                 val out = audio
                 val result = when {
                     // Green only once this sentence's audio really plays (the playback position reached it).
-                    clip != null && out != null -> out.feed(clip.samples, isCurrent, {
-                        EyeControllerHost.instance.setSpeaking(true)
-                        onStart()
-                    }).let { r ->
-                        if (r == AudioOut.Result.OK) out.silence(GAP_MS, isCurrent) else r
+                    clip != null && out != null -> {
+                        val firstFrame = out.written  // where this sentence's audio starts in the stream
+                        out.feed(clip.samples, isCurrent, {
+                            val proxyMs = SystemClock.uptimeMillis()  // the head just reached this sentence
+                            EyeControllerHost.instance.setSpeaking(true, isCurrent)
+                            onStart()
+                            out.logPresentation("${i + 1}/$n", firstFrame, proxyMs)
+                        }).let { r ->
+                            if (r == AudioOut.Result.OK) out.silence(GAP_MS, isCurrent) else r
+                        }
                     }
                     // No voice for this sentence: the eyes keep its timing; an open stream is kept fed.
                     out != null -> {
@@ -517,7 +536,7 @@ class SpeechHost private constructor() {
                 val ready = session.ready[next].getNow(null) ?: break
                 val ms = (exact?.let { s -> (if (next + 1 < n) s[next + 1] else line.totalFrames) - s[next] }
                     ?.times(1_000)?.div(GeminiVoice.SAMPLE_RATE)) ?: StoryText.spokenMs(sentences[next])
-                EyeControllerHost.instance.setSpeaking(true)
+                EyeControllerHost.instance.setSpeaking(true, isCurrent)
                 startEyes(session, next, ready.decision, ms, " | voice gemini", isCurrent)
                 next++
             }

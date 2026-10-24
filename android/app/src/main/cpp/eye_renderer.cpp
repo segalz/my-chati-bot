@@ -41,7 +41,8 @@ struct RenderState {
     std::recursive_mutex lvgl_mutex;  // required by the upstream drawer's Config
     lv_color_t *canvas_buffer = nullptr;
     lv_obj_t *canvas = nullptr;
-    std::unique_ptr<eye_drawer::MonochromeBlueDrawer> drawer;
+    std::unique_ptr<eye_drawer::EyeDrawer> drawer;  // the original drawer unless a shape is chosen
+    int shape = static_cast<int>(Shape::ORIGINAL);
     eye_drawer::EyeDrawer::DrawCallback draw;  // the current drawer's callback
     std::unique_ptr<espp::ExpressiveEyes> eyes;
     // Eye color (0xRRGGBB): the drawer's default electric blue, then fades set by SetColor.
@@ -123,6 +124,21 @@ void EyeRenderer::post(EyeCommand command) {
     commands_.push_back(command);
 }
 
+void EyeRenderer::record_interval(int64_t interval_us) {
+    if (interval_us < 0) return;
+    const int bucket = static_cast<int>(std::min<int64_t>(interval_us / 1000, kIntervalBuckets - 1));
+    interval_hist_[bucket].fetch_add(1, std::memory_order_relaxed);
+    if (interval_us > 50000) interval_over50_.fetch_add(1, std::memory_order_relaxed);
+    const auto us = static_cast<uint32_t>(std::min<int64_t>(interval_us, UINT32_MAX));
+    uint32_t seen = interval_max_us_.load(std::memory_order_relaxed);
+    while (us > seen && !interval_max_us_.compare_exchange_weak(seen, us, std::memory_order_relaxed)) {}
+}
+
+/// Totals since start, plus the frame-interval tail since the previous call (int_*; reset here):
+/// int_frames, int_p99_us (upper edge of the 1 ms bucket holding the 99th percentile; the last,
+/// open bucket reports at least 200 ms), int_max_us, int_over50 (intervals longer than 50 ms).
+/// The counters are reset one by one, so a frame landing during a call may be counted in a
+/// neighbouring window — fine for a sampling metric.
 std::string EyeRenderer::stats() {
     const uint64_t frames = frames_.load();
     const uint64_t avg_us = frames ? work_us_total_.load() / frames : 0;
@@ -131,10 +147,34 @@ std::string EyeRenderer::stats() {
         std::lock_guard<std::mutex> lock(window_mutex_);
         has_window = window_ != nullptr;
     }
+    uint32_t hist[kIntervalBuckets];
+    uint64_t count = 0;
+    for (int i = 0; i < kIntervalBuckets; ++i) {
+        hist[i] = interval_hist_[i].exchange(0, std::memory_order_relaxed);
+        count += hist[i];
+    }
+    const uint32_t max_us = interval_max_us_.exchange(0, std::memory_order_relaxed);
+    const uint64_t over50 = interval_over50_.exchange(0, std::memory_order_relaxed);
+    uint64_t p99_us = 0;
+    if (count > 0) {
+        const uint64_t rank = (count * 99 + 99) / 100;  // nearest rank
+        uint64_t seen = 0;
+        for (int i = 0; i < kIntervalBuckets; ++i) {
+            seen += hist[i];
+            if (seen >= rank) {
+                p99_us = i == kIntervalBuckets - 1
+                             ? std::max<uint64_t>(static_cast<uint64_t>(kIntervalBuckets - 1) * 1000, max_us)
+                             : static_cast<uint64_t>(i + 1) * 1000;
+                break;
+            }
+        }
+    }
     return "frames=" + std::to_string(frames) + " redraws=" + std::to_string(redraws_.load()) +
            " presents=" + std::to_string(presents_.load()) + " work_avg_us=" + std::to_string(avg_us) +
            " work_max_us=" + std::to_string(work_us_max_.load()) +
-           " window=" + (has_window ? "yes" : "no");
+           " window=" + (has_window ? "yes" : "no") + " int_frames=" + std::to_string(count) +
+           " int_p99_us=" + std::to_string(p99_us) + " int_max_us=" + std::to_string(max_us) +
+           " int_over50=" + std::to_string(over50);
 }
 
 void EyeRenderer::thread_main() {
@@ -226,6 +266,7 @@ void EyeRenderer::frame(int64_t frame_time_nanos) {
     float dt = 0.0f;
     if (last_frame_nanos_ != 0) {
         dt = std::clamp(static_cast<float>(frame_time_nanos - last_frame_nanos_) / 1e9f, 0.0f, kMaxFrameDt);
+        record_interval((frame_time_nanos - last_frame_nanos_) / 1000);
     }
     last_frame_nanos_ = frame_time_nanos;
 
@@ -262,6 +303,12 @@ void EyeRenderer::apply_commands() {
             eyes.look_at(l->x, l->y);
         } else if (std::holds_alternative<Blink>(command)) {
             eyes.blink();
+        } else if (const auto *sh = std::get_if<SetShape>(&command)) {
+            if (sh->id == static_cast<int>(Shape::ORIGINAL)) {
+                rebuild_drawer(sh->id, g_state->color);
+            } else {
+                __android_log_print(ANDROID_LOG_WARN, kTag, "ignored shape id %d", sh->id);
+            }
         } else if (const auto *c = std::get_if<SetColor>(&command)) {
             RenderState &s = *g_state;
             s.fade_from = s.color;
@@ -280,20 +327,36 @@ void EyeRenderer::advance_color_fade(float dt) {
     set_drawer_color(lerp_rgb(s.fade_from, s.fade_to, s.fade_t));
 }
 
-/// Replaces the drawer with one of the same original class in color [rgb] (its own Config.color)
-/// and redraws the latest eye state with it, so the change is visible on the next present.
+/// A color change keeps the current shape.
 void EyeRenderer::set_drawer_color(uint32_t rgb) {
     RenderState &s = *g_state;
     if (s.drawer != nullptr && rgb == s.color) return;
-    auto drawer = std::make_unique<eye_drawer::MonochromeBlueDrawer>(
-        eye_drawer::MonochromeBlueDrawer::Config{.screen_width = kCanvasWidth,
-                                                 .screen_height = kCanvasHeight,
-                                                 .color = lv_color_hex(rgb),
-                                                 .canvas = s.canvas,
-                                                 .canvas_buffer = s.canvas_buffer,
-                                                 .lvgl_mutex = s.lvgl_mutex});
+    rebuild_drawer(s.shape, rgb);
+}
+
+/// Replaces the drawer with a new one for [shape] in color [rgb] and redraws the latest eye state
+/// with it, so the change shows on the next present. The original Monochrome Blue drawer takes the
+/// color through its own Config.color; later shapes are our own EyeDrawer implementations that
+/// receive the same engine state.
+void EyeRenderer::rebuild_drawer(int shape, uint32_t rgb) {
+    RenderState &s = *g_state;
+    std::unique_ptr<eye_drawer::EyeDrawer> drawer;
+    switch (static_cast<Shape>(shape)) {
+        case Shape::ORIGINAL:
+        default:
+            drawer = std::make_unique<eye_drawer::MonochromeBlueDrawer>(
+                eye_drawer::MonochromeBlueDrawer::Config{.screen_width = kCanvasWidth,
+                                                         .screen_height = kCanvasHeight,
+                                                         .color = lv_color_hex(rgb),
+                                                         .canvas = s.canvas,
+                                                         .canvas_buffer = s.canvas_buffer,
+                                                         .lvgl_mutex = s.lvgl_mutex});
+            shape = static_cast<int>(Shape::ORIGINAL);
+            break;
+    }
     s.draw = drawer->get_draw_callback();  // replace the callback before the old drawer goes away
     s.drawer = std::move(drawer);
+    s.shape = shape;
     s.color = rgb;
     if (s.have_last) {
         s.draw(s.last_left, s.last_right);

@@ -182,6 +182,39 @@ class EyeControllerTest {
         return EyeController(sink, idleGlanceMs = 15_000, glanceMs = 1_000, chooseSide = { queue.removeFirst() })
     }
 
+    @Test fun idleGlancesCanBeDisabledAtRuntime() {
+        val c = glancer(Look.RIGHT)
+        c.tick(0)
+        c.idleGlances = false
+        assertFalse(c.tick(15_000))
+        assertFalse(c.tick(30_000))
+        assertTrue(sink.calls.isEmpty())
+        c.idleGlances = true
+        assertFalse(c.tick(30_100))
+        assertFalse(c.tick(45_099))
+        assertTrue(c.tick(45_100))
+        assertEquals(listOf("look:1.0,0.0"), sink.calls)
+    }
+
+    @Test fun disablingDuringIdleGlanceRecentersImmediately() {
+        val c = glancer(Look.RIGHT)
+        c.tick(0)
+        assertTrue(c.tick(15_000))
+        c.idleGlances = false
+        assertTrue(c.tick(15_001))
+        assertEquals(listOf("look:1.0,0.0", "look:0.0,0.0"), sink.calls)
+        assertFalse(c.tick(16_000))
+    }
+
+    @Test fun disablingIdleGlancesDoesNotCancelExplicitGlance() {
+        val c = glancer()
+        c.idleGlances = false
+        assertTrue(c.glance(Look.LEFT, 0))
+        assertFalse(c.tick(1))
+        assertTrue(c.tick(1_000))
+        assertEquals(listOf("look:-1.0,0.0", "look:0.0,0.0"), sink.calls)
+    }
+
     @Test fun idleGlanceAfterQuietThenBackToCenter() {
         val c = glancer(Look.RIGHT, Look.LEFT)
         assertFalse(c.tick(0))                      // starts the quiet clock
@@ -213,6 +246,23 @@ class EyeControllerTest {
         c.submit(intent(Expression.HAPPY), 0)
         assertFalse(c.glance(Look.RIGHT, 100))
         assertTrue(EyeController(sink).glance(Look.LEFT, 0))  // idle glances off by default, explicit ones work
+    }
+
+    @Test fun resetDuringAGlanceRecenters() {
+        assertTrue(controller.glance(Look.LEFT, 0))
+        controller.reset()
+        assertEquals("look:0.0,0.0", sink.calls.last())
+        assertFalse(controller.tick(5_000))  // no glance end left to recenter later
+    }
+
+    @Test fun resetReturnsToIdleAndDropsPending() {
+        controller.submit(intent(Expression.HAPPY), 0)
+        controller.submit(intent(Expression.SAD), 100)  // waiting
+        controller.reset()
+        assertNull(controller.state.active)
+        assertNull(controller.state.pending)
+        assertFalse(controller.tick(5_000))
+        assertFalse(sink.calls.contains("expr:SAD"))
     }
 
     // --- Codex review fixes ---

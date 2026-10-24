@@ -42,7 +42,9 @@ class EyeControllerHost private constructor() {
                 pendingIsCurrent = null
                 Log.i(TAG, "stale waiting reaction dropped")
             }
+            controller.idleGlances = Effects.isOn("idle_glance")  // same handler thread as tick(): no sharing
             if (controller.tick(SystemClock.uptimeMillis())) publish()
+            updateColor()
             handler.postDelayed(this, TICK_MS)
         }
     }
@@ -118,6 +120,15 @@ class EyeControllerHost private constructor() {
         handler.post { step(0) }
     }
 
+    /** A prompt-bundle switch (E0.7): the eyes go back to idle and the original shape at once. */
+    fun resetToIdle() = handler.post {
+        controller.reset()
+        pendingIsCurrent = null
+        speaking = false
+        NativeBridge.nativeSetShape(0)
+        publish()
+    }
+
     /** Story pacing for the controller (debug channel); null keeps a value. */
     fun setMoodRules(lingerMs: Long?, carryMs: Long?, dwellMs: Long?) = handler.post {
         val r = controller.rules
@@ -159,14 +170,19 @@ class EyeControllerHost private constructor() {
         publish()
     }
 
-    /** The phone started or stopped speaking (any thread); the eye color follows. */
-    fun setSpeaking(value: Boolean) = handler.post {
+    /**
+     * The phone started or stopped speaking (any thread); the eye color follows. A "started" from a
+     * line that is no longer current ([isCurrent] false here) is ignored, so a reset is never undone.
+     */
+    fun setSpeaking(value: Boolean, isCurrent: () -> Boolean = { true }) = handler.post {
+        if (value && !isCurrent()) return@post
         speaking = value
         updateColor()
     }
 
     private fun updateColor() {
-        val color = EyeColors.colorFor(speaking, controller.state.active?.expression)
+        val color = if (Effects.isOn("colors")) EyeColors.colorFor(speaking, controller.state.active?.expression)
+            else EyeColors.WAITING
         if (color == shownColor) return
         shownColor = color
         NativeBridge.nativeSetColor(color, EyeColors.FADE_MS)

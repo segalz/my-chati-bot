@@ -70,6 +70,11 @@ Java_app_mychatibot_NativeBridge_nativeBlink(JNIEnv *, jobject) {
 }
 
 JNIEXPORT void JNICALL
+Java_app_mychatibot_NativeBridge_nativeSetShape(JNIEnv *, jobject, jint id) {
+    renderer().post(chati::SetShape{id});
+}
+
+JNIEXPORT void JNICALL
 Java_app_mychatibot_NativeBridge_nativeSetColor(JNIEnv *, jobject, jint rgb, jint fade_ms) {
     renderer().post(chati::SetColor{static_cast<uint32_t>(rgb) & 0xffffffu, fade_ms});
 }
@@ -94,6 +99,36 @@ Java_app_mychatibot_NativeBridge_nativeBrainLoad(JNIEnv *env, jobject, jstring p
 JNIEXPORT void JNICALL
 Java_app_mychatibot_NativeBridge_nativeBrainRelease(JNIEnv *, jobject) {
     chati::EyeBrain::instance().release();
+}
+
+/// Returns null on success, otherwise the error. `prompt` is UTF-8 bytes (Kotlin side), so the
+/// text reaches llama.cpp exactly; `labels` is comma-separated ASCII, validated natively.
+JNIEXPORT jstring JNICALL
+Java_app_mychatibot_NativeBridge_nativeBrainSetPrompt(JNIEnv *env, jobject, jbyteArray prompt, jstring labels) {
+    if (prompt == nullptr || labels == nullptr) return env->NewStringUTF("missing prompt or labels");
+    const jsize size = env->GetArrayLength(prompt);
+    std::string prompt_text(static_cast<size_t>(size), '\0');
+    if (size > 0) env->GetByteArrayRegion(prompt, 0, size, reinterpret_cast<jbyte *>(prompt_text.data()));
+    const char *l = env->GetStringUTFChars(labels, nullptr);
+    if (l == nullptr) return env->NewStringUTF("cannot read labels");
+    std::vector<std::string> label_list;
+    std::string current;
+    bool empty_field = false;
+    for (const char *c = l;; ++c) {
+        if (*c == ',' || *c == '\0') {
+            if (current.empty()) empty_field = true;
+            label_list.push_back(current);
+            current.clear();
+            if (*c == '\0') break;
+        } else {
+            current += *c;
+        }
+    }
+    env->ReleaseStringUTFChars(labels, l);
+    if (empty_field) return env->NewStringUTF("empty label");
+    std::string error;
+    const bool ok = chati::EyeBrain::instance().set_prompt(prompt_text, label_list, error);
+    return ok ? nullptr : env->NewStringUTF(error.c_str());
 }
 
 JNIEXPORT void JNICALL

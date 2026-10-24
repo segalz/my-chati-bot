@@ -48,6 +48,12 @@ public:
     /// Changes generation / prompt-processing thread counts of the loaded model (no reload).
     void set_threads(int threads, int threads_batch);
 
+    /// Prompt bundle (E0.7): the system prompt and the labels the model chooses from (the grammar is
+    /// built from them; NONE and NEUTRAL are required). If the model is loaded, its context is
+    /// rebuilt with the new prompt (the model file stays loaded); on failure the previous bundle is
+    /// restored and false returned with `error`. Callers stop any running request first.
+    bool set_prompt(const std::string &system_prompt, const std::vector<std::string> &labels, std::string &error);
+
     /// `generation` identifies the request; it is cancelled if cancel_older_than() later passes a
     /// larger generation. With `continue_story`, earlier sentences inferred with the same generation
     /// (one story) stay in the KV cache as context, within a bounded window; otherwise the context
@@ -62,9 +68,21 @@ public:
     }
 
 private:
-    EyeBrain() = default;
+    EyeBrain();
     static bool abort_check(void *self);
     void release_locked();
+    /// A context built for a prompt, not yet in use (see build_context_locked / commit_context_locked).
+    struct BuiltContext {
+        llama_context *ctx = nullptr;
+        int prefix_tokens = 0;
+        std::string prompt_suffix;
+        std::vector<int32_t> first_tokens;
+        std::vector<bool> first_leads_to_none;
+    };
+    bool build_context_locked(const std::string &prompt, const std::string &grammar, size_t n_labels,
+                              BuiltContext &out, std::string &error);
+    void commit_context_locked(BuiltContext &&built);
+    void reset_story_state_locked();
     void reset_story_locked();
 
     std::mutex mutex_;
@@ -72,6 +90,11 @@ private:
     llama_context *ctx_ = nullptr;
     int prefix_tokens_ = 0;
     std::string prompt_suffix_;  // template text after the sentence (special tokens allowed)
+    std::string system_prompt_;           // current prompt bundle
+    std::vector<std::string> labels_;
+    std::string grammar_;
+    int threads_ = 4;
+    int threads_batch_ = 4;
     int story_tokens_ = 0;               // KV tokens after the prefix holding the current story
     int64_t story_generation_ = -1;      // generation (story) those tokens belong to
     std::vector<std::string> story_sentences_;  // their sentences, oldest first (for re-seeding)

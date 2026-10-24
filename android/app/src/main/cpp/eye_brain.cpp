@@ -16,6 +16,10 @@ namespace {
 constexpr const char *kTag = "ChatiBrain";
 constexpr size_t kMaxSentenceBytes = 300;  // bytes as received from JNI (modified UTF-8)
 constexpr int kMaxValueTokens = 8;
+// Prompt bundle limits (E0.7): the cached prefix must leave room for the story window and requests.
+constexpr size_t kMaxPromptBytes = 16000;
+constexpr size_t kMaxLabels = 32;
+constexpr size_t kMaxPrefixTokens = 450;
 // Story context window kept in the KV cache (see infer()).
 constexpr size_t kMaxStorySentences = 8;
 constexpr int kMaxStoryTokens = 360;
@@ -114,8 +118,9 @@ llama_token grammar_greedy(llama_context *ctx, const llama_vocab *vocab, llama_s
 /// as soon as the text so far is the prefix of exactly one label (usually right after the first
 /// token, which comes from the prompt's own logits — no extra decode). Only tokens that leave
 /// several labels open (e.g. "W" for WINK_LEFT/WINK_RIGHT) are decoded to read the next step.
-bool classify(llama_context *ctx, const llama_vocab *vocab, std::string &out, int &sampled) {
-    llama_sampler *g = llama_sampler_init_grammar(vocab, kExpressionGrammar, "root");
+bool classify(llama_context *ctx, const llama_vocab *vocab, const std::string &grammar,
+              const std::vector<std::string> &labels, std::string &out, int &sampled) {
+    llama_sampler *g = llama_sampler_init_grammar(vocab, grammar.c_str(), "root");
     if (g == nullptr) return false;
     bool ok = false;
     for (int i = 0; i < kMaxValueTokens; ++i) {
@@ -125,16 +130,16 @@ bool classify(llama_context *ctx, const llama_vocab *vocab, std::string &out, in
         if (llama_vocab_is_eog(vocab, token)) break;  // grammar complete without a unique match
         out += piece(vocab, token);
         ++sampled;
-        const char *only = nullptr;
+        const std::string *only = nullptr;
         int matches = 0;
-        for (const char *label : kLabels) {
-            if (std::string(label).rfind(out, 0) == 0) {
+        for (const std::string &label : labels) {
+            if (label.rfind(out, 0) == 0) {
                 ++matches;
-                only = label;
+                only = &label;
             }
         }
         if (matches == 1) {
-            out = only;  // unique: complete the label without decoding the rest
+            out = *only;  // unique: complete the label without decoding the rest
             ok = true;
             break;
         }
@@ -146,7 +151,55 @@ bool classify(llama_context *ctx, const llama_vocab *vocab, std::string &out, in
     return ok;
 }
 
+std::string grammar_for(const std::vector<std::string> &labels) {
+    std::string g = "root ::= ";
+    for (size_t i = 0; i < labels.size(); ++i) g += (i ? " | \"" : "\"") + labels[i] + "\"";
+    return g;
+}
+
+bool valid_label(const std::string &label) {
+    if (label.empty() || label.size() > 20) return false;
+    return std::all_of(label.begin(), label.end(), [](char c) { return (c >= 'A' && c <= 'Z') || c == '_'; });
+}
+
 }  // namespace
+
+EyeBrain::EyeBrain()
+    : system_prompt_(kSystemPrompt),
+      labels_(std::begin(kLabels), std::end(kLabels)),
+      grammar_(kExpressionGrammar) {}
+
+bool EyeBrain::set_prompt(const std::string &system_prompt, const std::vector<std::string> &labels,
+                          std::string &error) {
+    if (system_prompt.empty() || system_prompt.size() > kMaxPromptBytes) {
+        error = "prompt must be 1.." + std::to_string(kMaxPromptBytes) + " bytes";
+        return false;
+    }
+    if (labels.empty() || labels.size() > kMaxLabels || !std::all_of(labels.begin(), labels.end(), valid_label) ||
+        std::find(labels.begin(), labels.end(), "NONE") == labels.end() ||
+        std::find(labels.begin(), labels.end(), "NEUTRAL") == labels.end()) {
+        error = "labels must be 1.." + std::to_string(kMaxLabels) + " names [A-Z_] including NONE and NEUTRAL";
+        return false;
+    }
+    for (size_t i = 0; i < labels.size(); ++i) {
+        if (std::find(labels.begin() + static_cast<long>(i) + 1, labels.end(), labels[i]) != labels.end()) {
+            error = "repeated label " + labels[i];
+            return false;
+        }
+    }
+    const std::string grammar = grammar_for(labels);
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (model_ != nullptr) {
+        // Build the new context first; the current one stays in use if anything fails.
+        BuiltContext built;
+        if (!build_context_locked(system_prompt, grammar, labels.size(), built, error)) return false;
+        commit_context_locked(std::move(built));
+    }
+    system_prompt_ = system_prompt;  // without a model: used by the next load()
+    labels_ = labels;
+    grammar_ = grammar;
+    return true;
+}
 
 EyeBrain &EyeBrain::instance() {
     static EyeBrain brain;
@@ -171,6 +224,8 @@ void EyeBrain::release() {
 
 void EyeBrain::set_threads(int threads, int threads_batch) {
     std::lock_guard<std::mutex> lock(mutex_);
+    threads_ = threads;
+    threads_batch_ = threads_batch;
     if (ctx_ == nullptr) return;
     llama_set_n_threads(ctx_, threads, threads_batch);
     __android_log_print(ANDROID_LOG_INFO, kTag, "threads set: %d (batch %d)", threads, threads_batch);
@@ -181,6 +236,10 @@ void EyeBrain::release_locked() {
     if (model_ != nullptr) llama_model_free(model_);
     ctx_ = nullptr;
     model_ = nullptr;
+    reset_story_state_locked();
+}
+
+void EyeBrain::reset_story_state_locked() {
     prefix_tokens_ = 0;
     story_tokens_ = 0;
     story_generation_ = -1;
@@ -208,26 +267,47 @@ bool EyeBrain::load(const std::string &model_path, int threads, std::string &err
         error = "cannot load model " + model_path;
         return false;
     }
+    threads_ = threads;
+    threads_batch_ = threads;
+    BuiltContext built;
+    if (!build_context_locked(system_prompt_, grammar_, labels_.size(), built, error)) {
+        release_locked();
+        return false;
+    }
+    commit_context_locked(std::move(built));
+    __android_log_print(ANDROID_LOG_INFO, kTag, "model loaded in %lld ms, prefix %d tokens, threads %d, %zu first tokens",
+                        static_cast<long long>(now_ms() - start), prefix_tokens_, threads, first_tokens_.size());
+    return true;
+}
 
+/// Builds a context for the loaded model with [prompt] decoded into its cache and the first-token
+/// map of [grammar], without touching the current context (mutex held). On failure nothing changes.
+bool EyeBrain::build_context_locked(const std::string &prompt, const std::string &grammar, size_t n_labels,
+                                    BuiltContext &out, std::string &error) {
+    const int64_t start = now_ms();
     llama_context_params cparams = llama_context_default_params();
     cparams.n_ctx = 1024;
     cparams.n_batch = 512;
     cparams.n_ubatch = 512;
-    cparams.n_threads = threads;
-    cparams.n_threads_batch = threads;
+    cparams.n_threads = threads_;
+    cparams.n_threads_batch = threads_batch_;
     cparams.swa_full = true;  // Gemma 3 sliding window: needed to drop just the request tokens
     cparams.abort_callback = abort_check;
     cparams.abort_callback_data = this;
-    ctx_ = llama_init_from_model(model_, cparams);
-    if (ctx_ == nullptr) {
-        release_locked();
+    llama_context *ctx = llama_init_from_model(model_, cparams);
+    if (ctx == nullptr) {
         error = "cannot create context";
         return false;
     }
+    auto fail = [&](const std::string &why) {
+        llama_free(ctx);
+        error = why;
+        return false;
+    };
 
     // Template once with a marker in place of the sentence, then split around it.
     const llama_chat_message messages[] = {
-        {"system", kSystemPrompt},
+        {"system", prompt.c_str()},
         {"user", "Sentence:\x01SENTENCE\x01"},
     };
     const char *tmpl = llama_model_chat_template(model_, nullptr);
@@ -239,45 +319,52 @@ bool EyeBrain::load(const std::string &model_path, int threads, std::string &err
     }
     const std::string templated = n > 0 ? std::string(buf.data(), n) : std::string();
     const size_t at = templated.find(kMarker);
-    if (at == std::string::npos) {
-        release_locked();
-        error = "chat template failed";
-        return false;
-    }
+    if (at == std::string::npos) return fail("chat template failed");
     const std::string prefix = templated.substr(0, at);
-    prompt_suffix_ = templated.substr(at + std::string(kMarker).size()) + kJsonOpen;
 
     const llama_vocab *vocab = llama_model_get_vocab(model_);
     std::vector<llama_token> prefix_tokens = tokenize(vocab, prefix, true, true);
+    if (prefix_tokens.size() > kMaxPrefixTokens) {
+        return fail("prompt longer than " + std::to_string(kMaxPrefixTokens) + " tokens");
+    }
     deadline_ms_ = 0;
-    if (!decode(ctx_, prefix_tokens)) {
-        release_locked();
-        error = "prefix decode failed";
-        return false;
-    }
-    prefix_tokens_ = static_cast<int>(prefix_tokens.size());
+    if (!decode(ctx, prefix_tokens)) return fail("prefix decode failed");
 
-    // Once per load: which tokens the expression grammar allows first, and which of them lead to
-    // "NONE". Lets infer() report the gap to "no reaction" without scanning the whole vocabulary.
-    first_tokens_.clear();
-    first_leads_to_none_.clear();
-    if (llama_sampler *g = llama_sampler_init_grammar(vocab, kExpressionGrammar, "root")) {
-        const int n_vocab = llama_vocab_n_tokens(vocab);
-        std::vector<llama_token_data> all(n_vocab);
-        for (llama_token tok = 0; tok < n_vocab; ++tok) all[tok] = {tok, 0.0f, 0.0f};
-        llama_token_data_array cur{all.data(), all.size(), -1, false};
-        llama_sampler_apply(g, &cur);
-        for (size_t i = 0; i < cur.size; ++i) {
-            if (cur.data[i].logit == -INFINITY) continue;
-            const std::string p = piece(vocab, cur.data[i].id);
-            first_tokens_.push_back(cur.data[i].id);
-            first_leads_to_none_.push_back(!p.empty() && std::string("NONE").rfind(p, 0) == 0);
-        }
-        llama_sampler_free(g);
+    // Which tokens the label grammar allows first, and which of them lead to "NONE". Lets infer()
+    // report the gap to "no reaction" without scanning the whole vocabulary.
+    llama_sampler *g = llama_sampler_init_grammar(vocab, grammar.c_str(), "root");
+    if (g == nullptr) return fail("label grammar failed");
+    const int n_vocab = llama_vocab_n_tokens(vocab);
+    std::vector<llama_token_data> all(n_vocab);
+    for (llama_token tok = 0; tok < n_vocab; ++tok) all[tok] = {tok, 0.0f, 0.0f};
+    llama_token_data_array cur{all.data(), all.size(), -1, false};
+    llama_sampler_apply(g, &cur);
+    for (size_t i = 0; i < cur.size; ++i) {
+        if (cur.data[i].logit == -INFINITY) continue;
+        const std::string p = piece(vocab, cur.data[i].id);
+        out.first_tokens.push_back(cur.data[i].id);
+        out.first_leads_to_none.push_back(!p.empty() && std::string("NONE").rfind(p, 0) == 0);
     }
-    __android_log_print(ANDROID_LOG_INFO, kTag, "model loaded in %lld ms, prefix %d tokens, threads %d, %zu first tokens",
-                        static_cast<long long>(now_ms() - start), prefix_tokens_, threads, first_tokens_.size());
+    llama_sampler_free(g);
+
+    out.ctx = ctx;
+    out.prefix_tokens = static_cast<int>(prefix_tokens.size());
+    out.prompt_suffix = templated.substr(at + std::string(kMarker).size()) + kJsonOpen;
+    __android_log_print(ANDROID_LOG_INFO, kTag, "context ready in %lld ms: prefix %d tokens, %zu labels, %zu first tokens",
+                        static_cast<long long>(now_ms() - start), out.prefix_tokens, n_labels, out.first_tokens.size());
     return true;
+}
+
+/// Makes a built context the current one (mutex held); the previous context is freed.
+void EyeBrain::commit_context_locked(BuiltContext &&built) {
+    if (ctx_ != nullptr) llama_free(ctx_);
+    ctx_ = built.ctx;
+    built.ctx = nullptr;
+    reset_story_state_locked();
+    prefix_tokens_ = built.prefix_tokens;
+    prompt_suffix_ = std::move(built.prompt_suffix);
+    first_tokens_ = std::move(built.first_tokens);
+    first_leads_to_none_ = std::move(built.first_leads_to_none);
 }
 
 BrainResult EyeBrain::infer(const std::string &sentence, int timeout_ms, int64_t generation, bool continue_story) {
@@ -368,7 +455,7 @@ BrainResult EyeBrain::infer(const std::string &sentence, int timeout_ms, int64_t
         r.none_gap = std::isfinite(best_none) ? best - best_none : 99.0f;
     }
     std::string expression;
-    const bool ok = prompt_ok && !stopped() && classify(ctx_, vocab, expression, r.sampled_tokens);
+    const bool ok = prompt_ok && !stopped() && classify(ctx_, vocab, grammar_, labels_, expression, r.sampled_tokens);
     const bool was_cancelled = cancelled();
     const bool timed_out = now_ms() > deadline_ms_.load();
     deadline_ms_ = 0;

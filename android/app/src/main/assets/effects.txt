@@ -1,0 +1,4 @@
+# Expressive features: on or off (private config/effects.txt overrides this asset).
+colors=on
+idle_glance=on
+warmup_glance=on

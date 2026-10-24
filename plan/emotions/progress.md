@@ -1,15 +1,15 @@
 # Progress: emotional eyes
 
-Status: **E0 in progress** (plan approved by the owner 2026-10-24; reviewed by Codex). Legend: [x] done · [~] partly · [ ] not started · ✗ failed. Each finished stage lists its APK (file archived, SHA-256), commit, tag and measurements.
+Status: **E0 accepted 2026-10-24 (tag emotions-E0)** (plan approved by the owner 2026-10-24; reviewed by Codex). Legend: [x] done · [~] partly · [ ] not started · ✗ failed. Each finished stage lists its APK (file archived, SHA-256), commit, tag and measurements.
 
-## E0 — Baseline and safety net — IN PROGRESS
+## E0 — Baseline and safety net — ACCEPTED 2026-10-24 (APK 0.10.0, tag emotions-E0)
 - [x] E0.1 Decide the color experiment — owner keeps it as the base (APK 0.9.4, SHA-256 a3289db4…a44f; measured: waiting #00BDFE, happy #5AE36B, sad #0FB5A3, angry #FE2728); committed with the plan
-- [ ] E0.2 Runtime switches (`effects.txt` in private files, debug channel)
-- [ ] E0.3 Regression command (all rows of testing.md)
-- [ ] E0.4 Frame-time tail + memory peak instrumentation
-- [ ] E0.5 Frozen baseline (timing ×3), APK archive, rollback rehearsal
-- [ ] E0.6 Shape framework in the renderer
-- [ ] E0.7 Prompt-bundle mechanism as files in private storage (bundle v4 = today)
+- [x] E0.2 Runtime switches (`effects.txt` in private files, debug channel) — code done (Codex), reviewed (opencode, Claude, Cline), tests 99/99; phone check with the E0 APK
+- [x] E0.3 Regression command (all rows of testing.md) — `tools/model-bench/regression.py` by Codex, opencode review fixed, tool tests 14/14; first device run with the E0 APK
+- [x] E0.4 Frame-time tail + audio presentation probe — by Claude, reviewed by Codex + opencode (fixed), builds; phone check with the E0 APK
+- [x] E0.5 Frozen baseline (timing ×3) — evidence/baseline-E0/ (88/100, 55/70, p50 915 ms, 59.9 fps, VmHWM 1.74 GB, all rows complete); APK 0.10.0 archived (SHA-256 406484b0…e176); configuration rollback rehearsed across a restart. APK-reinstall rehearsal skipped by the owner
+- [x] E0.6 Shape framework in the renderer — by Claude, reviewed (Codex, opencode), builds; phone check with APK 0.10.0
+- [x] E0.7 Prompt bundles as files in private storage (bundle v4 = today, byte-identical, unit-tested) — by Claude, reviewed (Codex ×5 rounds, opencode ×2), builds; phone check with APK 0.10.0
 
 ## E1 — App-level life — NOT STARTED
 - [ ] E1.1 #15 colors.txt

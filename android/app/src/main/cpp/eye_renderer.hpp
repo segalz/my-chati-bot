@@ -20,7 +20,11 @@ struct Blink {};
 /// Eye color 0xRRGGBB, reached by a linear fade over fade_ms (0 = at once). The original drawer's
 /// own Config.color is used: a drawer with the new color replaces the old one between frames.
 struct SetColor { uint32_t rgb; int fade_ms; };
-using EyeCommand = std::variant<SetExpression, LookAt, Blink, SetColor>;
+/// Which drawer paints the eyes (E0.6). The engine and its state stay the same; only the drawing
+/// changes, between frames. Unknown ids are ignored. Later stages add shapes (heart, …).
+enum class Shape : int { ORIGINAL = 0 };
+struct SetShape { int id; };
+using EyeCommand = std::variant<SetExpression, LookAt, Blink, SetColor, SetShape>;
 
 /// Owns the original espp::ExpressiveEyes engine, LVGL and the Monochrome Blue drawer on one
 /// dedicated thread (LVGL is built with LV_OS_NONE, so it must never be touched elsewhere).
@@ -82,7 +86,17 @@ private:
 
     // Counters (written on the render thread, read by stats()).
     void set_drawer_color(uint32_t rgb);  // render thread only
+    void rebuild_drawer(int shape, uint32_t rgb);  // render thread only
     void advance_color_fade(float dt);    // render thread only
+
+    // Frame-interval histogram since the last stats() call (1 ms buckets, last = longer), for the
+    // frame-time tail (p99, max, frames over 50 ms). Written on the render thread, read and reset
+    // by stats() on any thread.
+    static constexpr int kIntervalBuckets = 201;
+    std::atomic<uint32_t> interval_hist_[kIntervalBuckets] = {};
+    std::atomic<uint32_t> interval_max_us_{0};
+    std::atomic<uint32_t> interval_over50_{0};  // intervals longer than 50 000 us
+    void record_interval(int64_t interval_us);
 
     std::atomic<uint64_t> frames_{0};
     std::atomic<uint64_t> redraws_{0};
